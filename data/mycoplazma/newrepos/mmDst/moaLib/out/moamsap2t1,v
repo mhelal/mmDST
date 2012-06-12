@@ -1,0 +1,184 @@
+head     1.1;
+branch   1.1.1;
+access   ;
+symbols  r1:1.1.1.1 mhelal:1.1.1;
+locks    ; strict;
+comment  @# @;
+
+
+1.1
+date     2008.05.06.02.41.42;  author mhelal;  state Exp;
+branches 1.1.1.1;
+next     ;
+
+1.1.1.1
+date     2008.05.06.02.41.42;  author mhelal;  state Exp;
+branches ;
+next     ;
+
+
+desc
+@@
+
+
+
+1.1
+log
+@Initial revision
+@
+text
+@deleteMOA 1
+deleteMOA 5
+deleteMOA 6
+deleteMOA 7
+>>>>Partitions Total is 64
+>>>>Duplicates Total is 321
+>>>>Total elements is 729
+before memory alloc
+after mem and before loop
+in loop at part 0 at wave 0
+[2]>calcWaves: loop parts [0] of [64]: Total Partitions: 0
+ 000 >>>>Actual Partitions in Wave 0 is 1
+[2]>calcWaves: wave [0]- partition [0] - Process 0
+in loop at part 1 at wave 1
+[2]>calcWaves: loop parts [1] of [64]: Total Partitions: 0
+ 111 >>>>Actual Partitions in Wave 1 is 3
+[2]>calcWaves: wave [1]- partition [0] - Process 0
+[2]>calcWaves: wave [1]- partition [1] - Process 1
+[2]>calcWaves: wave [1]- partition [2] - Process 2
+in loop at part 4 at wave 2
+[2]>calcWaves: loop parts [4] of [64]: Total Partitions: 1
+ 777  111 >>>>Actual Partitions in Wave 2 is 6
+[2]>calcWaves: wave [2]- partition [0] - Process 0
+[2]>calcWaves: wave [2]- partition [1] - Process 0
+[2]>calcWaves: wave [2]- partition [2] - Process 1
+[2]>calcWaves: wave [2]- partition [3] - Process 1
+[2]>calcWaves: wave [2]- partition [4] - Process 2
+[2]>calcWaves: wave [2]- partition [5] - Process 2
+in loop at part 10 at wave 3
+[2]>calcWaves: loop parts [10] of [64]: Total Partitions: 3
+ 222  666   111 >>>>Actual Partitions in Wave 3 is 10
+[2]>calcWaves: wave [3]- partition [0] - Process 0
+[2]>calcWaves: wave [3]- partition [1] - Process 0
+[2]>calcWaves: wave [3]- partition [2] - Process 0
+[2]>calcWaves: wave [3]- partition [3] - Process 0
+[2]>calcWaves: wave [3]- partition [4] - Process 1
+[2]>calcWaves: wave [3]- partition [5] - Process 1
+[2]>calcWaves: wave [3]- partition [6] - Process 1
+[2]>calcWaves: wave [3]- partition [7] - Process 2
+[2]>calcWaves: wave [3]- partition [8] - Process 2
+[2]>calcWaves: wave [3]- partition [9] - Process 2
+in loop at part 20 at wave 4
+[2]>calcWaves: loop parts [20] of [64]: Total Partitions: 6
+ 777  222  777  555  666   111 >>>>Actual Partitions in Wave 4 is 12
+[2]>calcWaves: wave [4]- partition [0] - Process 0
+[2]>calcWaves: wave [4]- partition [1] - Process 0
+[2]>calcWaves: wave [4]- partition [2] - Process 0
+[2]>calcWaves: wave [4]- partition [3] - Process 0
+[2]>calcWaves: wave [4]- partition [4] - Process 1
+[2]>calcWaves: wave [4]- partition [5] - Process 1
+[2]>calcWaves: wave [4]- partition [6] - Process 1
+[2]>calcWaves: wave [4]- partition [7] - Process 1
+[2]>calcWaves: wave [4]- partition [8] - Process 2
+[2]>calcWaves: wave [4]- partition [9] - Process 2
+[2]>calcWaves: wave [4]- partition [10] - Process 2
+[2]>calcWaves: wave [4]- partition [11] - Process 2
+in loop at part 32 at wave 5
+[2]>calcWaves: loop parts [32] of [64]: Total Partitions: 10
+ 777  333  777  444  777  555  666   222  777  555  666   111 >>>>Actual Partitions in Wave 5 is 12
+[2]>calcWaves: wave [5]- partition [0] - Process 0
+[2]>calcWaves: wave [5]- partition [1] - Process 0
+[2]>calcWaves: wave [5]- partition [2] - Process 0
+[2]>calcWaves: wave [5]- partition [3] - Process 0
+[2]>calcWaves: wave [5]- partition [4] - Process 1
+[2]>calcWaves: wave [5]- partition [5] - Process 1
+[2]>calcWaves: wave [5]- partition [6] - Process 1
+[2]>calcWaves: wave [5]- partition [7] - Process 1
+[2]>calcWaves: wave [5]- partition [8] - Process 2
+[2]>calcWaves: wave [5]- partition [9] - Process 2
+[2]>calcWaves: wave [5]- partition [10] - Process 2
+[2]>calcWaves: wave [5]- partition [11] - Process 2
+in loop at part 44 at wave 6
+[2]>calcWaves: loop parts [44] of [64]: Total Partitions: 14
+ 222  666   333  777  444  777  555  666   222  777  555  666   111 >>>>Actual Partitions in Wave 6 is 10
+[2]>calcWaves: wave [6]- partition [0] - Process 0
+[2]>calcWaves: wave [6]- partition [1] - Process 0
+[2]>calcWaves: wave [6]- partition [2] - Process 0
+[2]>calcWaves: wave [6]- partition [3] - Process 0
+[2]>calcWaves: wave [6]- partition [4] - Process 1
+[2]>calcWaves: wave [6]- partition [5] - Process 1
+[2]>calcWaves: wave [6]- partition [6] - Process 1
+[2]>calcWaves: wave [6]- partition [7] - Process 2
+[2]>calcWaves: wave [6]- partition [8] - Process 2
+[2]>calcWaves: wave [6]- partition [9] - Process 2
+in loop at part 54 at wave 7
+[2]>calcWaves: loop parts [54] of [64]: Total Partitions: 17
+ 777  222  777  444  777  555  666   333  777  444  777  555  666   222  777  555  666   111 >>>>Actual Partitions in Wave 7 is 6
+[2]>calcWaves: wave [7]- partition [0] - Process 0
+[2]>calcWaves: wave [7]- partition [1] - Process 0
+[2]>calcWaves: wave [7]- partition [2] - Process 1
+[2]>calcWaves: wave [7]- partition [3] - Process 1
+[2]>calcWaves: wave [7]- partition [4] - Process 2
+[2]>calcWaves: wave [7]- partition [5] - Process 2
+in loop at part 60 at wave 8
+[2]>calcWaves: loop parts [60] of [64]: Total Partitions: 19
+ 777  333  777  444  777  444  777  555  666   222  777  444  777  555  666   333  777  444  777  555  666   222  777  555  666   111 >>>>Actual Partitions in Wave 8 is 3
+[2]>calcWaves: wave [8]- partition [0] - Process 0
+[2]>calcWaves: wave [8]- partition [1] - Process 1
+[2]>calcWaves: wave [8]- partition [2] - Process 2
+in loop at part 63 at wave 9
+[2]>calcWaves: loop parts [63] of [64]: Total Partitions: 20
+ 222  666   333  777  444  777  444  777  555  666   222  777  444  777  555  666   333  777  444  777  555  666   222  777  555  666   111 >>>>Actual Partitions in Wave 9 is 1
+[2]>calcWaves: wave [9]- partition [0] - Process 0
+>>>>Total 64 Parts in  10 Waves
+>>>>Total partitions in wave number [0] is  1 partitions
+>>>>Partition Indexes{
+0 
+}
+>>>>Total partitions in wave number [1] is  3 partitions
+>>>>Partition Indexes{
+162 18 2 
+}
+>>>>Total partitions in wave number [2] is  6 partitions
+>>>>Partition Indexes{
+180 164 20 324 36 4 
+}
+>>>>Total partitions in wave number [3] is  10 partitions
+>>>>Partition Indexes{
+182 342 198 326 38 166 22 486 54 6 
+}
+>>>>Total partitions in wave number [4] is  12 partitions
+>>>>Partition Indexes{
+344 200 184 360 328 40 504 216 488 56 168 24 
+}
+>>>>Total partitions in wave number [5] is  12 partitions
+>>>>Partition Indexes{
+346 202 362 378 490 58 330 42 522 506 218 186 
+}
+>>>>Total partitions in wave number [6] is  10 partitions
+>>>>Partition Indexes{
+364 508 220 348 204 524 380 540 492 60 
+}
+>>>>Total partitions in wave number [7] is  6 partitions
+>>>>Partition Indexes{
+526 382 366 542 510 222 
+}
+>>>>Total partitions in wave number [8] is  3 partitions
+>>>>Partition Indexes{
+528 384 544 
+}
+>>>>Total partitions in wave number [9] is  1 partitions
+>>>>Partition Indexes{
+546 
+}
+[2]>calcWaves: Current Wave: 1 - Current Partition: 2 - Total Partitions: 20
+out of calcwaves 
+@
+
+
+1.1.1.1
+log
+@Distributed Optimal MSA using MoA
+@
+text
+@@

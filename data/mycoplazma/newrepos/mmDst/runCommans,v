@@ -1,0 +1,76 @@
+head     1.1;
+branch   1.1.1;
+access   ;
+symbols  r1:1.1.1.1 mhelal:1.1.1;
+locks    ; strict;
+comment  @# @;
+
+
+1.1
+date     2008.05.06.02.40.53;  author mhelal;  state Exp;
+branches 1.1.1.1;
+next     ;
+
+1.1.1.1
+date     2008.05.06.02.40.53;  author mhelal;  state Exp;
+branches ;
+next     ;
+
+
+desc
+@@
+
+
+
+1.1
+log
+@Initial revision
+@
+text
+@=== running =============================    
+1. open 2 tabs of terminal
+2. run "mpd" in one terminal
+3. in the other, compile and execute using:
+== compile ====================================
+make -f makedebug
+make -f makerelease
+=== run ===================================
+to debug with gdb:
+mpirun -gdb -np 3 ./mmDst
+run  -c 3 ../tseq/seq5 ../tseq/seq4 ../tseq/seq3 -d 1 -g -o mt
+
+to  profile with valgrind:
+mpirun -np 3 valgrind --leak-check=full -v --log-file=vout/v.out ./mmDst -c 3 ../tseq/seq5 ../tseq/seq4 ../tseq/seq3 -d 1 -g -o mt
+
+to run only:
+mpirun -np 3 ./mmDst -c 3 ../tseq/seq5 ../tseq/seq4 ../tseq/seq3 -d 0 -g -o mt
+
+mpirun -np 3 ./mmDst -c 3 ../tseq/seq5 ../tseq/seq4 ../tseq/seq3 -d 1 -g -o mt
+mpirun -np 3 ./mmDst -c 3 ../tseq/seq5 ../tseq/seq4 ../tseq/seq3 -d 1 -r -g -o mt
+
+mpirun -np 3 ./mmDst -c 3 ../tseq/seq5 ../tseq/seq4 ../tseq/seq3 -d 2 -g -o mt
+
+mpirun -np 4 ./mmDst -c 3 ../tseq/seq4 ../tseq/seq3 ../tseq/seq2 -d 1 -p 3 -g -o t3 > runout3
+
+=== clean =====================================
+rm out/cmtp0t1 out/cmtp0t2 out/cmtp0t3 out/cmtp1t1 out/cmtp1t2 out/cmtp1t3 out/cmtp2t1 out/cmtp2t2 out/cmtp2t3
+rm out/cmtp3t1 out/cmtp3t2 out/cmtp3t3
+=============================================================
+debugging levels:
+copyIndices: 3
+copyIndicesElm = 4
+MOAGetLowerNeighbors = 3
+Take = 4
+Drop = 4
+DropInd = 4
+TakeInd = 4
+
+@
+
+
+1.1.1.1
+log
+@Distributed Optimal MSA using MoA
+@
+text
+@@

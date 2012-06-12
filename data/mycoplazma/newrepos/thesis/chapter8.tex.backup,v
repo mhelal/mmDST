@@ -1,0 +1,78 @@
+head     1.1;
+branch   1.1.1;
+access   ;
+symbols  r1:1.1.1.1 mhelal:1.1.1;
+locks    ; strict;
+comment  @# @;
+
+
+1.1
+date     2008.05.06.04.03.23;  author mhelal;  state Exp;
+branches 1.1.1.1;
+next     ;
+
+1.1.1.1
+date     2008.05.06.04.03.23;  author mhelal;  state Exp;
+branches ;
+next     ;
+
+
+desc
+@@
+
+
+
+1.1
+log
+@Initial revision
+@
+text
+@\chapter{Results Analysis}
+
+\section{Execution Results}
+
+
+\subsection{Sequential Execution Results}
+
+
+\subsection{Distributed Execution Results}
+\subsubsection{Master/Slave Execution Results}
+
+Results are summarized in \label{Table: MasterSlaveResults}. M1 is the single machine, and M2 is the SGI Altix as described above. The testing is continuing to identify the optimization chances based on varying the partitioning size, number of processors, and better scheduling techniques. Partition size of 3 is used on all tests, except the last, a partition size of 20 was used.
+
+\begin{table}
+\caption{Distributed Master Slave Results}
+\begin{tabular}{|l|l|l|l|l|l|l|l|}
+P & K & L & M1 CPU & M2 CPU & M2 E-Time & P Mem & V Mem \\
+3 & 3 & 4, 3, 2 & 00:00.12 & 00:00:00 & 00:00:03 & 15  & 122\\
+3 & 3 & 7, 8, 9 & 00:03:77 & 00:00:03 & 00:00:07 & 48  & 281\\
+4 & 5 & 6,5,4,3,2 & 01:00.15 & 00:00:08 & 00:00:05 & 62  & 355\\
+4 & 6 & 7, 6,5,4,3,2   & 01:19.36 & 00:00:10 & 00:00:05 & 76  & 429\\
+3 & 3 & 90,80,85  & 39:30.34 & 02:09:43 & 00:44:25 & 371 & 606\\
+\end{tabular}
+\label{Table: MasterSlaveResults}
+\end{table}
+
+column ``P'' is the number of processes created, ``K'' is the number of sequences aligned, and ``L'' is their lengths, and the ``M1 CPU'' is the CPU time in first machine in minutes: seconds format, then ``M2 CPU'' \& ``M2 E-Time'' are CPU \& Elapsed Time in second machine, and the ``P Mem'' and ``V Mem'' are Physical and Virtual Memory used in Mega Bytes in both machines.
+
+\subsubsection{Peer-to-Peer Execution Results}
+
+\section{Partition Size Scalability}
+\section{Processors Scalability}
+\section{Comparison with Existing Methods}
+
+
+\section{Re-Configurable Execution Parameters}
+
+
+
+
+@
+
+
+1.1.1.1
+log
+@Thesis Writing
+@
+text
+@@

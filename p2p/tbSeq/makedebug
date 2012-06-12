@@ -1,0 +1,28 @@
+
+mtbSeq : ../../run/mtbSeq.o ../../run/stb.o ../../run/partitioning.o ../../run/utils.o ../../run/moa.o ../../run/perm.o ../../run/scores.o
+	mpicc -o ../../../run/mtbSeq -lm -g  mtbSeq.c ../partitioning.c ../tbDst/stb.c ../utils.c ../moa.c ../perm.c ../scores.c
+	
+../../run/mtbSeq.o :  mtbSeq.c ../main.h ../utils.h ../globals.h ../moaDst.h
+	mpicc -c -g mtbSeq.c -o ../../run/mtbSeq.o
+
+../../run/stb.o :  ../tbDst/stb.c ../main.h ../utils.h ../globals.h
+	mpicc -c -g ../tbDst/stb.c -o ../../run/stb.o
+	 
+../../run/partitioning.o : ../partitioning.c ../main.h ../moaDst.h
+	 mpicc -c -g ../partitioning.c -o ../../run/partitioning.o
+
+../../run/perm.o : ../perm.c 
+	 cc -c -g ../perm.c -o ../../run/perm.o
+
+../../run/utils.o : ../utils.c ../moa.h ../utils.h ../globals.h
+	mpicc -c -g ../utils.c -o ../../run/utils.o
+
+../../run/moa.o :  ../moa.c ../moa.h ../utils.h ../globals.h
+	mpicc -c -g ../moa.c -o ../../run/moa.o
+
+../../run/scores.o :  ../scores.c ../scores.h ../utils.h ../globals.h
+	cc -c -g ../scores.c -o ../../run/scores.o
+
+clean : 
+	rm ../../../run/mtbSeq ../../run/mtbSeq.o ../../run/partitioning.o ../../run/stb.o ../../run/moaDst.o ../../run/utils.o ../../run/moa.o ../../run/scores.o mtbSeq mtbSeq.o partitioning.o stb.o moaDst.o utils.o moa.o scores.o
+

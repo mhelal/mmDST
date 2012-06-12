@@ -1,0 +1,73 @@
+head	1.2;
+access;
+symbols
+	r1:1.1.1.1 mhelal:1.1.1;
+locks; strict;
+comment	@# @;
+
+
+1.2
+date	2008.05.11.13.55.55;	author mhelal;	state Exp;
+branches;
+next	1.1;
+
+1.1
+date	2008.05.06.02.41.42;	author mhelal;	state Exp;
+branches
+	1.1.1.1;
+next	;
+
+1.1.1.1
+date	2008.05.06.02.41.42;	author mhelal;	state Exp;
+branches;
+next	;
+
+
+desc
+@@
+
+
+1.2
+log
+@search space error
+@
+text
+@
+in drop before take with valid index =  {
+ -3  -4  -5 }
+and  Sshape =  {
+ 4  5  6 
+}
+and  ind  =  {
+ 1  1  1 
+}
+
+and  rslt->shape: {
+ 3  4  5 
+}
+>>>>Copy Indices {
+  25   26   27   29   30   31   33   34   35   37   38   39   45   46   47   49   50   51   53   54   55   57   58   59   65   66   67   69   70   71   73   74   75   77   78   79   85   86   87   89   90   91   93   94   95   97   98   99   105   106   107   109   110   111   113   114   115   117   118   119 
+}
+@
+
+
+1.1
+log
+@Initial revision
+@
+text
+@d1 16
+a16 4
+deleteMOA 1
+deleteMOA 5
+deleteMOA 6
+deleteMOA 7
+@
+
+
+1.1.1.1
+log
+@Distributed Optimal MSA using MoA
+@
+text
+@@

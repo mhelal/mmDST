@@ -1,0 +1,124 @@
+head	1.2;
+access;
+symbols
+	r1:1.1.1.1 mhelal:1.1.1;
+locks; strict;
+comment	@ * @;
+
+
+1.2
+date	2008.05.11.13.55.54;	author mhelal;	state Exp;
+branches;
+next	1.1;
+
+1.1
+date	2008.05.06.02.40.53;	author mhelal;	state Exp;
+branches
+	1.1.1.1;
+next	;
+
+1.1.1.1
+date	2008.05.06.02.40.53;	author mhelal;	state Exp;
+branches;
+next	;
+
+
+desc
+@@
+
+
+1.2
+log
+@search space error
+@
+text
+@/**********************************************************
+* Author: Manal Helal																			*
+* Last Modification Date: Fri 12 Jan 2007 03:39:51 AM EST *
+* Project : MMSA - Multiple Sequence Alignment Based on 	*
+* 					Mathematics of Arrays - PhD Experimentation		*
+* File: moa.h, header for the basic MOA functions used in *
+* this project																						*
+***********************************************************/
+#ifndef MOAH_
+#define MOAH_
+
+typedef long MOATypeDimn;
+typedef long MOATypeShape;
+typedef long MOATypeElmub;
+typedef long MOATypeInd;
+typedef long MOATypeElmVal;
+
+typedef struct tagMOA_elm {
+  MOATypeElmVal val;
+  MOATypeElmub prev_ub;
+  MOATypeInd * prev;
+} MOA_elm ;
+
+typedef struct tagMOA_rec {
+  MOATypeDimn dimn;
+  MOATypeShape * shape;
+  MOATypeElmub elements_ub;
+  MOATypeInd * indexes;	
+  MOA_elm * elements;	
+} MOA_rec;
+
+
+void printMOA_Matrix(int dbglevel, int ident, void * elements, int elm_type, long total_elements, long first_dimn, char * * sequences);
+int printMOA_Sequences(int dbglevel, int ident, long dimn, long *ind, char * * sequences, MOA_rec * MOA, int elm_type);
+void printMOA_dimn(int dbglevel, long dimn, long * ind, char * * sequences, MOA_rec * MOA, int elm_type);
+void printMOA (int dbglevel, MOA_rec * MOA, char * * sequences, int elm_type);
+void printMOA1 (MOA_rec * MOA, int elm_type);
+void printMOA_scr (MOA_rec * MOA, int elm_type);
+void printMOAIndices (MOA_rec * MOA);
+
+void createMOAStruct(MOA_rec * * MOA_val);
+void createMOA(long * shape, long dimn, MOA_rec * MOA_val, int callFlag, int cellValue);
+void deleteMOA(MOA_rec * MOA);
+long Tau (long * array_in, long array_ub);
+long Gamma (long * ind, long ind_ub, long * arr_shape,  long shape_ub, int Front);
+int Gamma_Inverse (long ind, long * arr_shape, long shape_ub, long * * rslt, int thrd);
+void Psi (long * ind, long ind_ub, MOA_rec * MOA_in, MOA_rec * rslt);
+int VecIsEqual (long * Array_1, long array1_ub, long * Array_2, long array2_ub);
+int IsValidIndex (long * shape, long shape_ub, long * index);
+int isLowerBorderCell (long * index, long dimn);
+int isHigherBorderCell (long * index, long dimn, long * shape);
+int isHigherBorderCellandNotLower (long * index, long dimn, long * shape);
+void NextIndex (long * shape, long shape_ub, long * Prev_Index);
+int Take (long * ind, long ind_ub, MOA_rec * MOA_in, MOA_rec * * rslt);
+int Drop (long * ind, long ind_ub, MOA_rec * MOA_in, MOA_rec * * rslt);
+int TakeInd (long * ind, long ind_ub, long Sdimn, long * Sshape, MOA_rec * * rslt, int analyzeLBHB, long * HB_ub, long * * HB, long * LB_ub, long * * LB); 
+int DropInd (long * ind, long ind_ub, long Sdimn, long * Sshape, MOA_rec * * rslt); 
+
+void Reshape (long * new_shape, long  n_shape_ub, MOA_rec * MOA_in, MOA_rec * rslt);
+void Catenate (MOA_rec * MOA_1, MOA_rec * MOA_2, long  Cat_DIM, MOA_rec * rslt);
+void scalar_op(char Op, MOA_rec * MOA_in, long scalar, MOA_rec * rslt);
+long getMaxOnLastBorder(MOA_rec * MOA_in, long * flatindex);
+long MOA_max(MOA_rec *  MOA_in, int callFlag, long ubMaxVal, long * flatindex);
+long MOAGetLowerNeighbors (long * ind, MOA_rec * MOA_in, MOA_rec * * rslt);
+long MOAGetHigherNeighbors (long stride, long * ind, long Sdimn, long * Sshape, MOA_rec * * rslt, long * HB_ub, long * * HB, long * LB_ub, long * * LB);
+void getDiagonals (long waveNo, long partitionSize, long * ind, MOA_rec * MOA_in);
+
+void GetNextBorderCell (long * * ind,  MOA_rec * MOA_in);
+
+#endif
+@
+
+
+1.1
+log
+@Initial revision
+@
+text
+@d37 2
+a38 1
+void printMOA1 (MOA_rec * MOA);
+@
+
+
+1.1.1.1
+log
+@Distributed Optimal MSA using MoA
+@
+text
+@@

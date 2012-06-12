@@ -1,0 +1,30 @@
+Program Arguments: debuglevel = 3 maxAlignmentsNumber = 20 Epsilons= 0 Alignment Type = 0 stype 1 outputfilename = mmtb_mmtest0 partitionSize = 3
+Master received maxScore = -19, maxIndex = 347 from 1
+Master received maxScore = -23, maxIndex = 358 from 2
+Master maximum  = -19, maximum Index = 347 from 1
+DMTB sent flag 0 to proc 1 first
+DMTB sent maxCellIndex 347 to proc 1
+DMTB received path of length 1 : A  -  T  T 
+DMTB received maxCellIndex 196 & currProc 2
+DMTB sent flag 0 to proc 2 first
+DMTB sent maxCellIndex 196 to proc 2
+DMTB received path of length 2 : G  C  A  C  A  C  A  - 
+DMTB received maxCellIndex 2 & currProc -1
+DMTB sent flag 1 to proc 1 second
+received local index 2 from 1
+DMTB sent flag 1 to proc 2 second
+received local index 0 from 2
+maxlocalIndex 2 
+DMTB sent flag 0 to proc 1 first
+DMTB sent maxCellIndex 2 to proc 1
+DMTB received path of length 1 : T  -  -  - 
+DMTB received maxCellIndex 0 & currProc -1
+DMTB sent flag 2 to proc 1
+DMTB sent flag 2 to proc 2
+
+ Aligned Sequences 1: 
+> T G C A 
+> - A C - 
+> - A C T 
+> - A - T before finalize 
+after finalize 

@@ -1,0 +1,51 @@
+head     1.1;
+branch   1.1.1;
+access   ;
+symbols  r1:1.1.1.1 mhelal:1.1.1;
+locks    ; strict;
+comment  @# @;
+
+
+1.1
+date     2008.05.06.04.03.23;  author mhelal;  state Exp;
+branches 1.1.1.1;
+next     ;
+
+1.1.1.1
+date     2008.05.06.04.03.23;  author mhelal;  state Exp;
+branches ;
+next     ;
+
+
+desc
+@@
+
+
+
+1.1
+log
+@Initial revision
+@
+text
+@\addvspace {10\p@@ }
+\addvspace {10\p@@ }
+\contentsline {table}{\numberline {2.1}{\ignorespaces Probability matrix}}{27}
+\addvspace {10\p@@ }
+\contentsline {table}{\numberline {3.1}{\ignorespaces Some MOA Operators}}{38}
+\addvspace {10\p@@ }
+\addvspace {10\p@@ }
+\addvspace {10\p@@ }
+\addvspace {10\p@@ }
+\contentsline {table}{\numberline {7.1}{\ignorespaces Number of Partitions / Wave Exponential Growth}}{73}
+\addvspace {10\p@@ }
+\contentsline {table}{\numberline {8.1}{\ignorespaces Distributed Master Slave Results}}{75}
+\addvspace {10\p@@ }
+@
+
+
+1.1.1.1
+log
+@Thesis Writing
+@
+text
+@@

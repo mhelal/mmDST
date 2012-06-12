@@ -1,0 +1,68 @@
+head     1.1;
+branch   1.1.1;
+access   ;
+symbols  r1:1.1.1.1 mhelal:1.1.1;
+locks    ; strict;
+comment  @ * @;
+
+
+1.1
+date     2008.05.06.02.40.53;  author mhelal;  state Exp;
+branches 1.1.1.1;
+next     ;
+
+1.1.1.1
+date     2008.05.06.02.40.53;  author mhelal;  state Exp;
+branches ;
+next     ;
+
+
+desc
+@@
+
+
+
+1.1
+log
+@Initial revision
+@
+text
+@#ifndef SCORINGH_
+#define SCORINGH_
+
+#include "moa.h"
+
+
+
+typedef struct cellProp_elm { /* Cell Properties */
+  int llOC; /* Local Lower Overlapping Cell*/
+  int glOC; /* Global Lower Overlapping Cell*/
+  int lhOC; /* Local Higher Overlapping Cell*/
+} cellProp;
+
+cellProp CurrentCell;
+
+int subScore (char char1, char char2, int stype);
+int gapScore(int stype);
+long getRelation (long * cell, long * neighbor, long dimn, long * * decremented);
+int getNeighborScores (char * * sequences, long * seqLen, long * m_index, MOA_rec * msaAlgn, int stype, long * LNCount, long * * lnScores, long * * lnIndices, long * * * pwScores, long * * decremented);
+int PrintPrevChains (MOA_rec *  msaAlgn);
+int getPrevCells(long findex, long score, long LNCount, long * lnScores, long * lnIndices, MOA_rec *  msaAlgn);
+long getScore (void * threadarg, long findex, long * lm_index, long * gm_index, long * LNCount, long * * lnScores, long * * lnIndices, long * * * pwScores, long * * decremented);
+void initTensor ( MOA_rec * msaAlgn, int stype);
+void * IntermCellsThread (void * threadarg);
+void *  DepProcThread (void * threadarg);
+void * neighborsCache (void * threadarg);
+void * computeScoreThread (void * threadarg);
+void * ComputePartitionScores (void * threadarg);
+void fillTensor (char * * sequences, long * seqLen, MOA_rec * msaAlgn, int stype);
+#endif
+@
+
+
+1.1.1.1
+log
+@Distributed Optimal MSA using MoA
+@
+text
+@@

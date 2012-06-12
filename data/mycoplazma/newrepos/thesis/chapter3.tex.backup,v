@@ -1,0 +1,347 @@
+head     1.1;
+branch   1.1.1;
+access   ;
+symbols  r1:1.1.1.1 mhelal:1.1.1;
+locks    ; strict;
+comment  @# @;
+
+
+1.1
+date     2008.05.06.04.03.23;  author mhelal;  state Exp;
+branches 1.1.1.1;
+next     ;
+
+1.1.1.1
+date     2008.05.06.04.03.23;  author mhelal;  state Exp;
+branches ;
+next     ;
+
+
+desc
+@@
+
+
+
+1.1
+log
+@Initial revision
+@
+text
+@\chapter{Proposed Initial Solution}
+In this chapter  we introduce the ideas behind the initial Master/Slave distributed proposed solution.
+
+\section{Conformal Computing Methods}
+
+from : http://www.it.uu.se/research/group/ndim/tengo
+
+Tensors were first utilized to describe the elastic deformation of solids. Actually, the word tensor stems from the Latin word "tensus" meaning stretched. In the beginning of the 20th century, tensor calculus was refined by the Italian mathematicians Ricci and Levi-Cevita. Since then tensor calculus has been an invaluable tool in differential geometry, special and general relativity, and several branches of Physics. The classical way of using tensors is to let them define coordinate invariant linear operators.
+
+In this project, a tensor notation is advocated from a different point of view. We consider discretizations (on structured grids) of PDE problems such that systems of linear equations arise. The coefficient matrices are typically large, complex, indefinite, and ill-conditioned. For these linear operators and the solvers (preconditioned Krylov subspace methods) for the corresponding systems, we use a tensor notation. That considerably facilitates the construction of the numerical algorithms as well as the design and implementation of our object-oriented software tools. The matrix notation, which has been long prevailing in the numerical linear algebra community, actually makes designing and coding unnecessarily complicated!
+
+
+Conformal Computing \footnote{The name Conformal Computing \copyright is protected. Copyright 2003, the Research Foundation of State University of New York, University at Albany.} as described in [Mullin / Raynolds - 2005] is a formalism based on an algebra of abstract data structures, A Mathematics of Arrays (MoA) and an array indexing calculus, the Psi-Calculus. The method allows the composition of a sequence of algebraic manipulations in terms of array shapes and abstract indexing. The approach works invariant of dimension and shape, and allows for partitioning an n-dimensional tensor based on a given MoA function. It is called Conformal Computing because the mathematics used to describe the problem is the same as that used to describe the details of the hardware. Thus at the end of a derivation the resulting final expression can simply be translated into portable, efficient code for implementation in hardware and/or software. MoA offers a set of constructs that help represent multidimensional arrays in memory in a linear, concise and efficient way, with many useful properties, and applications. For a full listing of the MoA constructs, please refer to [Mullin–88].
+
+
+
+\section{Mathematics of Arrays}
+Mathematics of Arrays (as in Mullin 1988) is used to describe mathematical array operations regardless of their shape, size, or dimensionality. MoA is based on representing arrays in memory in one flat array invariant of the shape and dimension, providing a higher dimensional Euclidean space. The design start by analysing the operational requirements for one dimension, then expand the requirements for two dimensions, then three dimensions, and then extend that to arbitrary dimension. Again, like the high dimensional Euclidean space, MoA, provide index transformations, that is rotational and shifting among other manipulations.
+
+This technique reduces the complexity of indexing and nested loops in handling the arrays, by using array of indices and a Psi equation that calculates the flat array index in the flat one dimensional array. This approach reduces some computation steps and should allow an easier representation of the complexity of the high dimensionality involved with many scientific computational problems. 
+
+Mathematics of Arrays (MOA) constructs mathematically relates the array indices in multidimensional arrays to one flat array using the Psi-Calculus. Lots of equations were proven to handle the array processing in different ways, transposing, slicing, partitioning, reshaping, copying, \ldots etc. MOA is a set of mathematical functions and a data structure that need to be tested on high performance parallel machines or PC clusters, on some biological computations like Multiple String Alignment problem.
+
+MOA describes an array calculus containing a set of operator definitions, shape definitions, and reduction rules all based on a single indexing operator, $\psi$. For this reason, MOA is often referred to as the Psi Calculus. Algebraic operators are included in the Psi Calculus to form a broad set of operators needed to describe complex array operations. All the operators are extended for scalars, vectors, and multi-dimensional arrays.
+
+The \label{MOAOpTable} lists some of the more useful Psi Calculus operators together with an example usage on the following array: [3]
+
+\begin{displaymath}
+\xi^e_{2} =\left[\begin{array}{l l}1 \quad 2 \quad 3\\
+4 \quad 5 \quad 6\end{array}\right]
+\end{displaymath}
+
+\begin{table}
+\caption{Some MOA Operators}
+\begin{tabular}{|l|l|l|}
+\hline
+% ROW 1
+Operator & Function & Example\\
+\hline
+% ROW 2
+$\delta$ & Dimensionality & $\delta$ $\xi$ = 2\\
+\hline
+% ROW 3
+$\rho$ & Shape & $\rho$ $\xi$e = (2 $\quad$ 3)\\
+\hline
+% ROW 4
+$\uparrow$ & Take (subarray) & 1 $\uparrow$ $\xi$e = \texttt{<} 1 $\quad$ 2 $\quad$ 3\texttt{>}\\
+\hline
+% ROW 5
+$\downarrow$ & Drop (subarray) & 1 $\downarrow$ $\xi$e = \texttt{<}4 $\quad$ 5 $\quad$ 6\texttt{>}\\
+\hline
+% ROW 6
+ rav & Ravel (flatten) &  \textit{rav} $\xi$e = \texttt{<} 1 $\quad$ 2 $\quad$ 3 $\quad$ 4 $\quad$ 5 $\quad$ 6 \texttt{>}\\
+\hline
+% ROW 7
+$\iota$ & Iota (count) & $\iota$ 5 = \texttt{<} 0 $\quad$ 1 $\quad$ 2 $\quad$ 3 $\quad$ 4 \texttt{>}\\
+\hline
+% ROW 8
+$\psi$ & Psi (index) & \texttt{<} 1 0 \texttt{>} $\psi$ $\xi$e = 4\\
+\hline
+\end{tabular}
+\label{MOAOpTable}
+\end{table}
+
+Data transformations occur by index manipulations, to 
+
+\section{Mathematical Background}
+A tensor is a multidimensional mathematical object (arrays) that is like a vector or a matrix. It can be thought of as a linear machine for performing some operations. A zero-th order tensor is a scalar; a first order tensor is a vector; a second order tensor is a matrix; a third order tensor is a cube; \ldots etc. A K-th order Cartesian tensor, in an N-dimensional Cartesian coordinate system is defined as:
+
+\begin{itemize}
+\item It lives as an entity in the N dimension coordinate systems
+\item Can be represented by k indices (subscripts) and NK components total.
+\item We will use the term ``tensor'' for structures that are multi-indexed (multidimensional) arrays.
+\end{itemize}
+
+The abstract modern view of a tensor, is that tensors express some definite type of a multi-linear concept, as linear maps, and manipulated with extensions of linear algebra to multi-linear algebra.
+
+\section{Capacity \& Capability Computing}
+
+\subsection{Capacity Computing}
+\subsection{Capability Computing}
+
+
+
+
+\section {Sequential MSA using MOA}
+The solution proposed is to redesign the dynamic programming algorithm using the MoA to generalize for k-dimension, and to distribute the processing on HPC or computers cluster. In Order to do that, the MSA dynamic programming algorithm was first implemented using MoA constructs, and executed sequentially. The following two subsections describe the main requirements of this transformation.
+
+\subsection{Invariance of Shape and Dimension}
+
+\subsection{Mapping Operations to Index Transformations}
+Scoring the tensor based on index relationships.
+
+The dynamic programming recurrence described in chapter 3, is now generalized for K-dimension and arbitrary sequence lengths (shape), using the following recurrence:
+\begin{equation}
+\label{DistScoring}
+S(i_{0} \quad i_{1} \quad i_{2} \quad i_{3} \ldots i_{k}) = MAX \left\{
+  \begin{array}{l l}
+G_{1} + T_{S} (G_{1})\\
+G_{2} + T_{S} (G_{2})\\
+\vdots \\
+G_{2^k-1} + T_{S} (G_{2^k-1})
+\end{array}
+\right\rbrace 
+\end{equation}
+
+Where:\\*
+T$_{S}$ (G$_{i}$) = (sub(d$_{j}$, d$_{k}$) for each pair j, k in G) +( gS * (K-D))\\*
+G$_{i}$: Neighbor i of current cell, up to 2$^k$-1 neighbors\\*
+D: No of decremented indices to get this particular neighbor\\*
+T$_{S}$: Temporary Score function assigned to each neighbor based on how many multidimensional indices were decremented to get to this neighbor\\*
+gS: gap Score Value * (K-D): multiply the gap Score Value with number of indices that remained the same (were not decremented to get this neighbor), retrieved by Total Dimensions K (Sequences) – D.\\
+
+
+\textit{Avoiding Temporaries}
+By getting the neighbours of each cell, a new MOA structure is created describing the dimension, shape, and list of neighbours scores, and original indices in the scoring tensor. These values are mapped directly to the scoring MOA partition, \& returning their flat \& multidimensional indices only, will consume more memory than having them in another MOA neighbours structure that is created once, and filled with the values of the new neighbours of each new cell being computed.
+
+\section {Distributed Master/Slave MSA using MoA}
+
+\section{Re-Designing MSA using MoA}
+A master process needs to be created for partitioning, dependency analysis, and scheduling over processors, and managing the trace back processors over the distributed partitions. The rest of the available processors work as slave processes, receive partitions and score them, receive dependency requirements \& send them to waiting processors, and trace back through the partitions. The master process has a partitioning thread, a dependency analysis thread, and a sending thread. The slave processes contain a score computation thread, a receiving thread that buffers all received packets from the master or from other slaves, and a sending thread to send dependency to the waiting slaves' processors.
+
+\subsection{Analysis of Dependency}
+
+To be able to parallelize the score computation, the dependency between the scoring of elements (cells) needs to be understood to communicate the required scores between processors. As analyzed in \cite{Yap-95} and \cite{Chen-Schmidt-05}, the dependency to score each element in the scoring matrix for pair wise alignment, is based  on retrieving the calculated score  for the top, left, and left\-up diagonal, creating a wave-front communication pattern as shown in \label{fig:dep2D}.
+
+\begin{figure}[hbtp]
+\begin{center}
+ \includegraphics[bb=0 0 179 177]{dep2D.png}
+ % dep2D.png: 179x177 pixel, 72dpi, 6.31x6.24 cm, bb=0 0 179 177
+
+\caption{ MSA Pair Wise Traditional Dependency}
+\label{fig:dep2D}
+\end{center}
+\end{figure}
+
+MSA Pair Wise Traditional Dependency
+
+So, if every processor takes a row, all can initialize the first element, and once the first processor finishes the second element in the first row, the second processor can act on the second element in the second row, and so forth. This will make parallelism increase to the middle diagonal, and then decrease as it approaches the end of the scoring matrix. Generalizing the problem to multiple dimensions requires retrieving the dependency invariant of dimension. In K-dimensions, each internal cell has 2$^{k}$-1 lower border cells. Using the MoA constructs, neighbors are retrieved by decrementing the multidimensional index in all possible combinations. For example, a 2D scoring matrix:
+
+\begin{displaymath}
+\left( \begin{array}{cccc}
+S_{00} & S_{10} & S_{20}  & S_{30}\\
+S_{01} & S_{11} & S_{21}  & S_{31}\\
+S_{02} & S_{12} & S_{22}  & S_{32}\\
+S_{03} & S_{13} & S_{23}  & S_{33}\\
+S_{04} & S_{14} & S_{24}  & S_{34}\\
+\end{array} \right)
+\end{displaymath}
+
+Neighbors for cell S$_{2,4}$ having multidimensional index vector as (2$\quad$4) are: S$_{1,3}$, S$_{2,3}$, S$_{1,4}$, and with MoA can be retrieved as:
+
+\begin{displaymath}
+(2 \quad 2) \uparrow ((-1)+(2 \quad 4)) \downarrow S)
+\end{displaymath}
+
+This is a nested function, where the drop section gets executed, and the take function gets executed on the results. This function drops the other lower indexed cells that are not of interest by subtracting one from the current cell index to drop, and takes only 2 cells of each dimension to return the direct neighbors only. This will return a matrix with the points:
+
+\begin{displaymath}
+\left( \begin{array}{cc}
+S_{13} & S_{23}\\
+S_{14} & S_{24}\\
+\end{array} \right)
+\end{displaymath}
+
+Generalizing to K-Dimension, the neighboring function becomes:
+
+\begin{displaymath}
+<20 \quad 21 \quad 22 \ldots 2k> \uparrow (((-1) + <i_{0} \quad i_{1} \quad i_{2} \quad i_{3} \ldots i_{k}>) \downarrow S)
+\end{displaymath}
+
+This function retrieves the elements required to compute the cell at the index represented by the i-vector above. We call this function the get lower border MoA function.
+
+\subsection{Partitioning Scheme}
+
+Having understood the dependency invariant of dimension and shape, we can follow the same scheme to partition the alignment tensor to maximize parallelism, in a wave-front pattern. The MoA function created above can be used iteratively, in a breadth-first traversal fashion, starting from i-vector containing zeros for the first cell in the tensor, then on each retrieved partition, all higher order neighboring partitions can be retrieved to create the next diagonal wave. The first wave will be one partition starting at the zero-cell, and ending at < S$_{0}$ S$_{1}$ S$_{2}$ S$_{3}$ ... S$_{k}$ >, where S is the partitioning size chosen. Then at each higher border corner cell of this partition, the get-higher-border function is called to retrieve the next neighboring partition from this corner, and adding them to the next wave. This traversal method is based on the following generalized MoA equation:
+
+\begin{displaymath}
+<p_{0} \quad p_{1} \quad p_{2} \quad p_{3} \ldots p_{k}> \uparrow (((+1) + <i_{0} \quad i_{1} \quad i_{2} \quad i_{3} \ldots i_{k}>) \downarrow S)
+\end{displaymath}
+
+That is, we drop the higher indexed cells by adding one to the current cell index, then taking a partition of size S from the remaining tensor. We start with the cell at zero index, and get its higher neighboring partitions for the next wave, and then for all partitions in the next wave, we get all higher border partitions for the following wave, creating breadth-first traversal method till the whole tensor is covered. \label{fig:MSA2D} shows the communication pattern between the respective threads in both master and slave processes responsible for the partitioning.
+
+
+\begin{figure}[hbtp]
+\begin{center}
+ \includegraphics[bb=0 0 422 237]{MSPart.png}
+ % MSPart.png: 422x237 pixel, 72dpi, 14.89x8.36 cm, bb=0 0 422 237
+\caption{Partitioning Thread in Master \& Receiving Thread in Slave}
+\label{fig:MSPart}
+\end{center}
+\end{figure}
+
+In 2-D MSA dependency takes the form of small squares around the previously finished wave. The dependency changes as shown in \label{fig:MoADep2D}.
+
+
+\begin{figure}[hbtp]
+\begin{center}
+ \includegraphics[bb=0 0 176 176]{MoADep2D.png}
+ % MoADep2D.png: 176x176 pixel, 72dpi, 6.21x6.21 cm, bb=0 0 176 176
+\caption{MoA 2D MSA Waves Partitions}
+\label{fig:MoADep2D}
+\end{center}
+\end{figure}
+
+This makes the parallelism increase from one wave to another, and not dependent on a fixed dimension distribution. In 3-D MSA, dependency takes the shape of enclosed cubes, with inner cubes being scored before the outer ones. As shown in \label{fig:MoADep2D}, the first dark gray cube is scored first in one wave, and next wave contains the 2$^k$-1 neighboring cubes, colored in light gray, and then the white wave of cubes. Later waves will contain higher neighbors partitions of the partitions in the previous wave, minus the ones previously partitioned (neighbors to other partitions that were traversed before). The overlapping edge cells in each partition need to be communicated between processors.
+
+\begin{figure}[hbtp]
+\begin{center}
+ \includegraphics[bb=0 0 369 192]{MoADep3D.png}
+ % MoADep3D.png: 369x192 pixel, 72dpi, 13.02x6.77 cm, bb=0 0 369 192
+\caption{3D MoA MSA Waves Partitions for shape <3 $\quad$ 3 $\quad$ 3>}
+\label{fig:MoADep3D}
+\end{center}
+\end{figure}
+
+\begin{figure}[hbtp]
+\begin{center}
+ \includegraphics[bb=0 0 352 111]{MoADep4D.png}
+ % MoADep4D.png: 352x111 pixel, 72dpi, 12.42x3.92 cm, bb=0 0 352 111
+\caption{4D MoA MSA Waves Partitions for shape <3 $\quad$ 3 $\quad$ 3 $\quad$ 3>}
+\label{fig:MoADep4D}
+\end{center}
+\end{figure}
+
+\begin{figure}[hbtp]
+\begin{center}
+ \includegraphics[bb=0 0 347 338]{MoADep5D.png}
+ % MoADep5D.png: 347x338 pixel, 72dpi, 12.24x11.92 cm, bb=0 0 347 338
+\caption{5D MoA MSA Waves Partitions for shape <3 $\quad$ 3 $\quad$ 3 $\quad$ 3 $\quad$ 3>}
+\label{fig:MoADep4D}
+\end{center}
+\end{figure}
+
+As shown in \label{fig:MoADep3D}, \label{fig:MoADep4D} and \label{fig:MoADep5D}, the number of partitions that can be scored at one wave increase exponentially with the increase in dimension. However, the communication dependency between the partitions increases as well, and optimization on the communication vs. computation is required on the choice of the partition size. Similarly distribution over processors and achieving data locality as much as possible will affect the performance significantly.
+
+
+\subsection{Distributed Scoring Requirements}
+
+We iterate through the partitions received by each processor. At each cell, we retrieve the lower border neighboring cells scores, using the function described in equation \label{DistScoring}. These neighbors might be local (in the same partition, or in another partition computed by the same processor), or remote (in another processor), or a lower border cell on the whole un-partitioned scoring tensor. In the first two cases, we retrieve the score, and compute TS based on how many indices got decremented in the multidimensional index to retrieve this neighbor. If the neighbor is remote, the processor computation thread waits to receive the score from the remote processor. If the neighbor is a lower border cell in the whole tensor, the score gets initialized to the gap score used multiplied by the values in the multi-dimensional index of the cell. Figure 9 shows the 2$^k-1$ lower border cell neighbors that are required to score a cell. After scoring this cell, another 2$^k-1$ cells can retrieve one of their required scores. Both lower indexed neighbor’s cells and higher, can be local or remote.
+
+\begin{figure}[hbtp]
+\begin{center}
+ \includegraphics[bb=0 0 348 174]{MoADepND.png}
+ % MoADepND.png: 348x174 pixel, 72dpi, 12.28x6.14 cm, bb=0 0 348 174
+\caption{ND MoA MSA Dependency}
+\label{fig:MoADep4D}
+\end{center}
+\end{figure}
+
+\label{fig:Slave} shows the design of the slave process, with its main threads and functionality.
+
+
+\begin{figure}[hbtp]
+\begin{center}
+ \includegraphics[bb=0 0 442 340]{Slave.png}
+ % Slave.png: 442x340 pixel, 72dpi, 15.59x11.99 cm, bb=0 0 442 340
+\caption{Slave Process Threads}
+\label{fig:Slave}
+\end{center}
+\end{figure}
+
+\subsection{Distributed Trace Back Requirements}
+
+Once the partitions have been fully scored and scores stored in each slave processor’s local disk space, the distributed trace back program starts. Again a master/slave approach is followed. The master process retrieves the highest scoring higher border cell from all higher edge partitions in all processors, and sends to the processor with the highest score to trace back through its partitions. If the trace back done by the slave reaches the lower border edge of the current partition it is working on, it checks if the next adjacent partition was previously scored by the same processor, and available in its local memory. If so, it loads the adjacent partition and resumes the trace back from it. This process continues, till the next adjacent partition is not local. Then, the slave process reports to the master process with the last cell index, the partial path found so far among all its adjacent local partitions, and which processor contain the adjacent required partition. The master sends to the next processor containing the last cell index reported from the previous processor, to resume the trace back and repeat the same process. The process iterates like that until there are no more partitions in any of the processors. The master then assembles all received partitions, forms the optimal full path and reports it. \label{fig:TraceB} illustrates the distributed trace back process.
+
+
+\begin{figure}[hbtp]
+\begin{center}
+ \includegraphics[bb=0 0 400 274]{TraceB.png}
+ % TraceB.png: 400x274 pixel, 72dpi, 14.11x9.67 cm, bb=0 0 400 274
+\caption{Distributed Trace Back Design}
+\label{fig:TraceB}
+\end{center}
+\end{figure}
+
+
+\subsection {Scalability Issues}
+
+To ensure that all processors are working as soon as we start computing, we will start with very fine granularity (by having a small partition size), to have high parallelism soon, but also high communication cost. Then we need to balance on a granularity level that takes the most out of the communication cost metric, and the computation capacity of the machine. On a machine with a high communication cost, we will need course grain parallelism, and vice versa.
+
+The objective function is to minimize total parallel execution time as calculated in this formula.  Several optimization techniques can be implemented to suggest an optimal starting partition size, and pace of increase of partition size, and final partition size till the end of computation that is optimal to the computation capacity of the machine without much context switching and delay. The increase of the partition size will increase the amount of computation in each partition with higher rate than the increase in the amount of overlapping cells that need communication as shown in the following graphs:
+
+This is calculated as S$^{k}$-(S-1)$^{k}$ cells need to be communicated in each wave, where S is the partition size.
+
+The dependency scheduling scheme discussed above provides clustering of partitions based on adjacency to reduce communication as much as possible. 
+
+Also, the optimization technique will need to optimize the number of processors used. More processors are not always good. Each extra processor will come with extra overhead, and reduce the total execution time, so, we need to minimize the number of slave processors, while minimizing the communication cost vs. the computation at the same time. Since the design is well structured, a closed formula can be reached.
+
+Another refinement that can decrease the amount of communication, and increase parallelism, is to use the wave front technique described in \cite{Yap-95} and \cite{Chen-Schmidt-05}, to work invariant of dimension and shape. Since it is not clear yet how to generalize this method (generating an MoA function that generate the perfect multidimensional diagonal and not a multidimensional perimeter as shown above), we can partition using the above MoA partitioning function, then within each wave, define the number of partitions that can be executed at once without dependency within the wave (the actual diagonal). This will be the amount of partitions generated by increasing only one element in the index vector at one step, then the partitions generated when 2 elements in the index have changed, and so forth, till all elements in the index vector have changed retrieving only one partition in the last step in that wave. Each step here will contain partitions in each wave equal to: 
+
+\begin{displaymath}
+\frac{k!}{(k-1)!n!}
+\end{displaymath}
+
+Where k is the dimension and n is the number of indices that changed in this step. The second step in wave i will trigger first step in wave i$+$1 to start, and so forth. So, parallelism will be at any point in time, creating a parallelism pattern that is growing till the perfect diagonal in the middle of the scoring tensor, then decaying parallelism till the end of it.
+
+This method can be seen in 2D in the following diagram and the associated DAG below, shows that partition 1 will send dependency only to partitions 2 and 3. Partition 2 and 3 will take care of the dependency requirement of partition 5. This reduces the communication from S$^{k}$-(S-1)$^{k}$, where S is the partition size, and to any 1 and up to any k$+$1 processors, to k in each partition :
+
+
+This can be extended to 3D easily as follows:
+
+The back planes of the third dimensions can be seen as follows:
+
+Having each cell sending dependency to only k adjacent processors at most, will reduce the communication in each partition, and can be formalized as a peer-to-peer design and save the master processor computation. The dependant processors can then be calculated and cells be sent to them directly.
+
+Data size Upper bound and the machine configuration.
+\subsection {Portability Issues}
+Libraries and machines
+@
+
+
+1.1.1.1
+log
+@Thesis Writing
+@
+text
+@@

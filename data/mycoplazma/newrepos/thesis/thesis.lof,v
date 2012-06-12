@@ -1,0 +1,71 @@
+head     1.1;
+branch   1.1.1;
+access   ;
+symbols  r1:1.1.1.1 mhelal:1.1.1;
+locks    ; strict;
+comment  @# @;
+
+
+1.1
+date     2008.05.06.04.03.23;  author mhelal;  state Exp;
+branches 1.1.1.1;
+next     ;
+
+1.1.1.1
+date     2008.05.06.04.03.23;  author mhelal;  state Exp;
+branches ;
+next     ;
+
+
+desc
+@@
+
+
+
+1.1
+log
+@Initial revision
+@
+text
+@\addvspace {10\p@@ }
+\addvspace {10\p@@ }
+\addvspace {10\p@@ }
+\contentsline {figure}{\numberline {3.1}{\ignorespaces MSA Pair Wise Traditional Dependency}}{39}
+\contentsline {figure}{\numberline {3.2}{\ignorespaces Partitioning Thread in Master \& Receiving Thread in Slave}}{42}
+\contentsline {figure}{\numberline {3.3}{\ignorespaces MoA 2D MSA Waves Partitions}}{42}
+\contentsline {figure}{\numberline {3.4}{\ignorespaces 3D MoA MSA Waves Partitions for shape <3 $\hskip 1em\relax $ 3 $\hskip 1em\relax $ 3>}}{43}
+\contentsline {figure}{\numberline {3.5}{\ignorespaces 4D MoA MSA Waves Partitions for shape <3 $\hskip 1em\relax $ 3 $\hskip 1em\relax $ 3 $\hskip 1em\relax $ 3>}}{43}
+\contentsline {figure}{\numberline {3.6}{\ignorespaces 5D MoA MSA Waves Partitions for shape <3 $\hskip 1em\relax $ 3 $\hskip 1em\relax $ 3 $\hskip 1em\relax $ 3 $\hskip 1em\relax $ 3>}}{44}
+\contentsline {figure}{\numberline {3.7}{\ignorespaces ND MoA MSA Dependency}}{45}
+\contentsline {figure}{\numberline {3.8}{\ignorespaces Slave Process Threads}}{46}
+\contentsline {figure}{\numberline {3.9}{\ignorespaces Distributed Trace Back Design}}{48}
+\addvspace {10\p@@ }
+\contentsline {figure}{\numberline {4.1}{\ignorespaces Total Partitions / Wave growth graph for several dimensionality}}{60}
+\contentsline {figure}{\numberline {4.2}{\ignorespaces Geometric representation of 2D waves and partitions indices, shown on a 2D plane, where waves are the diagonals connecting the partitions indices}}{62}
+\contentsline {figure}{\numberline {4.3}{\ignorespaces Geometric representation of 3D waves and partitions indices, shown on a 3D base plane only. Axes are represented with lines having dashes at fixed intervals showing the distances from the origin (where the axes intersects), other lines show the waves connecting partitions (vertices) of equal distance from the origin. A third plane project from this plane, and triple every 3 waves.}}{64}
+\contentsline {figure}{\numberline {4.4}{\ignorespaces Geometric representation of 4D waves and partitions indices, shown on a 4D base plane only. Axes are shown with dashes at fixed intervals from the origin, and squares around the origin show the waves. Two planes project from this base, and quadruple every 4 waves}}{65}
+\contentsline {figure}{\numberline {4.5}{\ignorespaces 2D dependency network connecting partitions in one wave to their dependent partition(s) in the next wave. Dependencies required from up to k waves are passed from one wave to another. For instance, cell 5 needs cells 2 and 3 from wave 1, and cell 5 from wave 0. Cell 5 is sent to wave 1 first, then again considered overlapping cell in wave 1 and send to wave 2.}}{65}
+\contentsline {figure}{\numberline {4.6}{\ignorespaces 3D dependency network connecting partitions in one wave to their dependant partition(s) in the next wave. Growth of parallelism is obvious compared to the 2D example. Cell 15 needs cells 6, 7, and 8 from wave 2, and cells 2, 3, and 4 from wave 1, and cell 1 from wave 0. Cells from K waves (here 3) are sent from one wave to another until received to the dependent cell}}{66}
+\contentsline {figure}{\numberline {4.7}{\ignorespaces 4D dependency network. Parallelism growth is obvious again, as well as symmetric connections.}}{66}
+\contentsline {figure}{\numberline {4.8}{\ignorespaces Total cells to be computed in each partition in relation to partition size and dimensionality.}}{71}
+\contentsline {figure}{\numberline {4.9}{\ignorespaces Total number of cell scores to be communicated or searched for in previous local partitions, in each partition, as a function of partition size and dimensionality.}}{72}
+\addvspace {10\p@@ }
+\addvspace {10\p@@ }
+\addvspace {10\p@@ }
+\addvspace {10\p@@ }
+\contentsline {figure}{\numberline {8.1}{\ignorespaces Comparison of the master/slave and P2P solutions in terms of CPU time consumption as data size increases.}}{85}
+\contentsline {figure}{\numberline {8.2}{\ignorespaces Comparison of the master/slave and P2P solutions in terms of elapsed time as data size increases.}}{86}
+\contentsline {figure}{\numberline {8.3}{\ignorespaces Comparison of the master/slave and P2P solutions in terms of physical memory usage as data size increases.}}{87}
+\contentsline {figure}{\numberline {8.4}{\ignorespaces Comparison of the master/slave and P2P solutions in terms of virtual memory usage as data size increases.}}{88}
+\contentsline {figure}{\numberline {8.5}{\ignorespaces Processor scalability running the same dataset using 4, 6, 8, 16, 24, 32 and 64 processors.}}{89}
+\contentsline {figure}{\numberline {8.6}{\ignorespaces Partition Size Effects on Resources Usage.}}{91}
+\addvspace {10\p@@ }
+@
+
+
+1.1.1.1
+log
+@Thesis Writing
+@
+text
+@@

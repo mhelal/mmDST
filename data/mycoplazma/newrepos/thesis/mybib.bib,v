@@ -1,0 +1,256 @@
+head     1.1;
+branch   1.1.1;
+access   ;
+symbols  r1:1.1.1.1 mhelal:1.1.1;
+locks    ; strict;
+comment  @# @;
+
+
+1.1
+date     2008.05.06.04.03.23;  author mhelal;  state Exp;
+branches 1.1.1.1;
+next     ;
+
+1.1.1.1
+date     2008.05.06.04.03.23;  author mhelal;  state Exp;
+branches ;
+next     ;
+
+
+desc
+@@
+
+
+
+1.1
+log
+@Initial revision
+@
+text
+@@@book{Bellman-61,
+author = "Bellman, R.E.",
+title = "Adaptive Control Processes",
+publisher = "Princeton University Press, Princeton, NJ",
+year = "1961"
+}
+
+@@book{Sneath-Sokal-73,
+author = "Sneath, P. H. A. and R. R. Sokal",
+title = "Numerical Taxonomy",
+publisher = "Freeman, San Francisco",
+year = "1973"
+} 
+
+@@article{Hogeweg-Hesper-84,
+author = "P. Hogeweg and B. Hesper.",
+title = "Energy directed folding of RNA sequences.",
+journal = "Nucleic Acids Research",
+volume = "12(1)",
+pages = "67-74",
+year =  "1984"
+}
+
+@@article{Feng-Doolittle-87,
+author = "D. Feng and R. F. Doolittle.",
+title = "Progressive sequence alignment as a prerequisite to correct phylogenetic trees.",
+journal = "J. Mol. Evol.",
+volume = "60",
+pages = "351-360",
+year = "1987"
+}
+
+@@article {Carrillo-Lipman-88,
+author = "Carrillo, H. and Lipman, D.J.",
+title = "The Multiple Sequence Alignment in Biology",
+journal = "S.I.A.M.J Appl. Math.",
+volume = "48(5)",
+pages = "1073-1082",
+year = "1988"
+}
+
+@@misc{Stoye-et-al-97,
+  author = "S. Perrey and J. Stoye and V. Moulton and A. Dress",
+  title = "On Simultaneous versus Iterative Multiple Sequence Alignment",
+  text = "S.W. Perrey, J. Stoye, V. Moulton, and A.W.M. Dress. On Simultaneous versus
+    Iterative Multiple Sequence Alignment. Submitted, 1997.",
+  year = "1997",
+  url = "citeseer.ist.psu.edu/perrey97simultaneous.html" 
+}
+
+@@book{Gusfield-97,
+author = "Dan Gusfield",
+title = "Algorithms on Strings, Trees, and Sequences",
+publisher = "Cambridge University Press",
+year = "1997"
+}
+
+@@mastersthesis {Helal-01,
+author = "Manal Ezzat Helal",
+title = "Mathematics of Arrays - The implementation and the application",
+school = "Department of Computing Science, American University in Cairo",
+year = "2001"
+}
+
+@@phdthesis{Mullin-88,
+ author = "Lenore Marie Restifo Mullin",
+ title = "A mathematics of arrays",
+ school = "Syracuse University, Syracuse, NJ",
+ year = "1988"
+ }
+
+
+@@inproceedings{Iyengar-89,
+ author = "A. K. Iyengar",
+ title = "Parallel characteristics of sequence alignment algorithms",
+ booktitle = "Supercomputing '89: Proceedings of the 1989 ACM/IEEE conference on Supercomputing",
+ year = "1989",
+ isbn = "0-89791-341-8",
+ pages = "304--313",
+ location = "Reno, Nevada, United States",
+ doi = "http://doi.acm.org/10.1145/76263.76296",
+ publisher = "ACM Press",
+ address = "New York, NY, USA",
+ }
+
+
+@@article{Stone-77,
+author = "H. Stone",
+title = "Multiprocessor scheduling with the aid of network flow diagram",
+journal = "IEEE transactions on Software Engineering",
+volume = "SE-3",
+page = "85-93",
+month = "January",
+year = "1977"
+}
+
+@@inproceedings{Yap-Munson-Frieder-Martino-95,
+    author = "T. K. Yap and P. J. Munson and O. Frieder and R. L. Martino",
+    title = "Parallel Multiple Sequence Alignment Using Speculative Computation",
+    booktitle = "Proceedings of the 24th International Conference on Parallel Processing",
+    address = "Oconomowoc, WI",
+    pages = "III:60--67",
+    year = "1995",
+    url = "citeseer.ist.psu.edu/article/yap95parallel.html" 
+}
+
+
+@@phdthesis {Yap-95,
+author = "Tieng Kim Yap",
+title = "Parallel Computation in Biological Sequence Analysis",
+school = "Department of Computer Science, School of Information Technology and Engineering, George Mason University",
+year = "1995"
+}
+
+
+@@article{Chen-Schmidt-05,
+author = "Chunxi Chen, Bertil Schmidt",
+title = "An Adaptive grid implementation of DNA sequence alignment",
+journal = "Future Generation Computer Systems archive",
+volume= "21",
+number = "7",
+pages = "988-1003",
+month = "July",
+year = "2005"
+}
+
+@@misc{Jones98,
+  author = "A. Jones and J. Rabelo",
+  title = "Survey of Job Shop Scheduling Techniques",
+  text = "Jones, A. and Rabelo, J. C. (1998). Survey of Job Shop Scheduling Techniques,
+    NISTIR, National Institute of Standards and Technology, Gaithersburg, MD.",
+  year = "1998",
+  url = "citeseer.ist.psu.edu/article/jones98survey.html"
+}
+
+
+@@article{Graves-81,
+author = "S. Graves",
+title = "A Review of Production Scheduling",
+journal = "Operations Research",
+volume = "29",
+pages = "646-675",
+year = "1981"
+}
+
+
+@@techreport{Kumur-Grama, 
+author = "Vipin Kumur, Y. Grama",
+title = "Scalable Load Balancing Techniques for Parallel Computers",
+institution = "Department of Computer Science, University of Minnesota, Minneapolis, and Vempaty Nageshwara Rao, Department of Computer Science, University of Central Florida",
+year = "1994"
+}
+
+
+@@phdthesis {Chingchit-99,
+author = "Soontorn Chingchit",
+title = "Design and Performance Evaluation of a Flexible Clustering and Allocation Scheme for Parallel Processing",
+school = "Curtin University of Technology",
+month = "December",
+year = "1999"
+}
+
+
+
+
+@@mastersthesis {Driga-02,
+author = "Adrian Radu Driga",
+title = "Parallel FASTLSA: A Parallel Algorithm for Parallel Sequence Alignment",
+school = "Department of Computing Science, University of Alberta",
+year = "2002"
+}
+
+
+@@misc{Edgar-04,
+author = "Robert C. Edgar",
+title = "MUSCLE: Low-complexity multiple sequence alignment with T-Coffee accuracy",
+publisher = "ISMB/ECCB",
+month = "August",
+year = "2004"
+}
+
+
+@@techreport{Do-04,
+author = "Chuong B. Do, Michael Brudno, and Serafim Batzoglou",
+title = "PROBCONS: probabilistic consistency-based multiple alignment of amino acid sequences",
+institution = "Department of Computer Science, Stanford University, California, USA",
+pages = "94305-9010",
+month = "March",
+year = "2004"
+}
+
+
+@@misc{Gupta-96,
+  author = "S. Gupta and J. Kececioglu and A. Schaffer",
+  title = "Improving the practical space and time efficiency of the shortest-paths approach to sum-of-pairs multiple sequence alignment",
+  text = "Sandeep K. Gupta, John Kececioglu, and Alejandro A. Schaffer. Improving the practical space and time efficiency of the shortest-paths approach to sum-of-pairs multiple sequence alignment. J. Computational Biology, 1996. To appear.",
+  year = "1996",
+  url = "citeseer.ist.psu.edu/gupta96improving.html"
+}
+
+
+@@misc {JD-Poch-99,
+    author = "Thompson JD, Plewniak F, Poch O.",
+    title = "A comprehensive comparison of multiple sequence alignment programs",
+    publisher = "Laboratoire de Biologie Structurale, Institut de Genetique et de Biologie Moleculaire et Cellulaire",
+    number = "BP 163",
+    pages = "2682-90",
+    month = "Jul",
+    year = "1999",
+    note = "PMID: 10373585 [PubMed - indexed for MEDLINE]"
+}
+
+
+@@misc{BalibaseWeb,
+    title = "Balibase Website",
+    howpublished = "Website",
+    note = {\url{http://www-igbmc.u-strasbg.fr/BioInfo/BAliBASE/}}
+}
+@
+
+
+1.1.1.1
+log
+@Thesis Writing
+@
+text
+@@

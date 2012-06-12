@@ -1,0 +1,989 @@
+head     1.1;
+branch   1.1.1;
+access   ;
+symbols  r1:1.1.1.1 mhelal:1.1.1;
+locks    ; strict;
+comment  @# @;
+
+
+1.1
+date     2008.05.06.04.03.23;  author mhelal;  state Exp;
+branches 1.1.1.1;
+next     ;
+
+1.1.1.1
+date     2008.05.06.04.03.23;  author mhelal;  state Exp;
+branches ;
+next     ;
+
+
+desc
+@@
+
+
+
+1.1
+log
+@Initial revision
+@
+text
+@\chapter{Literature Review and First Problem Definition}
+In this chapter  a thourgh definition of the MSA problem and state of the art solution approaches will be presented.
+
+\section{Array Functions & Operators History}
+
+1874: Set theory developed by Georg Cantor, representing collections of
+abstract objects, including notions like Venn diagrams, and set memberships.
+
+1908: Axiomatic Set Theory was developed by Ernst Zermelo reformulating
+the now "naive set theory" in first order logic, to resolve it's
+paradoxes, for example, the Russell's paradox, the Burali-Forti paradox,
+and Cantor's paradox. This theory did not allow the construction of the
+ordinal numbers; while most of "ordinary mathematics" can be developed
+without ever using ordinals, ordinals are an essential tool in most
+set-theoretic investigations.
+
+1922: Abraham Fraenkel and Thoralf Skolem proposed operationalizing a
+"definite" property as one that could be formulated in first-order
+logic, with all atomic formulas involving set membership or identity.
+This added the axioms of replacement and regularity yielding the thoery
+of ZF. Then adding the axiom of choice, it became the ZFC theory. this
+cannot be axiomatized by a finite set of axioms because of the
+replacement axiom.
+
+1922-1940: Von Neumann-Bernays-Gِdel set theory(NBG) can be finitely
+axiomatized. The ontology of NBG includes classes as well as sets; a set
+is a class that is a member of another class. NBG and ZFC are equivalent
+set theories in the sense that any theorem about sets is provable in NBG
+if and only if it is provable in ZFC.
+
+1942-1945: Category theory were first introduced by Samuel Eilenberg and
+Saunders Mac Lane iin connection with algebraic topology. It has several
+faces like "General abstract nonsense" refers to its high level of
+abstraction, compared to more classical branches of mathematics.
+Homological algebra is category theory in its aspect of organising and
+suggesting calculations in abstract algebra. Diagram chasing is a visual
+method of arguing with abstract 'arrows'. Topos theory is a form of
+abstract sheaf theory, with geometric origins, and leads to ideas such
+as pointless topology.
+
+1957 to 1965: APL was the first homgoenous simple array programming
+language designed by Kenneth E. Iverson. The language works on entire
+arrays at once, like the vector instruction set of the SIMD
+architecture, without iteration, allowing for smaller and more conceise
+programs.
+
+1973: Based on APL, Trenched More proposed an array theory offering a
+powerful set of operators and operations on nested hetrogenous
+rectangular arrays.
+
+1979: PL/S II or AT/370 language was developed to implement the More's
+array theory operations, using APL interface.
+
+
+1988: Mathematics of Arrays were  first introduced in the PhD thesis of
+Dr. Lenore Mullin in Computer and Information Science at Syracuse
+University, Syracuse, NJ. The thesis introduced an algebric formulation
+of representing all data structures, invariant or dimensionality and
+shape, in an MoA structure, describing scalars as rank 0, linear array
+as rank 1, 2-D array as rank 2, and so forth. The representation is
+stored in memory in linear structure, with row major order, and
+dimensionality scalar, and shape vector. A list of constructs are provided.
+
+2000: MoA library built as dll, and used in a basic image and video
+processing applications in an Msc thesis presented by author of this PhD thesis.
+
+2001: Faster fast fourier transform using MoA is presented by L. Mullin
+and S. Small.
+
+2005: Radar Processing using MoA y L. Mullin and S. Small.
+
+2004-2008: This thesis, MoA methods used in high dimensional scientific computation problem "Multiple Sequence Alignment in Bioinformatics", in the MSA dynamic programming algorithm, to score a tensor of alignments, partition to be processed in parallel, providing automatic load balancing. 
+
+
+
+\subsection{Conformal Computing Methods}
+
+from : http://www.it.uu.se/research/group/ndim/tengo
+
+Tensors were first utilized to describe the elastic deformation of solids. Actually, the word tensor stems from the Latin word "tensus" meaning stretched. In the beginning of the 20th century, tensor calculus was refined by the Italian mathematicians Ricci and Levi-Cevita. Since then tensor calculus has been an invaluable tool in differential geometry, special and general relativity, and several branches of Physics. The classical way of using tensors is to let them define coordinate invariant linear operators.
+
+In this project, a tensor notation is advocated from a different point of view. We consider discretizations (on structured grids) of PDE problems such that systems of linear equations arise. The coefficient matrices are typically large, complex, indefinite, and ill-conditioned. For these linear operators and the solvers (preconditioned Krylov subspace methods) for the corresponding systems, we use a tensor notation. That considerably facilitates the construction of the numerical algorithms as well as the design and implementation of our object-oriented software tools. The matrix notation, which has been long prevailing in the numerical linear algebra community, actually makes designing and coding unnecessarily complicated!
+
+
+Conformal Computing \footnote{The name Conformal Computing \copyright is protected. Copyright 2003, the Research Foundation of State University of New York, University at Albany.} as described in [Mullin / Raynolds - 2005] is a formalism based on an algebra of abstract data structures, A Mathematics of Arrays (MoA) and an array indexing calculus, the Psi-Calculus. The method allows the composition of a sequence of algebraic manipulations in terms of array shapes and abstract indexing. The approach works invariant of dimension and shape, and allows for partitioning an n-dimensional tensor based on a given MoA function. It is called Conformal Computing because the mathematics used to describe the problem is the same as that used to describe the details of the hardware. Thus at the end of a derivation the resulting final expression can simply be translated into portable, efficient code for implementation in hardware and/or software. MoA offers a set of constructs that help represent multidimensional arrays in memory in a linear, concise and efficient way, with many useful properties, and applications. For a full listing of the MoA constructs, please refer to [Mullin–88].
+
+
+
+\subsection{Mathematics of Arrays}
+Mathematics of Arrays (as in Mullin 1988) is used to describe mathematical array operations regardless of their shape, size, or dimensionality. MoA is based on representing arrays in memory in one flat array invariant of the shape and dimension, providing a higher dimensional Euclidean space. The design start by analysing the operational requirements for one dimension, then expand the requirements for two dimensions, then three dimensions, and then extend that to arbitrary dimension. Again, like the high dimensional Euclidean space, MoA, provide index transformations, that is rotational and shifting among other manipulations.
+
+This technique reduces the complexity of indexing and nested loops in handling the arrays, by using array of indices and a Psi equation that calculates the flat array index in the flat one dimensional array. This approach reduces some computation steps and should allow an easier representation of the complexity of the high dimensionality involved with many scientific computational problems. 
+
+Mathematics of Arrays (MOA) constructs mathematically relates the array indices in multidimensional arrays to one flat array using the Psi-Calculus. Lots of equations were proven to handle the array processing in different ways, transposing, slicing, partitioning, reshaping, copying, \ldots etc. MOA is a set of mathematical functions and a data structure that need to be tested on high performance parallel machines or PC clusters, on some biological computations like Multiple String Alignment problem.
+
+MOA describes an array calculus containing a set of operator definitions, shape definitions, and reduction rules all based on a single indexing operator, $\psi$. For this reason, MOA is often referred to as the Psi Calculus. Algebraic operators are included in the Psi Calculus to form a broad set of operators needed to describe complex array operations. All the operators are extended for scalars, vectors, and multi-dimensional arrays.
+
+The \label{MOAOpTable} lists some of the more useful Psi Calculus operators together with an example usage on the following array:
+
+\begin{displaymath}
+\xi^e_{2} =\left[\begin{array}{l l}1 \quad 2 \quad 3\\
+4 \quad 5 \quad 6\end{array}\right]
+\end{displaymath}
+
+\begin{table}
+\caption{Some MOA Operators}
+\begin{tabular}{|l|l|l|}
+\hline
+% ROW 1
+Operator & Function & Example\\
+\hline
+% ROW 2
+$\delta$ & Dimensionality & $\delta$ $\xi$ = 2\\
+\hline
+% ROW 3
+$\rho$ & Shape & $\rho$ $\xi$e = (2 $\quad$ 3)\\
+\hline
+% ROW 4
+$\uparrow$ & Take (subarray) & 1 $\uparrow$ $\xi$e = \texttt{<} 1 $\quad$ 2 $\quad$ 3\texttt{>}\\
+\hline
+% ROW 5
+$\downarrow$ & Drop (subarray) & 1 $\downarrow$ $\xi$e = \texttt{<}4 $\quad$ 5 $\quad$ 6\texttt{>}\\
+\hline
+% ROW 6
+ rav & Ravel (flatten) &  \textit{rav} $\xi$e = \texttt{<} 1 $\quad$ 2 $\quad$ 3 $\quad$ 4 $\quad$ 5 $\quad$ 6 \texttt{>}\\
+\hline
+% ROW 7
+$\iota$ & Iota (count) & $\iota$ 5 = \texttt{<} 0 $\quad$ 1 $\quad$ 2 $\quad$ 3 $\quad$ 4 \texttt{>}\\
+\hline
+% ROW 8
+$\psi$ & Psi (index) & \texttt{<} 1 0 \texttt{>} $\psi$ $\xi$e = 4\\
+\hline
+\end{tabular}
+\label{MOAOpTable}
+\end{table}
+
+Data transformations occur by index manipulations, to faciltate the programming invariant of dimension and shape. For example, a window of dependency is created once, which is a tensor of same dimensionality as the data set, and of size equal to the partitioning size. This window is created for every process and sweaps the required dependent cell values to the current cell position, and moves with it as the scoring proceeds. This will be further detailed in next chapter.
+
+\subsection{Mathematical Background}
+A tensor is a multidimensional mathematical object (arrays) that is like a vector or a matrix. It can be thought of as a linear machine for performing some operations. A zero-th order tensor is a scalar; a first order tensor is a vector; a second order tensor is a matrix; a third order tensor is a cube; \ldots etc. A K-th order Cartesian tensor, in an N-dimensional Cartesian coordinate system is defined as:
+
+\begin{itemize}
+\item It lives as an entity in the N dimension coordinate systems
+\item Can be represented by k indices (subscripts) and NK components total.
+\item We will use the term ``tensor'' for structures that are multi-indexed (multidimensional) arrays.
+\end{itemize}
+
+The abstract modern view of a tensor, is that tensors express some definite type of a multi-linear concept, as linear maps, and manipulated with extensions of linear algebra to multi-linear algebra.
+
+\section{Distributed Procession - Capacity \& Capability Computing}
+
+\subsection{Capacity Computing}
+\subsection{Capability Computing}
+\subsection{High Performance Machines}
+\subsection{Parallel Processing Models}
+
+
+\section{Dynamic Programming}
+
+\section {Dimensionality Reduction Methods and Optimality Effects}
+
+\section{Multiple Sequence Alignment in Computational Biology}
+
+The techniques used in biological laboratories have advanced considerable since the discovery of the DNA structure in 1953, generating a large amount of data that need to be studied by analyzing and comparing them. Sequence comparison is one of the major computational molecular biology that is used in several contexts. The idea is to give the degree of similarity between 2 sequences or more, by aligning them in rows on top of each other so that more matching characters or substrings can be obtained by using insertions, deletions, and substitutions as needed to maximize the number of matched characters. Giving these alignment score that describe the degree of similarity defines whether the tested sequences are homologues (sharing the same common evolutionary ancestry), or have some degree of similarity (sharing functionality - regulatory role in case of DNA, or similar biochemical function or 3 dimensional structure in case of protein), or that much similar that they share a significant amino acid identity.
+
+\textbf{{\large Sequence Formats}}
+
+Sequence formats are ascii text files that hold the sequence and information about the sequence data. There are couple of dozens sequence formats currently in use, each package comes with its own format, some of the most widespread sequence formats used by the major sequence databases are:
+
+\begin{itemize}
+  \item fasta
+  \item EMBL
+  \item GenBank
+  \item SwissProt
+  \item PIR
+\end{itemize}
+
+\textbf{large Scoring Method}
+
+Mutations happen randomly at the DNA level, causing the fitness of the organism to increase or decrease, and to continue to next generations, or removed by natural selection. The chosen model of evolution to develop a scoring mechanism is the first order Markovian Model that assumes that subsequent amino acid substitution occur with a probability independent previous substitutions, or substitutions at other positions in the polypeptide chain. It also means that a single substitution matrix can represent the probability of all amino acid substitutions at any and all positions in a protein.
+
+\begin{itemize}
+  \item 1 PAM Unit Mutation Matrix
+  \item 100 PAM Unit Mutation Matrix
+  \item 250 PAM Unit Mutation Matrix
+  \item Dayhoff Mutation Matrix
+  \item Blosum62 Mutation Matrix
+  \item Gonnet
+  \item Johnson
+\end{itemize}
+
+\textbf{Gap Penalties}
+
+Insertions and deletions cause gaps to be inserted in the aligned sequence. There are a number of methods of handling gab insertions. Linear gab penalty, adds the same penalty for inserting a gab of equal weight all the time. Affine gab penalty gives higher weight to the first gab inserted, and then less constant weight to all additional spaces in the same gab.
+
+\textbf{large Methods of Pair Wise Sequence Alignment}
+
+Pair wise sequence alignment can be obtained by Dot Matrix analysis, Dynamic Programming algorithm, or Word, or k-tuple methods, such as used by FASTA and BLAST. The Dot matrix method aligns 2 sequences in a matrix where the character of the first sequence in the first row in the matrix, and the characters of the second sequence in the first column, then places a dot on each identical characters from both sequences in the intersection cell. This method shows the alignments as diagonals of dots on the matrix, revealing insertions, deletions, direct and inverted repeats, but it doesn't show an actual alignment.
+
+
+The focus of this research is on the Dynamic programming method in producing optimal (the very best or highest scoring) alignment between sequences. It is proven mathematically to produce the optimal global alignment using the Needlman and Wunch algorithm,and for local alignment using the Smith and Waterman algorithm. The idea is to start from the ends of both sequences and attempting to match all possible pairs of characters by following a scoring 
+scheme for matches, mismatches and gaps, generating a matrix of numbers that represent all possible alignments, then following the highest scores on the matrix, the optimal alignment can be found. The substitution scores are defined in a matrix of substitutions like Dayhoff percent-accepted mutations 250 (PAM250) that is based on statistical analysis of the likelihood of the biological substitutions of proteins that can still make sense. Other scoring schemes can be used to reveal more or different information.
+
+\textbf{The dynamic Programming Global Alignment Method}
+
+The steps of the algorithm are as follows:
+
+\begin{enumerate}
+\item Create an Alignment Matrix of n$+$2 columns and m$+$2 rows, where n is the size of the first sequence, and m is the size of the second sequence.
+\item Initialize the Alignment Matrix first row and first column, based on the type of comparison required.
+\item Fill in the alignment matrix with scores based on the following formula:
+
+\begin{equation}
+	S_{i,j} = MAX \left\lbrace  
+  \begin{array}{l l}
+  S_{i-1,j-1} + sub( a_{i,j}, b_{j})\\
+  S_{i-1,j} + g \\
+  S_{i,j-1} + g \\
+  \end{array}
+\right\rbrace 
+\end{equation} 
+
+
+where S$_{ij}$ is the cell in the matrix with indices i in the rows, first sequence, and j in the columns (second sequence), and a$_{i,j}$ is the character in the first sequence at position i, and b$_{j}$ is the character in the second sequence at position j, and g is the gab penalty value, and sub(a$_{i,j}$, b$_{j}$) is a function that returns the score of substituting a$_{i,j}$ with b$_{j}$ based on the scoring scheme used. 
+
+\item  Traceback: starting from the bottom right (the ends of both sequences), following the highest scores cells paths, to find the optimal alignment
+\end{enumerate}
+
+
+Step 2 initializes the starting values of the edge cells of the alignment matrix. Three types of initializations can be used. If we are comparing a sequence to sequence, we will use the following formulas:
+
+\begin{displaymath}
+S_{i,0} = \sum_{k=0}^i g, (0<=i<=M)  \quad  and  \quad  S_{0,j} = \sum_{k=0}^j g, (0<=j<=N)
+\end{displaymath}
+
+if we are comparing sequence to subsequence, we will initialize the matrix based on the following formulas:
+
+\begin{displaymath}
+S_{i,0} = 0, (0<=i<=M) \quad  and \quad S_{0,j} = \sum_{k=0}^j g, (0<=j<=N)
+\end{displaymath}
+
+If we are comparing subsequence to subsequence, we will be using the following formulas:
+
+\begin{displaymath}
+S_{i,0} = 0, (0<=i<=M) \quad and \quad S_{0,j} = 0, (0<=j<=N)
+\end{displaymath}
+
+
+Example:
+
+Seq1: ATTCGGCTATCGGC
+Seq2: ATCGCGTATGC
+
+Using linear gab penalty of $-$2, and match of 2 and mismatch of 0, and subsequence to subsequence type of comparison, the Alignment Matrix will be:
+
+\begin{tabular}{|r|r|r|r|r|r|r|r|r|r|r|r|r|}
+\hline
+% ROW 1
+   & - &  A &  T &  C &  G &  C &  G &  T &  A &  T &  G &  C\\
+\hline
+% ROW 2
+ - &  \textbf{0} &  0 &  0 &  0 &  0 &  0 &  0 &  0 &  0 &  0 &  0 &  0\\
+\hline
+% ROW 3
+ A &  0 & $\nwarrow$\textbf{2} &  0 &  0 &  0 &  0 &  0 &  0 &  2 &  0 &  0 &  0\\
+\hline
+% ROW 4 
+T &  0 &  0 & $\nwarrow$\textbf{4} &  2 &  0 &  0 &  0 &  2 &  0 &  4 &  2 &  0\\
+\hline
+% ROW 5
+ T &  0 &  0 &  2 & $\nwarrow$\textbf{4} &  2 &  0 &  0 &  2 &  2 &  2 &  4 &  2\\
+\hline
+% ROW 6
+ C &  0 &  0 &  0 & $\uparrow$\textbf{4} &  4 &  4 &  2 &  0 &  2 &  2 &  2 &  6\\
+\hline
+% ROW 7
+ G &  0 &  0 &  0 &  2 & $\nwarrow$\textbf{6} &  4 &  6 &  4 &  2 &  2 &  4 &  4\\
+\hline
+% ROW 8
+ G &  0 &  0 &  0 &  0 &  4 &  $\nwarrow$\textbf{6} &  6 &  6 &  4 &  2 &  4 &  4\\
+\hline
+% ROW 9
+ C &  0 &  0 &  0 &  2 &  2 &  6 & $\nwarrow$\textbf{6} &  6 &  6 &  4 &  2 &  6\\
+\hline
+% ROW 10
+ T &  0 &  0 &  2 &  0 &  2 &  4 &  6 & $\nwarrow$\textbf{8} &  6 &  8 &  6 &  4\\
+\hline
+% ROW 11
+ A &  0 &  2 &  0 &  2 &  0 &  2 &  4 &  6 &  $\nwarrow$\textbf{10} &  8 &  8 &  6\\
+\hline
+% ROW 12
+ T &  0 &  0 &  4 &  2 &  2 &  0 &  2 &  6 &  8 & $\nwarrow$\textbf{12} &  10 &  8\\
+\hline
+% ROW 13
+ C &  0 &  0 &  2 &  6 &  4 &  4 &  2 &  4 &  6 &  10 &  $\nwarrow$\textbf{12} &  12\\
+\hline
+% ROW 14
+ G &  0 &  0 &  0 &  4 &  8 &  6 &  6 &  4 &  4 &  8 &  $\uparrow$\textbf{12} &  12\\
+\hline
+% ROW 15
+ G &  0 &  0 &  0 &  2 &  6 &  8 &  8 &  6 &  4 &  6 &  10 &  $\nwarrow$\textbf{12}\\
+\hline
+% ROW 16
+ C &  0 &  0 &  0 &  2 &  4 &  8 &  8 &  8 &  6 &  4 &  8 &  $\uparrow$\textbf{12}\\
+\hline
+\end{tabular}
+
+The resulting alignments are:
+
+\begin{tabular}{|r|r|r|r|r|r|r|r|r|r|r|r|r|r|r|}
+\hline
+% ROW 1
+ Seq 1 & A & T & - & C & G & C & G & T & A & T & - & G & - & C\\
+\hline
+% ROW 2
+ Seq 2 & A & T & T & C & G & G & C & T & A & T & C & G & G & C\\
+\hline
+% ROW 3
+ Score & 2 & 2 & $-$2 & 2 & 2 & 0 & 0 & 2 & 2 & 2 & $-$2 & 2 & $-$2 & 2\\
+\hline
+\end{tabular}
+
+The score of this alignment is: 12, this is mathematically proven to be the optimal alignment(highest score) based on the given values.
+
+\textbf {Time Complexity Analysis}
+
+\begin{itemize}
+  \item Initialize matrix values: O(n), O(m)
+  \item Filling in rest of matrix: O(nm)
+  \item Traceback: O(n$+$m)
+  \item If strings are same length, total time O(n$^{2}$)
+  \item DP efficient since there are:
+  \item $\frac{2n!}{(n!)^2} = O(2^{2n})$ possible alignments
+  \item Exponential =\texttt{>}Quadratic solution
+\end{itemize}
+
+\subsection{Local Alignment}
+
+Pair-wise Local Alignment was first formulated by Smith and Waterman (1981). The problem is defined as finding subsequences in S$_{1}$ and S$_{2}$ whose similarity is maximal over all pairs of subsequences from S$_{1}$ and S$_{2}$. The motivation for the problem is searching for unknown domains or motifs within proteins from different families like:
+
+\begin{itemize}
+\item Proteins encoded from Homeobox genes (only conserved in 1 region called the Homeodomain ``A'' 60 Aminoacids long, 50--95\% alignment across certain insect and mammalian genes) Identifying active sites of enzymes
+\item Also for comparing long stretches of anonymous DNA, and querying databases where query word much smaller than sequences in database.
+\end{itemize}
+
+The local alignment can be implemented as a variation on the dynamic programming algorithm described above, where scoring doesn't allow negative values, and proceed as follows:
+
+\begin{itemize}
+\item Interpretation of array values:\\
+
+S$_{(i,j)}$ = score of best alignment of a suffix of S$_{1(1..i)}$ and 
+a suffix of S$_{2(1..j)}$
+
+\item Recurrence relation:
+
+\begin{equation}
+S_{i,j} = MAX \left\{ \begin{array}{l l}
+0 \\
+  S_{i-1,j-1} + sub( a_{i,j}, b_{j})\\
+  S_{i-1,j} + g \\
+  S_{i,j-1} + g \\
+  \end{array}
+\right\rbrace 
+\end{equation}
+
+\item Initialization of edge rows and columns of the matrix with 0's
+\item Traceback:
+\begin{itemize}
+\item Find maximum value of V$_{(i,j)}$
+\item Traceback pointers until you hit cell with value 0
+\item Return all possible paths.
+\end{itemize}
+\end{itemize}
+
+\textbf{Example}
+
+Let g = $-$2
+
+Let S$_{(a,b)}$ = 1 if a=b, and $-$1 otherwise\\
+
+
+Alignment:
+
+ Seq1: GGGCTA\\
+ Seq2: ATCGTAG
+
+\begin{tabular} {|r|r|r|r|r|r|r|r|}
+\hline
+% ROW 1
+ S$_{(i,j)}$ & - & G & G & G & C & T & A\\
+\hline
+% ROW 2
+ - & 0 & 0 & 0 & 0 & 0 & 0 & 0\\
+\hline
+% ROW 3
+ A & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\
+\hline
+% ROW 4
+ T & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\
+\hline
+% ROW 5
+ C & 0 & 0 & 0 & 0 & $\nwarrow$\textbf{2} & 1 & 0 \\
+\hline
+% ROW 6
+ G & 0 & 2 & 2 & $\nwarrow$\textbf{2} & $\leftarrow\uparrow$\textbf{1} & 1 & 0 \\
+\hline
+% ROW 7
+ T & 0 & 1 & 1 & 1 & 1 & $\nwarrow$\textbf{3} & 2 \\
+\hline
+% ROW 8
+ A & 0 & 0 & 0 & 0 & 0 & 2 & $\nwarrow$\textbf{5} \\
+\hline
+% ROW 9
+ G & 0 & 2 & 2 & 2 & 1 &  &  4\\
+\hline
+\end{tabular}
+\\
+Possible Local Alignments are:
+\\
+G\quad C\quad T\quad A\\
+G\quad -\quad T\quad A\\
+
+Or\\
+
+C\quad -\quad T\quad A\\
+C\quad G\quad T\quad A\\
+
+
+\section{Multiple Sequence Alignment}
+
+Using the Dynamic Programming algorithm described above to align more than 2 sequences will require computational steps and memory space that is exponential with the number of sequences to be analyzed. This creates a dimensionality problem, and makes the algorithm applicable only to a limited number of sequences. Filling a tensor of alignment scoring values will provide the alignment of combination of the sequences, and the internal values will be the alignment of all sequences together. Another approach that is commonly used is to use heuristics, which is doing very well so far.
+
+For 3 sequences, the alignment Matrix will look like a cube as shown in the following figure:
+
+\textbf {insert figure here}
+
+So for 2 dimension,we have 3 possible paths, with 3 dimension, we have 7 possible paths as shown by the red arrows. In general, the number of paths to search is \mbox{2$^{n}$ $-$ 1}, which is O(n$^{2}$).
+
+For 5 sequences, it can look as shown in figure below.
+
+\textbf{Remember to insert figure}
+
+The red diagonal is the alignment of all sequences together, and other surface diagonal are to align pairs of the sequences together. This is how the dimensionality problem is created, and hence optimality is traded off for speed of execution and reduction of memory space.
+
+\textbf{Current Algorithms:}
+
+\begin{itemize}
+\item Dynamic Programming Algorithm (Described above)
+\item Traveling Sales man MSA algorithm
+\item FFT MSA Algorithm (MAFFT)
+\item Simulated Annealing MSA Algorithm
+\end{itemize}
+
+\textbf{Problem Definition:}
+
+Let S$_{1}$, S$_{2}$, \ldots S$_{k}$ be the input Set of Strings (sequences), where K is at least 2. The minimum Edit Distance is define as d(S$_{1}$, S$_{2}$, \ldots S$_{k}$). $\sum$ is the alphabet not containing the gap character ``-''. A multiple sequence alignment A is defined as 2-dimensional character array over the alphabet $\sum$ = $\sum$ $\cup$ \{$-$\}
+
+A has K rows, each row A$_{i,j}$ is the alignment of the string S$_{i}$, and a pair wise alignment A$_{i,j}$ is the alignment of the pair of sequences S$_{i,j}$ and S$_{j}$.
+
+
+One of the techniques used to decrease the complexity is sum of pairs algorithm. This reduces the computation steps to the alignment of every pair of sequences (on the surfaces of the cube), and then sum the alignment scores to align all the sequences on an internal diagonal that crosses all the dimensions producing the total alignment. The algorithm for 3 sequences is as follows:\\*
+
+\textbf{Initialize Boundary Cells as:}\\*
+
+D(0, 0, 0) = 0\\
+D(i, j, 0) = D$_{1,2}$(i, j) + (i + j) * gab\_score\\
+D(i, 0, k) = D$_{1,3}$(i, k) + (i + k) * gab\_score\\
+D(0, j, k) = D$_{2,3}$(j, k) + (j + k) * gab\_score\\
+\\
+\textbf{Recurrence for a non=Boundary Cell:}\\*
+For i=0 to n$_{1}$ do\\
+\indent For j=0 to n$_{2}$ do\\
+\indent \indent For k=0 to n$_{3}$ do\\
+\indent \indent \indent If S$_{1}$(i) = S$_{2}$(j) then c$_{ij}$ = match\_score else c$_{ij}$ = miss\_score;\\
+\indent \indent \indent If S$_{1}$(i) = S$_{3}$(k) then c$_{ik}$ = match\_score else c$_{ik}$ = miss\_score;\\
+\indent \indent \indent If S$_{2}$(j) = S$_{3}$(k) then c$_{jk}$ = match\_score else c$_{jk}$ = miss\_score;\\
+\indent \indent \indent d$_{1}$ = D(i-1, j-1, k-1) + c$_{ij}$ + c$_{ik}$ + c$_{jk}$;\\
+\indent \indent \indent d$_{2}$ = D(i-1, j-1, k) + c$_{ij}$ + 2 * gab\_score;\\
+\indent \indent \indent d$_{3}$ = D(i-1, j, k-1) + c$_{ik}$ + 2 * gab\_score;\\
+\indent \indent \indent d$_{4}$ = D(i, j-1, k-1) + c$_{jk}$ + 2 * gab\_score;\\
+\indent \indent \indent d$_{5}$ = D(i-1, j, k) + 2 * gab\_score;\\
+\indent \indent \indent d$_{6}$ = D(i, j-1, k) + 2 * gab\_score;\\
+\indent \indent \indent d$_{7}$ = D(i, j, k-1) + 2 * gab\_score;\\
+\indent \indent \indent D (I, j, k) = Min (d$_{1}$, d$_{2}$, d$_{3}$, d$_{4}$, d$_{5}$, d$_{6}$, d$_{7}$);\\
+\indent \indent Next k\\
+\indent Next j\\
+Next i\\
+
+\textbf{The problems of this algorithm:}
+\begin{itemize}
+\item Calculates a weighted sum of its projected pairwise alignments
+\item Called ``Sum-of-the-Pairs'' (SP)
+\item Other methods fit biological intuition more closely
+\end{itemize}
+
+\textbf{The Tree Alignment methods:}
+
+\begin{itemize}
+\item Treat sequences as leaves of an evolutionary tree
+\item Reconstruct ancestral sequences which minimize the cost of the tree
+\item Must assign sequences to internal nodes
+\item Align the given and reconstructed sequences
+\item Star-alignment: only one internal node
+\end{itemize}
+
+\textbf{Tree Alignment in ClustalW:}
+
+\begin{itemize}
+\item Perform pair wise alignment on all sequences to calculate a distance matrix
+\item Use distance matrix to calculate a guide tree
+\item Sequences are progressively aligned using the branching order in the guide tree
+\end{itemize}
+
+One of the objectives of MSA is to produce the phylogenetic tree for a given sequence. It is not possible to provide a sequence and get its fully annotated phylogenetic tree for two reasons. First, an algorithm that considers all possible multiple sequence alignments and then, for each alignment, all possible phylogenetic trees and picks out the best one, would take too much time. That is why most phylogenetic programs work on previously aligned sequences. Second, the result is always strongly influenced by the criteria that are used to define the best tree. There are 3 main classes of phylogenetic methods for constructing phylogenies from sequence data :
+
+\begin{itemize}
+\item Methods directly based on sequences:
+\begin{itemize}
+\item Parsimony:
+\indent Find tree that requires minimum number of changes to explain 
+the data
+\end{itemize}
+\begin{itemize}
+\item Maximum likelihood:
+\indent Find tree that maximizes likelihood of data
+\end{itemize}
+\item Methods indirectly based on sequences :
+\begin{itemize}
+\item Distance matrices (UPGMA, Neighbor Joining) 
+\indent Find tree that accounts for estimated evolutionary distances
+\end{itemize}
+\end{itemize}
+
+Parsimony Based approaches are provided with character-based data, and find tree that explains the data with a minimal number of changes. Parsimony is the most popular method for reconstructing ancestral relationships. It allows the use of all known evolutionary information in tree. It involves two components:
+
+\begin{itemize}
+\item A search through space of trees
+\item A procedure to find the minimum number of changes needed to explain the data - used for scoring each tree.
+\end{itemize}
+
+Disadvantages of Parsimony Methods:
+
+\begin{itemize}
+\item If the evolutionary clock is not constant, the procedure generates results which can be misleading 
+\item Within practical computational limits, this often leads to the generation of tens or more "equally most parsimonious trees" which make it difficult to justify the choice of a particular tree 
+\item Long computation time to construct a tree.
+\end{itemize}
+
+Maximum Likelihood Methods base of all sequences at each site are considered independently and the lo-likelihood of having these bases are computed for a given topology by using a particular probability model. This log-likelihood is added for all sites, and the sum of the log-likelihood is maximized to estimate the branch length of the tree. This procedure is repeated for all possible topologies, and the topology that shows the highest likelihood is chosen as the final tree.\\
+
+UPGMA (Unweighted Pair Group Method with Arithmetic Mean) is the simplest and straightforward method of tree construction that uses Arithmetic Averages. Originally, it was deigned to construct taxonomic phenograms, which are trees that reflect the phenotypic similarities between operational taxonomic units (OTUs). It is generally not considered a good algorithm for construction of phylogenetic trees as it relies on the rates of evolution among different lineages to be approximately equal. This means that when one of the OTUs has incorporated more mutations over time, than the other OTU, one may end up with a tree that has the wrong topology. It shouldn't be used in the study of bacterial population biology since this is likely not to be the case. The method uses a sequential clustering algorithm, in which local homology between OTUs is identified in order of similarity, and the tree is built in a stepwise manner. The two OTUs that are most similar to each other are first determined and then these are treated as a new single 'composite' OTU. Subsequently from among the new group of OTUs (composite and simple), the pair with the highest similarity is identified and clustered. This continues until only two OTUs are left. Slightly different clustering may also be seen when the data is presented to the algorithm in a different order. \\
+
+UPGMA clustering method works as follows:
+
+\begin{itemize}
+\item Calculate distances between pairs of taxa
+\item Link least distant taxa pair
+\item Treat them as joint taxa and replace
+\item Recalculate distance from original matrix minus these two taxa to replaced cluster or Operational Taxonomic Unit
+\item Continue until only two OTU's left \ldots. 
+\item Distance dij between clusters C$_{i}$ and C$_{j}$ of sequences = average distance between pairs of sequences from each cluster
+\end{itemize}
+
+Clustering works only if the data are ultrametric. Ultrametric distances are defined by the satisfaction of the \textit{three-point condition}, which means for any three taxa: dist AC \texttt{<}= max (distAB, distBC) or in words: the two greatest distances are equal, or UPGMA assumes that the evolutionary rate is the same for all branches
+
+\textbf{UPGMA Agorithms:}
+
+\begin{itemize}
+\item Assign each taxon its own cluster
+\item Define one leaf for each taxon and place it at height 0
+\item While more than two clusters
+\item Find 2 clusters i and j with smallest d$_{ij}$
+\item Define new cluster C$_{k}$ = C$_{i}$ $\cup$ C$_{j}$
+\item Define node k with children i and j, place it at height $\frac{d_{ij}}{2}$
+\item Replace clusters i and j with k
+\item Join last 2 clusters i and j by root at height $\frac{d_{ij}}{2}$
+\end{itemize}
+
+Neighbor Joining is a very popular method. It does not make molecular clock assumption, therefore modified distance matrix constructed to adjust for differences in evolution rate of each taxon. It produces unrooted tree. It also assumes additivity, i.e. distance between pairs of leaves = sum of lengths of edges connecting them. Like UPGMA, constructs tree by sequentially joining subtrees
+
+\textbf{NJ Algorithm:}
+
+\begin{itemize}
+\item Find the modified matrix:
+\item calculate the net difference of species i from all other taxa as 
+r$_{i,j}$ = k d$_{ik}$
+\item Find the rate-corrected matrix as:
+$M_{ij} = d_{ij} - \frac {( r_{i,j} + r_{j} )}{(n - 2)}$
+Where n = number of taxa
+\item Join the two nodes with the smallest M$_{ij}$ 
+\item Define a new node k and the distance from node k to all others as: 
+\item d$_{km}$ = (d$_{im}$ + d$_{jm}$ - d$_{ij}$) / 2 for all m
+\item Define the new branch lengths:
+
+l$_{ik}$ = $\frac{d_{ij}}{2}$ + $\frac{(r_{i,j} - r_{j})}{(2n - 4)}$
+I$_{jk}$ = d$_{ij}$ - l$_{ik}$ and add k to tree with edges length I$_{ik}$ \& I$_{jk}$
+
+\item Remove nodes i and j, recalculate r$_{i}$ and continue until only 2 subtrees remain. Link these with branch length l$_{ij}$ = d$_{ij}$
+\end{itemize}
+
+
+\textbf{Distance matrix methods Pros:}
+
+\begin{itemize}
+\item easy to perform
+\item quick calculation
+\item fit for sequences having high similarity scores 
+\end{itemize}
+
+\textbf{Distance matrix methods Cons:}
+
+\begin{itemize}
+\item the sequences are not considered as such (loss of information) 
+\item all sites are generally equally treated (do not take into account differences of substitution rates ) 
+\item not applicable to distantly divergent sequences.
+\end{itemize}
+
+The guide tree used by pileup and CLUSTAL (descried below) should never be used to infer phylogeny! It has been derived from the distances between pairwise aligned sequences and these distances are not necessarily the same as the distances between sequence pairs taken from the multiple sequence alignment.\\ 
+
+\textbf{Calculating Distance Matrix:}
+
+Ex: sequences ATCG, ATCC, AGGC, AGCC\\
+
+A T C G \quad \quad \textbf{= 3/4 =.75/100 = 1-.0075 =.9925} \\
+A T C C\\
+A T C G \quad \quad \textbf{= 1/4 =.25/100 = 1-.0025 =.9975}\\
+A G G C\\
+
+\quad 
+\begin{tabular}{|l|l|l|l|l|}
+\hline
+% ROW 1
+  & ATCG & ATCT & AGGC & GCAA\\
+\hline
+% ROW 2
+ ATCG & -- & -- & -- & --\\
+\hline
+% ROW 3
+ ATCT & .9925 & -- & -- & --\\
+\hline
+% ROW 4
+ AGGC & .9975 & .9975 & -- & --\\
+\hline
+% ROW 5
+ GCAA & 1 & 1 & 1 & --\\
+\hline
+\end{tabular}
+
+\textbf{Calculating a guide tree:}
+
+\begin{itemize}
+\item Using Nearest-Neighbor method to group sequences
+\item Results in an unrooted tree
+\item Branch lengths proportional to estimated divergence
+\item ``Mid-point'' method used to determine root
+\item Means of the branch lengths to each side of the root are equal (or approximately equal)
+\end{itemize}
+
+\textbf{Traditional (SP) vs. Tree Alignment vs. Star-Alignment} 
+
+Different definitions of multiple alignments can yield different optimal alignments. Optimal tree-alignments minimize number of mutations from theorized common ancestors. SP-alignments maximize number of positions where aligned sequences agree. Sometimes makes more biological sense since certain regions of proteins more likely to mutate
+
+Multiple Local alignment searches for common motifs in sequences. For example:
+
+Seq 1: ACTCAAGTCTTATCACCC\\
+
+Seq 2: GCGAAATTCGCGAGACTT\\
+
+Seq 3: CCGATTCGTCGCTATATA \\
+
+The common motif is:\\
+
+ACT\textbf{\textit{CAAGTC}}TTATCACCC\\
+GCGAAATTCG\textbf{\textit{CGAGAC}}TT\\
+C\textbf{\textit{CGATTC}}GTCGCTATATA\\
+ 
+In this example, every 2 of these subsequences have 4 common positions.\\
+
+Motifs in DNA or protein sequences may indicate functional connections. For instance, transcription factor binding sites, in non-coding regions of genes. If the same factor binds to multiple genes, they may be co-regulated. The motif is usually described by some model that captures the similarities among the different instances. Commonly used models include:
+
+\textbf{Consensus string (with/without wildcards)}
+
+\begin{tabular}{|l|l|l|l|l|l|l|}
+\hline
+% ROW 1
+ Position &  1 &  2 &  3 &  4 &  5 &  6\\
+\hline
+% ROW 2
+ Instance 1 &  C &  A &  A &  G &  T &  C\\
+\hline
+% ROW 3
+ Instance 2 & C & G & A & G & C & C\\
+\hline
+% ROW 4
+ Instance 3 & C & G & A & T & T & C\\
+\hline
+% ROW 5
+ Consensus string & C & G & A & G & T & C\\
+\hline
+% ROW 6
+ CS with wildcards & C & R & A & N & Y &  C\\
+\hline
+\end{tabular}
+
+
+\textbf{Probability matrix}
+
+\begin{table}
+\caption{Probability matrix}
+\begin{tabular}{|l|l|l|l|l|l|l|}
+\hline
+% ROW 1
+ Position: &  1 &  2 &  3 &  4 &  5 &  6\\
+\hline
+% ROW 2
+ Pr[A] &  0 &  1/3 &  1 &  0 &  1/3 &  0\\
+\hline
+% ROW 3
+ Pr[C] &  1 &  0 &  0 &  0 &  0 &  1\\
+\hline
+% ROW 4
+ Pr[G] &  0 &  2/3 &  0 &  2/3 &  0 &  0\\
+\hline
+% ROW 5
+ Pr[T] &  0 &  0 &  0 &  1/3 &  2/3 &  0\\
+\hline
+\end{tabular}
+\end{table}
+
+
+
+
+
+\subsection{Benchmark Alignment databases}
+
+\textbf{Balibase}
+
+Balibase is a hand-written reference sequence alignment as desired 
+by biologists. It contains 142 reference alignments with over 
+1000 sequences. Of the 200,000 residues in the database, 58\% 
+are defined within the core blocks. The remaining 42\% are in 
+ambiguous regions, which cannot be reliably aligned. There are 
+four hierarchical reference sets. Reference 1 provided the basis 
+for construction of the following sets. Each of the main sets 
+may be sub-divided into smaller groups, based on sequence length 
+and percent similarity. [Balibase web site]
+
+\begin{description}
+\item[Reference 1] contains alignments of (less than 6) equi-distant sequences, i.e. the percent identity between two sequences is within a specified range. All the sequences are of similar length, with no large insertions or extensions. 
+\item[Reference 2] aligns up to three ``orphan"" sequences (less than 25\% identical) from reference 1 with a family of at least 15 closely related sequences. 
+\item[Reference 3] consists of up to 4 sub-groups, with less than 25\% residue identity between sequences from different groups. The alignments are constructed by adding homologous family members to the more distantly related sequences in reference 1. 
+\item[Reference 4] both 4 and 5 contain alignments of up to 20 sequences. It include N/C-terminal extensions (up to 400 residues), 
+\item[Reference 5] internal insertions references include up to 100 residues.
+\end{description}
+ 
+\textbf{PREFAB}
+
+It is a test set constructed from a pair-wise structural alignment, where each sequence is used to query a database to collect high scoring hits, then the 2 sequences and their hits are combined and aligned using an MSA program. It contains average 49 sequences of length 242. Accuracy is assessed on the original pair alone, by comparison with their structural alignment. Prefab uses a set of pair wise structural alignments selected from 500 families at random from the FSSP database. Within each family, three pairs of structures were chosen at random from the sequence identity ranges 0-15\%, 15-30\% and 30-97\%, giving a total of 1,484 pairs. Then, each full-chain sequence is used (not restricted to its aligned region) to make a PSI-BLAST search of the NCBI non-redundant protein sequence database, keeping the locally aligned regions of hits with e-values below 0.01. Hits are filtered to 80\% maximum identity (including the query), and 24 selected at random. Finally, the original pair and their remaining hits were combined to make a set of $\leq$50 sequences. The limit of 50 was arbitrarily chosen to make the test tractable for some of the more resource-intensive methods, in particular T-Coffee.
+
+\subsection {Multiple Sequence Alignment Methods}
+
+\subsubsection{Hidden Markov model}
+
+\textbf{\textit{(add more)}}
+
+Well-preserved mean being closer than some threshold, under some metric.
+
+\textbf{Common metrics:}
+
+\begin{itemize}
+\item Pairwise Hamming (edit) distance,
+\item Multiple alignment score,
+\item Model-based p-value (e.g. HMM)
+\end{itemize}
+
+
+\textbf{HMMT}
+
+\begin{itemize}
+\item Global iterative alignment program, 
+\item It is excluded from aligning N/C terminal extension or internal insertions (ref 4, 5 in the \cite{BalibaseWeb} respectively) because they often include a small number of sequences.
+\item It doesn't perform well for global alignment for up to 25 sequences. Also, with up to 100 sequences, it doesn't perform better than other global alignment methods.
+\item HMMT produce different scores for the same sequences each time the program runs.
+\item It is a statistical model of the primary structure consensus of a sequence family.
+\item It uses a simulated annealing method to maximize the probability that an HMM represents the sequences to be aligned.
+\end{itemize}
+
+\subsubsection{Progressive Alignment Techniques}
+
+Progressive algorithms builds the alignment gradually, by aligning the closest sequences first then successively add more distant sequences to the results till a final alignment is reached. This method is producing accurate results, and is very popular. However, [add more]. Below are the list of algorithms that use this method. Generally the global alignment methods perform better than the local alignment methods. The performance in general is affected by:
+
+\begin{itemize}
+\item Then number of sequences
+\item The degree of identity of the sequences
+\item The number of insertions/deletions in the alignment
+\end{itemize}
+
+\textbf{Muscle}
+\begin{itemize}
+\item It aligns 5,000 sequences of average length 350 in 7 minutes on a current desktop computer, requiring less time than all other tested methods, including MAFFT.
+\item MUSCLE and T-Coffee produce, on average, the most accurate alignments, with 6\% more positions correctly aligned than ClustalW.
+\item  It calculates the evolutionary distance between each pair of sequences
+\item The resulting distance matrix is clustered using UPGMA \cite{Sneath-Sokal-73}, giving a binary tree.
+\item The tree is then used to construct a progressive alignment \cite{Hogeweg-Hesper-84}, \cite{Feng-Doolittle-87} by aligning profiles of the two subtrees at each internal node
+\end{itemize}
+
+\textbf{T-Coffee}
+\begin{itemize}
+\item  It allows the combination of a collection of multiple/pairwise, global or local alignments into a single model.
+\item  It is a greedy progressive method, it allows for much better use of information in the early stages, to rectify the problem with progressive methods of having errors happening early in the alignment and not being able to rectify it later.
+\item  It also allows estimating the level of consistency of each position within the new alignment with the rest of the alignments.
+\end{itemize}
+
+\textbf{ClustalW}
+\begin{itemize}
+\item ClustalX is a global progressive alignment program
+\item Performs the best in alignment of orphans against a closely related family (reference 2 in \cite{BalibaseWeb}), where the comparison is affected by:
+\begin{itemize}
+\item Existence of other orphans in the family
+\item The size of the family.
+\end{itemize}
+\item The second highest with SAGA and after PRRP, with Global alignment performing much better than local alignment in the twilight zone (reference 1 in \cite{BalibaseWeb}) of evolutionary relatedness.
+\item All programs aligns better with medium and long sequences than short sequences, except ClustalX
+\item It improved traditional progressive methods, but for long sequences, the default parameters may not be optimal.
+\item Construct a guide tree using an alternative Neighboring-Joining algorithm
+\item Sequence weighting
+\item Position-specific gab-penalties
+\item Choice of residue comparison matrix depending on the degree of identity of the sequences
+\end{itemize}
+
+\textbf{ClustalX}
+\begin{itemize}
+\item Provide GUI for ClustalW
+\end{itemize}
+
+\textbf{Multalign}
+\begin{itemize}
+\item Global Progressive program
+\item Construct a guide tree using UPGMA method
+\end{itemize}
+
+\textbf{Multal}
+\begin{itemize}
+\item Global Progressive
+\item It doesn't work for alignments of orphan to closely related family, a closely related equidistant divergent family, N/C terminal extensions, or internal insertions (ref 2, 3, 4, 5 in \cite{BalibaseWeb} respectively), because it frequently excludes the divergent orphans as unrelated sequences. 
+\item This program uses a sequential branching method and then add the next closest sequences 
+\end{itemize}
+
+\textbf{Pileup}
+\begin{itemize}
+\item Global Progressive
+\item Construct a guide tree using UPGMA method
+\item Pileup8 is the only global alignment program that ranks equally with local alignment programs in aligning sequences with large N/C terminal extensions (different lengths) - reference 4 in BaliBase
+\end{itemize}
+
+\textbf{PIMA}
+\begin{itemize}
+\item Local Progressive
+\item  PIMA offers 2 alignments: Maximum Linkage (MLPIMA) and Sequential Branching Algorithms (SBPIMA) to decide the order of alignment.
+\end{itemize}
+
+\textbf{PROBCONS}
+\begin{itemize}
+\item Probcons is a consistency-based progressive alignment while accounting for all suboptimal alignments with posterior-probability-based scoring based on hidden Markov models (HMMs)
+\item Consistency-based MSA approaches use shared homology with outgroup sequences as a guide for distinguishing between coincidental and real sequence conservation.
+\item demonstrates a statistically significant improvement in accuracy compared to several leading alignment programs like CLUSTALW, DIALIGN, and T-Coffee, while maintaining practical running times
+\item It uses a double affine insertion scoring, 
+\item It uses guide tree calculation via semi-probabilistic hierarchical clustering, 
+\item It optionally uses iterative refinement, and unsupervised Expectation- Maximization (EM) parameter training.
+\end{itemize}
+
+\subsubsection{Iterative Alignment techniques}
+
+Iterative techniques often offer improved alignment accuracy, successfully learning and improving the alignment is enough information is provided in the dataset. Iterative strategies are based on Gotoh, 1996; Notredame \& Higgins, 1996. The main disadvantage is that the iteration process may sometimes be unstable in the presence of a bias in the sequence set, such as in a single orphan sequence, the iteration may diverge away from the correct alignment. The choice of the fundamental algorithm implemented at each iteration is very crucial in the performance of the iterative methods. Iterative methods also incur heavy time penalty. ClustalX require 161 CPU time to align 89 histone sequences consisting of 66-92 residues, while Dialign requires 13649, and PRRP 13209.
+
+\textbf{DIALIGN}
+\begin{itemize}
+\item The best local iterative alignment program for gab-free segment alignment
+\item Achieves best performance in aligning sequences with high N/C terminal extensions (reference 4 in \cite{BalibaseWeb}) and internal insertions (reference 5 in \cite{BalibaseWeb})
+\item Construct multiple alignments based on segment-to-segment comparison rather than the previously used residue-to-residue comparison. Then, it incorporates the segments into multiple alignments using iterative procedures.
+\end{itemize}
+
+\textbf{SAGA}
+
+\begin{itemize}
+\item The second highest with ClustalX and after PRRP, with Global alignment performing much better than local alignment in the twilight zone of evolutionary relatedness (reference 1 in \cite{BalibaseWeb}), and in aligning orphans to closely related families (ref. 2 in \cite{BalibaseWeb}).
+\item Comes first with SAGA in aligning families of related sequences (ref 3 in \cite{BalibaseWeb})
+\item Not Successful in aligning sequences with high N/C terminal extensions (ref 4 in \cite{BalibaseWeb})
+\item It initially used a genetic algorithm to select from an evolving population the alignment which optimizes the COFFEE objective function (OF). T-Coffee Replaces The COFFEE objective function that had been implemented in SAGA.
+\end{itemize}
+
+
+
+\textbf{SAM}
+
+Lets you create or improve a multiple sequence alignment using hidden Markov models and the SAM system
+
+\textbf{PRRP}
+\begin{itemize}
+\item It is the highest scoring program in the twilight zone of evolutionary relatedness (reference 1 in \cite{BalibaseWeb}), correctly aligning 72\% of the total residues.
+\item It performs the highest on aligning approximately equidistant divergent families (\texttt{<} 25\% ID), composed of highly related sequences (\texttt{>} 25\% ID) - reference 3 in BaliBase
+\item Not Successful in aligning sequences with high N/C terminal extensions 
+(ref 4 in \cite{BalibaseWeb})
+\item PRRP optimizes a progressive global alignment by iteratively dividing the sequences into two groups that are realigned using a global group-to-group alignment algorithm.
+\end{itemize}
+
+\textbf{MAFFT}
+MAFTT is a multiple sequence alignment based on Fast Fourier transform. It offers three different levels of sensitivity: 
+
+\begin{itemize}
+\item  FFT-NS-2 
+\begin{itemize}
+\item Rough 
+\item Progressive Method
+\end{itemize}
+\item FFT-NS-i 
+\begin{itemize}
+\item Accurate
+\item Good for sequences of variable lengths, 
+\item Iterative Method
+\end{itemize}
+\item G-INS-i and F-INS-i 
+\begin{itemize}
+\item  Most accurate
+\item  Good for sequences of similar lengths.
+\end{itemize}
+\end{itemize}
+
+\textbf{Match-Box}
+Match-Box proposes protein sequence alignment tools based on strict statistical criteria
+
+\subsubsection{Simultaneous Alignment}
+
+These techniques are an extremely CPU and memory-intensive approaches.
+
+\textbf{MSA} 
+\begin{itemize}
+\item  Based on Lipman et al., 1989
+\item  It is a near optimal multiple sequence alignment program
+\item  The program works best when it is given sequences of approximately equal length that are thought to be globally related.
+\item  Using MSA to align sequences with only local similarities (e.g. three full length sequences and one fragment) is likely to result in unacceptable time and memory usage. 
+\end{itemize}
+
+\textbf{DCA} 
+\begin{itemize}
+\item \cite{Stoye-et-al-97}, based on the \cite{Carrillo-Lipman-88} algorithm, 
+\item Divide and Conquer Multiple Sequence Alignment program
+\end{itemize}
+
+\subsection {Existing Methods Problems}
+
+@
+
+
+1.1.1.1
+log
+@Thesis Writing
+@
+text
+@@

@@ -1,0 +1,175 @@
+head     1.1;
+branch   1.1.1;
+access   ;
+symbols  r1:1.1.1.1 mhelal:1.1.1;
+locks    ; strict;
+comment  @% @;
+
+
+1.1
+date     2008.05.06.04.03.23;  author mhelal;  state Exp;
+branches 1.1.1.1;
+next     ;
+
+1.1.1.1
+date     2008.05.06.04.03.23;  author mhelal;  state Exp;
+branches ;
+next     ;
+
+
+desc
+@@
+
+
+
+1.1
+log
+@Initial revision
+@
+text
+@\begin{thebibliography}{999}
+\addcontentsline{toc}{chapter}{\numberline{}Bibliography}
+
+\bibitem{Bellman:61}
+Bellman, R.E. 1961,  
+{\it Adaptive Control Processes}, 
+Princeton University Press, Princeton, NJ. 
+
+\bibitem{Gusfield:97}
+Dan Gusfield,(1997),  
+{\it Algorithms on Strings, Trees, and Sequences}, 
+Cambridge University Press, 1997
+
+
+\bibitem{Helal:2001}
+Manal Ezzat Helal, {\it Mathematics of Arrays - The 
+implementation and the application}, A Thesis submitted 
+in partial fulfillment of the requirements for the degree of 
+Master of Science, Department of Computing Science, Amewrican 
+University in Cairo, Fall 2001.
+
+
+\bibitem{Mullin:1988}
+Lenore M. Mullin, 
+{\it A Mathematics of Arrays}, 
+Doctor of Philosophy Dissertation in Computer and Information 
+Science Completed at Syracuse University, Syracuse, NJ, December 
+1988.
+
+
+
+\bibitem{Iyengar}
+Arun K. Iyengar, {\it Parallel Characteristics of Sequence 
+Alignment Algorithms}, Laboratory for computer Science, 
+Massachusetts Institute of technology, Cambridge, MA 02139 
+
+
+
+\bibitem{YMFM}
+Tieng K. Yap, Peter J. Munson, Ophir Frieder, and Robert L. 
+Martino, {\it Parallel Multiple Sequence Alignment Using 
+Speculative Computation}, Division of Computer Research 
+and Technology, National Institutes of Health, Department of 
+Computer Science, George Mason University
+
+
+
+\bibitem{Jones}
+Albert Jones, {\it Survey of Job Shop Scheduling Techniques}, 
+National Institute of Standards and Technology, Luis C. Rabelo, 
+Industrial and Manufacturing Engineering Department, California 
+Polytechnic State University.
+
+
+
+\bibitem{Graves:1981}
+S. Graves, {\it A Review of Production Scheduling}, 
+Operations Research, 29: 646-675, 1981.
+
+
+
+\bibitem{Kumur-Grama}
+Vipin Kumur, Y. Grama, {\it Scalable Load Balancing Techniques 
+for Parallel Computers}, Department of Computer Science, 
+University of Minnesota, Minneapolis, and Vempaty Nageshwara 
+Rao, Department of Computer Science, University of Central Florida.
+
+
+
+\bibitem{Chingchit:1999}
+Soontorn Chingchit, {\it Design and Performance Evaluation 
+of a Flexible Clustering and Allocation Scheme for Parallel Processing}, 
+A Dissertation submitted in partial fulfillment of the requirements 
+for the Degree of Doctor of Philosophy at, Curtin University 
+of Technology, December 1999.
+
+
+
+\bibitem{Yap:1995}
+Tieng Kim Yap, {\it Parallel Computation in Biological Sequence 
+Analysis}, A Dissertation submitted in partial fulfillment 
+of the requirements for the Degree of Doctor of Philosophy at, 
+Department of Computer Science, School of Information Technology 
+and Engineering, George Mason University, Spring 1995.
+
+
+
+\bibitem{Driga:2002}
+Adrian Radu Driga, {\it Parallel FASTLSA: A Parallel Algorithm 
+for Parallel Sequence Alignment}, A Thesis submitted 
+in partial fulfillment of the requirements for the degree of 
+Master of Science, Department of Computing Science, University 
+of Alberta, Spring 2002.
+
+
+
+\bibitem{Edgar}
+Robert C. Edgar, {\it MUSCLE: Low-complexity multiple sequence 
+alignment with T-Coffee accuracy}
+
+
+
+\bibitem{Do:2004}
+Chuong B. Do, Michael Brudno, and Serafim Batzoglou, {\it PROBCONS: 
+probabilistic consistency-based multiple alignment of amino acid 
+sequences}, Department of Computer Science, Stanford 
+University, California, 94305-9010, USA, March 2004
+
+
+
+\bibitem{Gupta}
+S. K. Gupta, J. Kececioglu, and A. A. Schaffer, {\it Improving 
+the Practical Sapce and Time Efficiency of the Shortest-Paths 
+Approach to Sum-of-Pairs Multiple Sequence Alignment}, J. Computational 
+Biology, 2(1995) 459--472.
+
+
+
+\bibitem{JD:1999}
+Thompson JD, Plewniak F, Poch O., {\it A comprehensive comparison 
+of multiple sequence alignment programs}, Laboratoire 
+de Biologie Structurale, Institut de Genetique et de Biologie 
+Moleculaire et Cellulaire, (CNRS/INSERM/ULP), BP 163, 67404 Illkirch 
+Cedex, France. Nucleic Acids Res. 1999 Jul 1;27(13):2682-90. 
+PMID: 10373585 [PubMed - indexed for MEDLINE]
+
+
+
+\bibitem{Balibase}
+Balibase Website \R2Lurl{http://www-igbmc.u-strasbg.fr/BioInfo/BAliBASE/ }{}
+
+
+\end{thebibliography}
+
+
+
+
+@
+
+
+1.1.1.1
+log
+@Thesis Writing
+@
+text
+@@

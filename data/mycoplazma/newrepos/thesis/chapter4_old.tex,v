@@ -1,0 +1,433 @@
+head     1.1;
+branch   1.1.1;
+access   ;
+symbols  r1:1.1.1.1 mhelal:1.1.1;
+locks    ; strict;
+comment  @% @;
+
+
+1.1
+date     2008.05.06.04.03.23;  author mhelal;  state Exp;
+branches 1.1.1.1;
+next     ;
+
+1.1.1.1
+date     2008.05.06.04.03.23;  author mhelal;  state Exp;
+branches ;
+next     ;
+
+
+desc
+@@
+
+
+
+1.1
+log
+@Initial revision
+@
+text
+@\chapter{Peer to Peer Solution}
+In this chapter  we introduce the ideas behind the further developed distributed Peer-to-Peer proposed solution. 
+\section{Actual Parallelism}
+\subsection{Geometric Analysis}
+
+\section{Wave Calculations and Partitions Fetching}
+\section{Computation Complexity}
+
+The complexity of the proposed solution, is divided into 2 sections. The computation, and the communication. Both will be dependant on the partitioning size S, and load balancing. As shown in chapter 3, we divide the distributed processing into waves of computation, where a number of independant partition can be processed in parallel by the availables processors, then overlapping cells will be communicated, so that the next wave can be processed. Assuming we have t waves, where (w$_{i}$) is the (i$^{th}$) wave where 0 $\leq$ i $<$ t. In each (w$_{i}$), we will have p$_i$  partitions, divided equally in the cluter size V, with first $\frac{p_i}{V}$ (i.e. 0 .. $\frac{p_i}{V} - 1$) assigned to processor 0, the second $\frac{p_i}{V}$ (i.e. $\frac{p_i}{V}$ .. ($2 \times \frac{p_i}{V}) - 1$) parts going to processor 1, and so forth. The last remaining partitions in the wave are assigned to the last processor in the Cluster. So, p$_{ij}$ is the j$^{th}$ partition in wave i, where 0 $\leq$ j $<$ p$_i$. Another way to reference a partition, is p$_{im}$, i.e. total partitions in wave i, assigned to m processor, where 0 $\leq$ m $<$ V. Also, p$_m$ is total partitions in all waves assigned to processor m.
+
+Each partition will have a number of cells to compute internally, and higher border cells to send. The total number of internal computation and communication is based on the partitioning size S. The cells to be computed are S$^k$, where k is the dimensionality or the number of sequences in the input data. The high border overlapping cells to be communicated in each partition, are: S$^k$ - (S-1)$^k$.
+
+The computation complexity of the scoring of the l$^{th}$ cell (s$_{l}$), where 0 $\leq$ l $<$ S$^k$,  in one partition (p$_{ij}$), in one computational wave (w$_{i}$), in one processor m, is as follows:
+
+\begin{itemize}
+  \item Comparison of Global Index to know position in the Whole tensor $\equiv$ O(k)
+  \item Process Cell based on position:
+\begin{itemize}
+	\item If initial cell, initialize $\equiv$ O(1)
+	\item If local low border internal cell, do the following in sequence till found: 
+	\begin{itemize}
+		\item check previously computed, all higher border communication cells in previous computed partitions in the previous wave $ \equiv  O(p_{(i-1),m} \times (S^k - (S-1)^k)) \equiv O(S^k)$
+		\item check Received List (OCin) from the previous wave $\equiv O(p_{(i-1),m} \times (S^k - (S-1)^k)) \equiv O(S^k)$
+		\item Block Wait till received $\equiv$ O(1)
+	\end{itemize}
+	\item If not local low border, but internal cell, compute the score by doing the following: 
+	\begin{itemize}
+		\item get pair-wise scores for each pair of residues  $\equiv$ O(k$^{2}$)
+		\item get lower neoighbors scores  $\equiv$ O(2$^{k}$ $-$ 1)
+		\item compute temporary neighbor score $\equiv$ O(3 $\times$ 2$^{k}$ $-$ 1)
+		\item assign max temporary score to current cell score   $\equiv$ O(1)
+	\end{itemize}
+\end{itemize}
+  \item Dependency Analysis $\equiv O(p_{(i+1),m} \times (S^k - (S-1)^k)) \equiv O(S^k)$
+\end{itemize}
+
+Worst case complexity, when scoring a cell, doing everything till we block waiting for receiving it, is: $O(k) + O(S^k) + O(S^k) + O(1) + O(S^k) \equiv O(S^k)$\\
+
+After a cell is computed, a dependency analysis is conducted, by comparing the cell's index, to all lower indexed border cells in the partitions done in the wave after, and will be sent only if the computing processor of the dependant parition in the next wave, is different from the processor that scored the current cell. Then an array of OCout (outgoing overlapping cells) will be formed, with the cell index, score, dependant processor, partition index, and wave No information. While sending, another packing happens, but collecting all cells going to a specific processor in an array of qudraples (wave No, partition index, cell index, and cell score values), to be send in one MPI communication, to use only one TCP/IP packing overhead (header and trailer info added for each transmission).
+
+The send and receive operations are MPI implementation, and network or HPC configuration dependant, and will differ from one machine to another. In APAC AC altix shared cluster, the blocking MPI send for a buffer with single value takes approximatly 0.000085 seconds. A blocking MPI receive for a buffer with single value takes approximatly 5.000482 seconds.
+
+
+\begin{tabular}{|r|r|r|r|r|}
+\hline
+% ROW 1
+ Integer Count &  Packed Send &  Packed Receive &  Not Packed Send &  Not Packed Receive\\
+\hline
+% ROW 2
+ 10 &  0.000093 &  5.001771 &  0.000147 &  5.044030 \\
+% ROW 3
+ 100 &  0.000170 &  5.000709 &  0.000194 &  5.034103\\
+% ROW 4
+ 10000 &  0.000201 & 5.001334 &  0.003686 &  5.027767\\
+\hline
+\end{tabular}
+
+The execution time estimate in a distributed environment is estimated by the following equation, as defined by \cite{Stone-77}:
+
+\begin{displaymath}
+dT = r \times Max(p_{m}) + (\frac{c}{2}) \times (M^2 – \sum p_{m}^2)
+\end{displaymath}
+
+Where dT is the distributed overall Time, \\
+r: execution time of a single task on a processor, which is O(S$^k$) for each cell in each partition, in each wave assigned to a processor m. \\
+c: communication cost between the single task and other tasks on other processors, which is equivalent to  O(S$^k$) again\\
+M: total tasks, which is total partitions in all waves\\
+p$_{m}$ is number of tasks (partitions) assigned to m$^{th}$ processor.
+
+The r and c are given to us by the machine we are executing on. R, which is total computation time for all partitions assigned to a processor, and C is total communication done by a processor for all partitions assigned to it. R and C can be easily calculated based on the partition size, and the ratio $\frac{R}{C}$ is the granularity of the design. 
+
+The partitions in a given Data set, of dimensionality k, and l$_i$ as length of i$^th$ sequence,  where 0 $\leq$ i $<$ K, and S is the partitioning Size, is total product of partitions created in each dimension, and can be calculated as follows:
+
+\begin{equation}
+\Pi_{i=0}^{k} p_{i} =  (l_{i} - 1) / (S - 1)
+\end{equation}	
+
+Also, we can calcuale the amount of duplicates that will need to be communicated between processors as follows:
+
+\begin{equation}
+\label{TotalDuplicates}
+\sum_{i=0}^{k}
+\left\{\begin{array}{l l}
+C_{i}=p_{i} - 1    \quad\mbox{ if i = 0} \quad \\
+C_{i} = C_{i-1} \times l_{i} + (Pi_{j=0}^{i} p_{j}) \times 2^{i-1}  \quad\mbox{ if i $>$ 0} \quad
+\end{array}
+\right\rbrace 
+\end{equation}	
+
+For exmaple: 4 sequences with lengths (10, 15, 16, 17), will be (11, 16, 17, 18) after including the initial gap character. We will have $11\times16\times17\times18 = 53856$ cells to be computed. Dividing that by the partition size 5 in each dimension, we get:
+
+$p_{0} =  \frac{(11 - 1)} {5-1} \equiv 3$
+$p_{1} =  \frac{(16 - 1)} {5-1} \equiv 4$
+$p_{2} =  \frac{(17 - 1)} {5-1} \equiv 4$
+$p_{3} =  \frac{(18 - 1)} {5-1} \equiv 5$
+$p =  3 \times 4 \times 4 \times 5 \equiv 240$
+
+Then total computations done in 240 partitions, $240 \times 5^4 = 150000$ Cell to be computed in all partitions in all processors, with all the overlapping cells that need to be communicated. 
+
+The actual duplicates (real communication) that will be generated because of this partitioning Size is (assuming that all partitions will send all their high border cell scores to other processor - which is not true according to the load balancing scheme used, as will be shown later):
+
+$C_{0}=p_{0} - 1 \equiv 2$
+$C_{1}=C_{0} \times 16 + (3-1) \equiv 34$
+$C_{2}=C_{1} \times 17 + ((3-1)\times(4-1)) \times 2 \equiv 590$
+$C_{3}=C_{2} \times 18 + ((3-1)\times(4-1)\times(4-1)) \times 2^{2} \equiv 10692$
+
+$C = 2 + 34 + 590 + 10692 \equiv 11318$
+
+The total partitions here, will be divided into waves, based on the following general recursive equation, with exit conditions on wave w = 0 and dimension k=2:
+
+\begin{equation}
+\label{Total Partitions In Waves}
+\left\{\begin{array}{l l}
+p_{i,k} = 1    \quad\mbox{ if w = 0} \quad \\
+p_{i,k} = w    \quad\mbox{ if k = 2} \quad \\
+p_{i,k} = \sum p_{i-1,k-1}    \quad\mbox{recursively added till the above two cases are met} \quad \\
+\end{array}
+\right\rbrace 
+\end{equation}	
+
+Generally this will scale as shown in the following table, showing parallelism (how many partitions can be done in parallel in one wave):
+
+\begin{tabular}{|r|r|r|r|r|r|r|r|r|r|}
+\hline
+Dimn/Wave&	1&	2&	3&	4&	5&	6&	7&	8&	9\\
+2&		1&	2&	3&	4&	5&	6&	7&	8&	9\\
+3&		1&	3&	6&	10&	15&	21&	28&	36&	45\\
+4&		1&	4&	10&	20&	35&	56&	84&	120&	165\\
+5&		1&	5&	15&	35&	70&	126&	210&	330&	495\\
+6&		1&	6&	21&	56&	126&	252&	462&	792&	1287\\
+7&		1&	7&	28&	84&	210&	462&	924&	1716&	3003\\
+8&		1&	8&	36&	120&	330&	792&	1716&	3432&	6435\\
+9&		1&	9&	45&	165&	495&	1287&	3003&	6435&	12870\\
+\hline
+\end{tabular}
+
+
+Using the previous exmaple, dividing the 240 partitions into waves will be divided into 2 categories, growing number of partitions, and then decaying number of partitions till all are done. So, for the exmaple above, we have a maximum of the following partitions per wave, up to 120 partitions divided according to the above table, then the opposite symetrical decay as follows:
+
+\begin{tabular}{|r|r|r|r|}
+\hline
+Dimn&    Wave&    Parts& 	Total Parts So far \\
+4&       1&       1& 		1\\
+4&       2&       4&		5\\
+4&       3&       10&		15\\
+4&       4&       20&		35\\
+4&       5&       35&		70\\
+4&       6&       max of 56, but only 50 needed here&		120\\
+4&       7&       (starting the decay) 50&		170\\
+4&       8&       35&		205\\
+4&       9&       20&		225\\
+4&       10&       10&		235\\
+4&       11&       4&		239\\
+4&       12&       1&		240\\
+\hline
+\end{tabular}
+
+We can think of waves, as distance from the origin. The origin is the initial partition of index vector of zeros, i.e. zero distance. The second wave is all indices with total distance one from the origin, which is total scalar indices, each divided by S-1. This is the permutation of only one index of total 1, and the rest all zeros. The third wave, is all indices of total distance 2, which is the permutation of distance vector of smmation equals to 2. Such as all peremutation of $<1, 1, 0, 0, .. 0_k>$, and all permutations of $<2, 0, 0,  .. 0_k>$, all in one wave. Then fourth wave is all permutations of indices of distance 3 from the origin. This will include permutations of $<1, 1, 1, 0, 0, .. 0_k>$, $<2, 1, 0, 0, 0, .. 0_k>$, and $<3, 0, 0, 0, .. 0_k>$. and so forth.
+
+Having these distance vectors, we then multiply by $S-1$ to each scalar in the vector, to get the actual index of the first cell in the partition to be computed. We keep a matrix of waves in the first dimension i, and partition order in the second dimension j, containing the scalar starting index of the partition at this wave i and order j.
+
+This process continues till all lengths in all dimensions are covered. This created a sort of recursive counting algorithm that is called once before computation, to fill in the 2 dimensional wave distribution structure (Wave and their partitions starting indices). Then checked by each processor to fetch its next partition iteratively till finished. The wave distribution is calculated by first looping to get each starting index, and loop through all permutations, and check if this permutation was used before to skip without adding it. We keep on calling the next index, till no more is returned.
+
+
+\noindent getPartitionIndicesinWave \\
+\indent	partsInWave = AllpartsInWave[w];\\
+\indent	i = 0\\
+\indent	more = true\\
+\indent	do  \\
+\indent\indent		// return the distance vector, and more flag if there are more indices at the same distance.\\
+\indent\indent		GetNextPartitionIndexProc (more, k, k, w, dist)\\
+\indent\indent		// Check if already added, multiply distance by partition size and increment i \\
+\indent\indent		addPartitionIndex (i, dist, w) ]\\
+\indent\indent		// Copy the original distance before permutation\\ 	
+\indent\indent		for (j=0;j$<$dimn;j++)\\
+\indent\indent\indent		dist-orig[j] = dist[j]\\
+\indent\indent\indent		pmore = 1\\
+\indent\indent\indent		// Get all permutations of the same distance; include in the same wave\\
+\indent\indent\indent		while (pmore ==1) {\\ 
+\indent\indent\indent\indent			permute(k, dist, pmore)	\\
+\indent\indent\indent\indent			// Check if already added, multiply distance by partition size and increment i\\
+\indent\indent\indent\indent			addPartitionIndex (i, dist, w)\\
+\indent\indent\indent		end while\\
+\indent\indent\indent		// Return the original distance before permutation\\
+\indent\indent\indent		for (j=0;j$<$dimn;j++)\\
+\indent\indent\indent\indent			dist[j] = dist-orig[j]\\
+		
+\indent	while (more == 1)\\
+End Function\\
+
+The next recursive function, starts the distance from origin at the middle. Using the above example, if we are in wave 6, we will start including the middle partitions starting from index $\dfrac{6}{4} (\dfrac{wave Number}{Dimensioality}) \equiv 2$. We recursively call the function with less dimensions, to distribute the remaining 3 points to sum up to 6 on all dimensions, on the remaining indices in the distance vector of dimensionality k. Then decrement the starting middle point, and  distributed the remaining value (in next iteration here will be 4) over the k scalars of the distance vector. For wave 6, the remainder after first index takes distance 2, is 4,  divide that by remaining dimensioanlity (in this example 3), $\equiv 1$, then again till we start with 4D multidimensional wave distance <2, 1, 1, 2>, which translates to index <4, 2, 2, 4> after multiplying with the partition Size S-1, which is S=3 in this example. We get the permutations of the current index, and add the new partition if it was not added before. This keeps happening till the starting point become zero, and we distribute the six. This method guarantees that we always start from the perfect middle diagonal of the tensor. and makes it easy to skip edge partitions, to reduce search space.
+
+The wave distribution is described in the next 2 functions.
+
+
+GetNextPartitionIndexProc (more, d, k, w, dist) \\
+Begin\\
+//more: is a flag which is true if the recursive function is called to the\\ 
+first time, and false otherwise\\
+//d: is the current dimension value, after reductions in recursive call\\
+//k: the original dimensionality of the problem,  (i.e. Number of sequences)\\
+//w: is the current wave number (distance from origin), after reductions in\\ 
+the recursive call as well\\
+//dist: input and output is the current partition index, a vector of k\\ 
+(dimensionality) elements\\
+
+\noindent if (more = true) \\
+\indent	if (w $>$ 0)\\
+\indent\indent	startDist = w/k\\
+\indent	else \\
+\indent\indent	startDist = 0\\
+\indent	End If\\
+\indent	dist[d-1] = startDist\\
+\indent	for (i=d-2;i$\geq$0;i--)\\
+\indent\indent		dist[i] = 0\\
+\noindent else \\
+\indent	startDist = dist[d-1]\\
+\noindent End If\\
+/* All Terminal Cases first, then the 2D terminal cases, then the rest N-D cases \\
+ test for wave 0 for all dimensions is the same, all zeros*/\\
+if (waveNo = 0) \\
+\indent	for (i=0;i$<$k;i++) \\
+\indent\indent		dist[i] = 0\\
+\indent	more = true\\
+else if	(dist[d-1] == w) \\
+/* test for last case where the starting Distance is already equal the wave number, \\
+and the rest of dimensions' indices are zeros*/\\
+\indent	for (i=d-2;i$\geq$0;i--) \\
+\indent\indent		dist[i] = 0\\
+\indent	more = true\\
+else if ((dist[d-1] * d == w) and (dist[d-1] != dist[d-2])) \\
+/* All Equal Indices, starting middle point, i,e, in 3D $<$2,2,0$>$ */ \\
+\indent	for (i=d-2;i$\geq$0;i--)\\
+\indent\indent		dist[i] = dist[d-1]\\
+\indent	more = false\\
+else if (d = 2) { \\
+/* Cases for 2D*/\\
+\indent	if ((dist[d-2] != w - startDist)) \\
+\indent	/* Firs Case, where first dimension = starting middle Distance, and second dimension is not yet\\ assigned*/\\
+\indent\indent		dist[d-2] = w - startDist\\
+\indent\indent		more = false\\
+\indent	else if (startDist+1 $<$ w) \\
+\indent	/* Increase one and decrease the other*/\\
+\indent\indent		startDist++;\\
+\indent\indent		dist[d-1] = startDist;\\
+\indent\indent		dist[d-2] = w - startDist;\\
+\indent\indent		more = false\\
+\indent	else if (startDist+1 = w) \\
+\indent	/* no more and return, we should never reach this case, since it is covered in case 111*/\\
+\indent\indent		dist[d-1] = waveNo\\
+\indent\indent		dist[d-2] = 0\\
+\indent\indent		more = true\\
+\indent 	End if\\
+\noindent else \\
+/* more the 2D*/\\
+\indent	if  ((( dist[d-1] * d = w) and (dist[d-1] = dist[d-2])) or ((dist[d-1] + dist[d-2] = w) and\\ (dist[d-1]+1 $<$ w)))  \\
+\indent	/* next case after all are equal First and second dimension are equal waveNo, \\
+	i.e. all permutations are finished for the previous first imension,  then increase \\
+	the first dimension*/\\
+\indent\indent		startDist++\\
+\indent\indent		dist[d-1] = startDist\\
+\indent\indent		for (i=d-2;i$\geq$0;i--)\\
+\indent\indent\indent			dist[i] = 0\\
+\indent\indent		if (w - startDist != 0) \\
+\indent\indent\indent			more = true\\
+\indent\indent\indent			getNextPIndex (more, d-1, k, w - startDist, v)\\
+\indent\indent\indent			more = false\\
+\indent\indent		else\\
+\indent\indent\indent			more = true\\
+\indent\indent		End if\\
+\indent	else if (dist[d-1] + dist[d-2] != w) \\
+\indent	/* First and second dimension are not yet equal waveNo, i.e. there more permutations for the current\\ first dimension value*/\\
+\indent\indent		dist[d-1] = startDist\\
+\indent\indent		getNextPIndex (more, d-1, k, w - startDist, v)\\
+\indent\indent		more = false	\\
+\indent	else if (dist[d-1]+1 = w) \\
+\indent	/* last case, where the final increase will be the waveNo, and the rest need to be zeros*/\\
+\indent\indent		dist[d-1] = w\\
+\indent\indent		for (i=d-2;i$\geq$0;i--) \\
+\indent\indent\indent			dist[i] = 0\\
+\indent\indent		more = true\\
+\indent	End if\\
+\noindent End if\\
+End Function\\
+
+
+The actual total partitions per wave, and hence total waves, is based on the availability of indicies not processed yet, so they can be less partitions per wave than the maximum above, hence creating more waves, than the above scheme. The partitions initial cell index is retrieved based on the number of indices changed from one wave to another. The initial wave will always contain one partition with indicies (0$_0$, 0$_1$, 0$_2$, ..., 0$_k$) to be scored by the first processor in the cluster. Then, one index can be changed at a time, adding (S-1 to the previous wave indices in all dimensions) and permute. The next wave is created of all these partitions. Then while adding another (S-1), also, two indices can be changed from the previous wave, and added to the new wave. 
+
+We will use this example from now on, for simplicity due to its symmetry: 4 sequences with lengths (8, 8, 8, 8), will be (9, 9, 9, 9) after including the initial gap character, 6561 cells to be computed. Dividing that by the partition size 3 in each dimension, we get:
+
+$p_{0} =  \frac{(9 - 1)} {3-1} \equiv 4$
+$p_{1} =  \frac{(9 - 1)} {3-1} \equiv 4$
+$p_{2} =  \frac{(9 - 1)} {3-1} \equiv 4$
+$p_{3} =  \frac{(9 - 1)} {3-1} \equiv 4$
+$p =  4 \times 4 \times 4 \times 4 \equiv 256$
+
+We will have 256 partitions done in 13 waves as follows: 
+
+\begin{tabular}{|r|r|r|r|}
+\hline
+Dimn&    Wave&    Parts& 	Total Parts So far \\
+4&       1&       1& 		1\\
+4&       2&       4&		5\\
+4&       3&       10&		15\\
+4&       4&       20&		35\\
+4&       5&       31&		66\\
+4&       6&       40&		106\\
+4&       7&       44&		150\\
+4&       8&       40&		190\\
+4&       9&       31&		221\\
+4&       10&      20&		241\\
+4&       11&      10&		251\\
+4&       12&      4&		255\\
+4&       12&      1&		256\\
+\hline
+\end{tabular}
+
+
+
+
+
+\begin{equation}
+\label{Get Next Partition Index}
+\left\{\begin{array}{l l}
+index (i_0, i_1, ... i_d) = 0    \quad\mbox{ if w = 0} \quad \\
+p_{i,j,d} = w    \quad\mbox{ if k = 2} \quad \\
+p_{i,j,d} = \sum p_{i-1,k-1}    \quad\mbox{recursively added till the above two cases are met} \quad \\
+\end{array}
+\right\rbrace 
+\end{equation}	
+
+
+Using the previous example, and a partitioning size S = 3, the indices of the initial cells in the partitions in each wave are as follows (notice we can only move from (0,0,0,0) to (8,8,8,8), and to get a starting index of a partition, to include 3 elements in each dimension, so a starting partition index can not be more than (6, 6, 6, 6)):
+
+\begin{small}\begin{flushleft}
+\begin{longtable}{|l|l|p{12cm}|}
+\hline
+Wave&    Parts&		Parts Indices\\
+% Row 1
+\hline
+0&	1&	(0, 0, 0, 0)\\
+% Row 2
+\hline
+1&	4&	(0, 0, 0, 2)	(0, 0, 2, 0)	(0, 2, 0, 0)	(2, 0, 0, 0)\\			% Row 3
+% Row 3
+\hline
+2&	10&	(0, 0, 2, 2)	(0, 2, 0, 2)	(0, 2, 2, 0)	(2, 0, 0, 2)	(2, 0, 2, 0)	(2, 2, 0, 0)	(0, 0, 0, 4)	(0, 0, 4, 0)	(0, 4, 0, 0)	(4, 0, 0, 0)\\
+% Row 4
+\hline
+3&	20&	(0, 2, 2, 2)	(2, 0, 2, 2)	(2, 2, 0, 2)	(2, 2, 2, 0)	(0, 0, 4, 2)	(0, 2, 0, 4)	(0, 2, 4, 0)	(0, 4, 0, 2)	(0, 4, 2, 0)	(2, 0, 0, 4)	(2, 0, 4, 0)	(2, 4, 0, 0)	(4, 0, 0, 2)	(4, 0, 2, 0)	(4, 2, 0, 0)	(0, 0, 2, 4)	(0, 0, 0, 6)	(0, 0, 6, 0)	(0, 6, 0, 0)	(6, 0, 0, 0)\\
+% Row 5
+\hline
+4&	31&	(2, 2, 2, 2)	(0, 2, 2, 4)	(0, 2, 4, 2)	(0, 4, 2, 2)	(2, 0, 2, 4)	(2, 0, 4, 2)	(2, 2, 0, 4)	(2, 2, 4, 0)	(2, 4, 0, 2)	(2, 4, 2, 0)	(4, 0, 2, 2)	(4, 2, 0, 2)	(4, 2, 2, 0)	(0, 0, 4, 4)	(0, 4, 0, 4)	(0, 4, 4, 0)	(4, 0, 0, 4)	(4, 0, 4, 0)	(4, 4, 0, 0)	(0, 0, 2, 6)	(0, 0, 6, 2)	(0, 2, 0, 6)	(0, 2, 6, 0)	(0, 6, 0, 2)	(0, 6, 2, 0)	(2, 0, 0, 6)	(2, 0, 6, 0)	(2, 6, 0, 0)	(6, 0, 0, 2)	(6, 0, 2, 0)	(6, 2, 0, 0)\\
+% Row 6
+\hline
+5&	40&	(2, 2, 2, 4)	(2, 2, 4, 2)	(2, 4, 2, 2)	(4, 2, 2, 2)	(0, 2, 4, 4)	(0, 4, 2, 4)	(0, 4, 4, 2)	(2, 0, 4, 4)	(2, 4, 0, 4)	(2, 4, 4, 0)	(4, 0, 2, 4)	(4, 0, 4, 2)	(4, 2, 0, 4)	(4, 2, 4, 0)	(4, 4, 0, 2)	(4, 4, 2, 0)	(0, 0, 6, 4)	(0, 4, 0, 6)	(0, 4, 6, 0)	(0, 6, 0, 4)	(0, 6, 4, 0)	(4, 0, 0, 6)	(4, 0, 6, 0)	(4, 6, 0, 0)	(6, 0, 0, 4)	(6, 0, 4, 0)	(6, 4, 0, 0)	(0, 0, 4, 6)	(0, 2, 2, 6)	(0, 2, 6, 2)	(0, 6, 2, 2)	(2, 0, 2, 6)	(2, 0, 6, 2)	(2, 2, 0, 6)	(2, 2, 6, 0)	(2, 6, 0, 2)	(2, 6, 2, 0)	(6, 0, 2, 2)	(6, 2, 0, 2)	(6, 2, 2, 0)\\
+% Row 7
+\hline
+6&	44&	(4, 2, 2, 4)	(4, 2, 4, 2)	(4, 4, 2, 2)	(2, 2, 4, 4)	(2, 4, 2, 4)	(2, 4, 4, 2)	(0, 6, 2, 4)	(0, 6, 4, 2)	(2, 0, 4, 6)	(2, 0, 6, 4)	(2, 4, 0, 6)	(2, 4, 6, 0)	(2, 6, 0, 4)	(2, 6, 4, 0)	(4, 0, 2, 6)	(4, 0, 6, 2)	(4, 2, 0, 6)	(4, 2, 6, 0)	(4, 6, 0, 2)	(4, 6, 2, 0)	(6, 0, 2, 4)	(6, 0, 4, 2)	(6, 2, 0, 4)	(6, 2, 4, 0)	(6, 4, 0, 2)	(6, 4, 2, 0)	(0, 2, 4, 6)	(0, 4, 4, 4)	(4, 0, 4, 4)	(4, 4, 0, 4)	(4, 4, 4, 0)	(0, 2, 6, 4)	(0, 4, 2, 6)	(0, 4, 6, 2)	(2, 2, 2, 6)	(2, 2, 6, 2)	(2, 6, 2, 2)	(6, 2, 2, 2)	(0, 0, 6, 6)	(0, 6, 0, 6)	(0, 6, 6, 0)	(6, 0, 0, 6)	(6, 0, 6, 0)	(6, 6, 0, 0)\\
+% Row 8
+\hline
+7&	40&	(4, 2, 4, 4)	(4, 4, 2, 4)	(4, 4, 4, 2)	(2, 4, 4, 4)	(0, 6, 4, 4)	(4, 0, 4, 6)	(4, 0, 6, 4)	(4, 4, 0, 6)	(4, 4, 6, 0)	(4, 6, 0, 4)	(4, 6, 4, 0)	(6, 0, 4, 4)	(6, 4, 0, 4)	(6, 4, 4, 0)	(0, 4, 4, 6)	(2, 2, 6, 4)	(2, 4, 2, 6)	(2, 4, 6, 2)	(2, 6, 2, 4)	(2, 6, 4, 2)	(4, 2, 2, 6)	(4, 2, 6, 2)	(4, 6, 2, 2)	(6, 2, 2, 4)	(6, 2, 4, 2)	(6, 4, 2, 2)	(2, 2, 4, 6)	(0, 4, 6, 4)	(0, 6, 2, 6)	(0, 6, 6, 2)	(2, 0, 6, 6)	(2, 6, 0, 6)	(2, 6, 6, 0)	(6, 0, 2, 6)	(6, 0, 6, 2)	(6, 2, 0, 6)	(6, 2, 6, 0)	(6, 6, 0, 2)	(6, 6, 2, 0)	(0, 2, 6, 6)\\
+% Row 9				
+\hline
+8&	31&	(4, 4, 4, 4)	(4, 2, 4, 6)	(4, 2, 6, 4)	(4, 4, 2, 6)	(4, 4, 6, 2)	(4, 6, 2, 4)	(4, 6, 4, 2)	(6, 2, 4, 4)	(6, 4, 2, 4)	(6, 4, 4, 2)	(2, 4, 4, 6)	(2, 4, 6, 4)	(2, 6, 4, 4)	(0, 6, 4, 6)	(0, 6, 6, 4)	(4, 0, 6, 6)	(4, 6, 0, 6)	(4, 6, 6, 0)	(6, 0, 4, 6)	(6, 0, 6, 4)	(6, 4, 0, 6)	(6, 4, 6, 0)	(6, 6, 0, 4)	(6, 6, 4, 0)	(0, 4, 6, 6)	(2, 2, 6, 6)	(2, 6, 2, 6)	(2, 6, 6, 2)	(6, 2, 2, 6)	(6, 2, 6, 2)	(6, 6, 2, 2)\\
+% Row 10
+\hline
+9&	20&	(4, 4, 4, 6)	(4, 4, 6, 4)	(4, 6, 4, 4)	(6, 4, 4, 4)	(4, 2, 6, 6)	(4, 6, 2, 6)	(4, 6, 6, 2)	(6, 2, 4, 6)	(6, 2, 6, 4)	(6, 4, 2, 6)	(6, 4, 6, 2)	(6, 6, 2, 4)	(6, 6, 4, 2)	(2, 4, 6, 6)	(2, 6, 4, 6)	(2, 6, 6, 4)	(0, 6, 6, 6)	(6, 0, 6, 6)	(6, 6, 0, 6)	(6, 6, 6, 0)\\
+% Row 11
+\hline
+10&	10&	(6, 4, 4, 6)	(6, 4, 6, 4)	(6, 6, 4, 4)	(4, 4, 6, 6)	(4, 6, 4, 6)	(4, 6, 6, 4)	(6, 2, 6, 6)	(6, 6, 2, 6)	(6, 6, 6, 2)	(2, 6, 6, 6)\\
+% Row 12
+\hline
+11&	4&	(6, 6, 4, 6)	(6, 6, 6, 4)	(4, 6, 6, 6)	(6, 4, 6, 6)\\
+% Row 13
+\hline
+12&	1&	(6, 6, 6, 6)\\
+\hline
+\end{longtable}
+\end{flushleft}
+\end{small}
+
+The following table shows how computations vs communication grow with partition size changing and dimensionality growing.
+
+\subsection{Geomteric Analysis}
+
+The partitioning scheme used above, can be visualized as geomtric tensors 
+
+\subsection{Fetching Partitions Iteratively}
+
+\section{Dependency Analysis and Communication}
+
+\section {Checkpoint/Restore Operations}
+
+
+@
+
+
+1.1.1.1
+log
+@Thesis Writing
+@
+text
+@@

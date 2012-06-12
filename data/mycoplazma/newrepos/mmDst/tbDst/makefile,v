@@ -1,0 +1,63 @@
+head     1.1;
+branch   1.1.1;
+access   ;
+symbols  r1:1.1.1.1 mhelal:1.1.1;
+locks    ; strict;
+comment  @# @;
+
+
+1.1
+date     2008.05.06.02.40.54;  author mhelal;  state Exp;
+branches 1.1.1.1;
+next     ;
+
+1.1.1.1
+date     2008.05.06.02.40.54;  author mhelal;  state Exp;
+branches ;
+next     ;
+
+
+desc
+@@
+
+
+
+1.1
+log
+@Initial revision
+@
+text
+@
+mtb : mtb.o stb.o partitioning.o utils.o moa.o perm.o
+	mpicc -o mtb -lpthread -lm -g  mtb.c ../partitioning.c stb.c ../utils.c ../moa.c ../perm.c
+	
+mtb.o :  mtb.c ../main.h ../utils.h ../globals.h ../moaDst.h
+	mpicc -c -g mtb.c
+
+stb.o :  stb.c ../main.h ../utils.h ../globals.h
+	mpicc -c -g stb.c
+	 
+partitioning.o : ../partitioning.c ../main.h ../moaDst.h
+	 mpicc -c -g ../partitioning.c
+
+perm.o : ../perm.c 
+	 cc -c -g ../perm.c
+
+utils.o : ../utils.c ../moa.h ../utils.h ../globals.h
+	mpicc -c -g ../utils.c
+
+moa.o :  ../moa.c ../moa.h ../utils.h ../globals.h
+	cc -c -g ../moa.c
+
+
+clean : 
+	rm mtb mtb.o partitioning.o stb.o moaDst.o utils.o moa.o 
+@
+
+
+1.1.1.1
+log
+@Distributed Optimal MSA using MoA
+@
+text
+@@

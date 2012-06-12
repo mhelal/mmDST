@@ -1,0 +1,101 @@
+head     1.1;
+branch   1.1.1;
+access   ;
+symbols  r1:1.1.1.1 mhelal:1.1.1;
+locks    ; strict;
+comment  @# @;
+
+
+1.1
+date     2008.05.06.04.03.23;  author mhelal;  state Exp;
+branches 1.1.1.1;
+next     ;
+
+1.1.1.1
+date     2008.05.06.04.03.23;  author mhelal;  state Exp;
+branches ;
+next     ;
+
+
+desc
+@@
+
+
+
+1.1
+log
+@Initial revision
+@
+text
+@\setcounter{equation}{0}
+\chapter{Introduction and Literature Review}
+
+\section{Dimensionality Curse in High Dimensional Scientific Problems}
+
+The Dimensional curse is characterized by \cite{Bellman-61} as the exponential growth in space by adding extra dimensions to a mathematical space. Dealing with high dimensional scientific problems is a very active area of research in computer science nowadays. Main research direction goes towards the design and analysis of approximation algorithms for computationally hard problems in combinatorial optimization. Example problems include (but not limited to), clustering algorithms or the nearest neighbor search (i.e. the design of a data structure which would find the closest point---taken from a large collection of possibly very high-dimensional datapoints---to an arbitrary input). The applications of these problems varies from fields as computational statistics, pattern recognition, vector compression, routing and flow control in communication networks, multimedia information retrieval, partial differential equations, high dimensional database mining and query processing, financial mathematics (especially non linear and/or high-dimensional optimization problems that are commonly encountered in portfolio allocation, asset pricing and contract theory), molecular biology, genetic analysis, quantum physics, to global optimization. All these problems raise mathematical theories questions. While many theoretical and numerical advances have been recently realized in the field of optimization techniques such as the Forward Backward Stochastic Differential Equations, numerical methods, PDE's, Monte Carlo simulation, quantitative finance, Malliavin Calculus, and deterministic optimization algorithms, more open research areas are still active, such as distributed high dimensional computation.
+
+High-dimensional mathematical models often lead to large-scale computations. With the current advancement in high performance machines, grid computing, and even highly capable stand-alone machine, more investigations becomes needed to reach more optimal solutions for high-dimensional problems. The dimensionality curse means that the number of grid-points, where a numerical solution is computed, normally grows exponentially in the number of dimensions for the mathematical model. Hence, high-dimensional problems often require a large amount of data storage and extreme computational capacities. 
+
+
+Main research direction is towards approximations. Many methods have developed to approximate the high dimensional problems including the following:
+
+
+\begin{itemize}
+ \item Johnson-Lindenstrauss: Representing an n dimensions problem in Log n approximate dimensions.
+ \item Forward Backward Stochastic Differnential Equations.
+ \item Solving nonlinear partial differential equations or free boundary problems.
+ \item Monte Carlo simulation for linear problems.
+ \item Kernel Techniques or Malliavin Calculus approach for non-linear problems.
+\end{itemize}
+
+
+\section{Moore's Law Continuty through Multi-Cores, HPC, and Grid Computing}
+Survey Moore's and the availability of commodity multi-core workstations, HPCs, and world ranking, and the Grid computing status.
+
+Moore's Law, Quantum Computing, Distributed computations, Multi-Core chips, clusters, HPC,... etc
+
+High Performance Machines, Computer Clusters, and Distributed Processing State of the Art.
+
+\section{Thesis Motivations, Aims and Objectives}
+Given the above need of addressing high-dimensional scientific computing problems, and the availability of high capacity and capacility computers, a need for further investigations for parallel algorithms, addressing high-dimensionality. On the other side, Conformal Computing methods always promised the ability to address these problems and provide computing paradigm suitable for parallelization. Hence, the motivation for this research work started, and problems were identified to be transformed into Conformal Computing methods. The choice of the high dimensional Multiple Sequence Alignment in computational biology was made for its easy to imagine suitability. Then, another problem was chosen to further test the methods and what it can offer.
+
+\section{Thesis Scope}
+
+Motivated by the advancement in high performance computers (HPCs), grid computing, and high capability multi-threaded stand-alone machines, and being aware of the need for more near optimal solutions for high dimensional scientific problems, the motivation for this research developed. The scope of this work, is to research indexing schemes (like conformal computing methods used in this thesis), operating invariant of dimension and shape, and their suitability for distributing high dimensional solutions, specifically using the dynamic programming algorithm. This work contributed a unified configurable partitioning scheme, to divide computation over processors, and model communication requirements. As was required to balance the work load over the processors or threads, a load balancing scheme were found to be inherent in the methods used.
+
+\section{Contributions and Impact}
+
+\section{Research Method}
+
+A hypothetico-deductive model was followed in donducting this research. It started with a hypothesis that Conformal Computing methods can provide a unified partitioning scheme invariant of data dimensionality and shape, in order to provide distributed processing with load balancing on multiple processors. Further experimentations were needed to prove or negate this hypothesis. The experimentation started by finding a high dimensional problem, and Multiple Sequence Alignment in Computation Biology was found. Then transforming the optimal Dynamic Programming algorithm to the conformal computing methods, which is the only method that defines the high dimensionality of the problem as is. Then further simulations, and experiments on High Performance machines were conducted, Results were collected and analyzed to find optimiaztaion chances, and the conclusions and projections are being drawn. An iterative experimental approach was followed  based on the experimental results and the expected results, trying to come forward from one level of performance to another. A Master/Slave design was formulated, and its performance wasn't satisfying. An optimization of a Peer-to-Peer Model was designed, and achieved a speed up to 4 times in execution time. Then Execution time minimization was done by linear algebra methods to find optimal partition size and No. of processors. A full disclosure is being addressed, by designing the test cases to cover all scalability issues: processors scalability, data size scalability, and partition size scalability. Then the effects of search space reduction on optimality of the scores was analyzed.
+
+Further Problems can then be addressed based on the provided solutions. Also, further design issues can be explored, like going to irregular MoA shapes (sparse arrays) formalization, for example in the MSA problem tested, we can have variable partitioning sizes, to achieve higher parallelism faster.
+
+
+\section{Thesis Organization}
+
+
+\textbf{will be re-organized at the end }
+
+First chapter is an introduction to the ideas that motivated this research. Next chapter provide more details about the problem investigated and the current existing solutions and their attributes. The third chapter describe the methods used in the solution presented in this work. The forth chapter provide more detailed analysis of the distributed processing aspects of the solution. The fifth chapter will provide the results achieved, in comparison to the existing methods, and simulation analysis. The sixth chapter is the conclusion and possible future work that can build on the results achieved in this work.
+
+
+
+
+
+
+
+
+
+
+
+
+@
+
+
+1.1.1.1
+log
+@Thesis Writing
+@
+text
+@@

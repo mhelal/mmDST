@@ -1,0 +1,82 @@
+head     1.1;
+branch   1.1.1;
+access   ;
+symbols  r1:1.1.1.1 mhelal:1.1.1;
+locks    ; strict;
+comment  @% @;
+
+
+1.1
+date     2008.05.06.04.03.23;  author mhelal;  state Exp;
+branches 1.1.1.1;
+next     ;
+
+1.1.1.1
+date     2008.05.06.04.03.23;  author mhelal;  state Exp;
+branches ;
+next     ;
+
+
+desc
+@@
+
+
+
+1.1
+log
+@Initial revision
+@
+text
+@%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%      This is thesis.tex.  You have to  put this file in       %% 
+%%              the same directory with your thesis files.       %%
+%%                Written by M. Imran 2001/06/18                 %% 
+%%                 No Copyright for this file                    %% 
+%%                 Save your time and enjoy it                   %% 
+%%                                                               %% 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\documentclass{dmathesis}
+%% uncommand the following line to print equation labels next to
+%% equation numbers. 
+\usepackage{showlabel}
+\usepackage{graphicx}
+\usepackage{cite}
+\usepackage{longtable}
+\usepackage{array}
+%% The following is to control the format of your thesis
+\input{format}
+
+%% File to be included while running latex.
+\includeonly{chapter1,chapter2,chapter3%
+                 ,chapter4,chapter5,chapter6,chapter7,chapter8,chapter9,mybib}
+
+\begin{document}
+
+%% Front page of thesis
+\input{frontpage}
+
+%% Main text
+% set page number starts from 1
+\pagenumbering{arabic}
+\setcounter{page}{1}
+\include{chapter1}
+\include{chapter2}
+\include{chapter3}
+\include{chapter4}
+\include{chapter5}
+\include{chapter6}
+\include{chapter7}
+\include{chapter8}
+\include{chapter9}
+\bibliographystyle{is-alpha}
+\bibliography{mybib}
+\end{document}
+@
+
+
+1.1.1.1
+log
+@Thesis Writing
+@
+text
+@@

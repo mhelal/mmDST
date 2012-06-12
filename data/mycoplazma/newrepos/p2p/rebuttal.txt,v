@@ -1,0 +1,107 @@
+head     1.1;
+branch   1.1.1;
+access   ;
+symbols  r1:1.1.1.1 mhelal:1.1.1;
+locks    ; strict;
+comment  @# @;
+
+
+1.1
+date     2008.05.06.04.04.26;  author mhelal;  state Exp;
+branches 1.1.1.1;
+next     ;
+
+1.1.1.1
+date     2008.05.06.04.04.26;  author mhelal;  state Exp;
+branches ;
+next     ;
+
+
+desc
+@@
+
+
+
+1.1
+log
+@Initial revision
+@
+text
+@Timeline of its development:
+
+1874: Set theory developed by Georg Cantor, representing collections of abstract objects, including notions like Venn diagrams, and set memberships.
+
+1908: Axiomatic Set Theory was developed by Ernst Zermelo reformulating the now "naive set theory" in first order logic, to resolve it's paradoxes, for example, the Russell's paradox, the Burali-Forti paradox, and Cantor's paradox. This theory did not allow the construction of the ordinal numbers; while most of "ordinary mathematics" can be developed without ever using ordinals, ordinals are an essential tool in most set-theoretic investigations. 
+
+1922: Abraham Fraenkel and Thoralf Skolem proposed operationalizing a "definite" property as one that could be formulated in first-order logic, with all atomic formulas involving set membership or identity. This added the axioms of replacement and regularity yielding the thoery of ZF. Then adding the axiom of choice, it became the ZFC theory. this cannot be axiomatized by a finite set of axioms because of the replacement axiom.
+
+1922-1940: Von Neumann–Bernays–Gödel set theory(NBG) can be finitely axiomatized. The ontology of NBG includes classes as well as sets; a set is a class that is a member of another class. NBG and ZFC are equivalent set theories in the sense that any theorem about sets is provable in NBG if and only if it is provable in ZFC.
+
+1942-1945: Category theory were first introduced by Samuel Eilenberg and Saunders Mac Lane iin connection with algebraic topology. It has several faces like "General abstract nonsense" refers to its high level of abstraction, compared to more classical branches of mathematics. Homological algebra is category theory in its aspect of organising and suggesting calculations in abstract algebra. Diagram chasing is a visual method of arguing with abstract 'arrows'. Topos theory is a form of abstract sheaf theory, with geometric origins, and leads to ideas such as pointless topology.
+
+1957 to 1965: APL was the first homgoenous simple array programming language designed by Kenneth E. Iverson. The language works on entire arrays at once, like the vector instruction set of the SIMD architecture, without iteration, allowing for smaller and more conceise programs. 
+
+1973: Based on APL, Trenched More proposed an array theory offering a powerful set of operators and operations on nested hetrogenous rectangular arrays. 
+
+1979: PL/S II or AT/370 language was developed to implement the More's array theory operations, using APL interface.
+
+ 
+1988: Mathematics of Arrays were  first introduced in the PhD thesis of Dr. Lenore Mullin in Computer and Information Science at Syracuse University, Syracuse, NJ. The thesis introduced an algebric formulation of representing all data structures, invariant or dimensionality and shape, in an MoA structure, describing scalars as rank 0, linear array as rank 1, 2-D array as rank 2, and so forth. The representation is stored in memory in linear structure, with row major order, and dimensionality scalar, and shape vector. A list of constructs are provided.
+
+2000: MoA library built as dll, and used in a basic image and video processing applications in an Msc thesis presented by Manal Helal
+ 
+2001: Faster fast fourier transform using MoA is presented by L. Mullin and S. Small.
+
+2005: Radar Processing using MoA is presented by 
+
+2004-2008: MoA methods used in high dimensional scientific computation problem "Multiple Sequence Alignment in Bioinformatics", in the MSA dynamic programming algorithm, to score a tensor of alignments, partition to be processed in parallel, providing automatic load balancing. That was in a Phd thesis presented by Manal Helal.
+
+rebuttal:
+I appreciate the positive criticism, and will take all into consideration in a final submission and future publications. The responses are (preceded with the reviews numbers):
+
+#255, #384, #421: Conformal Computing background literature: These are just one way of addressing multi-dimensional array programming and partitioning methods. Theoretically they relate to set theory and More's array theory among others. Practically, they relate to generic programming as in templates provided in C++, and PETE (Portable Expression Template Engine), to functional languages like lisp, Mathematica, and mat-lab libraries. This work can be re-produced in any of these.It is only used in this implementation to get the cell's neighbors in a multidimensional tensor while scoring it. However, implementing in ANSI C, provided a portable code, easy to integrate with MPI libraries in many HPC machines. 
+
+A time line of the literature of these methods and their applications can be provided in final submission (**).
+
+
+#308, #384: DP-MSA explanation: Due to words count limit, there is a very brief introduction in section II, since it is a very well known method in both bioinformatics and algorithms fields. I can include more, or a diagram (**)
+
+
+#308, #311, #384: MSA literature: comparing with existing MSA solutions, and time performance. This is due to scoring the full search space (Tensor) for the DP-MSA, which is exponentially growing in the size of the dataset. The results are optimal compared to those produced by clustalW (an example will be included in the final submission of the paper if accepted). All existing solutions are heuristics, none is optimal except for up to 3 sequences only. We are currently working on the Carrillo-Lipman search space reduction, that will allow the presented method to compete with existing solutions in terms of time and memory as well as optimality (since it is not progressive and no bias is introduced in the solution). All experiments will be repeated again for the final submission, to better streamline the results, providing the sequential results.
+
+#308: the P2P connection methods; I don't run on a grid, or P2P heterogeneous computing yet. It might be an experiment to run in the future. I run currently on HPC machines using MPI libraries, with P2P processors connected with high speed networks as mentioned in the experimentation section.
+ 
+ 
+#308: point 3, yes "ring" term can be used instead. There is motion as well. One memory structure is allocated, which "sweeps" over all partitions in a processor, in the same "ring" or across them. 
+ 
+#308: point 4 about the pseudo code, yes I will include only major steps in a final submission.
+
+#308, #311, #384, #421: Yes, comments about equations, tables, graphs, grammar, conclusion and references will be fixed and reviewed as suggested, providing more information.
+ 
+#308: it is an advantage that partitions are growing in each subsequent wave of computation, as we can employ more processors to do more jobs in parallel with better processor scalability.
+
+#308: the shading in figure 2, 3, and 4 is explained in section IV , in subsection C. I can copy the definition to the caption for better clarity. (**).
+
+The last sentence is the caption is a spelling mistake actually. It is Cell 1 (not 5) that is processed in wave 0, then is copied first to wave 1 to be used by cells 2 and 3, then again to wave 2 to be used by cell 5. Sorry about that, will be fixed in the final submission.
+
+
+#308: point 10, I have been testing on homogeneous system only, but using blocking MPI calls. So, theoretically, this shouldn't be a problem, as the process will block waiting till all its requirements are received. It is efficiently designed that processors are sending exactly what other processors are blocked waiting for.
+
+#308: point 13, this is done now as an experiment to show how re-configurable is the design, and how these parameters will affect the performance. In an end product, linking to an existing library will be done.
+
+#308: The DP-MSA is mathematically proven to be optimal in literature. I will include a reference.
+
+#384: All high dimensional scientific computation algorithm designers, need to be interested in this paper. It provides a distributed design that can be re-used. 
+
+#421: Can include the limitations discussions in a final submission.
+
+(**) In Review#384, it says the paper is very dense, and not sure if I include more background information will serve the paper scope or not. This publication is about claiming originality in the design of distributed high dimensional problem, the partitioning methods and the load balancing. It is not about Conformal computing, and it is not an end product yet to compete with existing methods in terms of time and space. However, it is already competing on optimality, as mathematically proven of the DP-MSA method. 
+@
+
+
+1.1.1.1
+log
+@P2P Paper Writing
+@
+text
+@@

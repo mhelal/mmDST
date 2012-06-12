@@ -1,0 +1,34 @@
+Program Arguments: debuglevel = 1 maxAlignmentsNumber = 20 Epsilons= 0 Alignment Type = 0 stype 1 outputfilename = mmsa_mt partitionSize = 3
+Received Partition 1 starting @ 0
+Received Partition 2 starting @ 12
+
+ The Tensor of Dimn 3 & elements 18 & Shape:  3  2  3 : 
+                 0     1     2          0
+___________________________________________
+    0| < < <   -54   -72   -90  >
+    1|     <   -72   -96  -120  > >     1
+___________________________________________
+    0|   < <     0   -12   -24  >
+    1|     <   -12    -8   -15  > >     2
+___________________________________________
+    0|   < <     2    -8   -15  >
+    1|     <    -3    -1    -3  > > >
+
+ The Relative Indices of Tensor of Dimn 3 & elements 18 & Shape:  3  2  3 : 
+                 0     1     2          0
+___________________________________________
+    0| < < <    12    13    14  >
+    1|     <    17    18    19  > >     1
+___________________________________________
+    0|   < <    32    33    34  >
+    1|     <    37    38    39  > >     2
+___________________________________________
+    0|   < <    52    53    54  >
+    1|     <    57    58    59  > > >
+Joined Sending Thread 1
+Joined Score Computation Thread
+Joined Receiving Thread
+read Slave data from checkpoint file
+joined threads & exiting
+Master before finalize 
+Master after finalize 

@@ -1,0 +1,30 @@
+
+moaLib : ../../run/moaLb.o ../../run/moa.o ../../run/utils.o ../../run/partitioning.o ../../run/scoring.o ../../run/scores.o ../../run/stb.o
+	mpicc -DNDEBUG moaLb.c ../moa.c ../utils.c ../partitioning.c ../scoring.c ../scores.c ../tbDst/stb.c ../perm.c -lm -o ../../run/moaLib
+
+
+../../run/moaLb.o : moaLb.c
+	mpicc -DNDEBUG -c moaLb.c -o ../../run/moaLb.o
+
+../../run/moa.o :  ../moa.c ../moa.h ../utils.h ../globals.h 
+	mpicc -DNDEBUG -c ../moa.c -o ../../run/moa.o
+
+../../run/utils.o : ../utils.c ../moa.h ../utils.h ../globals.h
+	mpicc  -DNDEBUG  -c ../utils.c -o ../../run/utils.o
+
+../../run/partitioning.o : ../partitioning.c 
+	mpicc -DNDEBUG  -c ../partitioning.c -o ../../run/partitioning.o
+
+../../run/scoring.o  : ../scoring.c ../scores.h ../scoring.h
+	 mpicc -c -g ../scoring.c -o ../../run/scoring.o
+
+../../run/scores.o : ../scores.c 
+	 cc -c -g ../scores.c -o ../../run/scores.o
+
+../../run/stb.o : ../tbDst/stb.c
+	mpicc -g -c ../tbDst/stb.c -o ../../run/stb.o
+
+../../run/perm.o : ../perm.c
+	cc -DNDEBUG  -c ../perm.c -o ../../run/perm.o
+clean : 
+	rm moaLib moaLb.o moa.o utils.o perm.o stb.o scoring.o scores.o partitioning.o ../../run/moaLib ../../run/moaLb.o ../../run/moa.o ../../run/utils.o ../../run/perm.o ../../run/stb.o ../../run/scoring.o ../../run/scores.o ../../run/partitioning.o

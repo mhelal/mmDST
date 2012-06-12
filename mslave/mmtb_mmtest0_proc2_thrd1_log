@@ -1,0 +1,15 @@
+Program Arguments: debuglevel = 3 maxAlignmentsNumber = 20 Epsilons= 0 Alignment Type = 0 stype 1 outputfilename = mmtb_mmtest0 partitionSize = 3
+Initialized Slave data and will read checkpoint file
+read Slave data from checkpoint file partitions 6 last score in last partition is -23 sqm 4 sqlen0 6 5 4
+before receive new flag from masterDSTB received flag 0 
+DSTB received maxIndex 196 
+DSTB returned path of length 2 :  G  C  A  C  A  C  A  - 
+after send endcellindex 2
+after send next proc -1
+before receive new flag from masterDSTB received flag 1 
+DSTB received maxIndex 2 
+DSTB found 0 cell in 0
+DSTB found 0 cell & informed Master
+before receive new flag from masterDSTB received flag 2 
+before finalize 
+after finalize 

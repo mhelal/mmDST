@@ -1,0 +1,750 @@
+head     1.1;
+branch   1.1.1;
+access   ;
+symbols  r1:1.1.1.1 mhelal:1.1.1;
+locks    ; strict;
+comment  @# @;
+
+
+1.1
+date     2008.05.06.04.04.26;  author mhelal;  state Exp;
+branches 1.1.1.1;
+next     ;
+
+1.1.1.1
+date     2008.05.06.04.04.26;  author mhelal;  state Exp;
+branches ;
+next     ;
+
+
+desc
+@@
+
+
+
+1.1
+log
+@Initial revision
+@
+text
+@This is pdfeTeX, Version 3.141592-1.21a-2.2 (Web2C 7.5.4) (format=pdflatex 2007.11.24)  2 DEC 2007 22:51
+entering extended mode
+**hiComb_mhelal.tex
+(./hiComb_mhelal.tex
+LaTeX2e <2003/12/01>
+Babel <v3.8d> and hyphenation patterns for american, french, german, ngerman, b
+ahasa, basque, bulgarian, catalan, croatian, czech, danish, dutch, esperanto, e
+stonian, finnish, greek, icelandic, irish, italian, latin, magyar, norsk, polis
+h, portuges, romanian, russian, serbian, slovak, slovene, spanish, swedish, tur
+kish, ukrainian, nohyphenation, loaded.
+(./IEEEtran.cls
+Document Class: IEEEtran 2007/03/05 V1.7a by Michael Shell
+-- See the "IEEEtran_HOWTO" manual for usage information.
+-- http://www.michaelshell.org/tex/ieeetran/
+\@@IEEEtrantmpdimenA=\dimen102
+\@@IEEEtrantmpdimenB=\dimen103
+\@@IEEEtrantmpcountA=\count79
+\@@IEEEtrantmpcountB=\count80
+\@@IEEEtrantmptoksA=\toks14
+LaTeX Font Info:    Try loading font information for OT1+ptm on input line 366.
+
+(/usr/share/texmf/tex/latex/psnfss/ot1ptm.fd
+File: ot1ptm.fd 2001/06/04 font definitions for OT1/ptm.
+)
+-- Using 8.5in x 11in (letter) paper.
+-- Using PDF output.
+\@@IEEEnormalsizeunitybaselineskip=\dimen104
+-- This is a 10 point document.
+\CLASSINFOnormalsizebaselineskip=\dimen105
+\CLASSINFOnormalsizeunitybaselineskip=\dimen106
+\IEEEnormaljot=\dimen107
+LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <5> not available
+(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 724.
+LaTeX Font Info:    Font shape `OT1/ptm/bx/it' in size <5> not available
+(Font)              Font shape `OT1/ptm/b/it' tried instead on input line 724.
+LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <7> not available
+(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 724.
+LaTeX Font Info:    Font shape `OT1/ptm/bx/it' in size <7> not available
+(Font)              Font shape `OT1/ptm/b/it' tried instead on input line 724.
+LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <8> not available
+(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 724.
+LaTeX Font Info:    Font shape `OT1/ptm/bx/it' in size <8> not available
+(Font)              Font shape `OT1/ptm/b/it' tried instead on input line 724.
+LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <9> not available
+(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 724.
+LaTeX Font Info:    Font shape `OT1/ptm/bx/it' in size <9> not available
+(Font)              Font shape `OT1/ptm/b/it' tried instead on input line 724.
+LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <10> not available
+(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 724.
+LaTeX Font Info:    Font shape `OT1/ptm/bx/it' in size <10> not available
+(Font)              Font shape `OT1/ptm/b/it' tried instead on input line 724.
+LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <11> not available
+(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 724.
+LaTeX Font Info:    Font shape `OT1/ptm/bx/it' in size <11> not available
+(Font)              Font shape `OT1/ptm/b/it' tried instead on input line 724.
+LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <12> not available
+(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 724.
+LaTeX Font Info:    Font shape `OT1/ptm/bx/it' in size <12> not available
+(Font)              Font shape `OT1/ptm/b/it' tried instead on input line 724.
+LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <17> not available
+(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 724.
+LaTeX Font Info:    Font shape `OT1/ptm/bx/it' in size <17> not available
+(Font)              Font shape `OT1/ptm/b/it' tried instead on input line 724.
+LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <20> not available
+(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 724.
+LaTeX Font Info:    Font shape `OT1/ptm/bx/it' in size <20> not available
+(Font)              Font shape `OT1/ptm/b/it' tried instead on input line 724.
+LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <24> not available
+(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 724.
+LaTeX Font Info:    Font shape `OT1/ptm/bx/it' in size <24> not available
+(Font)              Font shape `OT1/ptm/b/it' tried instead on input line 724.
+\IEEEilabelindentA=\dimen108
+\IEEEilabelindentB=\dimen109
+\IEEEilabelindent=\dimen110
+\IEEEelabelindent=\dimen111
+\IEEEdlabelindent=\dimen112
+\IEEElabelindent=\dimen113
+\IEEEiednormlabelsep=\dimen114
+\IEEEiedmathlabelsep=\dimen115
+\IEEEiedtopsep=\skip41
+\c@@section=\count81
+\c@@subsection=\count82
+\c@@subsubsection=\count83
+\c@@paragraph=\count84
+\c@@IEEEsubequation=\count85
+\abovecaptionskip=\skip42
+\belowcaptionskip=\skip43
+\c@@figure=\count86
+\c@@table=\count87
+\@@IEEEeqnnumcols=\count88
+\@@IEEEeqncolcnt=\count89
+\@@IEEEtmpitemindent=\dimen116
+\c@@IEEEbiography=\count90
+\@@IEEEtranrubishbin=\box26
+) (/usr/share/texmf/tex/latex/graphics/graphicx.sty
+Package: graphicx 1999/02/16 v1.0f Enhanced LaTeX Graphics (DPC,SPQR)
+
+(/usr/share/texmf/tex/latex/graphics/keyval.sty
+Package: keyval 1999/03/16 v1.13 key=value parser (DPC)
+\KV@@toks@@=\toks15
+)
+(/usr/share/texmf/tex/latex/graphics/graphics.sty
+Package: graphics 2001/07/07 v1.0n Standard LaTeX Graphics (DPC,SPQR)
+
+(/usr/share/texmf/tex/latex/graphics/trig.sty
+Package: trig 1999/03/16 v1.09 sin cos tan (DPC)
+)
+(/usr/share/texmf/tex/latex/graphics/graphics.cfg
+File: graphics.cfg 2005/02/03 v1.3 graphics configuration of teTeX/TeXLive
+)
+Package graphics Info: Driver file: pdftex.def on input line 80.
+
+(/usr/share/texmf/tex/latex/graphics/pdftex.def
+File: pdftex.def 2002/06/19 v0.03k graphics/color for pdftex
+\Gread@@gobject=\count91
+))
+\Gin@@req@@height=\dimen117
+\Gin@@req@@width=\dimen118
+)
+(/usr/share/texmf/tex/latex/cite/cite.sty
+LaTeX Info: Redefining \cite on input line 149.
+LaTeX Info: Redefining \nocite on input line 214.
+Package: cite 2003/11/04  v 4.01
+)
+(/usr/share/texmf/tex/latex/base/textcomp.sty
+Package: textcomp 2004/02/22 v1.99f Standard LaTeX package
+Package textcomp Info: Sub-encoding information:
+(textcomp)               5 = only ISO-Adobe without \textcurrency
+(textcomp)               4 = 5 + \texteuro
+(textcomp)               3 = 4 + \textohm
+(textcomp)               2 = 3 + \textestimated + \textcurrency
+(textcomp)               1 = TS1 - \textcircled - \t
+(textcomp)               0 = TS1 (full)
+(textcomp)             Font families with sub-encoding setting implement
+(textcomp)             only a restricted character set as indicated.
+(textcomp)             Family '?' is the default used for unknown fonts.
+(textcomp)             See the documentation for details.
+Package textcomp Info: Setting ? sub-encoding to TS1/1 on input line 71.
+
+(/usr/share/texmf/tex/latex/base/ts1enc.def
+File: ts1enc.def 2001/06/05 v3.0e (jk/car/fm) Standard LaTeX file
+)
+LaTeX Info: Redefining \oldstylenums on input line 266.
+Package textcomp Info: Setting cmr sub-encoding to TS1/0 on input line 281.
+Package textcomp Info: Setting cmss sub-encoding to TS1/0 on input line 282.
+Package textcomp Info: Setting cmtt sub-encoding to TS1/0 on input line 283.
+Package textcomp Info: Setting cmvtt sub-encoding to TS1/0 on input line 284.
+Package textcomp Info: Setting cmbr sub-encoding to TS1/0 on input line 285.
+Package textcomp Info: Setting cmtl sub-encoding to TS1/0 on input line 286.
+Package textcomp Info: Setting ccr sub-encoding to TS1/0 on input line 287.
+Package textcomp Info: Setting ptm sub-encoding to TS1/4 on input line 288.
+Package textcomp Info: Setting pcr sub-encoding to TS1/4 on input line 289.
+Package textcomp Info: Setting phv sub-encoding to TS1/4 on input line 290.
+Package textcomp Info: Setting ppl sub-encoding to TS1/3 on input line 291.
+Package textcomp Info: Setting pag sub-encoding to TS1/4 on input line 292.
+Package textcomp Info: Setting pbk sub-encoding to TS1/4 on input line 293.
+Package textcomp Info: Setting pnc sub-encoding to TS1/4 on input line 294.
+Package textcomp Info: Setting pzc sub-encoding to TS1/4 on input line 295.
+Package textcomp Info: Setting bch sub-encoding to TS1/4 on input line 296.
+Package textcomp Info: Setting put sub-encoding to TS1/5 on input line 297.
+Package textcomp Info: Setting uag sub-encoding to TS1/5 on input line 298.
+Package textcomp Info: Setting ugq sub-encoding to TS1/5 on input line 299.
+Package textcomp Info: Setting ul8 sub-encoding to TS1/4 on input line 300.
+Package textcomp Info: Setting ul9 sub-encoding to TS1/4 on input line 301.
+Package textcomp Info: Setting augie sub-encoding to TS1/5 on input line 302.
+Package textcomp Info: Setting dayrom sub-encoding to TS1/3 on input line 303.
+Package textcomp Info: Setting dayroms sub-encoding to TS1/3 on input line 304.
+
+Package textcomp Info: Setting pxr sub-encoding to TS1/0 on input line 305.
+Package textcomp Info: Setting pxss sub-encoding to TS1/0 on input line 306.
+Package textcomp Info: Setting pxtt sub-encoding to TS1/0 on input line 307.
+Package textcomp Info: Setting txr sub-encoding to TS1/0 on input line 308.
+Package textcomp Info: Setting txss sub-encoding to TS1/0 on input line 309.
+Package textcomp Info: Setting txtt sub-encoding to TS1/0 on input line 310.
+Package textcomp Info: Setting futs sub-encoding to TS1/4 on input line 311.
+Package textcomp Info: Setting futx sub-encoding to TS1/4 on input line 312.
+Package textcomp Info: Setting futj sub-encoding to TS1/4 on input line 313.
+Package textcomp Info: Setting hlh sub-encoding to TS1/3 on input line 314.
+Package textcomp Info: Setting hls sub-encoding to TS1/3 on input line 315.
+Package textcomp Info: Setting hlst sub-encoding to TS1/3 on input line 316.
+Package textcomp Info: Setting hlct sub-encoding to TS1/5 on input line 317.
+Package textcomp Info: Setting hlx sub-encoding to TS1/5 on input line 318.
+Package textcomp Info: Setting hlce sub-encoding to TS1/5 on input line 319.
+Package textcomp Info: Setting hlcn sub-encoding to TS1/5 on input line 320.
+Package textcomp Info: Setting hlcw sub-encoding to TS1/5 on input line 321.
+Package textcomp Info: Setting hlcf sub-encoding to TS1/5 on input line 322.
+Package textcomp Info: Setting pplx sub-encoding to TS1/3 on input line 323.
+Package textcomp Info: Setting pplj sub-encoding to TS1/3 on input line 324.
+Package textcomp Info: Setting ptmx sub-encoding to TS1/4 on input line 325.
+Package textcomp Info: Setting ptmj sub-encoding to TS1/4 on input line 326.
+) (./hiComb_mhelal.aux)
+\openout1 = `hiComb_mhelal.aux'.
+
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 354.
+LaTeX Font Info:    ... okay on input line 354.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 354.
+LaTeX Font Info:    ... okay on input line 354.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 354.
+LaTeX Font Info:    ... okay on input line 354.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 354.
+LaTeX Font Info:    ... okay on input line 354.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 354.
+LaTeX Font Info:    ... okay on input line 354.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 354.
+LaTeX Font Info:    ... okay on input line 354.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 354.
+LaTeX Font Info:    Try loading font information for TS1+cmr on input line 354.
+
+
+(/usr/share/texmf/tex/latex/base/ts1cmr.fd
+File: ts1cmr.fd 1999/05/25 v2.5h Standard LaTeX font definitions
+)
+LaTeX Font Info:    ... okay on input line 354.
+
+(/usr/share/texmf/tex/context/base/supp-pdf.tex
+(/usr/share/texmf/tex/context/base/supp-mis.tex
+loading : Context Support Macros / Miscellaneous (2004.10.26)
+\protectiondepth=\count92
+\scratchcounter=\count93
+\scratchtoks=\toks16
+\scratchdimen=\dimen119
+\scratchskip=\skip44
+\scratchmuskip=\muskip10
+\scratchbox=\box27
+\scratchread=\read1
+\scratchwrite=\write3
+\zeropoint=\dimen120
+\onepoint=\dimen121
+\onebasepoint=\dimen122
+\minusone=\count94
+\thousandpoint=\dimen123
+\onerealpoint=\dimen124
+\emptytoks=\toks17
+\nextbox=\box28
+\nextdepth=\dimen125
+\everyline=\toks18
+\!!counta=\count95
+\!!countb=\count96
+\recursecounter=\count97
+)
+loading : Context Support Macros / PDF (2004.03.26)
+\nofMPsegments=\count98
+\nofMParguments=\count99
+\MPscratchCnt=\count100
+\MPscratchDim=\dimen126
+\MPnumerator=\count101
+\everyMPtoPDFconversion=\toks19
+)
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <7> on input line 447.
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <5> on input line 447.
+ [1{/usr/share/texmf-var/fonts/map/pdftex/updmap/pdftex.map}
+
+
+]
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <8> on input line 452.
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <6> on input line 452.
+LaTeX Font Info:    Try loading font information for TS1+ptm on input line 452.
+
+
+(/usr/share/texmf/tex/latex/psnfss/ts1ptm.fd
+File: ts1ptm.fd 2001/06/04 font definitions for TS1/ptm.
+)
+Underfull \hbox (badness 10000) in paragraph at lines 454--455
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 458--459
+
+ []
+
+[2]
+LaTeX Font Info:    Try loading font information for OT1+pcr on input line 488.
+
+ (/usr/share/texmf/tex/latex/psnfss/ot1pcr.fd
+File: ot1pcr.fd 2001/06/04 font definitions for OT1/pcr.
+)
+Underfull \hbox (badness 10000) in paragraph at lines 488--496
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 503--530
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 503--530
+
+ []
+
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <9> on input line 622.
+
+Underfull \hbox (badness 1394) in paragraph at lines 531--625
+\OT1/ptm/m/n/10 ($\OML/cmm/m/it/10 w \OMS/cmsy/m/n/10 ^^@@ []$\OT1/ptm/m/n/10 ) 
+on the re-main-ing di-men-sions of
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 531--625
+
+ []
+
+
+Underfull \hbox (badness 1762) in paragraph at lines 531--625
+\OT1/ptm/b/it/9 w: \OT1/ptm/m/it/9 is the cur-rent wave num-ber (dis-tance from
+ ori-gin), af-ter
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 531--625
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 531--625
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 531--625
+
+ []
+
+[3] [4]
+Underfull \hbox (badness 10000) in paragraph at lines 644--652
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 644--652
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 691--692
+
+ []
+
+
+Package pdftex.def Warning: Option `bb' does not make sense,
+(pdftex.def)                using `viewport' instead on input line 695.
+
+<../thesis/PartitionsWavesGrowth.png, id=56, 240.9pt x 413.545pt>
+File: ../thesis/PartitionsWavesGrowth.png Graphic file (type png)
+
+<use ../thesis/PartitionsWavesGrowth.png> [5 <../thesis/PartitionsWavesGrowth.p
+ng>]
+
+Package pdftex.def Warning: Option `bb' does not make sense,
+(pdftex.def)                using `viewport' instead on input line 785.
+
+<../thesis/2DGeom.png, id=63, 220.825pt x 157.58875pt>
+File: ../thesis/2DGeom.png Graphic file (type png)
+
+<use ../thesis/2DGeom.png>
+
+Package pdftex.def Warning: Option `bb' does not make sense,
+(pdftex.def)                using `viewport' instead on input line 795.
+
+<../thesis/3DGeom.png, id=64, 220.825pt x 184.69pt>
+File: ../thesis/3DGeom.png Graphic file (type png)
+ <use ../thesis/3DGeom.png>
+
+Package pdftex.def Warning: Option `bb' does not make sense,
+(pdftex.def)                using `viewport' instead on input line 805.
+
+<../thesis/4DGeom.png, id=65, 220.825pt x 184.69pt>
+File: ../thesis/4DGeom.png Graphic file (type png)
+ <use ../thesis/4DGeom.png>
+
+Package pdftex.def Warning: Option `bb' does not make sense,
+(pdftex.def)                using `viewport' instead on input line 817.
+
+<../thesis/2DDepNetwork.png, id=66, 220.825pt x 190.7125pt>
+File: ../thesis/2DDepNetwork.png Graphic file (type png)
+
+<use ../thesis/2DDepNetwork.png>
+
+Package pdftex.def Warning: Option `bb' does not make sense,
+(pdftex.def)                using `viewport' instead on input line 827.
+
+<../thesis/3DDepNetwork.png, id=67, 220.825pt x 161.60374pt>
+File: ../thesis/3DDepNetwork.png Graphic file (type png)
+
+<use ../thesis/3DDepNetwork.png>
+
+Package pdftex.def Warning: Option `bb' does not make sense,
+(pdftex.def)                using `viewport' instead on input line 837.
+
+<../thesis/4DDepNetwork.png, id=68, 220.825pt x 97.36375pt>
+File: ../thesis/4DDepNetwork.png Graphic file (type png)
+
+<use ../thesis/4DDepNetwork.png> [6 <../thesis/2DGeom.png> <../thesis/3DGeom.pn
+g>] [7 <../thesis/4DGeom.png> <../thesis/2DDepNetwork.png> <../thesis/3DDepNetw
+ork.png> <../thesis/4DDepNetwork.png>]
+Underfull \hbox (badness 10000) in paragraph at lines 888--891
+
+ []
+
+Missing character: There is no â in font cmr10!
+Missing character: There is no € in font cmr10!
+Missing character: There is no “ in font cmr10!
+
+Underfull \hbox (badness 10000) in paragraph at lines 898--904
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 898--904
+
+ []
+
+[8]
+
+Package pdftex.def Warning: Option `bb' does not make sense,
+(pdftex.def)                using `viewport' instead on input line 916.
+
+<../thesis/CompGrowth.png, id=88, 228.855pt x 427.5975pt>
+File: ../thesis/CompGrowth.png Graphic file (type png)
+
+<use ../thesis/CompGrowth.png>
+
+Package pdftex.def Warning: Option `bb' does not make sense,
+(pdftex.def)                using `viewport' instead on input line 925.
+
+<../thesis/CommGrowth.png, id=89, 232.87pt x 427.5975pt>
+File: ../thesis/CommGrowth.png Graphic file (type png)
+
+<use ../thesis/CommGrowth.png>
+Underfull \vbox (badness 2213) has occurred while \output is active []
+
+
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+ [9 <../thesis/CompGrowth.png> <../thesis/CommGrowth.png>]
+Overfull \hbox (0.88683pt too wide) in paragraph at lines 946--946
+[]\OT1/ptm/m/n/8 16| 
+ []
+
+
+Overfull \hbox (0.88683pt too wide) in paragraph at lines 946--946
+[]\OT1/ptm/m/n/8 16| 
+ []
+
+
+Overfull \hbox (4.88683pt too wide) in paragraph at lines 946--947
+[]\OT1/ptm/m/n/8 122| 
+ []
+
+
+Overfull \hbox (0.88683pt too wide) in paragraph at lines 948--948
+[]\OT1/ptm/m/n/8 16| 
+ []
+
+
+Overfull \hbox (0.88683pt too wide) in paragraph at lines 948--948
+[]\OT1/ptm/m/n/8 16| 
+ []
+
+
+Overfull \hbox (4.88683pt too wide) in paragraph at lines 948--949
+[]\OT1/ptm/m/n/8 123| 
+ []
+
+
+Overfull \hbox (0.88683pt too wide) in paragraph at lines 950--950
+[]\OT1/ptm/m/n/8 63| 
+ []
+
+
+Overfull \hbox (0.88683pt too wide) in paragraph at lines 950--950
+[]\OT1/ptm/m/n/8 16| 
+ []
+
+
+Overfull \hbox (4.88683pt too wide) in paragraph at lines 950--951
+[]\OT1/ptm/m/n/8 122| 
+ []
+
+
+Overfull \hbox (0.88683pt too wide) in paragraph at lines 952--952
+[]\OT1/ptm/m/n/8 65| 
+ []
+
+
+Overfull \hbox (0.88683pt too wide) in paragraph at lines 952--952
+[]\OT1/ptm/m/n/8 15| 
+ []
+
+
+Overfull \hbox (4.88683pt too wide) in paragraph at lines 952--952
+[]\OT1/ptm/m/n/8 164| 
+ []
+
+
+Overfull \hbox (4.88683pt too wide) in paragraph at lines 952--953
+[]\OT1/ptm/m/n/8 456| 
+ []
+
+
+Overfull \hbox (0.88683pt too wide) in paragraph at lines 954--954
+[]\OT1/ptm/m/n/8 82| 
+ []
+
+
+Overfull \hbox (0.88683pt too wide) in paragraph at lines 954--954
+[]\OT1/ptm/m/n/8 24| 
+ []
+
+
+Overfull \hbox (0.88683pt too wide) in paragraph at lines 954--954
+[]\OT1/ptm/m/n/8 75| 
+ []
+
+
+Overfull \hbox (4.88683pt too wide) in paragraph at lines 954--955
+[]\OT1/ptm/m/n/8 366| 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 956--956
+[]\OT1/ptm/m/n/8 10,
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 956--956
+\OT1/ptm/m/n/8 15,
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 956--956
+\OT1/ptm/m/n/8 16,
+ []
+
+
+Overfull \hbox (4.88683pt too wide) in paragraph at lines 956--956
+[]\OT1/ptm/m/n/8 109| 
+ []
+
+
+Overfull \hbox (4.88683pt too wide) in paragraph at lines 956--956
+[]\OT1/ptm/m/n/8 131| 
+ []
+
+
+Overfull \hbox (0.88683pt too wide) in paragraph at lines 956--956
+[]\OT1/ptm/m/n/8 61| 
+ []
+
+
+Overfull \hbox (4.88683pt too wide) in paragraph at lines 956--957
+[]\OT1/ptm/m/n/8 294| 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 958--958
+[]\OT1/ptm/m/n/8 90,
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 958--958
+\OT1/ptm/m/n/8 80,
+ []
+
+
+Overfull \hbox (4.88683pt too wide) in paragraph at lines 958--958
+[]\OT1/ptm/m/n/8 371| 
+ []
+
+
+Overfull \hbox (4.88683pt too wide) in paragraph at lines 958--958
+[]\OT1/ptm/m/n/8 669| 
+ []
+
+
+Overfull \hbox (4.88683pt too wide) in paragraph at lines 958--958
+[]\OT1/ptm/m/n/8 121| 
+ []
+
+
+Overfull \hbox (4.88683pt too wide) in paragraph at lines 958--959
+[]\OT1/ptm/m/n/8 361| 
+ []
+
+
+Package pdftex.def Warning: Option `bb' does not make sense,
+(pdftex.def)                using `viewport' instead on input line 969.
+
+<../thesis/MSP2PCPU.png, id=93, 195.73125pt x 281.05pt>
+File: ../thesis/MSP2PCPU.png Graphic file (type png)
+
+<use ../thesis/MSP2PCPU.png>
+Overfull \hbox (55.14749pt too wide) in paragraph at lines 969--971
+ [] 
+ []
+
+
+Package pdftex.def Warning: Option `bb' does not make sense,
+(pdftex.def)                using `viewport' instead on input line 977.
+
+<../thesis/MSP2PETime.png, id=94, 192.72pt x 275.0275pt>
+File: ../thesis/MSP2PETime.png Graphic file (type png)
+
+<use ../thesis/MSP2PETime.png>
+Overfull \hbox (25.03499pt too wide) in paragraph at lines 977--979
+ [] 
+ []
+
+
+Package pdftex.def Warning: Option `bb' does not make sense,
+(pdftex.def)                using `viewport' instead on input line 985.
+
+<../thesis/MSP2PPMem.png, id=95, 192.72pt x 279.0425pt>
+File: ../thesis/MSP2PPMem.png Graphic file (type png)
+
+<use ../thesis/MSP2PPMem.png>
+Overfull \hbox (73.215pt too wide) in paragraph at lines 985--987
+ [] 
+ []
+
+
+Package pdftex.def Warning: Option `bb' does not make sense,
+(pdftex.def)                using `viewport' instead on input line 993.
+
+<../thesis/MSP2PVMem.png, id=96, 195.73125pt x 277.035pt>
+File: ../thesis/MSP2PVMem.png Graphic file (type png)
+
+<use ../thesis/MSP2PVMem.png>
+Overfull \hbox (67.19249pt too wide) in paragraph at lines 993--995
+ [] 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 999--1001
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 999--1001
+
+ []
+
+
+Package pdftex.def Warning: Option `bb' does not make sense,
+(pdftex.def)                using `viewport' instead on input line 1005.
+
+<../thesis/ProcScalability.png, id=97, 194.7275pt x 300.12125pt>
+File: ../thesis/ProcScalability.png Graphic file (type png)
+
+<use ../thesis/ProcScalability.png>
+
+Package pdftex.def Warning: Option `bb' does not make sense,
+(pdftex.def)                using `viewport' instead on input line 1053.
+
+<../thesis/partSEffects.png, id=98, 192.72pt x 346.29375pt>
+File: ../thesis/partSEffects.png Graphic file (type png)
+
+<use ../thesis/partSEffects.png>
+Overfull \hbox (50.12874pt too wide) in paragraph at lines 1053--1055
+ [] 
+ []
+
+
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+ [10 <../thesis/MSP2PCPU.png>] [11 <../thesis/MSP2PETime.png> <../thesis/MSP2PP
+Mem.png> <../thesis/MSP2PVMem.png>]
+
+** Conference Paper **
+Before submitting the final camera ready copy, remember to:
+
+ 1. Manually equalize the lengths of two columns on the last page
+ of your paper;
+
+ 2. Ensure that any PostScript and/or PDF output post-processing
+ uses only Type 1 fonts and that every step in the generation
+ process uses the appropriate paper size.
+
+[12 <../thesis/ProcScalability.png> <../thesis/partSEffects.png>]
+(./hiComb_mhelal.aux) ) 
+Here is how much of TeX's memory you used:
+ 2252 strings out of 94500
+ 34777 string characters out of 1176765
+ 96709 words of memory out of 1000000
+ 5412 multiletter control sequences out of 10000+50000
+ 44651 words of font info for 83 fonts, out of 500000 for 2000
+ 583 hyphenation exceptions out of 1000
+ 26i,9n,20p,1685b,293s stack positions out of 1500i,500n,5000p,200000b,5000s
+PDF statistics:
+ 107 PDF objects out of 300000
+ 0 named destinations out of 131072
+ 76 words of extra memory for PDF output out of 65536
+</usr/share/texmf/fonts/type1/bluesky/cm/cmmi8.pfb></usr
+/share/texmf/fonts/type1/bluesky/cm/cmr6.pfb></usr/share/texmf/fonts/type1/blue
+sky/cm/cmmi6.pfb></usr/share/texmf/fonts/type1/bluesky/cm/cmex10.pfb></usr/shar
+e/texmf/fonts/type1/bluesky/cm/cmsy9.pfb></usr/share/texmf/fonts/type1/bluesky/
+cm/cmmi9.pfb>{/usr/share/texmf/fonts/enc/dvips/psnfss/8r.enc}</usr/share/texmf/
+fonts/type1/urw/courier/ucrr8a.pfb></usr/share/texmf/fonts/type1/bluesky/cm/cmm
+i5.pfb></usr/share/texmf/fonts/type1/bluesky/cm/cmsy7.pfb></usr/share/texmf/fon
+ts/type1/bluesky/cm/cmr7.pfb></usr/share/texmf/fonts/type1/bluesky/cm/cmmi10.pf
+b></usr/share/texmf/fonts/type1/bluesky/cm/cmsy10.pfb></usr/share/texmf/fonts/t
+ype1/bluesky/cm/cmr10.pfb></usr/share/texmf/fonts/type1/bluesky/cm/cmmi7.pfb></
+usr/share/texmf/fonts/type1/urw/times/utmri8a.pfb></usr/share/texmf/fonts/type1
+/urw/times/utmb8a.pfb></usr/share/texmf/fonts/type1/urw/times/utmbi8a.pfb></usr
+/share/texmf/fonts/type1/urw/times/utmr8a.pfb>
+Output written on hiComb_mhelal.pdf (12 pages, 313937 bytes).
+@
+
+
+1.1.1.1
+log
+@P2P Paper Writing
+@
+text
+@@

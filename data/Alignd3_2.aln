@@ -1,0 +1,7 @@
+
+ Aligned Sequences: 
+> seq30		-TGTGAG-TGACCAAGGACGTGAC-GTAGCGTA 30
+> seq28		TCGCTAG-TA-GCT--GACGTGATCGTC-AGTC 28
+> seq26		-GTGACGTAC-G-T-GTCACGAGT--GA-TA-G 26
+		-2 0 1 0 0 1 3 -2 1 0 -2 1 -1 1 -2 -1 1 1 1 1 1 1 1 1 -2 -1 1 1 -2 0 1 -1 0 
+The Alignment Score = 3

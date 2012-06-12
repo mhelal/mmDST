@@ -1,0 +1,150 @@
+head     1.1;
+branch   1.1.1;
+access   ;
+symbols  r1:1.1.1.1 mhelal:1.1.1;
+locks    ; strict;
+comment  @# @;
+
+
+1.1
+date     2008.05.06.02.41.42;  author mhelal;  state Exp;
+branches 1.1.1.1;
+next     ;
+
+1.1.1.1
+date     2008.05.06.02.41.42;  author mhelal;  state Exp;
+branches ;
+next     ;
+
+
+desc
+@@
+
+
+
+1.1
+log
+@Initial revision
+@
+text
+@==5231== Memcheck, a memory error detector.
+==5231== Copyright (C) 2002-2007, and GNU GPL'd, by Julian Seward et al.
+==5231== Using LibVEX rev 1732, a library for dynamic binary translation.
+==5231== Copyright (C) 2004-2007, and GNU GPL'd, by OpenWorks LLP.
+==5231== Using valgrind-3.2.3, a dynamic binary instrumentation framework.
+==5231== Copyright (C) 2000-2007, and GNU GPL'd, by Julian Seward et al.
+==5231== 
+==5231== My PID = 5231, parent PID = 5229.  Prog and args are:
+==5231==    ./mmDst
+==5231==    -c
+==5231==    3
+==5231==    ../tseq/seq5
+==5231==    ../tseq/seq4
+==5231==    ../tseq/seq3
+==5231==    -d
+==5231==    1
+==5231==    -g
+==5231==    -o
+==5231==    mt
+==5231== 
+--5231-- 
+--5231-- Command line
+--5231--    ./mmDst
+--5231--    -c
+--5231--    3
+--5231--    ../tseq/seq5
+--5231--    ../tseq/seq4
+--5231--    ../tseq/seq3
+--5231--    -d
+--5231--    1
+--5231--    -g
+--5231--    -o
+--5231--    mt
+--5231-- Startup, with flags:
+--5231--    --leak-check=full
+--5231--    -v
+--5231--    --log-file=vout/v.out
+--5231-- Contents of /proc/version:
+--5231--   Linux version 2.6.23.1-21.fc7 (kojibuilder@@xenbuilder4.fedora.phx.redhat.com) (gcc version 4.1.2 20070925 (Red Hat 4.1.2-27)) #1 SMP Thu Nov 1 21:09:24 EDT 2007
+--5231-- Arch and hwcaps: X86, x86-sse1-sse2
+--5231-- Page sizes: currently 4096, max supported 4096
+--5231-- Valgrind library directory: /usr/lib/valgrind
+--5231-- Reading syms from /lib/ld-2.6.so (0x223000)
+--5231-- Reading syms from /home/mhelal/thesis/exp/mmDst/mmDst (0x8048000)
+--5231-- Reading syms from /usr/lib/valgrind/x86-linux/memcheck (0x38000000)
+--5231--    object doesn't have a dynamic symbol table
+--5231-- Reading suppressions file: /usr/lib/valgrind/default.supp
+--5231-- REDIR: 0x2385A0 (index) redirected to 0x38027F1F (vgPlain_x86_linux_REDIR_FOR_index)
+--5231-- Reading syms from /usr/lib/valgrind/x86-linux/vgpreload_core.so (0x4001000)
+--5231-- Reading syms from /usr/lib/valgrind/x86-linux/vgpreload_memcheck.so (0x4003000)
+==5231== WARNING: new redirection conflicts with existing -- ignoring it
+--5231--     new: 0x002385A0 (index     ) R-> 0x040061F0 index
+--5231-- REDIR: 0x238740 (strlen) redirected to 0x40062A0 (strlen)
+--5231-- Reading syms from /lib/libm-2.6.so (0x398000)
+--5231-- Reading syms from /lib/libpthread-2.6.so (0x3DF000)
+--5231-- Reading syms from /home/mhelal/Install/mpi/lib/libmpich.so (0x4023000)
+--5231-- Reading syms from /lib/librt-2.6.so (0xDA3000)
+--5231-- Reading syms from /lib/libc-2.6.so (0x242000)
+--5231-- REDIR: 0x2B16C0 (memset) redirected to 0x4006600 (memset)
+--5231-- REDIR: 0x2B1BB0 (memcpy) redirected to 0x4007050 (memcpy)
+--5231-- REDIR: 0x2B07E0 (rindex) redirected to 0x40060D0 (rindex)
+--5231-- REDIR: 0x2ABB40 (calloc) redirected to 0x400478D (calloc)
+--5231-- REDIR: 0x2B0440 (strlen) redirected to 0x4006280 (strlen)
+--5231-- REDIR: 0x2B0630 (strncmp) redirected to 0x40062E0 (strncmp)
+--5231-- REDIR: 0x2ABE40 (malloc) redirected to 0x4005460 (malloc)
+--5231-- REDIR: 0x2AD3A0 (free) redirected to 0x400507A (free)
+--5231-- REDIR: 0x2B11C0 (memchr) redirected to 0x4006470 (memchr)
+--5231-- REDIR: 0x2B0730 (strncpy) redirected to 0x40068F0 (strncpy)
+--5231-- REDIR: 0x2AFD70 (index) redirected to 0x40061C0 (index)
+--5231-- REDIR: 0x2AFF50 (strcpy) redirected to 0x40072B0 (strcpy)
+--5231-- REDIR: 0x2B1720 (mempcpy) redirected to 0x4006B30 (mempcpy)
+--5231-- REDIR: 0x2AFEE0 (strcmp) redirected to 0x4006350 (strcmp)
+==5231== Syscall param writev(vector[...]) points to uninitialised byte(s)
+==5231==    at 0x30AFE8: writev (in /lib/libc-2.6.so)
+==5231==    by 0x410F3C2: MPIDU_Sock_writev (sock_immed.i:604)
+==5231==    by 0x407908A: MPIDI_CH3_iSendv (ch3_isendv.c:83)
+==5231==    by 0x407FA1C: MPIDI_CH3_EagerContigIsend (ch3u_eager.c:460)
+==5231==    by 0x40D26F4: MPID_Isend (mpid_isend.c:117)
+==5231==    by 0x40C0BB0: MPIC_Sendrecv (helper_fns.c:117)
+==5231==    by 0x406504A: MPIR_Allreduce (allreduce.c:284)
+==5231==    by 0x4066A0D: PMPI_Allreduce (allreduce.c:684)
+==5231==    by 0x409DB30: MPIR_Get_contextid (commutil.c:384)
+==5231==    by 0x4095EB4: PMPI_Comm_create (comm_create.c:121)
+==5231==    by 0x804B204: main (main.c:662)
+==5231==  Address 0xBEFC8E48 is on thread 1's stack
+==5231== 
+==5231== Syscall param writev(vector[...]) points to uninitialised byte(s)
+==5231==    at 0x30AFE8: writev (in /lib/libc-2.6.so)
+==5231==    by 0x410F3C2: MPIDU_Sock_writev (sock_immed.i:604)
+==5231==    by 0x407A010: MPIDI_CH3_iStartMsgv (ch3_istartmsgv.c:109)
+==5231==    by 0x407F892: MPIDI_CH3_EagerContigSend (ch3u_eager.c:144)
+==5231==    by 0x40D71EC: MPID_Send (mpid_send.c:126)
+==5231==    by 0x40C071B: MPIC_Send (helper_fns.c:34)
+==5231==    by 0x40659A4: MPIR_Allreduce (allreduce.c:459)
+==5231==    by 0x4066A0D: PMPI_Allreduce (allreduce.c:684)
+==5231==    by 0x409DB30: MPIR_Get_contextid (commutil.c:384)
+==5231==    by 0x4095EB4: PMPI_Comm_create (comm_create.c:121)
+==5231==    by 0x804B204: main (main.c:662)
+==5231==  Address 0xBEFC8E38 is on thread 1's stack
+--5231-- REDIR: 0x2AD590 (realloc) redirected to 0x400550F (realloc)
+==5231== 
+==5231== Process terminating with default action of signal 15 (SIGTERM)
+==5231==    at 0x308A0B: poll (in /lib/libc-2.6.so)
+==5231==    by 0x410FECA: MPIDU_Sock_wait (sock_wait.i:149)
+==5231==    by 0x407A66E: MPIDI_CH3_Progress_wait (ch3_progress.c:189)
+==5231==    by 0x40D3219: MPID_Probe (mpid_probe.c:36)
+==5231==    by 0x40EDC10: PMPI_Probe (probe.c:98)
+==5231==    by 0x805841A: getScore (scoring.c:323)
+==5231==    by 0x8057EC5: ComputePartitionScores (scoring.c:187)
+==5231==    by 0x804AA5D: ScoreCompThread (main.c:512)
+==5231==    by 0x804AFFD: MainProcess (main.c:611)
+==5231==    by 0x804B3A0: main (main.c:690)
+@
+
+
+1.1.1.1
+log
+@Distributed Optimal MSA using MoA
+@
+text
+@@

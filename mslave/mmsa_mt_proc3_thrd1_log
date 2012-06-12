@@ -1,0 +1,9 @@
+Program Arguments: debuglevel = 1 maxAlignmentsNumber = 20 Epsilons= 0 Alignment Type = 0 stype 1 outputfilename = mmsa_mt partitionSize = 3
+Received Partition 1 starting @ 10
+Joined Sending Thread 1
+Joined Score Computation Thread
+Joined Receiving Thread
+read Slave data from checkpoint file
+joined threads & exiting
+Master before finalize 
+Master after finalize 

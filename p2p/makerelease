@@ -1,0 +1,25 @@
+mmDst : ../run/main.o ../run/utils.o ../run/partitioning.o ../run/moa.o ../run/perm.o ../run/scoring.o  ../run/scores.o
+	mpicc -DNDEBUG -lm -o ../run/mmDst main.c utils.c partitioning.c moa.c perm.c scoring.c scores.c
+
+../run/main.o :  main.c main.h utils.h globals.h
+	mpicc -c -DNDEBUG main.c -o ../run/main.o
+
+../run/utils.o : utils.c utils.h moa.h globals.h 
+	mpicc -c -DNDEBUG utils.c -o ../run/utils.o
+
+../run/partitioning.o :  partitioning.c main.h utils.h globals.h moaDst.h
+	mpicc -c -DNDEBUG partitioning.c -o ../run/partitioning.o
+
+../run/moa.o :  moa.c moa.h utils.h globals.h
+	mpicc -c -DNDEBUG moa.c -o ../run/moa.o
+
+../run/perm.o : perm.c 
+	 mpicc -c -DNDEBUG perm.c -o ../run/perm.o
+
+../run/scoring.o  : scoring.c scores.h scoring.h
+	 mpicc -c -DNDEBUG scoring.c -o ../run/scoring.o
+
+../run/scores.o : scores.c 
+	 cc -c -DNDEBUG scores.c -o ../run/scores.o
+clean : 
+	rm ../run/main.o ../run/partitioning.o ../run/moa.o ../run/utils.o ../run/perm.o ../run/scoring.o ../run/scores.o  main.o partitioning.o moa.o utils.o perm.o scoring.o scores.o

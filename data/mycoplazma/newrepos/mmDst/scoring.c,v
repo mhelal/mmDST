@@ -1,0 +1,808 @@
+head	1.2;
+access;
+symbols
+	r1:1.1.1.1 mhelal:1.1.1;
+locks; strict;
+comment	@ * @;
+
+
+1.2
+date	2008.05.11.13.55.54;	author mhelal;	state Exp;
+branches;
+next	1.1;
+
+1.1
+date	2008.05.06.02.40.53;	author mhelal;	state Exp;
+branches
+	1.1.1.1;
+next	;
+
+1.1.1.1
+date	2008.05.06.02.40.53;	author mhelal;	state Exp;
+branches;
+next	;
+
+
+desc
+@@
+
+
+1.2
+log
+@search space error
+@
+text
+@/****************************************************************
+* Author: Manal Helal                                           *
+* Last Modification Date: Fri 12 Jan 2007 03:39:51 AM EST       *
+* Project : mmDst - Distributed Multiple sequence slignment based on 	       *
+* 					Mathematics of arrays - PhD Experimentation		 *
+* File: scoring.c
+* Description: contain the scoring functions used in 	   	    *
+*       this project                                            *
+* Function:
+*		ComputePartitionScores
+*     subScore
+*     gapScore
+*     initLBCell
+*     getScore
+*     getPrevCells
+*     getNeighborScores
+*     getNeghbScore
+*     getRelation
+*		PrintPrevChains
+****************************************************************/
+
+#include <stdio.h>
+#include <string.h>
+#include <stdlib.h>
+#include <ctype.h>      /* include the character library */
+#include <pthread.h>
+#include <mpi.h>
+#include <errno.h>
+#include "globals.h"
+#include "utils.h"
+#include "moaDst.h"
+#include "moa.h"
+#include "main.h"
+#include "scores.h"
+#include "scoring.h"
+
+
+
+
+void * ComputePartitionScores (void * threadarg) {
+	long i, j, cnt, startIndex, score, partIndex;
+	long * lm_index = NULL; /* local multidimensional index in the current partition*/
+	long * posDimn = NULL; /* dimensions where the cell is overlapping on to get its enclosing partition*/
+	long LNCount, CalLnCount, waveNo;
+	long * lnScores = NULL; /* Lower neighbor temporary scores*/
+	long * lnIndices = NULL; /* Lower neighbor Indices */
+	long * * pwScores = NULL; /* holds the scores of pairwise match / mistmatch scores*/
+	long * decremented = NULL; /* list of decremented indices in the multidimensional index of the current neighbor*/
+	long * gm_index = NULL; /*global multidimensional index from the whole tensor*/
+  	long * depPart = NULL; /*global index of partition index of local lower border cell that need to be received*/
+	char * * sequences;
+	long * seqLen;
+	MOA_rec * msaAlgn; 
+	int stype, depPartOutsideEpsilon;
+	ProcessData * pData;
+#ifndef NDEBUG
+	char msg[MID_MESSAGE_SIZE];
+	int dbglevel = 1;
+#endif
+
+	/* Initialize Memory Allocations for score computations */
+	pData = (ProcessData * ) threadarg;
+	seqLen = pData->seqLen;
+	msaAlgn = pData->MOAPart[pData->computedPartitions].msaAlgn;
+	waveNo = pData->MOAPart[pData->computedPartitions].waveNo;
+	stype = pData->stype;
+	CalLnCount = (long) mpow(2, msaAlgn->dimn) - 1;
+	decremented = mcalloc ((msaAlgn->dimn), sizeof *(decremented));
+	lm_index = mcalloc ((msaAlgn->dimn), sizeof *(lm_index));
+  	depPart = mcalloc ((msaAlgn->dimn), sizeof *(depPart));
+	posDimn = mcalloc ((msaAlgn->dimn), sizeof *(posDimn));
+	lnScores = mcalloc (CalLnCount, sizeof *(lnScores));
+	lnIndices = mcalloc (CalLnCount, sizeof *(lnIndices));
+	/*get pairwise
+    scores of the corresponding residues of the current cell in the alignment tensor*/
+	/* Compute pairwise scores for the current index*/
+	pwScores = mcalloc (msaAlgn->dimn, sizeof *(pwScores));
+
+ 	/*Retrieve the partial sequences residues corresponding to the currently computed partition from the input sequences*/
+	/*1. Create needed memory*/
+	pData->currPartSeq = mmalloc (msaAlgn->dimn * sizeof *(sequences));
+	for (i=0;i< msaAlgn->dimn;i++) 
+		pData->currPartSeq[i] = mmalloc ((msaAlgn->shape[i] + 1) * sizeof *(sequences[i]));
+	/*2. Retrieve initial residue in all sequences - no need to return local indices (it is always zero here) and convert to global 	like the case below*/
+	if (gm_index != NULL) {
+		free (gm_index);
+		gm_index = NULL;
+	}
+	Gamma_Inverse(msaAlgn->indexes[0], pData->seqLen, pData->seqNum, &gm_index, 1);
+#ifndef NDEBUG
+	sprintf (msg, "[%d]>ComputePartitionScores: Retrieve initial sequence residues{\n############# ", myProcid);
+	mprintf(dbglevel, msg, 1);
+#endif
+	for (i=0;i<msaAlgn->dimn;i++) {
+		pData->currPartSeq[i][0] = pData->sequences[i][gm_index[i]];
+#ifndef NDEBUG
+	sprintf (msg, "[%ld][0]%c ", i, pData->currPartSeq[i][0]);
+	mprintf(dbglevel, msg, 1);
+#endif
+	}
+	/*2. Retrieve later sequence residues, keeping gm_index = zeros for all dimensions except the one corresponding to the
+	current sequence, read it from the corresponding position, this is the local starting index, and return the global flat index
+	to startIndex, and then the global multi-dimentional index to lm_index*/ 
+#ifndef NDEBUG
+	sprintf (msg, "\n}\n[%d]>ComputePartitionScores: Retrieve later sequence residues{\n############# ", myProcid);
+	mprintf(dbglevel, msg, 1);
+#endif
+	cnt = 0;
+	for (i=0;i< msaAlgn->dimn;i++) {
+		for (j=1;j< msaAlgn->shape[i];j++) {
+			lm_index[i] = j;
+			startIndex = Gamma (lm_index, msaAlgn->dimn, msaAlgn->shape, msaAlgn->dimn, 1);
+			if (gm_index != NULL) {
+  				free (gm_index);
+  				gm_index = NULL;
+  			}
+			Gamma_Inverse(msaAlgn->indexes[startIndex], pData->seqLen, pData->seqNum, &gm_index, 1);
+			pData->currPartSeq[i][j] = pData->sequences[i][gm_index[i]];
+#ifndef NDEBUG
+	sprintf (msg, "[%ld][%ld]%c ", i, j, pData->currPartSeq[i][j]);
+	mprintf(dbglevel, msg, 1);
+#endif
+			cnt ++;
+			lm_index[i]=0;
+		}
+#ifndef NDEBUG
+	mprintf(dbglevel, "**", 1);
+#endif
+	}
+#ifndef NDEBUG
+	sprintf (msg, "\n}\n[%d]>ComputePartitionScores: Got Partital Sequences\n", myProcid);
+	mprintf(dbglevel, msg, 1);
+#endif
+	/* seqNum = msaAlgn->dimn; sequences = pData->currPartSeq; seqLen = msaAlgn->shape*/
+	sequences = pData->currPartSeq;
+	PrintSequencies (0, msaAlgn->dimn, sequences, msaAlgn->shape);
+
+	/* Get all startingindex, lm_index, gm_index to start the scpring loop*/
+	for (i=0; i<msaAlgn->dimn; i++) {
+		pwScores[i] = mcalloc (msaAlgn->dimn, sizeof *(pwScores[i]));
+		if (Mode == Distributed) { 
+			lm_index [i] = 0; /* start from zero index, to do the overlapping cells bet. processors*/
+		} else {
+			lm_index [i] = 1; /* to retrieve the first non-border cell to save iterations on the loop below*/
+		}
+	}
+	if (Mode == Distributed) 
+		startIndex = 0;
+	else
+		startIndex = Gamma(lm_index, msaAlgn->dimn, msaAlgn->shape, msaAlgn->dimn, 1);
+
+	if (gm_index != NULL) {
+		free (gm_index);
+		gm_index = NULL;
+	}
+	Gamma_Inverse(msaAlgn->indexes[startIndex], pData->seqLen, pData->seqNum, &gm_index, 1);  
+
+#ifndef NDEBUG
+	sprintf (msg, "[%d]>ComputePartitionScores: Got Starting Index [%ld] up to [%ld]\nEnter loop ***************************\n", myProcid, startIndex, msaAlgn->elements_ub);
+	mprintf(dbglevel, msg, 1);
+#endif
+  	
+	/* loop the MOAAlign tensor for scores*/
+	for (i = startIndex; i< msaAlgn->elements_ub; i++)  {
+		if (i != startIndex) /*because we already have it from above*/ {
+			if (lm_index != NULL) {
+				free (lm_index);
+				lm_index = NULL;
+			}
+			if (gm_index != NULL) {
+				free (gm_index);
+				gm_index = NULL;
+			}
+			/*Get the full multidimensional Index (Local and Global), and decide its status*/
+			Gamma_Inverse(i, msaAlgn->shape, msaAlgn->dimn, &lm_index, 1);
+			Gamma_Inverse(msaAlgn->indexes[i], pData->seqLen, pData->seqNum, &gm_index, 1);
+		}
+		CurrentCell.llOC = 0;
+		CurrentCell.glOC = 0;
+		CurrentCell.lhOC = 0;
+		depPartOutsideEpsilon = 0;
+#ifndef NDEBUG
+		printf ("[%d] Scoring Cell %ld with Global Index (", myProcid, msaAlgn->indexes[i]);
+#endif
+		for (j = 0; j< pData->seqNum; j++) {
+#ifndef NDEBUG
+			printf (" %ld ", gm_index[j]);
+#endif
+			/*if local index = zero, then it is a local lower Overlapping Cell - llOC*/
+			if (lm_index[j] == 0) 
+				CurrentCell.llOC = 1;
+			/*if global index = zero then it is a global lower Overlapping Cell - glOC*/
+			if (gm_index[j] == 0) {
+				CurrentCell.glOC = 1;
+			}
+			/*if E != 0, in case of reduced seach space, it is also  glOC (to be initialized), if the partition containing it, is not included in the search space */
+			posDimn[j] = 0;
+			if ((Epsilons != 0) && (lm_index[j] == 0) && (gm_index[j] > 0)) {
+				depPartOutsideEpsilon = 1;
+				posDimn[j] = 1; /*since the cell belongs to several partitions in different positions, we need to trace the dimensions where it is identified to be a lower border cell in this partition, to get the partition index where it is a higher border on the same dimensions*/
+			}
+			
+			if (lm_index[j] == msaAlgn->shape[j] - 1)
+				CurrentCell.lhOC = 1;
+		}
+		if (CurrentCell.glOC == 1)
+			CurrentCell.llOC = 0;
+#ifndef NDEBUG
+		printf (") llOC %d , glOC %d \n", CurrentCell.llOC, CurrentCell.glOC);
+#endif
+		if (depPartOutsideEpsilon == 1) {
+			partIndex = getPartitionIndex(3, posDimn, msaAlgn->indexes[i], gm_index, pData->seqNum, pData->seqLen, pData->partitionSize, &depPart);
+#ifndef NDEBUG
+			printf ("[%d] Partition flat Index is %ld = (", myProcid, partIndex);
+			for (j = 0; j< pData->seqNum; j++) {
+				printf (" (%ld, %ld) ", depPart[j], posDimn[j]);
+			}
+			printf (" ) ");
+#endif
+			 
+			if ((partIndex >= 0) && (isPartInSearchSpace(-1, depPart, pData->seqNum, pData->seqLen, pData->currWaveNo) == 0)) {
+#ifndef NDEBUG
+				printf (" [%d] and not included in search space, cell will be initialized\n", myProcid);
+#endif
+
+				CurrentCell.glOC = 0;
+				CurrentCell.llOC = 0;
+			}
+			else {
+#ifndef NDEBUG
+				printf (" [%d] and is included in search space, cell will be received\n", myProcid);
+#endif
+				CurrentCell.llOC = 1;
+			}
+		}
+		LNCount = 0;
+    
+		if ((Mode == Distributed) || ((Mode != Distributed) && (isLowerBorderCell(lm_index, msaAlgn->dimn) == 0))) {
+			score = getScore(pData, i, lm_index, gm_index, &LNCount,  &lnScores, &lnIndices, &pwScores, &decremented);
+			msaAlgn->elements[i].val = score;
+		}
+#ifndef NDEBUG
+		sprintf(msg, "####[%ld] index %ld score %ld llOC %d, glOC %d, lhOC %d\n", i, msaAlgn->indexes[i], msaAlgn->elements[i].val, CurrentCell.llOC, CurrentCell.glOC, CurrentCell.lhOC);
+		mprintf(dbglevel, msg, 1);
+#endif
+	}
+#ifndef NDEBUG
+		mprintf(dbglevel, "END LOOP ***************************\n", 1);
+#endif
+	
+	/* free allocated work memory ==================================*/
+	if (lm_index != NULL)
+		free(lm_index);
+	if (depPart != NULL)
+		free(depPart);
+	if (lnScores != NULL)
+		free(lnScores);
+	if (lnIndices != NULL)
+		free(lnIndices);
+  
+	if (decremented != NULL)
+		free(decremented);
+	if (gm_index != NULL)
+		free(gm_index);
+	if (posDimn != NULL)
+		free (posDimn);
+	if (pwScores != NULL) {
+		for (i=0; i<msaAlgn->dimn; i++) {
+			if (pwScores[i] != NULL) 
+				free( pwScores[i]);
+		}
+		free(pwScores);
+	}
+	pData->MOAPart[pData->computedPartitions].sequences = pData->currPartSeq;
+	pData->MOAPart[pData->computedPartitions].msaAlgn = msaAlgn;
+	return NULL;
+
+}
+
+int subScore (char char1, char char2, int stype) {
+  int score = 0;
+
+  if (stype == 1) { /* linear score */
+    if ((char1 == GAPCHAR) || (char2 == GAPCHAR))
+      score = -3;
+    else if (char1 == char2)
+      score = 3;
+    else
+      score = -1;
+  }
+  else if (stype == 2) /* PAM250 if protein */
+    score  = PAM250 (char1, char2);
+  else if (stype == 3) /* BLOSUM if protein */
+    score  = BLOSUM (char1, char2);
+  return score;
+}
+
+int gapScore(int stype) {
+  int score = 0;
+  score = subScore ('A', GAPCHAR, stype);
+  return score;
+}
+
+/*******************************************************
+	Function: initLBCell
+*******************************************************/
+long initLBCell (long * lm_index, long dimn, int stype) {
+	long iscore, indexTau, i;
+  
+	indexTau = lm_index[0]+1;
+	for (i = 1; i < dimn;i++) {
+		indexTau = indexTau * (lm_index[i] + 1);
+	}      
+	iscore = (gapScore(stype) * indexTau);
+	return iscore;
+}
+
+/***********************************************************************
+	Function: getScore
+		Computes score for cell of index findex
+***********************************************************************/
+long getScore (void * threadarg, long findex, long * lm_index, long * gm_index, long * LNCount, long * * lnScores, long * * lnIndices, long * * * pwScores,  long * * decremented) {
+	long startOC, score, j, i = 0;
+	int ret;
+	char * * sequences;
+	long seqNum, * seqLen;
+	MOA_rec * msaAlgn; 
+	int stype;
+	ProcessData * pData;
+	MPI_Status status;
+	int MPI_return, source;
+#ifndef NDEBUG
+	char msg[MID_MESSAGE_SIZE];
+	int dbglevel = 3;
+#endif
+
+	
+	/* initialize work areas ======================= */
+	pData = (ProcessData * ) threadarg;
+	sequences = pData->currPartSeq;
+	seqNum = pData->seqNum;
+	seqLen = pData->seqLen;
+	msaAlgn = pData->MOAPart[pData->computedPartitions].msaAlgn;
+	stype = pData->stype;
+	
+#ifndef NDEBUG
+	sprintf (msg, "[%d]>getScore: scoring elment %ld \n", myProcid, msaAlgn->indexes[findex]);
+	mprintf (dbglevel, msg, 1);
+#endif
+	if (Mode == Distributed) {    
+		if (CurrentCell.llOC == 1) { 
+		/*search for the local lower Overlapping Cell in previously calculated partitions in local processor first*/
+			/* if not found, then block till it is received from the adjacent processor  */
+			ret = checkPrevPartitions (pData, msaAlgn->indexes[findex], &score, pData->MOAPart[pData->computedPartitions].waveNo);
+			if (ret == 0) {
+#ifndef NDEBUG
+				sprintf (msg, "[%d]>getScore: Previous Partions => score %ld ", myProcid, score);
+				mprintf (dbglevel, msg, 1);
+#endif
+			}
+			else {
+			/*if not found, search the Overlapping Cells scores received already from other processors*/	
+				startOC = 0;
+				ret = checkRecvOC (msaAlgn->indexes[findex], &score, &startOC, pData->MOAPart[pData->computedPartitions].waveNo);
+				if (ret == 0) {
+				/* Not found in buffer OCout, issue receive command */
+#ifndef NDEBUG
+					sprintf (msg, "[%d]>getScore: Waiting for an OC %ld in Local Partition %ld\n", myProcid, msaAlgn->indexes[findex], pData->computedPartitions);
+					mprintf (dbglevel, msg, 1);
+#endif
+					/* Receive score of overlapping cell =====================*/
+					do {
+						MPI_return = MPI_Probe(MPI_ANY_SOURCE, MPI_ANY_TAG, MOAMSA_COMM_WORLD, &status);
+						if (MPI_return == MPI_SUCCESS) {
+#ifndef NDEBUG
+							sprintf (msg, "[%d]>getScore: MPI_Probe success, source [%d]\n", myProcid, status.MPI_SOURCE);
+							mprintf (1, msg, 1);
+#endif
+							source = status.MPI_SOURCE;
+							/* ====================================*/
+								while (MPI_return == MPI_SUCCESS && (ret = receiveOC(status.MPI_SOURCE, msaAlgn->indexes[findex], &score)) == 0) {
+									currNow = getTime();
+									if (((currNow->tm_yday * 1440) + (currNow->tm_hour * 60) + currNow->tm_min) > ((prevNow->tm_yday * 1440) + (prevNow->tm_hour * 60) + prevNow->tm_min + 1)) {
+#ifndef NDEBUG
+										sprintf(msg, "[%d]>getScore: (receiveOC loop) 1 minutes elapsed and doing cell = %ld score %ld in part Order %ld in wave %ld\n", myProcid, msaAlgn->indexes[findex], score, pData->currPartOrder, pData->currWaveNo);
+										mprintf (1, msg, 1);
+#endif
+										cpTime (currNow, &prevNow);
+										//break;
+									}
+									MPI_return = MPI_Probe(MPI_ANY_SOURCE, MPI_ANY_TAG, MOAMSA_COMM_WORLD, &status);
+								}
+								if (ret == 0)
+									ret = checkRecvOC (msaAlgn->indexes[findex], &score, &startOC, pData->MOAPart[pData->computedPartitions].waveNo);
+								
+							/* ======================================================= */
+						} else {
+							checkMPIErrorCode ("MPI_Probe", 1, 1, MPI_return);
+							ret = 0;
+						}
+					} while (ret == 0);
+					/*score = 0;*/
+					/* ====================================== end receive ====*/
+#ifndef NDEBUG
+					sprintf (msg, "[%d]>getScore: MPI Received => score %ld\n", myProcid, score);
+					mprintf (1, msg, 1);
+				} else {
+					sprintf (msg, "[%d]>getScore: Previously Received => score %ld\n", myProcid, score);
+					mprintf (dbglevel, msg, 1);
+#endif
+				}
+			}
+		} else if (CurrentCell.glOC == 1) {
+		/*if (GLB) Global lower border cell from the whole tensor, then initialize with gabscores multiplied by indices if global, or zero if local alignment*/
+			
+			score = initLBCell (gm_index, seqNum,stype);
+#ifndef NDEBUG
+			sprintf (msg, "[%d]>getScore: Global lower border => score %ld\n", myProcid, score);
+			mprintf (dbglevel, msg, 1);
+#endif
+		} else {
+			//ret = getNeighborScores (sequences, seqLen, lm_index, msaAlgn, stype, LNCount, lnScores, lnIndices, pwScores, decremented);
+			ret = getNeighborScores (sequences, seqLen, lm_index, msaAlgn, stype, LNCount, lnScores, lnIndices, pwScores, decremented);
+			//printf ("[%d] 1. Cell (", myProcid);
+			//for (j=0;j<msaAlgn->dimn;j++)
+			//	printf (" %ld ", lm_index[j]);
+			//printf (") has neighbors: (");
+			//for (j=0;j<(*LNCount);j++)
+			//	printf (" %ld ", (*lnIndices)[j]);
+			//printf (")\n");
+			fflush(stdout);
+#ifndef NDEBUG
+			printf ("getNeighborScores ret = %d ", ret);
+#endif
+			if (ret == -2) {
+				/* coming from outside the search space, but may be in a previous partition*/
+				ret = checkPrevPartitions (pData, msaAlgn->indexes[findex], &score, pData->MOAPart[pData->computedPartitions].waveNo);
+				if (ret == 0) {
+#ifndef NDEBUG
+					sprintf (msg, "[%d]>getScore: Previous Partions => score %ld ", myProcid, score);
+					mprintf (dbglevel, msg, 1);
+#endif
+				}
+				else {
+				/*if not found, search the Overlapping Cells scores received already from other processors*/	
+					startOC = 0;
+					ret = checkRecvOC (msaAlgn->indexes[findex], &score, &startOC, pData->MOAPart[pData->computedPartitions].waveNo);
+					if (ret == 0)  
+						score = initLBCell (gm_index, seqNum,stype);
+
+				}
+			} else {
+			/* take the maximum temporary score as the score for the current cell*/
+				score = a_max((*lnScores), (*LNCount));
+				i = getPrevCells(findex, score, (*LNCount), (*lnScores), 	(*lnIndices), msaAlgn);
+#ifndef NDEBUG
+				sprintf (msg, "[%d]>getScore: maximum temporary => score %ld\n", myProcid, score);
+				mprintf(dbglevel, msg, 1);
+#endif
+			}
+#ifndef NDEBUG
+			printf (" score = %ld \n", score);
+#endif
+		}
+	} else {
+	/* If Sequential Scoring  Mode NOT Distributed ============================*/
+		ret = getNeighborScores (sequences, seqLen, lm_index, msaAlgn, stype, LNCount, lnScores, lnIndices, pwScores, decremented);
+		if (ret == -2) {
+			/* Lower Border Cell - Initialize ===========================*/
+			score = initLBCell (gm_index, seqNum,stype);
+#ifndef NDEBUG
+			sprintf (msg, "[%d]>getScore: Seq Lower Bound => score %ld\n", myProcid, score);
+			mprintf(dbglevel, msg, 1);
+#endif
+		} else {
+			/* Inner Cell (IC) : Score => take the maximum temporary score as the score for the current cell*/
+			score = a_max((*lnScores), (*LNCount));
+			i = getPrevCells(findex, score, (*LNCount), (*lnScores), 	(*lnIndices), msaAlgn);
+#ifndef NDEBUG
+			sprintf (msg, "[%d]>getScore: Seq  Inner Cell => score %ld\n", myProcid, score);
+			mprintf(dbglevel, msg, 1);
+#endif
+		}
+	}
+	if (AlignmentType == Local) {
+		if (score <0)
+			score = 0;
+	}
+	
+	msaAlgn->elements[findex].val = score;
+#ifndef NDEBUG
+	sprintf (msg, "[%d]>getScore: element %ld score %ld\n", myProcid, msaAlgn->indexes[findex], msaAlgn->elements[findex].val);
+	mprintf (dbglevel, msg, 1);
+	sprintf (msg, "will check lhOC OCout_ub %ld\n", OCout_ub);
+	mprintf(dbglevel, msg, 1);
+#endif
+	if (CurrentCell.lhOC == 1) {
+		
+		addOC (pData, pData->MOAPart[pData->computedPartitions].waveNo, msaAlgn->indexes[0], msaAlgn->indexes[findex], score, -1, 1);
+#ifndef NDEBUG
+		sprintf (msg, "after addOC OCout_ub %ld wavesOC %ld\n", OCout_ub, OCout[pData->MOAPart[pData->computedPartitions].waveNo].wavesOC);
+		mprintf(dbglevel, msg, 1);
+#endif
+	}
+#ifndef NDEBUG
+	sprintf(msg, "[%d]>getScore: lnScores[%ld] {\n", myProcid, (*LNCount));
+	mprintf(dbglevel, msg, 1);		
+	for (i = 0; i < (*LNCount); i++) {
+		sprintf(msg, "%ld ", (*lnScores)[i]);
+		mprintf(dbglevel, msg, 1);		
+	}
+	sprintf(msg, "\n}\n[%d]>getScore: lnIndices[%ld] {\n", myProcid, (*LNCount));
+	mprintf(dbglevel, msg, 1);		
+	for (i = 0; i < (*LNCount); i++) {
+		sprintf(msg, "%ld : %ld ", i, (*lnIndices)[i]);
+		mprintf(dbglevel, msg, 1);
+	}
+	mprintf(dbglevel, "\n}\n", 1);
+#endif
+	return score;
+}
+/***************************************************************************
+	Function: getPrevCells
+***************************************************************************/
+int getPrevCells(long findex, long score, long LNCount, long * lnScores, long * lnIndices, MOA_rec *  msaAlgn) {
+	int i = 0;
+	char msg[MID_MESSAGE_SIZE];
+#ifndef NDEBUG
+	int dbglevel = 5;
+#endif
+	
+	msaAlgn->elements[findex].prev_ub = 0;
+	msaAlgn->elements[findex].prev = NULL;
+#ifndef NDEBUG
+	sprintf (msg, "[%d]>getPrevCells: loop [%ld]\n", myProcid, LNCount);	
+	mprintf(dbglevel, msg, 1);
+#endif
+	for (i = 0; i < LNCount; i++) {
+		if (lnScores[i] == score) {
+			if ( msaAlgn->elements[findex].prev_ub == 0) 
+				msaAlgn->elements[findex].prev = mmalloc (sizeof *(msaAlgn->elements[findex].prev));
+			else 
+				msaAlgn->elements[findex].prev  = realloc (msaAlgn->elements[findex].prev, (msaAlgn->elements[findex].prev_ub + 1) * sizeof *(msaAlgn->elements[findex].prev));
+			if (msaAlgn->elements[findex].prev == NULL) {
+				sprintf (msg, "[%d]>getPrevCells: Could not reallocate memory for MSA Align Previous Cells pointer!\n", myProcid);
+				mprintf(0, msg, 1);
+				return -1;
+			}
+			/* msaAlgn->elements[findex].prev[msaAlgn->elements[findex].prev_ub] = msaAlgn->indexes[lnIndices[i]];*/
+			msaAlgn->elements[findex].prev[msaAlgn->elements[findex].prev_ub] = msaAlgn->indexes[lnIndices[i]];
+			msaAlgn->elements[findex].prev_ub ++;      
+#ifndef NDEBUG
+			sprintf (msg, "#########%ld\n ", msaAlgn->indexes[lnIndices[i]]);
+			mprintf(dbglevel, msg, 1);
+#endif
+		}
+	}	
+#ifndef NDEBUG
+	sprintf (msg, "[%d]>getPrevCells: total %ld\n", myProcid, msaAlgn->elements[findex].prev_ub);	
+	mprintf(dbglevel, msg, 1);
+#endif
+	return 0;
+}
+
+/********************************************************************************
+	Function: getNeghbScore 
+		Examine a specific neighbor's score based on its distance from the current 
+		cell being scored
+********************************************************************************/
+long getNeghbScore (long * lm_index, long * * neighbor, MOA_rec * msaAlgn, long * * decremented, long * * * pwScores, char * * sequences, MOA_rec * NghbMOA, int stype, long totpwiseScore) {
+	long score;
+	long j, k, ndecr = 0;
+#ifndef NDEBUG
+	char msg[MID_MESSAGE_SIZE];
+	int dbglevel = 5;
+#endif
+	
+	/* get relation between this neighbor and the current cell */
+	ndecr = getRelation (lm_index, (*neighbor), msaAlgn->dimn, decremented);
+	/* if we have 2 or more decremented neighbors*/
+	/* sum pairwise scores for each pair of dimensions that got decremented*/
+	totpwiseScore = 0;
+	if ((msaAlgn->dimn  - ndecr) > 1) {
+#ifndef NDEBUG
+		sprintf(msg, "[%d]>getNeghbScore: ndecr %ld decr %ld : {\n", myProcid,ndecr,  (msaAlgn->dimn  - ndecr));
+		mprintf(dbglevel, msg, 1);
+		for (j = 0; j < (msaAlgn->dimn  - ndecr);j++) {
+			sprintf(msg, "%ld ", (*decremented)[j]);
+			mprintf(dbglevel, msg, 1);
+		}
+		mprintf(dbglevel, "\n}\n", 1);
+#endif
+	}
+  
+	for (j=0;j<(msaAlgn->dimn  - ndecr) - 1; j++) {
+		for (k=j+1;k<(msaAlgn->dimn  - ndecr); k++) {
+			totpwiseScore += (*pwScores)[(*decremented)[j]][(*decremented)[k]];
+#ifndef NDEBUG
+			sprintf(msg, "[%d]>getNeghbScore: pw[%ld][%ld] = %ld (%c-%c)\n", myProcid, (*decremented)[j], (*decremented)[k], (*pwScores)[(*decremented)[j]][(*decremented)[k]], sequences[j][lm_index[j]-1], sequences[k][lm_index[k]-1]);
+			mprintf(dbglevel, msg, 1);
+#endif
+		}
+	}
+  
+	/* multiple the number of dimensions that did not get decremented by the gap score */
+	/* add both to the previoues score in the neighbor's cell in the alignment matrix to get the temporary score for this neighbor*/
+  
+	/*inserting one residue, is like deleting one residue, so ndecr of 2 is like ndec of 1 in a 3D, and ndecr of 3 is like ndecr of 1 in 4D and */
+	div_t div_val;
+	div_val = div(msaAlgn->dimn, 2);
+	if (ndecr<=div_val.quot)
+		score = totpwiseScore + (ndecr * gapScore(stype));
+	else
+		score = totpwiseScore + ((msaAlgn->dimn-ndecr) * gapScore(stype));
+  
+	return score;
+}
+/*****************************************************************************
+	Function: getRelation 
+		Returns the neighbors that got decremented , and those that didn't
+*****************************************************************************/
+
+long getRelation (long * cell, long * neighbor, long dimn, long * * decremented) {
+	long i, cnt, ndecr = 0;
+#ifndef NDEBUG
+	char msg[SHORT_MESSAGE_SIZE];
+	int dbglevel = 6;
+#endif
+	
+	cnt = 0;
+	ndecr = 0;
+	for (i = 0; i< dimn; i++) {
+		if (neighbor[i] < cell[i]) {
+			(*decremented)[cnt] = i;
+#ifndef NDEBUG
+			sprintf (msg, "[%d]>getRelation: decr[%ld] = %ld\n", myProcid, cnt, (*decremented)[cnt]);
+			mprintf(dbglevel, msg, 1);
+#endif
+			cnt ++;
+		}
+		else 
+			ndecr ++;
+#ifndef NDEBUG
+		sprintf (msg, "[%d]>getRelation: ngb %ld cell %ld cnt %ld ndcr %ld\n", myProcid, neighbor[i], cell[i], cnt, ndecr);
+		mprintf(dbglevel, msg, 1);
+#endif
+	}
+  
+	return ndecr;
+}
+
+/****************************************************************************
+	Function: getNeighborScores
+		Examine all neighbors scores to determine the current score of the new 
+		cell being scored.
+****************************************************************************/
+int getNeighborScores (char * * sequences, long * seqLen, long * lm_index, MOA_rec * msaAlgn, int stype, long * LNCount, long * * lnScores, long * * lnIndices, long * * * pwScores, long * * decremented) {
+  
+	MOA_rec * NghbMOA = NULL;
+	int ret;
+	long i, k, l;
+	long totpwiseScore = 0;
+	char char_a, char_b;
+	long * neighbor = NULL; /* multidimensional index of the current neighbor*/
+	char msg[SHORT_MESSAGE_SIZE];
+#ifndef NDEBUG
+	int dbglevel = 4;
+
+	sprintf (msg, "[%d]>getNeighborScores: Pairwise scores matrix\n", myProcid);
+	mprintf (dbglevel, msg, 1);
+#endif
+	/*Fill in the pair wise score matrix for the current cell*/
+	totpwiseScore = 0;
+	for (l=0;l<msaAlgn->dimn  - 1; l++) {
+		for (k=l+1;k<msaAlgn->dimn; k++) {
+			if (Mode == Distributed) {
+				char_a = sequences[l][lm_index[l]];
+				char_b = sequences[k][lm_index[k]];
+			}
+			else {
+				char_a = sequences[l][lm_index[l]-1];
+				char_b = sequences[k][lm_index[k]-1];
+			}
+			(*pwScores)[l][k] = subScore(char_a, char_b, stype);
+			totpwiseScore = totpwiseScore + (*pwScores)[l][k];
+#ifndef NDEBUG
+			sprintf(msg, "[%d]>getNeighborScores: (%ld, %ld), (%c-%c) => score %ld\n", myProcid,l, k, char_a, char_b, (*pwScores)[l][k]);
+			mprintf(dbglevel, msg, 1);
+#endif
+		}
+#ifndef NDEBUG
+		sprintf(msg, "[%d]>getNeighborScores: total pairwize scores %ld\n", myProcid, totpwiseScore);
+		mprintf(dbglevel, msg, 1);
+#endif
+	}
+  
+	/*get neighbors of the current cell */
+	createMOAStruct (&NghbMOA);
+	(*LNCount) = MOAGetLowerNeighbors (lm_index, msaAlgn, &NghbMOA);
+	if (((*LNCount) <= 0) && (Mode != Distributed)){
+		sprintf(msg, "[%d]>getNeighborScores: No Lower neighbors while expecting, returning\n", myProcid);
+		mprintf(0, msg, 1);
+		fflush(stdout);
+		ret = -1; /* Error - need debugging*/
+		goto cleanExit;
+	}
+	else if ((*LNCount) <= 0) {
+	/* it is distributed and it is a global lower border cell*/
+		ret = -2; /* to let the caller initialize the border cell score*/
+		goto cleanExit;
+	}
+	/* loop throught neighbors */
+	for (i=0;i<NghbMOA->elements_ub - 1;i++) {
+		/*sprintf(msg, "nghb %d containts %d and index %d\n", i, NghbMOA->elements[i].val, NghbMOA->indexes[i]);*/
+		Gamma_Inverse(NghbMOA->indexes[i], msaAlgn->shape, msaAlgn->dimn, &neighbor, 1);
+		(*lnScores)[i] = msaAlgn->elements[NghbMOA->indexes[i]].val + getNeghbScore (lm_index, &neighbor, msaAlgn, decremented, pwScores, sequences, NghbMOA, stype, totpwiseScore);
+		(*lnIndices)[i] = NghbMOA->indexes[i];
+		if (neighbor != NULL) {
+			free (neighbor);
+			neighbor = NULL;
+		}
+	}
+	ret = 0;
+
+cleanExit:
+	if (neighbor != NULL)
+		free (neighbor);
+	if (NghbMOA != NULL)
+		deleteMOA (NghbMOA);
+	return ret;  
+  
+}
+int PrintPrevChains (MOA_rec *  msaAlgn) {
+#ifndef NDEBUG
+  long i, j = 0;
+  char msg[MID_MESSAGE_SIZE];
+  int dbglevel = 5;
+  
+  for (i = 0; i< msaAlgn->elements_ub; i++)  {
+    sprintf (msg, "PrintPrevChains: elm %ld with score %ld has %ld previous: ", i, msaAlgn->elements[i].val, msaAlgn->elements[i].prev_ub);
+    mprintf(dbglevel, msg, 1);
+    for (j = 0; j< msaAlgn->elements[i].prev_ub; j++)  {
+      sprintf (msg, " %ld ", msaAlgn->elements[i].prev[j]);
+      mprintf(dbglevel, msg, 1);
+    }
+    mprintf (dbglevel, "\n", 1);
+  }
+#endif
+  return 0;
+}
+@
+
+
+1.1
+log
+@Initial revision
+@
+text
+@d323 1
+a323 1
+	long startOC, score, i = 0;
+d421 2
+a422 1
+		} else {
+d424 8
+@
+
+
+1.1.1.1
+log
+@Distributed Optimal MSA using MoA
+@
+text
+@@

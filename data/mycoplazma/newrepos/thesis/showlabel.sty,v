@@ -1,0 +1,66 @@
+head     1.1;
+branch   1.1.1;
+access   ;
+symbols  r1:1.1.1.1 mhelal:1.1.1;
+locks    ; strict;
+comment  @# @;
+
+
+1.1
+date     2008.05.06.04.03.23;  author mhelal;  state Exp;
+branches 1.1.1.1;
+next     ;
+
+1.1.1.1
+date     2008.05.06.04.03.23;  author mhelal;  state Exp;
+branches ;
+next     ;
+
+
+desc
+@@
+
+
+
+1.1
+log
+@Initial revision
+@
+text
+@%NAME: showlabels.sty
+% gil@@svax.cs.cornell.edu (Gil Neiger)
+%
+% Change \label, \ref, and \pageref to show labels in line
+%
+
+\def\ref#1{\@@ifundefined{r@@#1}{\mbox{\tt#1?}\@@warning
+   {Reference `#1' on page \thepage \space 
+    undefined}}{\edef\@@tempa{\@@nameuse{r@@#1}}\expandafter
+    \@@car\@@tempa \@@nil\null}}
+
+\def\pageref#1{\@@ifundefined{r@@#1}{\mbox{\tt#1?}\@@warning
+   {Reference `#1' on page \thepage \space 
+    undefined}}{\edef\@@tempa{\@@nameuse{r@@#1}}\expandafter
+    \@@cdr\@@tempa\@@nil\null}}
+
+\def\label#1{\@@bsphack\if@@filesw {\let\thepage\relax
+	\xdef\@@gtempa{\write\@@auxout{\string
+		\newlabel{#1}{{\@@currentlabel}{\thepage}}}}}\@@gtempa
+	\if@@nobreak \ifvmode\nobreak\fi\fi\fi\@@esphack
+	\mbox{\tt[#1]}}
+
+\def\@@citex[#1]#2{\if@@filesw\immediate\write\@@auxout{\string\citation{#2}}\fi
+  \def\@@citea{}\@@cite{\@@for\@@citeb:=#2\do
+    {\@@citea\def\@@citea{,}\@@ifundefined
+       {b@@\@@citeb}{\mbox{\tt\@@citeb?}\@@warning
+       {Citation `\@@citeb' on page \thepage \space undefined}}%
+\hbox{\csname b@@\@@citeb\endcsname}}}{#1}}
+@
+
+
+1.1.1.1
+log
+@Thesis Writing
+@
+text
+@@

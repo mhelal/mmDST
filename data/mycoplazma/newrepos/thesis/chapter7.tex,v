@@ -1,0 +1,165 @@
+head     1.1;
+branch   1.1.1;
+access   ;
+symbols  r1:1.1.1.1 mhelal:1.1.1;
+locks    ; strict;
+comment  @% @;
+
+
+1.1
+date     2008.05.06.04.03.23;  author mhelal;  state Exp;
+branches 1.1.1.1;
+next     ;
+
+1.1.1.1
+date     2008.05.06.04.03.23;  author mhelal;  state Exp;
+branches ;
+next     ;
+
+
+desc
+@@
+
+
+
+1.1
+log
+@Initial revision
+@
+text
+@\chapter{Partitioning, Scheduling, and Communication Aspects}
+\section{Partitioning Aspects}
+\subsection{Partition Size Effects}
+
+In order to decide whether the data size is suitable for the available resources and estimate the amount of time and memory required to provide a solution, some pre-processing is needed. This will be divided in a number of steps. First: Total number of partitions that will be generated based on the partitioning size chosen. This calculation will be done using the following equation:
+
+\textbf{don't forget equation}
+
+Second, the machine or cluster used will need to be described in terms of processing power and communication speed mainly. A metric can be chosen to represent computation power, which is a combination of available memory and the speed of the processor. The communication metric is based on the amount of time required to send and receive a value in the machine or network used. If the metric for communication is faster than the metric of computation, a smaller partition size is recommended, and vice versa.
+
+To recommend an optimal partitioning size, an iterative process of trying a number of partitioning sizes in the equation above, and see which one will produce the best ration between the amount of communication required to the amount of computation, that is conformal to the ratio of the communication metric to the computation metric above.
+
+Third, the estimate of the time required to produce the optimal result. This step might encourage the user to reduce the search space, to reduce the time of processing. The Epsilon value of how much reduction is required can then be either recommended or computed to the user based on a time range specified.
+
+\textbf{don't forget parallel execution time equation}
+
+\subsection{Reshaping the Tensor to retrieve partitions}
+
+The performance of this partitioning method, depends entirely on the partitioning size chosen, the number of processors used, and the computation and communication capabilities of the machine used. The partition size chosen affects how many cells are computed internally and how many are being communicated between processors. As we increase the partition size, we compute more cells in each node, and send more communication cells in each partition as well, but less than the total communication among all partitions with a smaller partition size. Also, the growth of the computed cells with the partition size is larger than the growth of the communication cells within each partition.
+
+Number of elements in a dimension is divided with partitioning into p-2 partitions, creating duplicate elements of m$_{k}$-1, where m$_{k}$ is the number of partitions in each dimension that we need to calculate, plus the extra 2 elements at the beginning and at the end. So the number of elements in each dimension k n$_{k}$ is defined as:
+
+\begin{displaymath}
+n_{k} = m_{k}(p-2) + (m_{k}-1) + 2
+\end{displaymath}
+and reduced to:
+
+\begin{displaymath}
+  n_{k} = m_{k}(p-1) + 1
+\end{displaymath}
+
+Solving for m$_{k}$ that we need, we get:
+
+\begin{displaymath}
+m_{k}=\frac{(n_{k}-1)}{(p-1)} 
+\end{displaymath}
+
+m$_{k}$ is no of partitions at each dimension k and p is the partitioning size, and n$_{k}$ is the length (no of residues) at dimn k (sequence k).
+
+  Equation for duplicates at dimension k, is though of as a recurrence of the duplicates of the previous dimension, plus the duplicates generated at the diagonals edges, and can be expressed as follows:
+
+\begin{displaymath}
+D(K) = D(K-1) * n_{k} + (m_{k}-1) * 2^{k-1}
+\end{displaymath}
+
+\section{Scheduling Methods}
+
+Since we are not following a fixed dimension distribution scheme, there is no fixed row or column distribution method as was described before in literature for the pair-wise MSA. Three methods of scheduling are considered, each with positives and negatives. The first two are already implemented, and the third is in progress. First is the bag of tasks method. It is most suitable for heterogeneous systems, where each computing node differs in its computing power. The second method is round robin. It is currently used, because of the availability of clusters of homogeneous computing nodes. 
+
+The third method is dependency based scheduling, which is optimized to increase locality and decrease data communications. Bag of tasks scheduling is based on adding processors to a queue using push and pop. Starting with a queue containing all slave processors, a processor is retrieved to be assigned, and after it finishes computation, it returns to the scheduler, to receive another assignment. The advantage of this method is that each processor can finish in its own time. The disadvantage is that the scheduler might remain idle, waiting for processors to come back from an initial assignment in a previous wave. Round robin scheduling is based on getting the scheduler to finish partitioning all waves uniformly to all available processors by sending all partitions and their dependency. Once done, the scheduler can serve as slave itself, to avoid idleness. The advantage is that the master process will be better optimized. However, the disadvantage is that there is no consideration for dependency and locality of data among the processors.
+
+Dependency based scheduling optimizes the assignments to processors to increase dependency locality, to reduce communication time, and idleness due to waiting to receive required resources. The advantage is less communication overhead, and more data locality. Again, the disadvantage is the preprocessing overhead, to calculate the best assignment based on dependency.
+
+We need to calculate the total partitions that can be computed in each wave of computation, to divide that on the available number of processors. Each processor can be assigned all its parts adjacent to each other. Also, in each wave we can start assignments from slave processor 1, so that we can achieve locality among waves as well. The first wave of computation will always (in any dataset with any dimensionality) contain only one partition, as all later partitions will require dependency calculated in the first one. The second wave will always be the same number of neighboring partitions as 2$^K$-1 for all dimensions k. All later waves, will contain the neighboring partitions for all partitions in the previous wave, minus the neighbors that are already processed. This will be calculated as the multidimensional area of the hypercube considering the size to be the the wave number, and will increase as W$^K$ – (W-1)$^K$, where W is the wave number and k is the dimension.
+
+Table 1 demonstrates how the number of partitions per wave will increase from one wave to another and from dimension to another.
+
+\begin{table}
+\begin{tabular}{|l|l|l|l|l|l|}
+\hline
+Waves & 1 & 2 & 3 & 4 & 5 \\
+\hline
+Dimensions & & & & & \\
+\hline
+2 & 1 & 3 & 5 & 7 & 9 \\
+\hline
+3 & 1 & 7 & 19 & 37 & 61 \\
+\hline
+4 & 1 & 15 & 65 & 175 & 369 \\
+\hline
+5 & 1 & 31 & 211 & 781 & 2101 \\
+\hline
+6 & 1 & 63 & 665 & 3367 & 11529 \\
+\hline
+7 & 1 & 127 & 2059 & 14197 & 61741 \\
+\hline
+8 & 1 & 255 & 6305 & 58975 & 325089 \\
+\hline
+9 & 1 & 511 & 19171 & 242461 & 1690981 \\
+\hline
+10 & 1 & 1023 & 58025 & 989527 & 8717049 \\
+\hline
+\end{tabular}
+\caption{Number of Partitions / Wave Exponential Growth}
+\end{table}
+
+By knowing the number of partitions available for computation in each wave, we divide the number of partitions in each wave over the slaves processors, and start allocating in each wave from processor one. We partition by breadth first because of dependency requirement, but will allocate with depth first, to achieve adjacency, both in within the wave, and among the waves till the end. The 2D dependency scheduling can be shown in the following figure:
+
+This scheme allows each processor i to send overlapping cells only to i$+$1, i$+$2, up to i$+$k$-$1 where k is the number sequences entered.
+
+
+\subsection{Master/Slave Scheduling}
+\subsubsection{Bag of Tasks}
+\subsubsection{Round Robin}
+\subsubsection{MOA Scheduling}
+
+\subsection{Peer-to-Peer Scheduling}
+Pre-Processing is done to calculate the number of partitions in each wave, and the total waves required to process the whole scoring tensor. This can be either calculated by each process, or calculated by one and sent to the rest, on a machine where communication cost is less than the computation cost.
+
+Waves are calculated as follows:
+
+\textbf{Insert wave calculation documentation!!!}
+
+\section{Load Balancing}
+
+In Master/Slave solution, this is handled by the master process as per the scheduling method used. In a peer-to-peer implementation, this was handled by dividing the number of partitions per wave over the available number of processors, leaving any extra partitions (more than the exact fair division) to the last processor, and can be easily adjusted to any other load balancing method.
+
+\textbf{Insert Load Balancing Algorithm details!!!}
+
+\subsection{Mathematical Proof of Optimality of Load Balancing}
+
+\section{Concurrency \& Communication Aspects }
+
+\subsection{Threads Conditions Vs Semaphores}
+\subsection{Blocking Vs. Non-Blocking Communication}
+\subsection{Slave / Slave Coupling Issues}
+
+
+\section{MoA as Communication Modelling Language}
+
+By defining dependency, the communication scheme can be defined using an MOA equation that retrieve the messages to send, and on the other side, the messages to receive. MOA can be used as a modelling language for communication and dependency analysis in distributed systems.
+
+In MSA, the overlapping cells computed by one processor and send to another is computed by retrieving the higher border cells in the partition being computed. The depending processor calculated the lower border cells to know which cells to receive their scores.
+
+
+
+
+@
+
+
+1.1.1.1
+log
+@Thesis Writing
+@
+text
+@@

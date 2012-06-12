@@ -1,0 +1,47 @@
+head     1.1;
+branch   1.1.1;
+access   ;
+symbols  r1:1.1.1.1 mhelal:1.1.1;
+locks    ; strict;
+comment  @% @;
+
+
+1.1
+date     2008.05.06.04.03.23;  author mhelal;  state Exp;
+branches 1.1.1.1;
+next     ;
+
+1.1.1.1
+date     2008.05.06.04.03.23;  author mhelal;  state Exp;
+branches ;
+next     ;
+
+
+desc
+@@
+
+
+
+1.1
+log
+@Initial revision
+@
+text
+@\appendix
+\setcounter{chapter}{0}
+\renewcommand{\chaptername}{Appendix}
+%\renewcommand{\thechapter}{\arabic{section}.\arabic{ind}}
+\renewcommand{\theequation}{\Alph{chapter}.\arabic{section}.\arabic{equation}}
+\addcontentsline{toc}{chapter}{\numberline{}Appendix}
+\setcounter{equation}{0}
+\chapter{Basic and Auxiliary Results}
+\section{Basic Results}
+@
+
+
+1.1.1.1
+log
+@Thesis Writing
+@
+text
+@@

@@ -1,0 +1,113 @@
+head     1.1;
+branch   1.1.1;
+access   ;
+symbols  r1:1.1.1.1 mhelal:1.1.1;
+locks    ; strict;
+comment  @% @;
+
+
+1.1
+date     2008.05.06.04.03.23;  author mhelal;  state Exp;
+branches 1.1.1.1;
+next     ;
+
+1.1.1.1
+date     2008.05.06.04.03.23;  author mhelal;  state Exp;
+branches ;
+next     ;
+
+
+desc
+@@
+
+
+
+1.1
+log
+@Initial revision
+@
+text
+@1. It is possible to design low complexity algorithms which return good approximate answers, as shown by Johnson-Lindenstrauss, when n points in an n-dimensional space can be embedded into a space of approximate dimension log(n) proviso a negligible distortion of the paired distances. 
+
+\begin{verbatim}
+http://www.birs.ca/birspages.php?task=displayevent&event_id=06w5028 
+From http://www.ipam.ucla.edu/programs/mgaws2/
+http://www.teknat.uu.se/forskning/program.php?vetenskapsid=1&hforskomr=6&id=36&lang=en
+\end{verbatim}
+
+
+
+
+2. FORWARD BACKWARD STOCHASTIC DIFFERENTIAL EQUATIONS.
+
+Optimization problems in continuous-time financial models are typically equivalent to a system of Forward-Backward Stochastic Differential Equations (FBSDEs), for which the existence theory has not been fully completed. It is possible that a good way to approach the optimization problems numerically is to try to solve the corresponding FBSDE. On a theoretical side, we mention here the papers by El Karoui, Peng and Quenez, (2001) and Schroder and Skiadas (2003), and on numerical side the papers by Bouchard and Touzi (2004), and Zhang (2004). Moreover, Backward SDE's also allow convenient modeling of asymmetric information, by considering models under different filtrations, as in Lazrak (2004). They are also useful in solving classical Principal-Agent problems in economics, in continuous-time models, as in Cvitanic, Wan and Zhang (2004). The aim is to further develop the FBSDE approach to optimization problems in finance, both numerically, and regarding existence and uniqueness of their solutions
+
+2. NUMERICAL METHODS
+
+One of the hardest practical problems of quantitative financial methods is to solve high-dimensional optimization problems. The most famous example of these is pricing high-dimensional American options. In principle, at least in diffusion models, these problems can be solved by solving nonlinear partial differential equations or free boundary problems. However, with many variables (interest rates, volatilities, various stocks and other financial variables), these PDE's are high-dimensional and standard numerical methods do not work.
+
+For linear problems, which correspond to finding expected values rather than a supremum of expected values, high-dimensional problems can be solved, simply by using Monte Carlo simulation. In the last several years some progress has been achieved in trying to apply simulation methods to optimization/nonlinear problems. These are usually based either on nonparametric regression kernel techniques, or on infinite dimensional Malliavin Calculus approach. Representative early papers are Longstaff and Schwartz (2001) and Fournie et al (1999) (the latter dealing with linear problems only). We hope to make some significant progress in this field, with the ultimate aim of developing efficient numerical methods for solving high-dimensional optimization/nonlinear PDE problems with the help of Monte Carlo methods.
+
+The applications we aim to discuss include
+
+1. CONTRACT THEORY
+
+Many of the above mentioned problems become both more theoretically interesting and more practical when considered in a context of two or more market participants. For instance, in the Principal-Agent problems, the principal hires the agent to perform certain tasks (such as managing an investment fund or running a company). The principal must then design a compensation contract which gives to the agent the incentives to realize the maximal effort for the assigned task. The problem becomes even more interesting (and more challenging) in a dynamic context and in presence of asymmetric information in the sense that the agent may have more information than the principal about the underlying activity risk to which the principal is exposed. Finding solution to problems like these leads to better understanding of the functioning of the financial markets, and of optimal ways to reward fund managers or executives.
+
+2. PORTFOLIO ALLOCATION
+
+Perhaps the most classical optimization problem in finance is the problem of optimal portfolio allocation. Many problems of this type have been solved in complete markets explicitly, and in Markovian models of incomplete markets numerically. Still, in high-dimensions numerical methods are not yet satisfactory, and for practical applications it is often useful to have analytic solutions, especially for problems related to risk management and hedging in incomplete markets. Thus, there is a lot of room for improvement. In particular, the recent trends in financial industry call for finding ways for portfolio allocation with imposed limits on the underlying risk measures. Similarly, introducing some information asymmetry and interaction between investors in the portfolio allocation models should make the modeling more realistic and readily available for empirical tests.
+
+
+References:
+
+- B. Bouchard and N. Touzi, (2004) “Discrete-time approximation and Monte Carlo simulation of backward stochastic differential equations”, Stochastic Processes and their Applications, 111, 175-206.
+
+- J. Cvitanic, X. Wan and J. Zhang (2004) " Continuous-time Principal-Agent problems: necessary and sufficient conditions for optimality." Preprint.
+
+- N. El Karoui , S. Peng , M. C. Quenez (2001) "A dynamic maximum principle for the optimization of recursive utilities under constraints". The Annals of Applied Probability 11, 664-693.
+
+- E. Fournie, J.-M. Lasry, J. Lebuchoux, P.L. Lions and N. Touzi (1999) "Applications of Malliavin calculus to Monte Carlo methods in finance". Finance and Stochastics 3, 391-412.
+
+-A. Lazrak (2004) "Generalized Stochastic Differential Utility and Preference for Information", Annals of Applied Probability, to appear.
+
+- F.A. Longstaff and E.S. Schwartz. (2001) "Valuing American options by simulation: a simple least-squares approach". Review of Financial Studies 14, 113-148.
+
+- C. Skiadas and M. Schroder (2003) "Optimal Lifetime Consumption-Portfolio Strategies under Trading Constraints and Generalized Recursive Preferences'' (with M. Schroder), Stochastic Processes and their Applications, 108, 155-202
+
+- J. Zhang (2004), A numerical scheme for backward stochastic differential equations, Annals of Applied Probability, to appear.
+
+
+
+\begin{verbatim}
+http://www.mathematics.uni-bonn.de/research/areas/HighDimensional/
+\end{verbatim} 
+
+Mathematical modeling of physical phenomena often leads to high-dimensional partial differential equations (PDEs). Examples are the description of queuing networks, reaction mecha­nisms in molecular biology, the visco-elasticity in polymer fluids, or various models for the pricing of financial derivatives. Also, homogenization with multiple scales as well as stochastic elliptic equa­tions result in high-dimensional PDEs. Finally, in quantum mechanics, the Schrödinger equation is naturally high-dimensional. Typically, besides their high dimension, these problems involve multi­ple scales in space and time and thus pose a hard challenge for both, mathematical modeling and numerical simulation.
+
+Modeling
+Various mathematical modeling approaches like diffusion approximation techniques, multiscale analysis, asymptotic series expansions and homogenization lead to high-dimensional PDEs such as diffusion or Fokker-Planck equations. Here, usually a spatial or temporal separation of scales is exploited. Also, stochastic modeling using probability distributions in high-dimensional spaces lead to high-dimensional models. We study and further develop the mathematical analysis of high-dimensional PDEs. Functional inequalities (spectral gap, log-Sobolev, Talagrand) and the concentration of measure phenomenon are important concepts.
+
+Simulation
+
+For the numerical treatment of high-dimensional models, the so-called curse of dimension is encountered. This means that the work required for an approximate solution scales exponentially with the dimension of the problem, and thus renders classical numerical approaches useless in practice. Therefore, dimen­sion-independent discretization and solution methods are investigated and employed.
+
+For the discretization of high-dimensional problems, often purely statistical methods, such as (Markov chain) Monte Carlo or Quasi-Monte Carlo approaches are used. Also deterministic methods, such as sparse grids or radial bases in conjunction with dimension-reduction or dimen­sion-adaptivity play an increasingly important role. For both methods, we develop and imple­ment discretization schemes that ensure stability independently of the dimension.
+
+Furthermore, fast and robust solution methods for the linear or nonlinear systems arising from the discretization are necessary. Here, we design special multiscale and multilevel solvers such as wavelet preconditioners or multigrid methods. For the treatment of large-scale problems, we also investigate the parallelization of such solvers on massively parallel computers.
+
+\begin{verbatim}
+http://portal.acm.org/citation.cfm?id=1235363
+\end{verbatim} 
+
+On the Effects of Dimension Reduction Techniques on Some High-Dimensional Problems in Finance
+
+Many problems in finance can be formulated as high-dimensional integrals, which are often attacked by quasi-Monte Carlo (QMC) algorithms. To enhance QMC algorithms, dimension reduction techniques, such as the Brownian bridge (BB) and principal component analysis (PCA), are used to reduce the effective dimension. This paper explores in depth the effects of these techniques on the dimension structure of some typical high-dimensional problems from finance: the pricing of path-dependent options and bond valuation according to term structure models. By deriving explicit expressions for the underlying integrands and the associated weights that control the relative importance of different variables, and by investigating the variance ratios, the effective dimensions, the mean dimension, and their limiting behavior as the nominal dimension tends to infinity, we show theoretically and empirically how and to what extent the BB and PCA algorithms change the dimension structure (including the degree of additivity) of the underlying functions. They change the functions to be strongly weighted and substantially reduce the effective dimensions and the mean dimension; and they enhance the degree of additivity, which is particularly important for QMC. Moreover, the resulting functions are of low effective dimension, not only in the superposition sense, but also in the truncation sense. The variance ratios, the effective dimensions, and the mean dimension associated with these techniques are very insensitive to the nominal dimension (they are essentially constant), which highlights the possibility of removing the curse of dimensionality when dimension reduction techniques are used in combination with QMC. A counterexample is also shown for which the BB and PCA may increase the effective dimension. The investigation provides further insight into the effects of dimension reduction techniques.@
+
+
+1.1.1.1
+log
+@Thesis Writing
+@
+text
+@@

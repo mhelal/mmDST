@@ -1,0 +1,53 @@
+head     1.1;
+branch   1.1.1;
+access   ;
+symbols  r1:1.1.1.1 mhelal:1.1.1;
+locks    ; strict;
+comment  @# @;
+
+
+1.1
+date     2008.05.06.04.03.23;  author mhelal;  state Exp;
+branches 1.1.1.1;
+next     ;
+
+1.1.1.1
+date     2008.05.06.04.03.23;  author mhelal;  state Exp;
+branches ;
+next     ;
+
+
+desc
+@@
+
+
+
+1.1
+log
+@Initial revision
+@
+text
+@\relax 
+\@@writefile{toc}{\contentsline {chapter}{\hbox to\@@tempdima {\hfil }Abstract}{iii}}
+\@@writefile{toc}{\contentsline {chapter}{\hbox to\@@tempdima {\hfil }Declaration}{v}}
+\@@writefile{toc}{\contentsline {chapter}{\hbox to\@@tempdima {\hfil }Acknowledgements}{vi}}
+\@@input{chapter1.aux}
+\@@input{chapter2.aux}
+\@@input{chapter3.aux}
+\@@input{chapter4.aux}
+\@@input{chapter5.aux}
+\@@input{chapter6.aux}
+\@@input{chapter7.aux}
+\@@input{chapter8.aux}
+\@@input{chapter9.aux}
+\bibstyle{is-alpha}
+\bibdata{mybib}
+@
+
+
+1.1.1.1
+log
+@Thesis Writing
+@
+text
+@@

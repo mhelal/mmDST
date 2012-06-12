@@ -1,0 +1,89 @@
+head     1.1;
+branch   1.1.1;
+access   ;
+symbols  r1:1.1.1.1 mhelal:1.1.1;
+locks    ; strict;
+comment  @# @;
+
+
+1.1
+date     2008.05.06.04.03.23;  author mhelal;  state Exp;
+branches 1.1.1.1;
+next     ;
+
+1.1.1.1
+date     2008.05.06.04.03.23;  author mhelal;  state Exp;
+branches ;
+next     ;
+
+
+desc
+@@
+
+
+
+1.1
+log
+@Initial revision
+@
+text
+@\relax 
+\@@writefile{toc}{\contentsline {chapter}{\numberline {8}Results Analysis}{82}}
+\@@writefile{lof}{\addvspace {10\p@@ }}
+\@@writefile{lot}{\addvspace {10\p@@ }}
+\@@writefile{toc}{\contentsline {section}{\numberline {8.1}Execution Results}{82}}
+\@@writefile{toc}{\contentsline {subsection}{\numberline {8.1.1}Full Search Space Execution Results}{82}}
+\@@writefile{toc}{\contentsline {subsubsection}{Sequential Execution Results}{82}}
+\@@writefile{toc}{\contentsline {subsubsection}{Distributed Master/Slave Execution Results}{82}}
+\newlabel{Table: MasterSlaveResults}{{8.1.1}{82}}
+\@@writefile{lot}{\contentsline {table}{\numberline {8.1}{\ignorespaces Distributed Master/Slave Performance Results}}{82}}
+\@@writefile{toc}{\contentsline {subsubsection}{Distributed Peer-to-Peer Execution Results}{83}}
+\@@writefile{lot}{\contentsline {table}{\numberline {8.2}{\ignorespaces Master Slave Vs P2P Performance Results in APAC AC SGI Altix Cluster; K: dimensionality; L: sequences lengths; P: number of processes; C: total CPU time; E: elapsed time; P: physical memory in MB; V: virtual memory in MB, all tests are processed with partition size S = 3, except for the last one where the optimal partition size of 30 (as proven in table 5) was used.}}{84}}
+\@@writefile{lof}{\contentsline {figure}{\numberline {8.1}{\ignorespaces Comparison of the master/slave and P2P solutions in terms of CPU time consumption as data size increases.}}{85}}
+\@@writefile{lof}{\contentsline {figure}{\numberline {8.2}{\ignorespaces Comparison of the master/slave and P2P solutions in terms of elapsed time as data size increases.}}{86}}
+\@@writefile{lof}{\contentsline {figure}{\numberline {8.3}{\ignorespaces Comparison of the master/slave and P2P solutions in terms of physical memory usage as data size increases.}}{87}}
+\@@writefile{lof}{\contentsline {figure}{\numberline {8.4}{\ignorespaces Comparison of the master/slave and P2P solutions in terms of virtual memory usage as data size increases.}}{88}}
+\@@writefile{lof}{\contentsline {figure}{\numberline {8.5}{\ignorespaces Processor scalability running the same dataset using 4, 6, 8, 16, 24, 32 and 64 processors.}}{89}}
+\@@writefile{lot}{\contentsline {table}{\numberline {8.3}{\ignorespaces Partition size effects on overall performance. S is the partition size; CPU is the CPU time, E is the elapsed time, P is the physical memory usage; V is the virtual memory usage; P is the total partitions in all waves in all processors; W is the total waves; OCin is the total actual sent/received overlapping cells}}{90}}
+\@@writefile{lof}{\contentsline {figure}{\numberline {8.6}{\ignorespaces Partition Size Effects on Resources Usage.}}{91}}
+\@@writefile{toc}{\contentsline {subsection}{\numberline {8.1.2}Reduced Search Space Execution Results}{92}}
+\@@writefile{toc}{\contentsline {subsection}{\numberline {8.1.3}Classification Execution Results}{92}}
+\@@writefile{toc}{\contentsline {section}{\numberline {8.2}Partition Size Scalability}{92}}
+\@@writefile{toc}{\contentsline {section}{\numberline {8.3}Processors Scalability}{92}}
+\@@writefile{toc}{\contentsline {section}{\numberline {8.4}Comparison with Existing Methods}{92}}
+\@@writefile{toc}{\contentsline {section}{\numberline {8.5}Re-Configurable Execution Parameters}{92}}
+\@@setckpt{chapter8}{
+\setcounter{page}{93}
+\setcounter{equation}{0}
+\setcounter{enumi}{4}
+\setcounter{enumii}{0}
+\setcounter{enumiii}{0}
+\setcounter{enumiv}{0}
+\setcounter{footnote}{1}
+\setcounter{mpfootnote}{0}
+\setcounter{part}{0}
+\setcounter{chapter}{8}
+\setcounter{section}{5}
+\setcounter{subsection}{0}
+\setcounter{subsubsection}{0}
+\setcounter{paragraph}{0}
+\setcounter{subparagraph}{0}
+\setcounter{figure}{6}
+\setcounter{table}{3}
+\setcounter{LT@@tables}{0}
+\setcounter{LT@@chunks}{0}
+\setcounter{parentequation}{0}
+\setcounter{ind}{0}
+\setcounter{Pro}{0}
+\setcounter{The}{0}
+\setcounter{Exp}{0}
+}
+@
+
+
+1.1.1.1
+log
+@Thesis Writing
+@
+text
+@@

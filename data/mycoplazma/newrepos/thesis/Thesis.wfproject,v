@@ -1,0 +1,75 @@
+head     1.1;
+branch   1.1.1;
+access   ;
+symbols  r1:1.1.1.1 mhelal:1.1.1;
+locks    ; strict;
+comment  @# @;
+
+
+1.1
+date     2008.05.06.04.03.23;  author mhelal;  state Exp;
+branches 1.1.1.1;
+next     ;
+
+1.1.1.1
+date     2008.05.06.04.03.23;  author mhelal;  state Exp;
+branches ;
+next     ;
+
+
+desc
+@@
+
+
+
+1.1
+log
+@Initial revision
+@
+text
+@name: Thesis
+files: /home/mhelal/thesis/writing/Thesis/ref.tex
+files: /home/mhelal/thesis/writing/Thesis/chapter4.tex
+files: /home/mhelal/thesis/writing/Thesis/chapter5.tex
+files: /home/mhelal/thesis/writing/Thesis/thesis.tex
+files: /home/mhelal/thesis/writing/Thesis/chapter2.tex
+files: /home/mhelal/thesis/writing/Thesis/frontpage.tex
+files: /home/mhelal/thesis/writing/Thesis/format.tex
+files: /home/mhelal/thesis/writing/Thesis/chapter9.tex
+files: /home/mhelal/thesis/writing/Thesis/chapter3.tex
+files: /home/mhelal/thesis/writing/Thesis/chapter7.tex
+files: /home/mhelal/thesis/writing/Thesis/chapter8.tex
+files: /home/mhelal/thesis/writing/Thesis/chapter6.tex
+files: /home/mhelal/thesis/writing/Thesis/chapter1.tex
+files: /home/mhelal/thesis/writing/Thesis/append.tex
+basedir: /home/mhelal/thesis/writing/Thesis/
+basefile: thesis.tex
+template: 
+view_bars: 32
+word_wrap: 1
+recent_files: /home/mhelal/thesis/writing/Thesis/ref.tex
+recent_files: /home/mhelal/thesis/writing/Thesis/chapter4.tex
+recent_files: /home/mhelal/thesis/writing/Thesis/chapter5.tex
+recent_files: /home/mhelal/thesis/writing/Thesis/thesis.tex
+recent_files: /home/mhelal/thesis/writing/Thesis/chapter2.tex
+recent_files: /home/mhelal/thesis/writing/Thesis/frontpage.tex
+recent_files: /home/mhelal/thesis/writing/Thesis/format.tex
+recent_files: /home/mhelal/thesis/writing/Thesis/chapter9.tex
+recent_files: /home/mhelal/thesis/writing/Thesis/chapter3.tex
+recent_files: /home/mhelal/thesis/writing/Thesis/chapter7.tex
+recent_files: /home/mhelal/thesis/writing/Thesis/chapter8.tex
+recent_files: /home/mhelal/thesis/writing/Thesis/chapter6.tex
+recent_files: /home/mhelal/thesis/writing/Thesis/chapter1.tex
+recent_files: /home/mhelal/thesis/writing/Thesis/append.tex
+recent_dirs: /home/mhelal/thesis/writing/Thesis
+opendir: /home/mhelal/thesis/writing/Thesis/.
+savedir: /home/mhelal/thesis/writing/Thesis
+@
+
+
+1.1.1.1
+log
+@Thesis Writing
+@
+text
+@@

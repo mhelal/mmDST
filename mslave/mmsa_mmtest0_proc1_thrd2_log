@@ -1,0 +1,212 @@
+Received MPI_ANY_TAG 99 CompPhase 1 DepProcFlag 1 CompThreadFinished 0
+Received CompPhase 1
+Received MPI_ANY_TAG 99 CompPhase 1 DepProcFlag 1 CompThreadFinished 0
+Received CompPhase 1
+Received MPI_ANY_TAG 99 CompPhase 1 DepProcFlag 1 CompThreadFinished 0
+Received CompPhase 1
+Received MPI_ANY_TAG 99 CompPhase 1 DepProcFlag 1 CompThreadFinished 0
+Received CompPhase 1
+Received MPI_ANY_TAG 99 CompPhase 1 DepProcFlag 1 CompThreadFinished 0
+Received CompPhase 1
+Received MPI_ANY_TAG 99 CompPhase 1 DepProcFlag 1 CompThreadFinished 0
+Received CompPhase 1
+Received MPI_ANY_TAG 94 CompPhase 1 DepProcFlag 1 CompThreadFinished 0
+received cell 158 in part 0 to 2 
+sent 158 
+Received MPI_ANY_TAG 94 CompPhase 1 DepProcFlag 1 CompThreadFinished 0
+received cell 164 in part 0 to 2 
+sent 164 
+Received MPI_ANY_TAG 94 CompPhase 1 DepProcFlag 1 CompThreadFinished 0
+received cell 187 in part 0 to 2 
+sent 187 
+Received MPI_ANY_TAG 94 CompPhase 1 DepProcFlag 1 CompThreadFinished 0
+received cell 188 in part 0 to 2 
+sent 188 
+Received MPI_ANY_TAG 94 CompPhase 1 DepProcFlag 1 CompThreadFinished 0
+received cell 193 in part 0 to 2 
+sent 193 
+Received MPI_ANY_TAG 94 CompPhase 1 DepProcFlag 1 CompThreadFinished 0
+received cell 194 in part 0 to 2 
+sent 194 
+Received MPI_ANY_TAG 94 CompPhase 1 DepProcFlag 1 CompThreadFinished 0
+received cell 278 in part 0 to 2 
+sent 278 
+Received MPI_ANY_TAG 94 CompPhase 1 DepProcFlag 1 CompThreadFinished 0
+received cell 284 in part 0 to 2 
+sent 284 
+Received MPI_ANY_TAG 94 CompPhase 1 DepProcFlag 1 CompThreadFinished 0
+received cell 307 in part 0 to 2 
+sent 307 
+Received MPI_ANY_TAG 94 CompPhase 1 DepProcFlag 1 CompThreadFinished 0
+received cell 308 in part 0 to 2 
+sent 308 
+Received MPI_ANY_TAG 94 CompPhase 1 DepProcFlag 1 CompThreadFinished 0
+received cell 313 in part 0 to 2 
+sent 313 
+Received MPI_ANY_TAG 94 CompPhase 1 DepProcFlag 1 CompThreadFinished 0
+received cell 314 in part 0 to 2 
+sent 314 
+Received MPI_ANY_TAG 94 CompPhase 1 DepProcFlag 1 CompThreadFinished 0
+received cell 200 in part 12 to 2 
+sent 200 
+Received MPI_ANY_TAG 94 CompPhase 1 DepProcFlag 1 CompThreadFinished 0
+received cell 206 in part 12 to 2 
+sent 206 
+Received MPI_ANY_TAG 94 CompPhase 1 DepProcFlag 1 CompThreadFinished 0
+received cell 320 in part 12 to 2 
+did not send 320 
+Received MPI_ANY_TAG 94 CompPhase 1 DepProcFlag 1 CompThreadFinished 0
+received cell 326 in part 12 to 2 
+did not send 326 
+Received MPI_ANY_TAG 94 CompPhase 1 DepProcFlag 1 CompThreadFinished 0
+received cell 166 in part 14 to 2 
+did not send 166 
+Received MPI_ANY_TAG 94 CompPhase 1 DepProcFlag 1 CompThreadFinished 0
+received cell 172 in part 14 to 2 
+did not send 172 
+Received MPI_ANY_TAG 94 CompPhase 1 DepProcFlag 1 CompThreadFinished 0
+received cell 178 in part 14 to 2 
+did not send 178 
+Received MPI_ANY_TAG 94 CompPhase 1 DepProcFlag 1 CompThreadFinished 0
+received cell 195 in part 14 to 2 
+did not send 195 
+Received MPI_ANY_TAG 94 CompPhase 1 DepProcFlag 1 CompThreadFinished 0
+received cell 196 in part 14 to 2 
+did not send 196 
+Received MPI_ANY_TAG 94 CompPhase 1 DepProcFlag 1 CompThreadFinished 0
+received cell 201 in part 14 to 2 
+did not send 201 
+Received MPI_ANY_TAG 94 CompPhase 1 DepProcFlag 1 CompThreadFinished 0
+received cell 202 in part 14 to 2 
+did not send 202 
+Received MPI_ANY_TAG 94 CompPhase 1 DepProcFlag 1 CompThreadFinished 0
+received cell 207 in part 14 to 2 
+did not send 207 
+Received MPI_ANY_TAG 94 CompPhase 1 DepProcFlag 1 CompThreadFinished 0
+received cell 208 in part 14 to 2 
+did not send 208 
+Received MPI_ANY_TAG 94 CompPhase 1 DepProcFlag 1 CompThreadFinished 0
+received cell 286 in part 14 to 2 
+did not send 286 
+Received MPI_ANY_TAG 94 CompPhase 1 DepProcFlag 1 CompThreadFinished 0
+received cell 292 in part 14 to 2 
+did not send 292 
+Received MPI_ANY_TAG 94 CompPhase 1 DepProcFlag 1 CompThreadFinished 0
+received cell 298 in part 14 to 2 
+did not send 298 
+Received MPI_ANY_TAG 94 CompPhase 1 DepProcFlag 1 CompThreadFinished 0
+received cell 315 in part 14 to 2 
+did not send 315 
+Received MPI_ANY_TAG 94 CompPhase 1 DepProcFlag 1 CompThreadFinished 0
+received cell 316 in part 14 to 2 
+did not send 316 
+Received MPI_ANY_TAG 94 CompPhase 1 DepProcFlag 1 CompThreadFinished 0
+received cell 321 in part 14 to 2 
+did not send 321 
+Received MPI_ANY_TAG 94 CompPhase 1 DepProcFlag 1 CompThreadFinished 0
+received cell 322 in part 14 to 2 
+did not send 322 
+Received MPI_ANY_TAG 94 CompPhase 1 DepProcFlag 1 CompThreadFinished 0
+received cell 327 in part 14 to 2 
+did not send 327 
+Received MPI_ANY_TAG 94 CompPhase 1 DepProcFlag 1 CompThreadFinished 0
+received cell 328 in part 14 to 2 
+did not send 328 
+Received MPI_ANY_TAG 94 CompPhase 1 DepProcFlag 1 CompThreadFinished 0
+received cell 224 in part 72 to 2 
+did not send 224 
+Received MPI_ANY_TAG 94 CompPhase 1 DepProcFlag 1 CompThreadFinished 0
+received cell 230 in part 72 to 2 
+did not send 230 
+Received MPI_ANY_TAG 94 CompPhase 1 DepProcFlag 1 CompThreadFinished 0
+received cell 236 in part 72 to 2 
+did not send 236 
+Received MPI_ANY_TAG 94 CompPhase 1 DepProcFlag 1 CompThreadFinished 0
+received cell 344 in part 72 to 2 
+did not send 344 
+Received MPI_ANY_TAG 94 CompPhase 1 DepProcFlag 1 CompThreadFinished 0
+received cell 350 in part 72 to 2 
+did not send 350 
+Received MPI_ANY_TAG 94 CompPhase 1 DepProcFlag 1 CompThreadFinished 0
+received cell 356 in part 72 to 2 
+did not send 356 
+Received MPI_ANY_TAG 94 CompPhase 1 DepProcFlag 1 CompThreadFinished 0
+received cell 167 in part 4 to 2 
+did not send 167 
+Received MPI_ANY_TAG 94 CompPhase 1 DepProcFlag 1 CompThreadFinished 0
+received cell 197 in part 4 to 2 
+did not send 197 
+Received MPI_ANY_TAG 94 CompPhase 1 DepProcFlag 1 CompThreadFinished 0
+received cell 287 in part 4 to 2 
+did not send 287 
+Received MPI_ANY_TAG 94 CompPhase 1 DepProcFlag 1 CompThreadFinished 0
+received cell 317 in part 4 to 2 
+did not send 317 
+Received MPI_ANY_TAG 94 CompPhase 1 DepProcFlag 1 CompThreadFinished 0
+received cell 226 in part 64 to 2 
+did not send 226 
+Received MPI_ANY_TAG 94 CompPhase 1 DepProcFlag 1 CompThreadFinished 0
+received cell 227 in part 64 to 2 
+did not send 227 
+Received MPI_ANY_TAG 94 CompPhase 1 DepProcFlag 1 CompThreadFinished 0
+received cell 346 in part 64 to 2 
+did not send 346 
+Received MPI_ANY_TAG 94 CompPhase 1 DepProcFlag 1 CompThreadFinished 0
+received cell 347 in part 64 to 2 
+did not send 347 
+Received MPI_ANY_TAG 94 CompPhase 1 DepProcFlag 1 CompThreadFinished 0
+received the end for DP
+Received MPI_ANY_TAG 99 CompPhase 1 DepProcFlag 2 CompThreadFinished 0
+Received CompPhase 2
+Received MPI_ANY_TAG 91 CompPhase 2 DepProcFlag 2 CompThreadFinished 0
+received IC  160 with score -21 
+Received MPI_ANY_TAG 91 CompPhase 2 DepProcFlag 2 CompThreadFinished 0
+received IC  164 with score -17 
+Received MPI_ANY_TAG 91 CompPhase 2 DepProcFlag 2 CompThreadFinished 0
+received IC  165 with score -23 
+Received MPI_ANY_TAG 91 CompPhase 2 DepProcFlag 2 CompThreadFinished 0
+received IC  166 with score -24 
+Received MPI_ANY_TAG 91 CompPhase 2 DepProcFlag 2 CompThreadFinished 0
+received IC  190 with score -24 
+Received MPI_ANY_TAG 91 CompPhase 2 DepProcFlag 2 CompThreadFinished 0
+received IC  194 with score -10 
+Received MPI_ANY_TAG 91 CompPhase 2 DepProcFlag 2 CompThreadFinished 0
+received IC  195 with score -16 
+Received MPI_ANY_TAG 91 CompPhase 2 DepProcFlag 2 CompThreadFinished 0
+received IC  196 with score -12 
+Received MPI_ANY_TAG 91 CompPhase 2 DepProcFlag 2 CompThreadFinished 0
+received IC  280 with score -29 
+Received MPI_ANY_TAG 91 CompPhase 2 DepProcFlag 2 CompThreadFinished 0
+received IC  284 with score -10 
+Received MPI_ANY_TAG 91 CompPhase 2 DepProcFlag 2 CompThreadFinished 0
+received IC  285 with score -21 
+Received MPI_ANY_TAG 91 CompPhase 2 DepProcFlag 2 CompThreadFinished 0
+received IC  286 with score -22 
+Received MPI_ANY_TAG 91 CompPhase 2 DepProcFlag 2 CompThreadFinished 0
+received IC  310 with score -22 
+Received MPI_ANY_TAG 91 CompPhase 2 DepProcFlag 2 CompThreadFinished 0
+received IC  314 with score -5 
+Received MPI_ANY_TAG 91 CompPhase 2 DepProcFlag 2 CompThreadFinished 0
+received IC  315 with score -16 
+Received MPI_ANY_TAG 91 CompPhase 2 DepProcFlag 2 CompThreadFinished 0
+received IC  316 with score -12 
+Received MPI_ANY_TAG 91 CompPhase 2 DepProcFlag 2 CompThreadFinished 0
+received IC  193 with score -12 
+Received MPI_ANY_TAG 91 CompPhase 2 DepProcFlag 2 CompThreadFinished 0
+received IC  223 with score -30 
+Received MPI_ANY_TAG 91 CompPhase 2 DepProcFlag 2 CompThreadFinished 0
+received IC  224 with score -21 
+Received MPI_ANY_TAG 91 CompPhase 2 DepProcFlag 2 CompThreadFinished 0
+received IC  313 with score -10 
+Received MPI_ANY_TAG 91 CompPhase 2 DepProcFlag 2 CompThreadFinished 0
+received IC  343 with score -21 
+Received MPI_ANY_TAG 91 CompPhase 2 DepProcFlag 2 CompThreadFinished 0
+received IC  344 with score -9 
+Received MPI_ANY_TAG 91 CompPhase 2 DepProcFlag 2 CompThreadFinished 0
+received IC  220 with score -37 
+Received MPI_ANY_TAG 91 CompPhase 2 DepProcFlag 2 CompThreadFinished 0
+received IC  226 with score -30 
+Received MPI_ANY_TAG 91 CompPhase 2 DepProcFlag 2 CompThreadFinished 0
+received IC  340 with score -30 
+Received MPI_ANY_TAG 91 CompPhase 2 DepProcFlag 2 CompThreadFinished 0
+received IC  346 with score -21 

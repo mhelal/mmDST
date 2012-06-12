@@ -1,0 +1,87 @@
+head     1.1;
+branch   1.1.1;
+access   ;
+symbols  r1:1.1.1.1 mhelal:1.1.1;
+locks    ; strict;
+comment  @ * @;
+
+
+1.1
+date     2008.05.06.02.40.53;  author mhelal;  state Exp;
+branches 1.1.1.1;
+next     ;
+
+1.1.1.1
+date     2008.05.06.02.40.53;  author mhelal;  state Exp;
+branches ;
+next     ;
+
+
+desc
+@@
+
+
+
+1.1
+log
+@Initial revision
+@
+text
+@/**********************************************************
+* Author: Manal Helal																			*
+* Last Modification Date: Fri 12 Jan 2007 03:39:51 AM EST *
+* Project : MMSA - Multiple Sequence Alignment Based on 	*
+* 					Mathematics of Arrays - PhD Experimentation		*
+* File: utils.c, a header for global utility functions		*
+***********************************************************/
+#ifndef UTILSH_
+#define UTILSH_
+#include <stdio.h>
+#include <stdlib.h>
+
+#define Error( Str )        FatalError( Str )
+#define FatalError( Str )   fprintf( stderr, "%s\n", Str ), exit( 1 )
+
+
+size_t getSizes ();
+int isEven(long i) ;
+int processArguments (int argc, char ** argv, long * seqNum, char * * * sequences, long * * seqLen, int * stype, long * partitionSize);
+long readInput (char * fileName, char * * sequence);
+void PrintSequencies (int dbglevel, long seqNum, char * * sequences, long * seqLen);
+void printSeq (int dbglevel, char * sequence , int sq_sz);
+void PrintASeq (long seqNum, char * * sequences, long * seqLen, char * * * * algnseq, long * aseqLen, int alignmentsNo);
+void PrintOptimalPath (long seqNum, char * * * algnseq, long aseqLen);
+struct tm * getTime ();
+int isTimeDiffEquals (struct tm  * currNow, struct tm  * prevNow, char unit, int value);
+void cpTime (struct tm * currNow, struct tm  * * prevNow);
+int init_output() ;
+int close_output ();
+int mprintf(int dbglevel, const char *msg, int thread_num);
+char* strrev(char *pB);
+long mpow (long x, long y);
+long  a_max(long * values, long ubound);
+long  a_min(long * values, long ubound);
+long Factorial (long n);
+void l2Comb(long * n, long k, long * * * Combin);
+/*int max (int val1, int val2, int val3);*/
+int maxVal (int * values, int valLen);
+void Combinations(long n, long k, long * * * Combin);
+void * mmalloc(size_t size);
+void * mcalloc(size_t num, size_t size);
+int file_copy(char *oldname, char *newname, long bytes1, long bytes2);
+long get_bytes(float percent, char *source);
+
+void dsort ( long n, long a[] );
+void asort ( long n, long a[] );
+void permute ( long n, long a[], int *more );
+
+#endif
+@
+
+
+1.1.1.1
+log
+@Distributed Optimal MSA using MoA
+@
+text
+@@

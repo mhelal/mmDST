@@ -1,0 +1,1255 @@
+head     1.1;
+branch   1.1.1;
+access   ;
+symbols  r1:1.1.1.1 mhelal:1.1.1;
+locks    ; strict;
+comment  @% @;
+
+
+1.1
+date     2008.05.06.04.04.26;  author mhelal;  state Exp;
+branches 1.1.1.1;
+next     ;
+
+1.1.1.1
+date     2008.05.06.04.04.26;  author mhelal;  state Exp;
+branches ;
+next     ;
+
+
+desc
+@@
+
+
+
+1.1
+log
+@Initial revision
+@
+text
+@
+%% bare_conf.tex
+%% V1.3
+%% 2007/01/11
+%% by Michael Shell
+%% See:
+%% http://www.michaelshell.org/
+%% for current contact information.
+%%
+%% This is a skeleton file demonstrating the use of IEEEtran.cls
+%% (requires IEEEtran.cls version 1.7 or later) with an IEEE conference paper.
+%%
+%% Support sites:
+%% http://www.michaelshell.org/tex/ieeetran/
+%% http://www.ctan.org/tex-archive/macros/latex/contrib/IEEEtran/
+%% and
+%% http://www.ieee.org/
+
+%%*************************************************************************
+%% Legal Notice:
+%% This code is offered as-is without any warranty either expressed or
+%% implied; without even the implied warranty of MERCHANTABILITY or
+%% FITNESS FOR A PARTICULAR PURPOSE! 
+%% User assumes all risk.
+%% In no event shall IEEE or any contributor to this code be liable for
+%% any damages or losses, including, but not limited to, incidental,
+%% consequential, or any other damages, resulting from the use or misuse
+%% of any information contained here.
+%%
+%% All comments are the opinions of their respective authors and are not
+%% necessarily endorsed by the IEEE.
+%%
+%% This work is distributed under the LaTeX Project Public License (LPPL)
+%% ( http://www.latex-project.org/ ) version 1.3, and may be freely used,
+%% distributed and modified. A copy of the LPPL, version 1.3, is included
+%% in the base LaTeX documentation of all distributions of LaTeX released
+%% 2003/12/01 or later.
+%% Retain all contribution notices and credits.
+%% ** Modified files should be clearly indicated as such, including  **
+%% ** renaming them and changing author support contact information. **
+%%
+%% File list of work: IEEEtran.cls, IEEEtran_HOWTO.pdf, bare_adv.tex,
+%%                    bare_conf.tex, bare_jrnl.tex, bare_jrnl_compsoc.tex
+%%*************************************************************************
+
+% *** Authors should verify (and, if needed, correct) their LaTeX system  ***
+% *** with the testflow diagnostic prior to trusting their LaTeX platform ***
+% *** with production work. IEEE's font choices can trigger bugs that do  ***
+% *** not appear when using other class files.                            ***
+% The testflow support page is at:
+% http://www.michaelshell.org/tex/testflow/
+
+
+
+% Note that the a4paper option is mainly intended so that authors in
+% countries using A4 can easily print to A4 and see how their papers will
+% look in print - the typesetting of the document will not typically be
+% affected with changes in paper size (but the bottom and side margins will).
+% Use the testflow package mentioned above to verify correct handling of
+% both paper sizes by the user's LaTeX system.
+%
+% Also note that the "draftcls" or "draftclsnofoot", not "draft", option
+% should be used if it is desired that the figures are to be displayed in
+% draft mode.
+%
+\documentclass[conference]{IEEEtran}
+% Add the compsoc option for Computer Society conferences.
+%
+% If IEEEtran.cls has not been installed into the LaTeX system files,
+% manually specify the path to it like:
+% \documentclass[conference]{../sty/IEEEtran}
+
+
+
+
+
+% Some very useful LaTeX packages include:
+% (uncomment the ones you want to load)
+
+
+% *** MISC UTILITY PACKAGES ***
+%
+%\usepackage{ifpdf}
+% Heiko Oberdiek's ifpdf.sty is very useful if you need conditional
+% compilation based on whether the output is pdf or dvi.
+% usage:
+% \ifpdf
+%   % pdf code
+% \else
+%   % dvi code
+% \fi
+% The latest version of ifpdf.sty can be obtained from:
+% http://www.ctan.org/tex-archive/macros/latex/contrib/oberdiek/
+% Also, note that IEEEtran.cls V1.7 and later provides a builtin
+% \ifCLASSINFOpdf conditional that works the same way.
+% When switching from latex to pdflatex and vice-versa, the compiler may
+% have to be run twice to clear warning/error messages.
+
+
+
+
+
+
+% *** CITATION PACKAGES ***
+%
+%\usepackage{cite}
+% cite.sty was written by Donald Arseneau
+% V1.6 and later of IEEEtran pre-defines the format of the cite.sty package
+% \cite{} output to follow that of IEEE. Loading the cite package will
+% result in citation numbers being automatically sorted and properly
+% "compressed/ranged". e.g., [1], [9], [2], [7], [5], [6] without using
+% cite.sty will become [1], [2], [5]--[7], [9] using cite.sty. cite.sty's
+% \cite will automatically add leading space, if needed. Use cite.sty's
+% noadjust option (cite.sty V3.8 and later) if you want to turn this off.
+% cite.sty is already installed on most LaTeX systems. Be sure and use
+% version 4.0 (2003-05-27) and later if using hyperref.sty. cite.sty does
+% not currently provide for hyperlinked citations.
+% The latest version can be obtained at:
+% http://www.ctan.org/tex-archive/macros/latex/contrib/cite/
+% The documentation is contained in the cite.sty file itself.
+
+
+
+
+
+
+% *** GRAPHICS RELATED PACKAGES ***
+%
+\usepackage{graphicx}
+\usepackage{cite}
+\usepackage{textcomp}
+\ifCLASSINFOpdf
+  % \usepackage[pdftex]{graphicx}
+  % declare the path(s) where your graphic files are
+  % \graphicspath{{../pdf/}{../jpeg/}}
+  % and their extensions so you won't have to specify these with
+  % every instance of \includegraphics
+  % \DeclareGraphicsExtensions{.pdf,.jpeg,.png}
+\else
+  % or other class option (dvipsone, dvipdf, if not using dvips). graphicx
+  % will default to the driver specified in the system graphics.cfg if no
+  % driver is specified.
+  % \usepackage[dvips]{graphicx}
+  % declare the path(s) where your graphic files are
+  % \graphicspath{{../eps/}}
+  % and their extensions so you won't have to specify these with
+  % every instance of \includegraphics
+  % \DeclareGraphicsExtensions{.eps}
+\fi
+% graphicx was written by David Carlisle and Sebastian Rahtz. It is
+% required if you want graphics, photos, etc. graphicx.sty is already
+% installed on most LaTeX systems. The latest version and documentation can
+% be obtained at: 
+% http://www.ctan.org/tex-archive/macros/latex/required/graphics/
+% Another good source of documentation is "Using Imported Graphics in
+% LaTeX2e" by Keith Reckdahl which can be found as epslatex.ps or
+% epslatex.pdf at: http://www.ctan.org/tex-archive/info/
+%
+% latex, and pdflatex in dvi mode, support graphics in encapsulated
+% postscript (.eps) format. pdflatex in pdf mode supports graphics
+% in .pdf, .jpeg, .png and .mps (metapost) formats. Users should ensure
+% that all non-photo figures use a vector format (.eps, .pdf, .mps) and
+% not a bitmapped formats (.jpeg, .png). IEEE frowns on bitmapped formats
+% which can result in "jaggedy"/blurry rendering of lines and letters as
+% well as large increases in file sizes.
+%
+% You can find documentation about the pdfTeX application at:
+% http://www.tug.org/applications/pdftex
+
+
+
+
+
+% *** MATH PACKAGES ***
+%
+%\usepackage[cmex10]{amsmath}
+% A popular package from the American Mathematical Society that provides
+% many useful and powerful commands for dealing with mathematics. If using
+% it, be sure to load this package with the cmex10 option to ensure that
+% only type 1 fonts will utilized at all point sizes. Without this option,
+% it is possible that some math symbols, particularly those within
+% footnotes, will be rendered in bitmap form which will result in a
+% document that can not be IEEE Xplore compliant!
+%
+% Also, note that the amsmath package sets \interdisplaylinepenalty to 10000
+% thus preventing page breaks from occurring within multiline equations. Use:
+%\interdisplaylinepenalty=2500
+% after loading amsmath to restore such page breaks as IEEEtran.cls normally
+% does. amsmath.sty is already installed on most LaTeX systems. The latest
+% version and documentation can be obtained at:
+% http://www.ctan.org/tex-archive/macros/latex/required/amslatex/math/
+
+
+
+
+
+% *** SPECIALIZED LIST PACKAGES ***
+%
+%\usepackage{algorithmic}
+% algorithmic.sty was written by Peter Williams and Rogerio Brito.
+% This package provides an algorithmic environment fo describing algorithms.
+% You can use the algorithmic environment in-text or within a figure
+% environment to provide for a floating algorithm. Do NOT use the algorithm
+% floating environment provided by algorithm.sty (by the same authors) or
+% algorithm2e.sty (by Christophe Fiorio) as IEEE does not use dedicated
+% algorithm float types and packages that provide these will not provide
+% correct IEEE style captions. The latest version and documentation of
+% algorithmic.sty can be obtained at:
+% http://www.ctan.org/tex-archive/macros/latex/contrib/algorithms/
+% There is also a support site at:
+% http://algorithms.berlios.de/index.html
+% Also of interest may be the (relatively newer and more customizable)
+% algorithmicx.sty package by Szasz Janos:
+% http://www.ctan.org/tex-archive/macros/latex/contrib/algorithmicx/
+
+
+
+
+% *** ALIGNMENT PACKAGES ***
+%
+%\usepackage{array}
+% Frank Mittelbach's and David Carlisle's array.sty patches and improves
+% the standard LaTeX2e array and tabular environments to provide better
+% appearance and additional user controls. As the default LaTeX2e table
+% generation code is lacking to the point of almost being broken with
+% respect to the quality of the end results, all users are strongly
+% advised to use an enhanced (at the very least that provided by array.sty)
+% set of table tools. array.sty is already installed on most systems. The
+% latest version and documentation can be obtained at:
+% http://www.ctan.org/tex-archive/macros/latex/required/tools/
+
+
+%\usepackage{mdwmath}
+%\usepackage{mdwtab}
+% Also highly recommended is Mark Wooding's extremely powerful MDW tools,
+% especially mdwmath.sty and mdwtab.sty which are used to format equations
+% and tables, respectively. The MDWtools set is already installed on most
+% LaTeX systems. The lastest version and documentation is available at:
+% http://www.ctan.org/tex-archive/macros/latex/contrib/mdwtools/
+
+
+% IEEEtran contains the IEEEeqnarray family of commands that can be used to
+% generate multiline equations as well as matrices, tables, etc., of high
+% quality.
+
+
+%\usepackage{eqparbox}
+% Also of notable interest is Scott Pakin's eqparbox package for creating
+% (automatically sized) equal width boxes - aka "natural width parboxes".
+% Available at:
+% http://www.ctan.org/tex-archive/macros/latex/contrib/eqparbox/
+
+
+
+
+
+% *** SUBFIGURE PACKAGES ***
+%\usepackage[tight,footnotesize]{subfigure}
+% subfigure.sty was written by Steven Douglas Cochran. This package makes it
+% easy to put subfigures in your figures. e.g., "Figure 1a and 1b". For IEEE
+% work, it is a good idea to load it with the tight package option to reduce
+% the amount of white space around the subfigures. subfigure.sty is already
+% installed on most LaTeX systems. The latest version and documentation can
+% be obtained at:
+% http://www.ctan.org/tex-archive/obsolete/macros/latex/contrib/subfigure/
+% subfigure.sty has been superceeded by subfig.sty.
+
+
+
+%\usepackage[caption=false]{caption}
+%\usepackage[font=footnotesize]{subfig}
+% subfig.sty, also written by Steven Douglas Cochran, is the modern
+% replacement for subfigure.sty. However, subfig.sty requires and
+% automatically loads Axel Sommerfeldt's caption.sty which will override
+% IEEEtran.cls handling of captions and this will result in nonIEEE style
+% figure/table captions. To prevent this problem, be sure and preload
+% caption.sty with its "caption=false" package option. This is will preserve
+% IEEEtran.cls handing of captions. Version 1.3 (2005/06/28) and later 
+% (recommended due to many improvements over 1.2) of subfig.sty supports
+% the caption=false option directly:
+%\usepackage[caption=false,font=footnotesize]{subfig}
+%
+% The latest version and documentation can be obtained at:
+% http://www.ctan.org/tex-archive/macros/latex/contrib/subfig/
+% The latest version and documentation of caption.sty can be obtained at:
+% http://www.ctan.org/tex-archive/macros/latex/contrib/caption/
+
+
+
+
+% *** FLOAT PACKAGES ***
+%
+%\usepackage{fixltx2e}
+% fixltx2e, the successor to the earlier fix2col.sty, was written by
+% Frank Mittelbach and David Carlisle. This package corrects a few problems
+% in the LaTeX2e kernel, the most notable of which is that in current
+% LaTeX2e releases, the ordering of single and double column floats is not
+% guaranteed to be preserved. Thus, an unpatched LaTeX2e can allow a
+% single column figure to be placed prior to an earlier double column
+% figure. The latest version and documentation can be found at:
+% http://www.ctan.org/tex-archive/macros/latex/base/
+
+
+
+%\usepackage{stfloats}
+% stfloats.sty was written by Sigitas Tolusis. This package gives LaTeX2e
+% the ability to do double column floats at the bottom of the page as well
+% as the top. (e.g., "\begin{figure*}[!b]" is not normally possible in
+% LaTeX2e). It also provides a command:
+%\fnbelowfloat
+% to enable the placement of footnotes below bottom floats (the standard
+% LaTeX2e kernel puts them above bottom floats). This is an invasive package
+% which rewrites many portions of the LaTeX2e float routines. It may not work
+% with other packages that modify the LaTeX2e float routines. The latest
+% version and documentation can be obtained at:
+% http://www.ctan.org/tex-archive/macros/latex/contrib/sttools/
+% Documentation is contained in the stfloats.sty comments as well as in the
+% presfull.pdf file. Do not use the stfloats baselinefloat ability as IEEE
+% does not allow \baselineskip to stretch. Authors submitting work to the
+% IEEE should note that IEEE rarely uses double column equations and
+% that authors should try to avoid such use. Do not be tempted to use the
+% cuted.sty or midfloat.sty packages (also by Sigitas Tolusis) as IEEE does
+% not format its papers in such ways.
+
+
+
+
+
+% *** PDF, URL AND HYPERLINK PACKAGES ***
+%
+%\usepackage{url}
+% url.sty was written by Donald Arseneau. It provides better support for
+% handling and breaking URLs. url.sty is already installed on most LaTeX
+% systems. The latest version can be obtained at:
+% http://www.ctan.org/tex-archive/macros/latex/contrib/misc/
+% Read the url.sty source comments for usage information. Basically,
+% \url{my_url_here}.
+
+
+
+
+
+% *** Do not adjust lengths that control margins, column widths, etc. ***
+% *** Do not use packages that alter fonts (such as pslatex).         ***
+% There should be no need to do such things with IEEEtran.cls V1.6 and later.
+% (Unless specifically asked to do so by the journal or conference you plan
+% to submit to, of course. )
+
+
+% correct bad hyphenation here
+\hyphenation{op-tical net-works semi-conduc-tor}
+
+
+\begin{document}
+%
+% paper title
+% can use linebreaks \\ within to get better formatting as desired
+\title{Peer-to-Peer Optimal Distributed Multiple Sequence Alignment}
+
+
+% author names and affiliations
+% use a multiple column layout for up to three different
+% affiliations
+\author{\IEEEauthorblockN{Manal Helal, Dr. Hossam El-Gindy, Dr. Bruno Gaeta}
+\IEEEauthorblockA{School of Computer Science and Engineering\\Faculty of Engineering\\
+University of New South Wales\\
+Email: mhelal@@cse.unsw.edu.au, hossam@@cse.unsw.edu.au, bgaeta@@cse.unsw.edu.au}
+\and
+\IEEEauthorblockN{Dr. Lenore Mullin}
+\IEEEauthorblockA{Computer Science Department\\University At Albany\\New York\\
+Email: lmullin@@nsf.gov}}
+
+% conference papers do not typically use \thanks and this command
+% is locked out in conference mode. If really needed, such as for
+% the acknowledgment of grants, issue a \IEEEoverridecommandlockouts
+% after \documentclass
+
+% for over three affiliations, or if they all won't fit within the width
+% of the page, use this alternative format:
+% 
+%\author{\IEEEauthorblockN{Michael Shell\IEEEauthorrefmark{1},
+%Homer Simpson\IEEEauthorrefmark{2},
+%James Kirk\IEEEauthorrefmark{3}, 
+%Montgomery Scott\IEEEauthorrefmark{3} and
+%Eldon Tyrell\IEEEauthorrefmark{4}}
+%\IEEEauthorblockA{\IEEEauthorrefmark{1}School of Electrical and Computer Engineering\\
+%Georgia Institute of Technology,
+%Atlanta, Georgia 30332--0250\\ Email: see http://www.michaelshell.org/contact.html}
+%\IEEEauthorblockA{\IEEEauthorrefmark{2}Twentieth Century Fox, Springfield, USA\\
+%Email: homer@@thesimpsons.com}
+%\IEEEauthorblockA{\IEEEauthorrefmark{3}Starfleet Academy, San Francisco, California 96678-2391\\
+%Telephone: (800) 555--1212, Fax: (888) 555--1212}
+%\IEEEauthorblockA{\IEEEauthorrefmark{4}Tyrell Inc., 123 Replicant Street, Los Angeles, California 90210--4321}}
+
+
+
+
+% use for special paper notices
+%\IEEEspecialpapernotice{(Invited Paper)}
+
+
+
+
+% make the title area
+\maketitle
+
+
+\begin{abstract}
+%\boldmath
+High dimensional scientific computing problems suffer from dimensionality curse. With advancements in high performance computers (HPCs), grid computing, and multi-threaded and powerful standalone machines, and the increasing number of problems requiring optimal solutions, further research is required to apply distributed algorithms to these problems. This research is focused on delivering a unified partitioning scheme and dependency modelling with inherent load balancing that delivers solutions for dynamic programming (DP) algorithms with high dimensionality. A Peer-to-Peer (P2P) solution for the DP algorithm for the multiple sequence alignment problem in computational biology is being introduced in this paper. The solution optimizes a previous Master/Slave solution. Further optimization applications are discussed for future work.
+\end{abstract}
+% IEEEtran.cls defaults to using nonbold math in the Abstract.
+% This preserves the distinction between vectors and scalars. However,
+% if the conference you are submitting to favors bold math in the abstract,
+% then you can use LaTeX's standard command \boldmath at the very start
+% of the abstract to achieve this. Many IEEE journals/conferences frown on
+% math in the abstract anyway.
+
+% no keywords
+
+
+
+
+% For peer review papers, you can put extra information on the cover
+% page as needed:
+% \ifCLASSOPTIONpeerreview
+% \begin{center} \bfseries EDICS Category: 3-BBND \end{center}
+% \fi
+%
+% For peerreview papers, this IEEEtran command inserts a page break and
+% creates the second title. It will be ignored for other modes.
+\IEEEpeerreviewmaketitle
+
+
+
+\section{Introduction}
+The dimensionality curse is characterized as the exponential growth in space caused by adding extra dimensions to a mathematical space.  Much research has been directed towards the design and analysis of approximation algorithms for computationally hard problems in combinatorial optimization. Example problems include (but are not limited to), clustering algorithms and nearest neighbor searches. The applications of these problems vary from fields such as computational statistics, pattern recognition, vector compression, routing and flow control in communication networks, multimedia information retrieval, partial differential equations, high dimensional database mining and query processing, financial mathematics, molecular biology, genetic analysis, quantum physics, to global optimization. All these problems raise mathematical theory questions. 
+
+The motivation for this research emerged out of the advancements in HPCs, grid computing, and high capability multi-threaded stand-alone machines and of the need for better near optimal solutions for high dimensional scientific problems. The scope of this work is to research indexing schemes (such as conformal computing methods, and its Mathematics of Arrays (MoA) techniques as introduced in \cite{Raynolds-Mullin-05}), operating invariant of data dimensionality and shape, and their suitability for distributing high dimensional solutions, specifically using the dynamic programming algorithm. Conformal computing is a formalism based on an algebra of abstract data structures, a mathematics of arrays (MoA) and an array indexing calculus, the Psi-calculus. The method allows the composition of a sequence of algebraic manipulations in terms of array shapes and abstract indexing. The approach allows for partitioning an n-dimensional tensor based on a given MoA function. It is so called because the mathematics used to describe the problem are the same that are used to describe the hardware, producing portable, efficient code for implementation in hardware and/or software. MoA offers a set of constructs that help represent multidimensional arrays in memory in a linear, concise and efficient way, with many useful properties and applications. Refer to \cite{Mullin-88} for a full listing of the MoA constructs.
+
+The present work contributes a unified reconfigurable partitioning scheme, to divide computation over processors, and model communication requirements. As was required to balance the work load over the processors or threads, a load balancing scheme was found to be inherent in the methods used, based on index neighborhood considerations.
+
+
+\section{Multiple Sequence Alignment}
+Multiple sequence alignment (MSA) is a very common bioinformatics technique used in biological and medical research to study the function, structure and evolution of genes and proteins. The optimal DP algorithm for MSA cannot be implemented even on high-performance computers since it cannot be easily distributed across multiple processors\cite{Gusfield-97}. For two sequences, the sequences are stretched on the two axes of a scoring matrix, and all possible pairs of characters are matched by following a scoring scheme for matches, mismatches and gaps. This generates a matrix of numbers that represent all possible alignments.  The optimal alignment can be found by tracing back, starting from the highest score on the bottom edges, and following the highest scores on the matrix up to the origin with index (0,0). 
+
+\textit{k}-dimensional MSA causes exponential growth in search space, as checking 2$^{k}$-1 neighbors in computing each cell score, leads to O(n$^{n}$) complexity, where \textit{n} is the average length of the sequences. Heuristics are employed to solve the problem in real time such as ClustalW, Muscle, Mafft, T-Coffee and ProbCons. For instance, the clustal series \cite{ClustalW} performs a progressive alignment strategy developed by Feng and Doolittle and Willie Taylor. The multiple alignment is built up progressively by a series of separate pairwise alignments, calculated using either DP algorithm or by the method of Wilbur and Lipman (extremely fast but approximate), following the branching order in a guide tree. The guide tree is calculated based on the distance matrix that is generated from the pairwise scores, using the UPGMA method or the Neighbour-Joining (NJ) method. Finally, a phylogenetic tree is calculated based on the multiple alignment that it receives.  Further optimizations were implemented such as a more sensitive dynamic programming algorithm, sequence weighting, position-specific gap penalties and the automatic choice of a suitable residue comparison matrix at each stage in the multiple alignment
+
+To have an optimal MSA, parallel programming can be used to distribute the \textit{k}-dimensional scoring tensor of the DP MSA (the only mathematically proven algorithm to produce the optimal alignment without bias), over processors. Distributed optimal MSA requires management of dependencies invariant of shape and dimension, and a suitable partitioning method.
+
+\section{Master/Slave Solution}
+In \cite{Helal-07}, a Master/Slave distributed design for an optimal dynamic programming multiple sequence alignment algorithm was presented based on conformal computing methods \footnote{The name Conformal Computing \copyright is protected. Copyright 2003, The Research Foundation of State University of New York, University at Albany.}. The design was based on a master processor responsible for the partitioning of the scoring tensor, which is growing in rank with the number of sequences entered. The partitioning procedure was based on retrieving the neighbors of a cell. Retrieving the neighbors of a cell is also used for retrieving the dependant cells of the current cell being computed. The retrieval of multidimensional direct neighbors in MoA is expressed in 2D as follows:
+
+$(\mbox{(2 2)} \uparrow ((-1)+\mbox{(2 4)})  \downarrow \xi )$\\
+
+where $\xi$ is the scoring matrix, and (2 4) in this example is the current index, and \textquotedblleft(-1)+\textquotedblright subtracts 1 from the current index, to drop (with the symbol $\downarrow$) all prior cells that are not needed in this window of cells, and using (2 2), to get the immediate direct neighbors, with only 1 index away from the current cell in both 2D axis. The neighboring function is extended to \textit{k} dimensions, as follows:
+
+((2$_{0}$, 2$_{1}$, 2$_{2}$, ... 2$_{k-1}$) $\uparrow$ {((-1)+(i$_{0}$, i$_{1}$, i$_{2}$, ... i$_{k-1}$))}  $\downarrow$ $\xi$ )\\
+
+where (i$_{0}$ i$_{1}$ i$_{2}$ ... i$_{k-1}$) is the current index of the cell being computed.
+
+Based on this neighborhood function, opposite direction higher indexed neighbors can be retrieved, by adding 1 to the current cell index. This is used to traverse abstractly the whole tensor for partitioning, without creating the whole tensor in one processor\textasciiacute s memory space. A partitioning size \textit{S} is used to decide the size of the partition. The partitioning starts from the origin, (0$_{0}$ 0$_{1}$ 0$_{2}$ ... 0$_{k-1}$), and with every retrieved partition, the corner cell on each dimension (where the index at that dimension reaches the shape - sequence length - of that dimension), is used as the starting index for another partition. The partitioning is done in breadth first search (all corner edges in one wave of computation are traversed to create the new partitions in the next wave and so forth), applying the following MoA function on each corner cell in all partitions in one wave:
+
+\begin{equation}
+((S_{0} S_{1} S_{2} ... S_{k-1}) \uparrow ((+1)+(i_{0} i_{1} i_{2} ... i_{k-1}))  \downarrow \xi)\\
+\end{equation}
+
+where \textit{S} is the chosen partition size, and (i$_{0}$ i$_{1}$ i$_{2}$ ... i$_{k-1}$) is the current index of the current corner cell.
+
+ The master process then schedules the partitions over processors to be scored, and manages the dependencies between partitions to be communicated. Then a distributed trace back through all local partitions in all processors\textquoteright local memory is performed to report the final optimal alignment.
+
+Different scheduling schemes were tested (round robin and bag of tasks), with the latter\textquoteright s dependency based scheduling, leading into the P2P design presented in this paper.
+
+\section{Peer to Peer (P2P) Solution}
+
+Having started with a simple partitioning method as mentioned in section 3, experiments revealed the characteristics of the true parallelism in this model. It was found that not all ($2^{k}-1$) needed neighbors will be computed in one wave of computation, and then passed in the next wave to the current cell to be computed. The process computing a current cell score blocks waiting until all lower neighbors are computed (locally or remotely), and if remotely, the needed cell scores passed on to the current processor (by MPI sending/receiving operation) on \textit{k} (the dimensionality) waves of computations at most. The true parallelism were found to be dividing the cells into groups of equal distance from the origin, to be computed in one wave of true parallel computation. A later distance can be subsequently computed, having received the previous dependencies from up to \textit{k} previous waves, and so forth. The distance from the origin is measured by the summation of the indices in all dimensions (each first divided by the partitioning size \textit{S}), compared to the origin (zero in all dimensions). 
+
+\subsection{P2P Partitioning}
+
+Updating the partitioning method mentioned above to perform in P2P revealed the following characteristics of the parallelism. The waves are defined here as composed of partitions of equal distance from the origin, not of individual cells. Assuming there are \textit{t} waves, where \textit{$(w_{i})$} is the $(i^{th})$ wave where $0 \leq i < t$. In each $(w_{i})$, there will be $p_i$ partitions, divided equally in the cluster size \textit{V}, with the first $\frac{p_i}{V}$ (i.e. 0 .. $\frac{p_i}{V} - 1$) assigned to processor 0, the second $\frac{p_i}{V}$ (i.e. $\frac{p_i}{V}$ .. ($2 \times \frac{p_i}{V}) - 1$) parts going to processor 1, and so forth. The last remaining partitions in the wave are assigned to the last processor in the cluster. So, $p_{ij}$ is the $j^{th}$ partition in wave \textit{i}, where $0 \leq j < p_i$. Another way to reference a partition, is p$_{im}$, the set of all partitions in wave \textit{i} assigned to processor \textit{m}, where $0 \leq m < V$. Also, p$_m$ refers to all partitions in all waves assigned to processor \textit{m}.
+
+Each partition has a number of cells to be computed internally, and higher border cells to be sent. The balance between internal computation and communication is based on the partitioning size \textit{S}. The cells to be computed are $S^k$, where \textit{k} is the dimensionality or the number of sequences in the input data. This includes the edge\textquoteright s lower indexed cells of the partitions that might be only initialized (these are the lower edges in the whole tensor), or available locally in other partitions in the same processor, or to be received in communication from remote partitions in other processors. Cell values received from another processor are buffered in the OCin buffer (Overlapping Cells - incoming). High border overlapping cells to be communicated in each partition are buffered in OCout (Overlapping Cells - outgoing). Both the OCin and OCout cells in each partition are a maximum of  $S^k - (S-1)^k$. The local lower edge cells, found in another partition in the local processor are retrieved from the local OCout buffer, rather than by searching all indices in the previous partitions.
+
+\subsection{Wave Calculations}
+
+Waves and their partitions are pre-processed, and then each processor fetches its partitions in the current computation wave, based on its index, the number of processors in the cluster, and the total number of partitions in the current computation wave. A recursive function assigns partitions to waves of computations, keeping adjacency for assignment over processors to minimize communication.
+
+Partitions are scored in the current wave, then cell scores required by other partitions are sent to waiting processors in the next wave. We can think of waves as distance from the origin, with the origin at the initial partition of index vector of zeros $<0_0, 0_1, 0_2 ... 0_{k-1}>$, i.e. zero distance. The second wave consists of all partitions with indices with total distance 1 from the origin, (these are total scalar indices, each divided by \texttt{S-1}). This is the permutation of only one index of total 1, and the rest all zeros:\\
+$(1_0, 0_1, 0_2 ... 0_{k-1})$\\
+$(0_0, 1_1, 0_2 ... 0_{k-1})$\\
+$(0_0, 0_1, 1_2 ... 0_{k-1})$\\
+.\\
+.\\
+.\\
+$(0_0, 0_1, 0_2 ... 1_{k-1})$\\
+
+The third wave, is all indices of total distance 2, which is the permutation of distance vector of summation equals to 2. Such as all permutation of $(1_0, 1_1, 0_2, 0_3, .. 0_{k-1})$, and all permutations of $(2_0, 0_1, 0_2,  .. 0_{k-1})$, all in one wave. Then fourth wave is all permutations of indices of distance 3 from the origin. This will include permutations of $(1_0, 1_1, 1_2, 0_3, 0_4, .. 0_{k-1})$, $(2_0, 1_1, 0_2, 0_3, 0_4, .. 0_{k-1})$, and $(3_0, 0_1, 0_2, 0_3, ... 0_{k-1})$. and so forth.
+
+Given these distance vectors, the actual index of the first cell in the partition (the partition index) is computed by multiplying by each scalar in the vector by $S-1$. A matrix of waves as the first dimension \textit{i}, and partition order as the second dimension \textit{j} is constructed containing the scalar starting index of the partition at wave \textit{i} and order \textit{j}.
+
+This process (shown in the pseudocode below) continues until all lengths in all dimensions are covered. This creates a recursive counting algorithm that is called once before computation to fill in the 2 dimensional wave distribution structure (waves and their partitions\textquoteright starting indices). This wave distribution structure is checked by each processor to fetch its next partition iteratively until finished. The wave distribution is calculated by first looping to get each starting index, then looping through all permutations, checking if this permutation was used before to skip without adding it. The function keeps on calling the next index, until no more is returned.
+
+The following two functions are used to calculate the wave distribution, starting from distance vector (dist) equals to the origin, $(0_{0}, 0_{1}, 0_{2}, ... 0_{k-1})$, where \textit{k} is the dimension, and wave number \textit{w = 0}:\\
+\\
+\textit{
+\begin{small}\noindent\noindent getPartitionIndicesinWave \\
+\indent	partsTotal = 0\\
+\indent	more = true\\
+\indent	do  \\
+\indent\indent		/* return the distance vector, and more flag if there are\\
+\indent\indent more indices at the same distance.*/\\
+\indent\indent		getNextPartitionIndex (more, k, k, w, dist)\\
+\indent\indent		/* Check if already added, multiply distance by\\
+\indent\indent partition size and increment partsTotal */\\
+\indent\indent		addPartitionIndex (partsTotal, dist, w) \\
+\indent\indent		/* Copy the original distance before permutation */\\ 	
+\indent\indent		dist-orig = dist\\
+\indent\indent		pmore = 1\\
+\indent\indent		/* include permutations of equal distance in the wave*/\\
+\indent\indent		while (pmore == 1) \\ 
+\indent\indent\indent			permute(k, dist, pmore)	\\
+\indent\indent\indent			addPartitionIndex (partsTotal, dist, w)\\
+\indent\indent		end while\\
+\indent\indent		// Return the original distance before permutation\\
+\indent\indent		dist = dist-orig\\
+\indent	while (more == 1)\\
+End Function\\
+\end{small}
+}
+
+The next recursive function starts the distance from the origin by assigning the first dimension in the distance vector to $\frac{w}{k}$, where \textit{w} is the current wave number and \textit{k} is the dimensionality, and \textit{d=k}. Then recursively, the function is called with decreasing dimensions \textit{d} and decreasing wave distance \textit{w}, to distribute the remaining current wave distance ($w - \frac{w-\mbox{start distance}}{d}$) on the remaining dimensions of \textit{d=d-1} on each call, so that the current multidimensional index (vector of k scalar) sum up to wave number \textit{w}. On each call, the function starts from the middle point again of the passed w and d, and so forth. After all distance vector indices are assigned, the function returns with one partition index to the calling function above to be permuted to include all valid partitions at the same distance wave. Then the initial starting middle point is decremented, and the remaining value is distributed over the k-1 scalars of the distance vector, and so forth. For example at wave 3 (distance 3 from the origin), the first partition will be the fair distribution of 3 over the dimensionality, which is (1$_{0}$, 1$_{1}$, 1$_{2}$, 0$_3$, ... 0$_{k-1}$), then, (1$_{0}$, 2$_{1}$, 0$_{2}$, ..., 0$_{k-1}$), then finally (3$_{0}$, 0$_{1}$, 0$_{2}$, ... 0$_{k-1}$) and all their permutations. This keeps happening until the starting point becomes zero, and no wave distance remains to distribute. This method guarantees that we always start from the perfect middle diagonal of the tensor. and makes it easy to skip edge partitions, to reduce search space.\\
+\\
+\textit{
+\begin{small}
+\noindent getNextPartitionIndex (more, d, k, w, dist) \\
+/* \textbf{more:} is a flag which is true if the recursive function is not yet called to the
+last time, which is returning more indices, and false otherwise\\
+\textbf{d:} is the current dimension value, after reductions in recursive calls\\
+\textbf{k:} the original dimensionality of the problem,  (i.e. Number of sequences)\\
+\textbf{w:} is the current wave number (distance from origin), after reductions in
+the recursive call as well\\
+\textbf{dist:} input/output is a vector of k elements, current distance from the origin permutation, representing a partition index */\\ \\
+\noindent if (more = true) \\
+\indent	if (w $>$ 0)\\
+\indent\indent	startDist = w/k\\
+\indent	else \\
+\indent\indent	startDist = 0\\
+\indent	End If\\
+\indent	dist[d-1] = startDist\\
+\indent	for (i=d-2;i$\geq$0;i--)\\
+\indent\indent		dist[i] = 0\\
+\noindent else \\
+\indent	startDist = dist[d-1]\\
+\noindent End If\\
+/* All Terminal Cases first, then the 2D terminal cases, then the rest N-D cases \\
+ test for wave 0 for all dimensions is the same, all zeros*/\\
+if (w = 0) \\
+\indent	for (i=0;i$<$k;i++) \\
+\indent\indent		dist[i] = 0\\
+\indent	more = true\\
+else if	(dist[d-1] == w) \\
+/* test for last case where the starting Distance is already equal the wave number, \\
+and the rest of dimensions' indices are zeros*/\\
+\indent	for (i=d-2;i$\geq$0;i--) \\
+\indent\indent		dist[i] = 0\\
+\indent	more = true\\
+else if ((dist[d-1] * d == w) and (dist[d-1] != dist[d-2])) \\
+/* All Equal Indices, starting middle point, i,e, in 3D $<$2,2,0$>$ */ \\
+\indent	for (i=d-2;i$\geq$0;i--)\\
+\indent\indent		dist[i] = dist[d-1]\\
+\indent	more = false\\
+else if (d = 2)  \\
+/* Cases for 2D*/\\
+\indent	if ((dist[d-2] != w - startDist)) \\
+\indent	/* Firs Case, where first dimension = starting middle Distance, and second dimension is not yet\\ assigned*/\\
+\indent\indent		dist[d-2] = w - startDist\\
+\indent\indent		more = false\\
+\indent	else if (startDist+1 $<$ w) \\
+\indent	/* Increase one and decrease the other*/\\
+\indent\indent		startDist++;\\
+\indent\indent		dist[d-1] = startDist;\\
+\indent\indent		dist[d-2] = w - startDist;\\
+\indent\indent		more = false\\
+\indent	else if (startDist+1 = w) \\
+\indent	/* no more and return, we should never reach this case, since it is covered in case 111*/\\
+\indent\indent		dist[d-1] = waveNo\\
+\indent\indent		dist[d-2] = 0\\
+\indent\indent		more = true\\
+\indent 	End if\\
+\noindent else \\
+/* more the 2D*/\\
+\indent	if  ((( dist[d-1] * d = w) and (dist[d-1] = dist[d-2])) or ((dist[d-1] + dist[d-2] = w) and\\ (dist[d-1]+1 $<$ w)))  \\
+\indent	/* next case after all are equal First and second dimension are equal w, \\
+	i.e. all permutations are finished for the previous first dimension,  then increase \\
+	the first dimension*/\\
+\indent\indent		startDist++\\
+\indent\indent		dist[d-1] = startDist\\
+\indent\indent		for (i=d-2;i$\geq$0;i--)\\
+\indent\indent\indent			dist[i] = 0\\
+\indent\indent		if (w - startDist != 0) \\
+\indent\indent\indent			more = true\\
+\indent\indent\indent			getNextPIndex (more, d-1, k, w - startDist, v)\\
+\indent\indent\indent			more = false\\
+\indent\indent		else\\
+\indent\indent\indent			more = true\\
+\indent\indent		End if\\
+\indent	else if (dist[d-1] + dist[d-2] != w) \\
+\indent	/* First and second dimension are not yet equal w, i.e. there more permutations for the current\\ first dimension value*/\\
+\indent\indent		dist[d-1] = startDist\\
+\indent\indent		getNextPIndex (more, d-1, k, w - startDist, v)\\
+\indent\indent		more = false	\\
+\indent	else if (dist[d-1]+1 = w) \\
+\indent	/* last case, where the final increase will be the w, and the rest need to be zeros*/\\
+\indent\indent		dist[d-1] = w\\
+\indent\indent		for (i=d-2;i$\geq$0;i--) \\
+\indent\indent\indent			dist[i] = 0\\
+\indent\indent		more = true\\
+\indent	End if\\
+\noindent End if\\
+End Function
+\end{small}
+}
+\\
+\\
+
+The total partitions in a data set of dimensionality \textit{k}, and of sequence \textit{i} length l$_i$ ($0 \leq i < k$), and given a partitioning size \textit{S}, is the product of total partitions created in each dimension, and can be calculated as follows:
+
+\begin{equation}
+\Pi_{i=0}^{k} p_{i} =  (l_{i} - 1) / (S - 1)
+\end{equation}	
+
+Also, we can calculate the amount of duplicates cells (overlapping cells between partitions that will be included in more than one partition, calculated in one partition and used by other(s), and either communicated over processors, or fetched from local OCout buffer) as follows:
+
+\begin{equation}
+\label{TotalDuplicates}
+\sum_{i=0}^{k}
+\left\{\begin{array}{l l}
+C_{i}=p_{i} - 1    \quad\mbox{ if i = 0} \quad \\
+C_{i} = C_{i-1} \times l_{i} + (Pi_{j=0}^{i} p_{j}) \times 2^{i-1}  \quad\mbox{ if i $>$ 0} \quad
+\end{array}
+\right\rbrace 
+\end{equation}	
+
+A simple example with symmetry is 4 sequences with lengths (8, 8, 8, 8), which will be (9, 9, 9, 9) after including the initial gap character, resulting in 6561 cells to be computed. Dividing by a partition size S = 3 in each dimension, we get:\\
+$p_{0} =  \frac{(9 - 1)} {3-1} \equiv 4$\\
+$p_{1} =  \frac{(9 - 1)} {3-1} \equiv 4$\\
+$p_{2} =  \frac{(9 - 1)} {3-1} \equiv 4$\\
+$p_{3} =  \frac{(9 - 1)} {3-1} \equiv 4$\\
+$p =  4 \times 4 \times 4 \times 4 \equiv 256$\\
+\\
+\\The overlapping cells are:
+
+$C_{0}=p_{0} - 1 \equiv 3$
+$C_{1}=3 \times 9 + 4 \equiv 31$
+$C_{2}=31 \times 9 + 16 \times 2 \equiv 311$
+$C_{3}=311 \times 9 + 64 \times 4 \equiv 3055$
+
+$C = 3 + 31 + 311 + 3055 \equiv 3400$
+
+Generally this will scale as shown in table I, which lists the number of partitions that can be done in parallel in one wave.
+
+\begin{table}
+\begin{center}
+\begin{tabular}{|r|r|r|r|r|r|r|r|r|r|}
+\hline
+ &  \multicolumn{8}{}{} Waves&\\
+\hline
+k &	1&	2&	3&	4&	5&	6&	7&	8&	9\\
+\hline
+2&		1&	2&	3&	4&	5&	6&	7&	8&	9\\
+\hline
+3&		1&	3&	6&	10&	15&	21&	28&	36&	45\\
+\hline
+4&		1&	4&	10&	20&	35&	56&	84&	120&	165\\
+\hline
+5&		1&	5&	15&	35&	70&	126&	210&	330&	495\\
+\hline
+6&		1&	6&	21&	56&	126&	252&	462&	792&	1287\\
+\hline
+7&		1&	7&	28&	84&	210&	462&	924&	1716&	3003\\
+\hline
+8&		1&	8&	36&	120&	330&	792&	1716&	3432&	6435\\
+\hline
+9&		1&	9&	45&	165&	495&	1287&	3003&	6435&	12870\\
+\hline
+\end{tabular}
+\caption{Partitions Parallelism (Total Partitions per wave) shown for several dimensionality in rows, and several waves in columns, where k is the dimensionality}
+\end{center}
+\end{table}
+
+This partitions scalability is illustrated in figure I.\\
+
+\begin{figure}
+\begin{center}
+ \includegraphics[bb=0 0 240 412]{../thesis/PartitionsWavesGrowth.png}
+ % PartitionsWavesGrowth.png: 240x412 pixel, 72dpi, 8.47x14.53 cm, bb=0 0 240 412
+\end{center}
+\caption{Total Partitions / Wave growth graph for several dimensionality}
+\end{figure} 
+
+For the previously mentioned example, there are 256 partitions that need to be computed in 13 waves. Table II shows the distribution of partitions over the waves, according to the scheme shown in table I.
+
+\begin{table}
+\begin{center}
+\begin{tabular}{|r|r|r|r|}
+\hline
+k&    W&    P$_{w}$& 	$\sum_{i=1}^w Pi$ \\
+\hline
+4&       1&       1& 		1\\
+\hline
+4&       2&       4&		5\\
+\hline
+4&       3&       10&		15\\
+\hline
+4&       4&       20&		35\\
+\hline
+4&       5&       31&		66\\
+\hline
+4&       6&       40&		106\\
+\hline
+4&       7&       44&		150\\
+\hline
+4&       8&       40&		190\\
+\hline
+4&       9&       31&		221\\
+\hline
+4&       10&      20&		241\\
+\hline
+4&       11&      10&		251\\
+\hline
+4&       12&      4&		255\\
+\hline
+4&       12&      1&		256\\
+\hline
+\end{tabular}
+\caption{Partitions Parallelism (Total Partitions per wave) shown for dimensionality 4, where k is the dimensionality, w is the wave number, P$_{w}$ is the total number of partitions in the current wave w, and $\sum_{i=1}^w Pi$ is the total number of partitions done so far from wave 1 until the current wave \textit{w}.}
+\end{center}
+\end{table}
+
+Notice at wave number 5, a maximum of 35 partitions can be calculated in this wave in 4 dimensions as per table I, but only 31 are needed in this particular data set (table II). The same limitation occurs in waves 6 and 7, where the original scalability can reach up to 56 and 84 respectively. Then, in wave number 8, the partitions total per wave start to decay symmetrically. The actual total partitions per wave, and hence total waves, is based on the availability of indices not processed yet, so they can be less partitions per wave than the maximum shown in table I, hence creating more waves than shown the above scheme. 
+
+
+The partition\textquoteright s initial cell index is retrieved based on the number of indices changed from one wave to another. The initial wave will always contain one partition with indices $(0_0, 0_1, 0_2, ..., 0_{k-1})$ to be scored by the first processor in the cluster. A 3D distribution of partitions per wave is illustrated in table III.
+
+\begin{table}
+\begin{center}
+% use packages: array
+\begin{tabular}{|p{0.25cm}|l|p{6cm}|}
+\hline
+W&    P$_{w}$& 	Parts Indices \\
+\hline
+0&	1&	(0, 0, 0)\\
+\hline
+1&	3&	(0, 0, 2)	(0, 2, 0)	(2, 0, 0)\\
+\hline
+2&	6&	(0, 2, 2)	(2, 0, 2)	(2, 2, 0)	(0, 0, 4)	(0, 4, 0)	(4, 0, 0)\\
+\hline
+3&	10&	(2, 2, 2)	(0, 2, 4)	(0, 4, 2)	(2, 0, 4)	(2, 4, 0)	(4, 0, 2)	(4, 2, 0)	(0, 0, 6)	(0, 6, 0)	(6, 0, 0)\\
+\hline
+4&	12&	(2, 2, 4)	(2, 4, 2)	(4, 2, 2)	(0, 4, 4)	(4, 0, 4)	(4, 4, 0)	(0, 2, 6)	(0, 6, 2)	(2, 0, 6)	(2, 6, 0)	(6, 0, 2)	(6, 2, 0)\\
+\hline
+5&	12&	(4, 2, 4)	(4, 4, 2)	(2, 4, 4)	(0, 6, 4)	(4, 0, 6)	(4, 6, 0)	(6, 0, 4)	(6, 4, 0)	(0, 4, 6)	(2, 2, 6)	(2, 6, 2)	(6, 2, 2)\\
+\hline
+6&	10&	(4, 4, 4)	(4, 2, 6)	(4, 6, 2)	(6, 2, 4)	(6, 4, 2)	(2, 4, 6)	(2, 6, 4)	(0, 6, 6)	(6, 0, 6)	(6, 6, 0)\\
+\hline
+7&	6&	(4, 4, 6)	(4, 6, 4)	(6, 4, 4)	(2, 6, 6)	(6, 2, 6)	(6, 6, 2)\\
+\hline
+8&	3&	(6, 4, 6)	(6, 6, 4)	(4, 6, 6)\\
+\hline
+9&	1&	(6, 6, 6)\\
+\hline
+\end{tabular}
+\\
+\caption{A 3D distribution of partitions per wave, showing the partitions indices (multiplied by the partition size S-1 where S=3). Every wave starts from the middle partitions available in the wave and going to the edges, all of equal distance from the origin (summation of all indices in all dimensions) }
+\end{center}
+\end{table}
+
+
+\subsection{Processor Assignments and load balancing}
+
+The dependency networks can be illustrated geometrically using figures 2-4 for 2D, 3D and 4D. The axes in the 2D example represent the indices of the cells to be scored. The vertices in the diagram are the cells (or grouped into partitions of a number of cells), and the diagonals show the number of cells (or partitions) that can be computed simultaneously.
+
+\begin{figure}
+\begin{center}
+ \includegraphics[bb=0 0 220 157]{../thesis/2DGeom.png}
+ % 2DGeom.png: 220x157 pixel, 72dpi, 7.76x5.54 cm, bb=0 0 220 157
+\end{center}
+\caption{Geometric representation of 2D waves and partitions indices, shown on a 2D plane, where waves are the diagonals connecting the partitions indices}
+\end{figure} 
+
+In 3D and 4D, only the base is drawn. In 3D, the origin point in the middle of the three axes, will triple every 3 waves, in a third plane that is not shown in this illustration.
+
+\begin{figure}
+\begin{center}
+ \includegraphics[bb=0 0 220 184]{../thesis/3DGeom.png}
+ % 3DGeom.png: 220x184 pixel, 72dpi, 7.76x6.49 cm, bb=0 0 220 184
+\end{center}
+\caption{Geometric representation of 3D waves and partitions indices, shown on a 3D base plane only. Axes are represented with lines having dashes at fixed intervals showing the distances from the origin (where the axes intersects), other lines show the waves connecting partitions (vertices) of equal distance from the origin. A third plane project from this plane, and triple every 3 waves.}
+\end{figure} 
+
+In the 4D another 2 planes will be projected, and grow more faces, as we go from one wave to another. 
+
+\begin{figure}
+\begin{center}
+ \includegraphics[bb=0 0 220 184]{../thesis/4DGeom.png}
+ % 4DGeom.png: 220x184 pixel, 72dpi, 7.76x6.49 cm, bb=0 0 220 184
+\end{center}
+\caption{Geometric representation of 4D waves and partitions indices, shown on a 4D base plane only. Axes are shown with dashes at fixed intervals from the origin, and squares around the origin show the waves. Two planes project from this base, and quadruple every 4 waves}
+\end{figure} 
+
+Figures 2-4 show the waves of computations around the origin point and rotating the axes. They form regular polytopes (a higher dimensional analogue of regular polygons in 2D, polyhedra in 3D, and polychora in 4D, and so forth). This representation can direct the research into more geometric analysis of the index transformations that can lead to better optimized closed formula moves from one cell to its dependent cells. The MoA formula discussed in \cite{Helal-07} is to date the only one known to the authors that scales effectively with dimensions, wave number, partition index, and cell index.
+
+The dependency network showing the connections between cells (or partition) in one wave with their dependent cells (or partitions) in the next wave is shown for a 2D example in figure 5.
+
+\begin{figure}
+\begin{center}
+ \includegraphics[bb=0 0 220 190]{../thesis/2DDepNetwork.png}
+ % 2DDepNetwork.png: 220x190 pixel, 72dpi, 7.76x6.70 cm, bb=0 0 220 190
+\end{center}
+\caption{2D dependency network connecting partitions in one wave to their dependent partition(s) in the next wave. Dependencies required from up to k waves are passed from one wave to another. For instance, cell 5 needs cells 2 and 3 from wave 1, and cell 5 from wave 0. Cell 5 is sent to wave 1 first, then again considered overlapping cell in wave 1 and send to wave 2.}
+\end{figure} 
+
+The 3D dependency network is also straight forward to represent in figure 6.
+
+\begin{figure}
+\begin{center}
+ \includegraphics[bb=0 0 220 161]{../thesis/3DDepNetwork.png}
+ % 3DDepNetwork.png: 220x161 pixel, 72dpi, 7.76x5.68 cm, bb=0 0 220 161
+\end{center}
+\caption{3D dependency network connecting partitions in one wave to their dependant partition(s) in the next wave. Growth of parallelism is obvious compared to the 2D example. Cell 15 needs cells 6, 7, and 8 from wave 2, and cells 2, 3, and 4 from wave 1, and cell 1 from wave 0. Cells from K waves (here 3) are sent from one wave to another until received to the dependent cell}
+\end{figure} 
+
+The 4D network is more difficult to visualize, but is plotted in figure 7 to demonstrate that symmetry is maintained as dimension increases.
+
+\begin{figure}
+\begin{center}
+ \includegraphics[bb=0 0 220 97]{../thesis/4DDepNetwork.png}
+ % 4DDepNetwork.png: 220x97 pixel, 72dpi, 7.76x3.42 cm, bb=0 0 220 97
+\end{center}
+\caption{4D dependency network. Parallelism growth is obvious again, as well as symmetric connections.}
+\end{figure} 
+
+All nodes in the above networks can represent individual cells, or starting indices of partitions of size \textit{S} in the whole tensor.
+
+
+A very simple and intuitive load balancing technique was found inherent in the conformal computing methods, based on neighborhood and adjacency of indices. In each wave, partitions are divided among processors: the first quotient of partitions (plus one partition of the remainder if any, shifting the starting quoteint for the following processors) is to be assigned to the first processor, the second quotient (plus one partition of the remainder if any) to the second processor and so forth. Given that the order of partitions in the wave are based on neighborhood as shown in the pseudocode above, neighborhood of partitions are maintained within the wave. Moreover, starting in each wave from processor zero will guarantee that adjacency is also kept across the waves as the index increases one step away from the origin. Partitions\textquoteright   indices assigned to each processor across the wave, remain the closest neighbors within and across the waves, reducing communication cost. The colors in the 2D and 3D dependency networks graphs (figures 5 and 6) show the clustering of partitions over three processors (white, light gray and dark gray). A hash function is used to map a processor id to a partition index, and is called everytime a dependency needs to identify a waiting processor.
+
+\subsection{P2P Scoring and Dependency Communication}
+
+
+The same scoring scheme used in the Master/Slave design, and detailed in the complexity analysis section below is used in the P2P design. However, dependency is packed to be communicated in between waves of computation, and done by each processor independently, and not by a master process. In the current implementation, the dependency relationships are computed by retrieving the higher indexed neighbors of the current cell, their partition index and the corresponding processor. If the neighbor partition is found in a different processor, it is added to the OCout (Overlapping Cells outgoing) buffer, to be sent after all the cells in the partition are scored. Then all OCout cells are packed to be sent in one buffered MPI communication per processor to reduce the TCP/IP overhead.
+
+The dependency networks for 2D, 3D, and 4D examples (figures 5-7), show an obvious symmetric relationship between dimension, wave number, partition order in wave, and dependent partitions in the next wave. However a closed formula describing this relationship has not been derived yet. The MoA equation number (1) currently used to retrieve the higher indexed neighbors remains the only known scalable solution (dimensionality - wave number - and partition coordinates - wise). 
+ 
+\subsection{Checkpointing and Restoration}
+
+
+The program checkpoints the pre-processing data (partitions indices and distribution over waves) to a main file. Then a secondary file of system states is saved (current wave number, total partitions scored so far, current partition index being scored, and overlapping cells sent and received). Also, a separate file for each partition scores is kept. The system can then restore 2 waves prior to the last wave that was computed before a crash. It is easier to go 2 waves back to ensure that all needed communication will be processed again, rather than starting from where the crash happened and building an ad-hoc communication model to send and receive specific missing scores.
+
+
+\section{Complexity Analysis}
+
+
+The complexity of the proposed solution is divided into 2 sections: the computation and the communication. Both are dependant on the partitioning size S, and load balancing. As mentioned above, the computation complexity of the scoring of the l$^{th}$ cell (s$_{l}$), where 0 $\leq$ l $<$ S$^k$,  in one partition (p$_{ij}$), in one computational wave (w$_{i}$), in one processor m, is as follows:
+
+\begin{itemize}
+  \item Comparison of global index to retrieve the current cell position in the whole tensor $\equiv$ O(k)
+  \item Process the current cell based on its position:
+\begin{itemize}
+	\item If initial cell, initialize $\equiv$ O(1)
+	\item If local low border internal cell, do the following in sequence till found: 
+	\begin{itemize}
+		\item check the (OCout) buffer for the previous wave $ \equiv  O(p_{(i-1),m} \times (S^k - (S-1)^k)) \equiv O(S^k)$
+		\item check received list (OCin) for the previous wave $\equiv O(p_{(i-1),m} \times (S^k - (S-1)^k)) \equiv O(S^k)$
+		\item Block wait till received $\equiv$ O(1)
+	\end{itemize}
+	\item If not local low border, but internal cell, compute the score as follows: 
+	\begin{itemize}
+		\item get pair-wise scores for each pair of residues  $\equiv$ O(k$^{2}$)
+		\item get lower neighbors\textquoteright  scores  $\equiv$ O(2$^{k}$ $-$ 1)
+		\item compute temporary neighbor score $\equiv$ O(3 $\times$ 2$^{k}$ $-$ 1)
+		\item assign maximum temporary score to current cell score   $\equiv$ O(1)
+	\end{itemize}
+\end{itemize}
+  \item Dependency Analysis $\equiv O(p_{(i+1),m} \times (S^k - (S-1)^k)) \equiv O(S^k)$
+\end{itemize}
+
+The worst case complexity when scoring a cell up to the block wait step, is: $O(k) + O(S^k) + O(S^k) + O(1) + O(S^k) \equiv O(S^k)$\\
+\\
+After a cell is computed, a dependency analysis is conducted, by comparing the cell\textquoteright s index to that of all lower indexed border cells in the partitions assigned to the following wave. The cell\textquoteright s score is sent only if the processor computing the dependant partition in the next wave is different from the processor that scored the current cell. Then an array of OCout (outgoing overlapping cells) will be formed, with the cell index, score, dependant processor, partition index, and wave number information. 
+
+The execution time in a distributed environment is estimated by equation number (4), as defined by \cite{Stone-77}:
+
+\begin{equation}
+dT = r \times Max(p_{m}) + (\frac{c}{2}) \times (M^2 – \sum p_{m}^2)
+\end{equation}
+
+where dT is the distributed overall time \\
+r is the execution time of a single task on a processor, which is O(S$^k$) for each cell in each partition, in each wave assigned to a processor m \\
+c is the communication cost between the single task and other tasks on other processors, which is equivalent to  O(S$^k$) again\\
+M is the total tasks, which is total partitions in all waves\\
+p$_{m}$ is number of tasks (partitions) assigned to m$^{th}$ processor.\\
+\\
+
+The r and c are attributes of the hardware we are executing on. We can also calculate R, which is the total computation time for all partitions assigned to a processor, and C which is total communication done by a processor for all partitions assigned to it. R and C can be easily calculated based on the partition size, and the ratio $\frac{R}{C}$ is the granularity of the design. 
+
+
+\section{Optimization}
+
+The choice of partition size will decide how much computation will be done in each partition, and hence how much communication will be sent/received. To minimize the total execution time of the distributed solution as shown in equation 4, two constraints need to be met: first, each partition should contain as much computation as can be done simultaneously without blocking for dependencies; second, the partition size (S$^{k}$) should fit in the processor local cache, so that we don't end up with much memory context switches, and degrade the overall performance. Communication generally needs to be minimized as well. Two approaches were used to minimize the communication penalty; first, packing to reduce the TCP/IP overhead; second, clustering partitions on processors based on neighborhood, so that the needed dependencies can be found locally. 
+
+Figures 8 and 9 show how the computation (total internally computed cells in all partitions) and communication (dependency communicated between processors, or searched in other local partitions), vary with partition size. Communication grows at a slower rate then computation: larger partitions will always result in more computation than communication. The graphs also show the variations over a range of dimensionalities.
+
+\begin{figure}
+\begin{center}
+ \includegraphics[bb=0 0 228 426]{../thesis/CompGrowth.png}
+ % CompGrowth.png: 228x426 pixel, 72dpi, 8.04x15.03 cm, bb=0 0 228 426
+\end{center}
+\caption{Total cells to be computed in each partition in relation to partition size and dimensionality.}
+\end{figure} 
+
+
+\begin{figure}
+\begin{center}
+ \includegraphics[bb=0 0 232 426]{../thesis/CommGrowth.png}
+ % CommGrowth.png: 232x426 pixel, 72dpi, 8.18x15.03 cm, bb=0 0 232 426
+\end{center}
+\caption{Total number of cell scores to be communicated or searched for in previous local partitions, in each partition, as a function of partition size and dimensionality.}
+\end{figure} 
+
+Equation 4 shows that r and c will affect the total distributed execution time: r here can be thought of as the computation of one partition shown in figure 8, and c is the amount of computation made in each partition, as shown in figure 9. Taking the constraints of the machine used (cache memory size, communication speed, and processing speed) and the constraints of the data set (dimensionality and shape) as parameters, an objective function for minimizing the total distributed execution time in equation 4 can be developed. The optimization procedure should decide the optimal partition size, and the optimal number of processors to use.
+
+A number of potential optimization solutions are available. An open source simplex algorithm can easily be embedded to the program. Alternatively, statistical packages such as the R Project for Statistical Computing\cite{R-Website} or A Modeling Language for Mathematical Programming (AMPL)\cite{AMPL-Website} can be used. These packages include optimization solvers of different algorithms that need input files formalizing equation (4), the data set constrains, and the hardware constraints.
+
+\section{Results Analysis}
+A comparison of the performance of the P2P design \footnote{This work was supported by an award under the Merit Allocation Scheme on the National Facility of the Australian Partnership for Advanced Computing. (http://nf.apac.edu.au/facilities/ac/hardware.php)} with previously obtained master/slave results \cite{Helal-07} is shown in table IV. A considerable speedup and better memory optimization were observed as the data size increases.
+
+\begin{table}
+\begin{footnotesize}
+ \begin{tabular}{|p{0.25cm}|p{0.5cm}|p{0.25cm}|l|l|p{0.25cm}|l|l|p{0.25cm}|p{0.25cm}|p{0.25cm}|}
+\hline
+\multicolumn{3}{}{T}Test Info  & \multicolumn{4}{}{} Master/Slave& \multicolumn{4}{}{} P2P\\
+\hline
+K&	L&	P&	C&	E&	P&	V&	C&	E&	P&	V\\
+\hline
+3&	4, 3, 2&	4&	0&	4&	16&	123&	0&	7&	16&	122\\
+\hline
+3&	9, 8, 7&  	3&	0&	17&	16&	123&	0&	8&	16&	123\\
+\hline
+4&	5, 4, 3, 2&	4&	8&	9&	63&	357&	0&	7&	16&	122\\
+\hline
+5&	6, 5, 4, 3, 2&	4&	8&	6&	65&	358&	16&	15&	164&	456\\
+\hline
+6&	7, 6, 5, 4, 3, 2&	4&	256&	101&	82&	375&	70&	24&	75&	366\\
+\hline
+4&	10, 15, 16, 17&	3&	5173&	1748&	109&	345&	277&	131&	61&	294\\
+\hline
+3&	90, 80, 85&	3&	7783&	2665&	371&	606&	1902&	669&	121&	361\\
+\hline
+\end{tabular}             
+\end{footnotesize}
+\caption{Master Slave Vs P2P Performance Results in APAC AC SGI Altix Cluster; K: dimensionality; L: sequences lengths; P: number of processes; C: total CPU time; E: elapsed time; P: physical memory in MB; V: virtual memory in MB, all tests are processed with partition size S = 3, except for the last one where the optimal partition size of 30 (as proven in table 5) was used.}
+\end{table}
+
+Figures 10-13 show the scalability of the improvements obtained using the P2P design (shown in the black series) as data size increases. CPU time, elapsed time, physical memory, and virtual memory usageall scale more favourably with P2P compared to the master/slave design (shown in the gray series).
+
+\begin{figure}
+\begin{center}
+ \includegraphics[bb=0 0 306 281]{../thesis/MSP2PCPU.png}
+ % MSP2PCPU.png: 306x281 pixel, 72dpi, 10.79x9.91 cm, bb=0 0 306 281
+\end{center}
+\caption{Comparison of the master/slave and P2P solutions in terms of CPU time consumption as data size increases.}
+\end{figure} 
+
+\begin{figure}
+\begin{center}
+ \includegraphics[bb=0 0 276 384]{../thesis/MSP2PETime.png}
+ % MSP2PETime.png: 276x384 pixel, 72dpi, 9.74x13.54 cm, bb=0 0 276 384
+\end{center}
+\caption{Comparison of the master/slave and P2P solutions in terms of elapsed time as data size increases.}
+\end{figure} 
+
+\begin{figure}
+\begin{center}
+ \includegraphics[bb=0 0 324 279]{../thesis/MSP2PPMem.png}
+ % MSP2PPMem.png: 324x279 pixel, 72dpi, 11.43x9.84 cm, bb=0 0 324 279
+\end{center}
+\caption{Comparison of the master/slave and P2P solutions in terms of physical memory usage as data size increases.}
+\end{figure} 
+
+\begin{figure}
+\begin{center}
+ \includegraphics[bb=0 0 318 287]{../thesis/MSP2PVMem.png}
+ % MSP2PVMem.png: 318x287 pixel, 72dpi, 11.22x10.12 cm, bb=0 0 318 287
+\end{center}
+\caption{Comparison of the master/slave and P2P solutions in terms of virtual memory usage as data size increases.}
+\end{figure} 
+
+In order to measure processor scalability performace, the same datasets were used to test the performance on 4, 6, 8, 16, 24, 32 and 64 processors. The resulting elapsed time scalability profile is shown in figure 14, showing different trends. This type of profile is very desirable for any distributed application. The elapsed time decreases as the number of processors increases. More experiments are being conducted to decide the trend.\\
+\\
+
+
+\begin{figure}
+\begin{center}
+ \includegraphics[bb=0 0 194 299]{../thesis/ProcScalability.png}
+ % ProcScalability.png: 194x299 pixel, 72dpi, 6.84x10.55 cm, bb=0 0 194 299
+\end{center}
+\caption{Processor scalability running the same dataset using 4, 6, 8, 16, 24, 32 and 64 processors.}
+\end{figure} 
+
+
+Another experiment was performed to measure the effects of the variation in the partition size over the usage of resources, to locate the break point identifying the optimal partition size. The dataset was composed of 3 test sequences of lengths 90, 80, and 85, run on 3 processors on the APAC ac SGI Altix cluster, using different partition sizes. Observed total CPU time, elapsed time, physical and virtual memory are shown in table V. Table V also presents total partitions in all waves, total waves, and total overlapping incoming cells in all processors (actual communications as reduced by the clustering techniques described above).
+
+\begin{table}
+\begin{center}
+\begin{tabular}{|r|r|r|r|r|r|r|r|}
+\hline
+S&	CPU&	E&	P&	V&	P&	W&	Ocin\\
+\hline
+5&	13581&	5308&	174&	405&	3395&	63&	184\\
+\hline
+8&	5978&	2070&	143&	381&	684&	36&	103\\
+\hline
+10&	4342&	1470&	138&	370&	306&	27&	76\\
+\hline
+12&	3645&	1242&	137&	376&	198&	23&	64\\
+\hline
+15&	2799&	996&	117&	358&	102&	18&	49\\
+\hline
+17&	2439&	878&	122&	361&	64&	15&	40\\
+\hline
+20&	2410&	852&	126&	365&	45&	13&	34\\
+\hline
+25&	2024&	698&	121&	360&	24&	10&	25\\
+\hline
+30&	1902&	669&	121&	361&	14&	8&	19\\
+\hline
+35&	2064&	700&	121&	360&	11&	7&	16\\
+\hline
+40&	2748&	953&	117&	356&	11&	7&	16\\
+\hline
+45&	3250&	1199&	125&	364&	6&	5&	10\\
+\hline
+\end{tabular}
+\caption{Partition size effects on overall performance. S is the partition size; CPU is the CPU time, E is the elapsed time, P is the physical memory usage; V is the virtual memory usage; P is the total partitions in all waves in all processors; W is the total waves; OCin is the total actual sent/received overlapping cells}
+\end{center}
+\end{table}
+
+The results in table V are plotted in figure 15. It is obvious that partition size S = 30 is optimal for this dataset, on this hardware.
+
+\begin{figure}
+\begin{center}
+ \includegraphics[bb=0 0 301 460]{../thesis/partSEffects.png}
+ % partSEffects.png: 301x460 pixel, 72dpi, 10.62x16.23 cm, bb=0 0 301 460
+\end{center}
+\caption{Partition Size Effects on Resources Usage.}
+\end{figure} 
+
+
+% An example of a floating figure using the graphicx package.
+% Note that \label must occur AFTER (or within) \caption.
+% For figures, \caption should occur after the \includegraphics.
+% Note that IEEEtran v1.7 and later has special internal code that
+% is designed to preserve the operation of \label within \caption
+% even when the captionsoff option is in effect. However, because
+% of issues like this, it may be the safest practice to put all your
+% \label just after \caption rather than within \caption{}.
+%
+% Reminder: the "draftcls" or "draftclsnofoot", not "draft", class
+% option should be used if it is desired that the figures are to be
+% displayed while in draft mode.
+%
+%\begin{figure}[!t]
+%\centering
+%\includegraphics[width=2.5in]{myfigure}
+% where an .eps filename suffix will be assumed under latex, 
+% and a .pdf suffix will be assumed for pdflatex; or what has been declared
+% via \DeclareGraphicsExtensions.
+%\caption{Simulation Results}
+%\label{fig_sim}
+%\end{figure}
+
+% Note that IEEE typically puts floats only at the top, even when this
+% results in a large percentage of a column being occupied by floats.
+
+
+% An example of a double column floating figure using two subfigures.
+% (The subfig.sty package must be loaded for this to work.)
+% The subfigure \label commands are set within each subfloat command, the
+% \label for the overall figure must come after \caption.
+% \hfil must be used as a separator to get equal spacing.
+% The subfigure.sty package works much the same way, except \subfigure is
+% used instead of \subfloat.
+%
+%\begin{figure*}[!t]
+%\centerline{\subfloat[Case I]\includegraphics[width=2.5in]{subfigcase1}%
+%\label{fig_first_case}}
+%\hfil
+%\subfloat[Case II]{\includegraphics[width=2.5in]{subfigcase2}%
+%\label{fig_second_case}}}
+%\caption{Simulation results}
+%\label{fig_sim}
+%\end{figure*}
+%
+% Note that often IEEE papers with subfigures do not employ subfigure
+% captions (using the optional argument to \subfloat), but instead will
+% reference/describe all of them (a), (b), etc., within the main caption.
+
+
+% An example of a floating table. Note that, for IEEE style tables, the 
+% \caption command should come BEFORE the table. Table text will default to
+% \footnotesize as IEEE normally uses this smaller font for tables.
+% The \label must come after \caption as always.
+%
+%\begin{table}[!t]
+%% increase table row spacing, adjust to taste
+%\renewcommand{\arraystretch}{1.3}
+% if using array.sty, it might be a good idea to tweak the value of
+% \extrarowheight as needed to properly center the text within the cells
+%\caption{An Example of a Table}
+%\label{table_example}
+%\centering
+%% Some packages, such as MDW tools, offer better commands for making tables
+%% than the plain LaTeX2e tabular which is used here.
+%\begin{tabular}{|c||c|}
+%\hline
+%One & Two\\
+%\hline
+%Three & Four\\
+%\hline
+%\end{tabular}
+%\end{table}
+
+
+% Note that IEEE does not put floats in the very first column - or typically
+% anywhere on the first page for that matter. Also, in-text middle ("here")
+% positioning is not used. Most IEEE journals/conferences use top floats
+% exclusively. Note that, LaTeX2e, unlike IEEE journals/conferences, places
+% footnotes above bottom floats. This can be corrected via the \fnbelowfloat
+% command of the stfloats package.
+
+
+
+\section{Conclusion and Work in Progress}
+We have applied conformal computing methods in order to parallelize the dynamic programming alignment of multiple sequences, invariant of dimension and shape, to avoid the bias generated when using progressive pair-wise alignments. The proposed method divides the complexity into chunks that can be distributed over multiple processors.  The scalability of the parallelism is found to be growing with the data size exponentially as well. The upper bound of the data size is based on the configuration of the cluster, grid, or HPC machine used.
+
+The approach provides automatic load balancing among processors, utilizing clustering based on nearest indexed neighbors to reduce communication, and better locality inside each single processor.  Heuristics can be applied to reduce search space, or retrieve further near optimal solutions.
+
+Applying network regression analysis over the data available from the 2D, 3D, and 4D dependency networks should lead to a closed formula equation that maps the dimension, wave number and partition index to its dependant partition indices in the next wave. This will reduce the steps further, and can be pre-processed in a structure to be fetched when needed. However, also pre-processing the currently used MoA neighboring equation, based on the partition index (as a higher hierarchy over the individual cells), not the individual cell indices, can reduce the computation steps significantly.
+
+We are currently applying the proposed techniques on another high dimensional scientific computing problem, aiming to produce a reusable mathematical model to represent partitioning and dependency in parallel algorithms generally, and high dimensional problems specifically. Further work can trigger more mathematical and geometric analysis, leading to more efficient index transformations.
+
+
+
+
+
+% conference papers do not normally have an appendix
+
+
+% trigger a \newpage just before the given reference
+% number - used to balance the columns on the last page
+% adjust value as needed - may need to be readjusted if
+% the document is modified later
+%\IEEEtriggeratref{8}
+% The "triggered" command can be changed if desired:
+%\IEEEtriggercmd{\enlargethispage{-5in}}
+
+% references section
+
+% can use a bibliography generated by BibTeX as a .bbl file
+% BibTeX documentation can be easily obtained at:
+% http://www.ctan.org/tex-archive/biblio/bibtex/contrib/doc/
+% The IEEEtran BibTeX style support page is at:
+% http://www.michaelshell.org/tex/ieeetran/bibtex/
+%\bibliographystyle{IEEEtran}
+% argument is your BibTeX string definitions and bibliography database(s)
+%\bibliography{IEEEabrv,../bib/paper}
+%
+% <OR> manually copy in the resultant .bbl file
+% set second argument of \begin to the number of references
+% (used to reserve space for the reference number labels box)
+\begin{thebibliography}{1}
+
+\bibitem{Helal-07}Manal Helal, Lenore Mullin, Bruno Gaeta, Hossam El-Gindy. (2007, July). \emph{Multiple
+Sequence Alignment Using Massively Parallel Mathematics of Arrays}. Proceedings of the 
+International Conference on  International Conference on  High Performance Computing,
+Networking and Communication Systems  (HPCNCS-07), Orlando, FL, USA
+
+\bibitem{Raynolds-Mullin-05}J. Raynolds and L. Mullin, \emph{Applications of conformal computing Techniques to Problems in computational physics: the FFT}, Computer Physics communications 170(2005)1-10, 2005
+
+\bibitem{Mullin-88}Lenore M. Mullin, \emph{A Mathematics of Arrays}, Doctor of Philosophy Dissertation in Computer and Information Science Completed at Syracuse University, Syracuse, NJ, December 1988.
+
+\bibitem{Stone-77}H. Stone,
+\emph{Multiprocessor scheduling with the aid of network flow diagram},
+IEEE transactions on Software Engineering
+volume SE-3, page 85-93, January 1977.
+
+\bibitem{Carrillo-Lipman-88} Carrillo, H. and Lipman, D.J. \emph{The Multiple Sequence Alignment in Biology},
+S.I.A.M.J Appl. Math., volume  48(5), pages 1073-1082, 1988.
+
+\bibitem{Gusfield-97} Dan Gusfield, \emph{Algorithms on Strings, Trees, and Sequences}, Cambridge University Press, 1997.
+
+\bibitem{ClustalW}Chenna, Ramu, Sugawara, Hideaki, Koike,Tadashi, Lopez, Rodrigo, Gibson, Toby J, Higgins, Desmond G, Thompson, Julie D.\emph{Multiple sequence alignment with the Clustal series of programs}. (2003)
+Nucleic Acids Res 31 (13):3497-500 PubMedID: 12824352 
+
+\bibitem{R-Website}, The R Project for Statistical Computing Web Site: http://www.r-project.org/
+\bibitem{AMPL-Website}, A Modeling Language for Mathematical Programming (AMPL) Web Site: http://www.ampl.com/
+
+\end{thebibliography}
+
+
+
+
+% that's all folks
+\end{document}
+
+
+@
+
+
+1.1.1.1
+log
+@P2P Paper Writing
+@
+text
+@@

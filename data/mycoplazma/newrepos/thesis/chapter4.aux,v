@@ -1,0 +1,92 @@
+head     1.1;
+branch   1.1.1;
+access   ;
+symbols  r1:1.1.1.1 mhelal:1.1.1;
+locks    ; strict;
+comment  @# @;
+
+
+1.1
+date     2008.05.06.04.03.23;  author mhelal;  state Exp;
+branches 1.1.1.1;
+next     ;
+
+1.1.1.1
+date     2008.05.06.04.03.23;  author mhelal;  state Exp;
+branches ;
+next     ;
+
+
+desc
+@@
+
+
+
+1.1
+log
+@Initial revision
+@
+text
+@\relax 
+\@@writefile{toc}{\contentsline {chapter}{\numberline {4}Peer to Peer Solution}{51}}
+\@@writefile{lof}{\addvspace {10\p@@ }}
+\@@writefile{lot}{\addvspace {10\p@@ }}
+\@@writefile{toc}{\contentsline {section}{\numberline {4.1}P2P Partitioning}{51}}
+\@@writefile{toc}{\contentsline {section}{\numberline {4.2}Wave Calculations}{52}}
+\newlabel{TotalDuplicates}{{4.2}{59}}
+\@@writefile{lof}{\contentsline {figure}{\numberline {4.1}{\ignorespaces Total Partitions / Wave growth graph for several dimensionality}}{60}}
+\@@writefile{lot}{\contentsline {table}{\numberline {4.1}{\ignorespaces Partitions Parallelism (Total Partitions per wave) shown for several dimensionality in rows, and several waves in columns, where k is the dimensionality}}{61}}
+\@@writefile{toc}{\contentsline {section}{\numberline {4.3}Processor Assignments and load balancing}{61}}
+\@@writefile{lot}{\contentsline {table}{\numberline {4.2}{\ignorespaces Partitions Parallelism (Total Partitions per wave) shown for dimensionality 4, where k is the dimensionality, w is the wave number, P$_{w}$ is the total number of partitions in the current wave w, and $\DOTSB \sum@@ \slimits@@ _{i=1}^w Pi$ is the total number of partitions done so far from wave 1 until the current wave \textit  {w}.}}{62}}
+\@@writefile{lof}{\contentsline {figure}{\numberline {4.2}{\ignorespaces Geometric representation of 2D waves and partitions indices, shown on a 2D plane, where waves are the diagonals connecting the partitions indices}}{62}}
+\@@writefile{lot}{\contentsline {table}{\numberline {4.3}{\ignorespaces A 3D distribution of partitions per wave, showing the partitions indices (multiplied by the partition size S-1 where S=3). Every wave starts from the middle partitions available in the wave and going to the edges, all of equal distance from the origin (summation of all indices in all dimensions) }}{63}}
+\@@writefile{lof}{\contentsline {figure}{\numberline {4.3}{\ignorespaces Geometric representation of 3D waves and partitions indices, shown on a 3D base plane only. Axes are represented with lines having dashes at fixed intervals showing the distances from the origin (where the axes intersects), other lines show the waves connecting partitions (vertices) of equal distance from the origin. A third plane project from this plane, and triple every 3 waves.}}{64}}
+\@@writefile{lof}{\contentsline {figure}{\numberline {4.4}{\ignorespaces Geometric representation of 4D waves and partitions indices, shown on a 4D base plane only. Axes are shown with dashes at fixed intervals from the origin, and squares around the origin show the waves. Two planes project from this base, and quadruple every 4 waves}}{65}}
+\@@writefile{lof}{\contentsline {figure}{\numberline {4.5}{\ignorespaces 2D dependency network connecting partitions in one wave to their dependent partition(s) in the next wave. Dependencies required from up to k waves are passed from one wave to another. For instance, cell 5 needs cells 2 and 3 from wave 1, and cell 5 from wave 0. Cell 5 is sent to wave 1 first, then again considered overlapping cell in wave 1 and send to wave 2.}}{65}}
+\@@writefile{lof}{\contentsline {figure}{\numberline {4.6}{\ignorespaces 3D dependency network connecting partitions in one wave to their dependant partition(s) in the next wave. Growth of parallelism is obvious compared to the 2D example. Cell 15 needs cells 6, 7, and 8 from wave 2, and cells 2, 3, and 4 from wave 1, and cell 1 from wave 0. Cells from K waves (here 3) are sent from one wave to another until received to the dependent cell}}{66}}
+\@@writefile{lof}{\contentsline {figure}{\numberline {4.7}{\ignorespaces 4D dependency network. Parallelism growth is obvious again, as well as symmetric connections.}}{66}}
+\@@writefile{toc}{\contentsline {section}{\numberline {4.4}P2P Scoring and Dependency Communication}{67}}
+\@@writefile{toc}{\contentsline {section}{\numberline {4.5}Complexity Analysis}{68}}
+\citation{Stone-77}
+\@@writefile{toc}{\contentsline {section}{\numberline {4.6}Implementation Details and Optimization}{70}}
+\@@writefile{toc}{\contentsline {subsection}{\numberline {4.6.1}Checkpointing and Restoration}{70}}
+\@@writefile{toc}{\contentsline {subsection}{\numberline {4.6.2}Optimization}{70}}
+\@@writefile{lof}{\contentsline {figure}{\numberline {4.8}{\ignorespaces Total cells to be computed in each partition in relation to partition size and dimensionality.}}{71}}
+\@@writefile{lof}{\contentsline {figure}{\numberline {4.9}{\ignorespaces Total number of cell scores to be communicated or searched for in previous local partitions, in each partition, as a function of partition size and dimensionality.}}{72}}
+\citation{R-Website}
+\citation{AMPL-Website}
+\@@setckpt{chapter4}{
+\setcounter{page}{74}
+\setcounter{equation}{3}
+\setcounter{enumi}{4}
+\setcounter{enumii}{0}
+\setcounter{enumiii}{0}
+\setcounter{enumiv}{0}
+\setcounter{footnote}{0}
+\setcounter{mpfootnote}{0}
+\setcounter{part}{0}
+\setcounter{chapter}{4}
+\setcounter{section}{6}
+\setcounter{subsection}{2}
+\setcounter{subsubsection}{0}
+\setcounter{paragraph}{0}
+\setcounter{subparagraph}{0}
+\setcounter{figure}{9}
+\setcounter{table}{3}
+\setcounter{LT@@tables}{0}
+\setcounter{LT@@chunks}{0}
+\setcounter{parentequation}{0}
+\setcounter{ind}{0}
+\setcounter{Pro}{0}
+\setcounter{The}{0}
+\setcounter{Exp}{0}
+}
+@
+
+
+1.1.1.1
+log
+@Thesis Writing
+@
+text
+@@

@@ -1,0 +1,11 @@
+Program Arguments: debuglevel = 1 maxAlignmentsNumber = 20 Epsilons= 0 Alignment Type = 0 stype 1 outputfilename = mmsa_mt partitionSize = 3
+ MSAAlign dimn 3 shape[2] 3 elements_up 60
+Part 0 waveNo 1 to proc 1 starting 0
+Part 1 waveNo 2 to proc 2 starting 2
+Part 2 waveNo 2 to proc 3 starting 10
+Part 3 waveNo 2 to proc 1 starting 12
+Master Partitioning Thread sending the end signal & Leaving
+Master Joined Partitiong Thread 2
+Master Joined Receiving Thread 1
+Master before finalize 
+Master after finalize 

@@ -1,0 +1,2093 @@
+head	1.2;
+access;
+symbols
+	r1:1.1.1.1 mhelal:1.1.1;
+locks; strict;
+comment	@ * @;
+
+
+1.2
+date	2008.05.11.13.55.54;	author mhelal;	state Exp;
+branches;
+next	1.1;
+
+1.1
+date	2008.05.06.02.40.53;	author mhelal;	state Exp;
+branches
+	1.1.1.1;
+next	;
+
+1.1.1.1
+date	2008.05.06.02.40.53;	author mhelal;	state Exp;
+branches;
+next	;
+
+
+desc
+@@
+
+
+1.2
+log
+@search space error
+@
+text
+@
+/***************************************************************
+* Author: Manal Helal														                             *
+* Last Modification Date: Fri 12 Jan 2007 03:39:51 AM EST                            *
+* Project : MMSA - Multiple Sequence Alignment Based on 	                         *
+* 					Mathematics of Arrays - PhD Experimentation		                     *
+* File: partitioning.c, contain the MOA socring tensor	                                     * 
+* partitioning & scheduling functions                                                             *
+* Function:
+*		initProcessMemory
+*     int CheckPoint (ProcessData * pData, long startPart);
+*     int checkPart (ProcessData * pData, long PartNo);
+*     int restoreCheckPoint (ProcessData * * pData);
+*		calcWaves
+*     getPartitionsNum
+*     getWavePartsTotal
+*     getPIndicesinWave
+*     getNextPIndex
+*     addPartitionIndex
+*     notPreviouslyVisited
+*     getProcID
+*     freeProcessMemory
+*     getPartition
+*     getNextPartition
+*     IsCellInPart
+***************************************************************/
+#include <stdio.h>
+#include <stdlib.h>
+#include <math.h>
+#include <limits.h>
+#include <string.h>
+#include "globals.h"
+#include "moaDst.h"
+#include "utils.h"
+#include "moa.h"
+#include "main.h"
+#include <pthread.h>
+
+/***************************************************************************
+	Function: initProcessMemory
+	Description:
+		Initialize Process Data (pData) with initial values.
+		
+***************************************************************************/
+int initProcessMemory (ProcessData * * pData, long seqNum, long * seqLen, char * * sequences, int stype, long partitionSize) {
+
+	(*pData) = NULL;
+	(*pData) =  mmalloc (sizeof *(*pData));
+	if ((*pData) == NULL)
+		return -1;
+	
+	(*pData)->stype = stype;
+	(*pData)->seqNum = seqNum;
+	(*pData)->seqLen = seqLen;
+	
+	(*pData)->sequences = sequences;
+ 	(*pData)->partitionSize = partitionSize;
+	(*pData)->MOAPart = NULL;
+	(*pData)->currPartSeq = NULL;
+	
+	OCin = NULL;
+	OCin_ub = 0;
+	OCout = NULL;
+	OCout_ub = 0;
+	(*pData)->currWaveNo = (*pData)->currPartOrder = (*pData)->partitionsCount = (*pData)->computedPartitions = (*pData)->sendOC = (*pData)->sendOCPart = (*pData)->compFinished = 0;
+	
+	return 0;
+}
+
+int CheckPointWavesCalculations (ProcessData * pData) {
+	FILE * sfile;
+	int ret;
+	long i, j, k;
+	char sfilename[50], bkfilename[50];
+	
+	/* file chpM... stores waves info ============================================
+		total partitions
+		total waves
+		parts in each wave followed by wave indexes. 
+	============================================================================= */
+	/* Save a backup to the previous saved check point file */
+	sfilename[0] = '\0'; 
+	sprintf(sfilename, "out/cwaves%s\0", outputfilename);
+	sprintf(bkfilename, "out/cwaves%s\0", outputfilename);
+	file_copy( sfilename, bkfilename, get_bytes(0.0, sfilename), get_bytes(100.0, bkfilename) );
+
+	if (( sfile= fopen (sfilename, "w")) == NULL) {
+		mprintf(0, "Can not write checkpoint file[Wave Info].\n", 3);
+		return -1;
+	}
+	/* In the main file, store once, when startPart = 0, the general information, waves info, that doesn't change during computation,  */
+	/*1.Write Parts Total */
+	ret = fprintf (sfile, "%ld\n", partsTotal);
+	if (ret < 0) {
+		printf ("[%d]Error (1)writing waves calculations file, Exiting!\n");
+		return -1;
+	}
+	/*2.Write Waves Total */
+	ret = fprintf (sfile, "%ld\n", wavesTotal);
+	if (ret < 0) {
+		printf ("[%d]Error (2)writing waves calculations file, Exiting!\n");
+		return -1;
+	}
+	for (i=0;i<wavesTotal;i++) {
+		/*3.Write Parts Total in this wave*/
+		ret = fprintf (sfile, "%ld\n", partsInWave[i]);
+		if (ret < 0) {
+			printf ("[%d]Error (3)writing waves calculations file, Exiting!\n");
+			return -1;
+		}
+		for (j=0;j<partsInWave[i];j++) {	      	
+			/*4.Write this Part Index in this wave*/
+			ret = fprintf(sfile, "%ld\n", partsInWaveIndices[i][j]);
+			if (ret < 0) {
+				printf ("[%d]Error (4)writing waves calculations file, Exiting!	\n");
+				return -1;
+			}
+		}
+	}
+	fclose(sfile);
+	return 0;
+}
+
+/***************************************************************************
+	Function: RestoreWavesCalculations
+	Description:
+		read process data from checkpoint files
+***************************************************************************/
+int RestoreWavesCalculations (ProcessData * * pData) {
+	FILE * sfile;
+	ldiv_t partsInCluster;
+	char sfilename[20];
+	char line[LINE_MAX];
+	long i, j, k;
+	int EnoughParts, which_proc, firstPartFound = 0;
+	char msg[SHORT_MESSAGE_SIZE];
+#ifndef NDEBUG
+	int dbglevel = 10;
+#endif
+	/* file cwaves... stores waves info ============================================
+		total partitions
+		total waves
+		parts in each wave followed by wave indexes. 
+	============================================================================= */
+	sfilename[0] = '\0'; 
+	sprintf(sfilename, "out/cwaves%s\0", outputfilename);
+  	(*pData)->partitionsCount = 0;
+	if (( sfile= fopen (sfilename, "r")) == NULL) {
+		sprintf(msg, "[%d]>restoreCheckPoint: Invalid checkpoint file, exiting [Wave Info - (%s)]\n", myProcid, sfilename);
+		mprintf(0, msg, 3);
+		return -1;
+	}
+	/*1.Read Parts Total */
+	if (fgets (line, LINE_MAX, sfile) == NULL) {
+		mprintf(0, "Invalid checkpoint file, exiting [reading Wave Info line 1].\n", 3);
+		return -1;
+	}
+	partsTotal = atol (line);
+#ifndef NDEBUG
+	sprintf(msg, "[%d]>restoreCheckPoint: read Total Waves %ld\n", myProcid, wavesTotal);
+	mprintf(dbglevel, msg, 3);
+#endif
+	/*2.Read Waves Total */
+	if (fgets (line, LINE_MAX, sfile) == NULL) {
+		mprintf(0, "Invalid checkpoint file, exiting [reading Wave Info line 2].\n", 3);
+		return -1;
+	}
+	wavesTotal = atol (line);
+#ifndef NDEBUG
+	sprintf(msg, "[%d]>restoreCheckPoint: read Total Waves %ld\n", myProcid, wavesTotal);
+	mprintf(dbglevel, msg, 3);
+#endif
+	/* if there are waves, allocate memory for the parts totals array and indices 2D array*/
+	if (wavesTotal > 0) {
+		partsInWave = calloc (wavesTotal, sizeof *(partsInWave));	
+		partsInWaveIndices = calloc (wavesTotal, sizeof *(partsInWaveIndices));	
+		for (i=0;i<wavesTotal;i++) {
+			/*3.Read Parts Total in this wave*/
+			if (fgets (line, LINE_MAX, sfile) == NULL) {
+				mprintf(1, "Invalid checkpoint file, exiting [reading Wave Info line 2+].\n", 3);
+				return -1;
+			}
+			partsInWave[i] = atol(line);
+#ifndef NDEBUG
+			sprintf(msg, "[%d]>restoreCheckPoint: read partsInWave[%ld] %ld\n", myProcid, i, partsInWave[i]);
+	
+		mprintf(dbglevel, msg, 3);
+#endif
+			if (partsInWave[i] > 0) {
+				partsInWaveIndices[i] = calloc (partsInWave[i],  sizeof *(partsInWaveIndices[i]));	
+				for (j=0;j<partsInWave[i];j++) {	      	
+					/*4.Read this Part Index in this wave*/
+					if (fgets (line, LINE_MAX, sfile) == NULL) {
+						mprintf(1, "Invalid checkpoint file, exiting [reading Wave Info wave indexes].\n", 3);
+						return -1;
+					}
+					partsInWaveIndices[i][j] = atol(line);
+			  		which_proc = getProcID (i, j);
+			  		if (which_proc == myProcid) {
+			  			(*pData)->partitionsCount  ++;
+			  			if (firstPartFound == 0)  {
+							(*pData)->currWaveNo = i;
+							(*pData)->currPartOrder = j;
+			  				firstPartFound = 1;
+			  			}
+			  		}
+#ifndef NDEBUG
+					sprintf(msg, "[%d]>restoreCheckPoint: read partsInWaveIndices[%ld][%ld] %ld\n", myProcid, i, j, partsInWaveIndices[i][j]);
+					mprintf(dbglevel, msg, 3);
+#endif
+				}
+			}
+		}
+	}
+
+	/*Create & initialize the memory for the OCout for all waves, and delete in freeProcessMemory*/
+	OCout = mmalloc(wavesTotal * sizeof *(OCout));
+	if (OCout == NULL) {
+		mprintf(1, "Couldn't create memory for OCout while adding an OC. Exiting.\n", 3);
+		printf("Couldn't create memory for OCout while adding an OC %ld. Exiting.\n", (OCout_ub+1));		return -1;
+	}
+
+ 	for (i=0;i<wavesTotal;i++) {
+		OCout[i].wavesOC = 0;
+		OCout[i].WOCO = NULL;
+	}
+
+	fclose(sfile);
+	return 0;
+}
+
+/***************************************************************************
+	Function: CheckPointPartition
+	Description:
+		CheckPoint Partition Data into its own file.
+***************************************************************************/
+
+int CheckPointPartition (ProcessData * pData, long PartIndex) {
+	FILE * sfile;
+	long j, k;
+	char sfilename[50], bkfilename[50];
+	if (PartIndex >= 0) {
+		sprintf(sfilename, "out/chpPrt%ld%s%d", PartIndex, outputfilename, myProcid);
+		if (( sfile= fopen (sfilename, "w")) == NULL) {
+			mprintf(1, "Can not write checkpoint file [Partition Data].\n", 3);
+			return -1;
+		}
+
+		/* line 1: Partition Scoring processed flag */
+		fprintf (sfile, "%d\n", pData->MOAPart[PartIndex].processed);
+		/* line 2: Partition waveNo */
+		fprintf (sfile, "%ld\n", pData->MOAPart[PartIndex].waveNo);
+		/* line 3: Partition dimenionslity (will never be different from the overall dimensionality of the input size, but just to keep all MoA Structure data together) */
+		fprintf (sfile, "%ld\n", pData->MOAPart[PartIndex].msaAlgn->dimn);
+		/* line 4...: Partition Shape Vector (based on partition size used, and positions in the overall tensor, this will vary from one partition to another, in and across processors)*/
+		for (j = 0;j < pData->MOAPart[PartIndex].msaAlgn->dimn;j++) {
+			fprintf (sfile, "%ld\n", pData->MOAPart[PartIndex].msaAlgn->shape[j]);
+		}
+		fflush(stdout);
+		/* line ..: Partition Total elements (Tau(shape)) */
+		fprintf (sfile, "%ld\n", pData->MOAPart[PartIndex].msaAlgn->elements_ub);
+		/* line ..: Partition All elements globalindex, score value, total previous cells (led to its score) recorded, list of all previous cells global indecies*/
+		for (j = 0;j < pData->MOAPart[PartIndex].msaAlgn->elements_ub;j++) {
+			fprintf (sfile, "%ld\n", pData->MOAPart[PartIndex].msaAlgn->indexes[j]);			
+			fprintf (sfile, "%ld\n", pData->MOAPart[PartIndex].msaAlgn->elements[j].val);			
+			fprintf (sfile, "%ld\n", pData->MOAPart[PartIndex].msaAlgn->elements[j].prev_ub);	
+			for (k = 0; k < pData->MOAPart[PartIndex].msaAlgn->elements[j].prev_ub; k++)  {
+				fprintf (sfile, "%ld\n", pData->MOAPart[PartIndex].msaAlgn->elements[j].prev[k]);
+			}
+		}
+		fclose(sfile);
+	}
+	return 0;
+}
+/***************************************************************************
+	Function: restorePartitionCheckPoint
+	Description:
+		read specific partition data from its checkpoint file
+***************************************************************************/
+
+int restorePartitionCheckPoint (ProcessData * * pData, long PartIndex) {
+	FILE * sfile;
+	char sfilename[20];
+	char line[LINE_MAX];
+	long j, k;
+	char msg[SHORT_MESSAGE_SIZE];
+#ifndef NDEBUG
+	int dbglevel = 10;
+#endif			
+	sprintf(sfilename, "out/chpPrt%ld%s%d", PartIndex, outputfilename, myProcid);
+	if (( sfile= fopen (sfilename, "r")) == NULL) {
+		mprintf(0, "Can not read checkpoint file [Partition Data].\n", 3);
+		return -1;
+	}
+	/* line 1: Partition Scoring processed flag */
+	if (fgets (line, LINE_MAX, sfile) == NULL) {
+		mprintf(0, "Invalid checkpoint file, Reading processed switch.\n", 3);
+		return -1;
+	}	
+	(*pData)->MOAPart[PartIndex].processed  = atol(line);
+	/* line 2: Partition waveNo */
+	if (fgets (line, LINE_MAX, sfile) == NULL) {
+		mprintf(1, "Invalid checkpoint file, Reading Partition Wave number.\n", 3);
+		return -1;
+	}	
+	(*pData)->MOAPart[PartIndex].waveNo  = atol(line);
+
+	/* line 3: Partition dimenionslity (will never be different from the overall dimensionality of the input size, but just to keep all MoA Structure data together) */
+	if (fgets (line, LINE_MAX, sfile) == NULL) {
+		mprintf(1, "Invalid checkpoint file, exiting 13.\n", 3);
+		return -1;
+	}	
+	(*pData)->MOAPart[PartIndex].msaAlgn = NULL;
+	createMOAStruct(&(*pData)->MOAPart[PartIndex].msaAlgn);
+	(*pData)->MOAPart[PartIndex].msaAlgn->dimn  = atol(line);
+#ifndef NDEBUG
+	sprintf(msg, "[%d]>restoreCheckPoint: read MOAPart[%ld]{processed %d, waveNo %ld, msaAlgn->dimn %ld}\n", myProcid, PartIndex, (*pData)->MOAPart[PartIndex].processed, (*pData)->MOAPart[PartIndex].waveNo, (*pData)->MOAPart[PartIndex].msaAlgn->dimn);
+	mprintf(dbglevel, msg, 3);
+#endif
+
+	if ((*pData)->MOAPart[PartIndex].msaAlgn->dimn > 0) {
+		(*pData)->MOAPart[PartIndex].msaAlgn->shape = calloc ((*pData)->MOAPart[PartIndex].msaAlgn->dimn, sizeof (MOATypeShape) );
+#ifndef NDEBUG
+		sprintf(msg, "[%d]>restoreCheckPoint: MOAPart[%ld].msaAlgn shape{", myProcid, PartIndex);
+#endif
+		/* line 4...: Partition Shape Vector (based on partition size used, and positions in the overall tensor, this will vary from one partition to another, in and across processors)*/
+		for (j = 0;j < (*pData)->MOAPart[PartIndex].msaAlgn->dimn;j++) {
+			if (fgets (line, LINE_MAX, sfile) == NULL) {
+				mprintf(1, "Invalid checkpoint file, reading shape.\n", 3);
+				return -1;
+			}	
+			(*pData)->MOAPart[PartIndex].msaAlgn->shape[j]  = atol(line);
+#ifndef NDEBUG
+			sprintf(msg, "%s%ld", msg, (*pData)->MOAPart[PartIndex].msaAlgn->shape[j]);
+#endif
+		}
+		fflush(stdout);
+#ifndef NDEBUG
+		sprintf(msg, "%s}\n", msg);
+		mprintf(dbglevel, msg, 3);
+#endif
+	}
+	else {
+		/*if dimnension of partition <= 0, that's an error, no sequences to align*/
+		printf ("[%d] Part %ld has <=0 dimensions, Exiting\n", myProcid, PartIndex);
+		return -1;
+	}
+	/* line ..: Partition Total elements (Tau(shape)) */
+	if (fgets (line, LINE_MAX, sfile) == NULL) {
+		mprintf(1, "Invalid checkpoint file, exiting 13.\n", 3);
+		return -1;
+	}	
+	(*pData)->MOAPart[PartIndex].msaAlgn->elements_ub  = atol(line);
+#ifndef NDEBUG
+	sprintf(msg, "[%d]>restoreCheckPoint: read MOAPart[%ld].msaAlgn->elements_ub %ld\n", myProcid, PartIndex, (*pData)->MOAPart[PartIndex].msaAlgn->elements_ub);
+	mprintf(dbglevel, msg, 3);
+#endif
+	if ((*pData)->MOAPart[PartIndex].msaAlgn->elements_ub > 0) {
+		(*pData)->MOAPart[PartIndex].msaAlgn->elements = calloc ((*pData)->MOAPart[PartIndex].msaAlgn->elements_ub, sizeof *(*pData)->MOAPart[PartIndex].msaAlgn->elements);
+		(*pData)->MOAPart[PartIndex].msaAlgn->indexes = calloc ((*pData)->MOAPart[PartIndex].msaAlgn->elements_ub, sizeof *(*pData)->MOAPart[PartIndex].msaAlgn->indexes);
+		/* line ..: Partition All elements globalindex, score value, total previous cells (led to its score) recorded, list of all previous cells global indecies*/
+		for (j = 0;j < (*pData)->MOAPart[PartIndex].msaAlgn->elements_ub;j++) {
+			/* msaAlgn->element global index */
+			if (fgets (line, LINE_MAX, sfile) == NULL) {
+				mprintf(1, "Invalid checkpoint file, exiting 13.\n", 3);
+				return -1;
+			}	
+			(*pData)->MOAPart[PartIndex].msaAlgn->indexes[j]  = atol(line);
+			/* msaAlgn->element score value */
+			if (fgets (line, LINE_MAX, sfile) == NULL) {
+				mprintf(1, "Invalid checkpoint file, exiting 13.\n", 3);
+				return -1;
+			}	
+			(*pData)->MOAPart[PartIndex].msaAlgn->elements[j].val  = atol(line);
+		
+#ifndef NDEBUG
+			sprintf(msg, "[%d]>restoreCheckPoint: read MOAPart[%ld]{.msaAlgn->indexes[%ld] %ld, elements[%ld].val %ld}\n", myProcid, PartIndex, j, (*pData)->MOAPart[PartIndex].msaAlgn->indexes[j], j, (*pData)->MOAPart[PartIndex].msaAlgn->elements[j].val);
+			mprintf(dbglevel, msg, 3);
+#endif
+			/* msaAlgn->element number of prev elements */
+			if (fgets (line, LINE_MAX, sfile) == NULL) {
+				mprintf(1, "Invalid checkpoint file, number of prev elements.\n", 3);
+				return -1;
+			}	
+			(*pData)->MOAPart[PartIndex].msaAlgn->elements[j].prev_ub  = atol(line);
+
+#ifndef NDEBUG
+			sprintf(msg, "[%d]>restoreCheckPoint: read MOAPart[%ld].msaAlgn->elements[%ld].prev_ub %ld{", myProcid, PartIndex, j, (*pData)->MOAPart[PartIndex].msaAlgn->elements[j].prev_ub);
+#endif
+			(*pData)->MOAPart[PartIndex].msaAlgn->elements[j].prev = NULL;
+			if ((*pData)->MOAPart[PartIndex].msaAlgn->elements[j].prev_ub > 0 ) {
+				(*pData)->MOAPart[PartIndex].msaAlgn->elements[j].prev = calloc ((*pData)->MOAPart[PartIndex].msaAlgn->elements[j].prev_ub, sizeof *(*pData)->MOAPart[PartIndex].msaAlgn->elements[j].prev);
+				for (k = 0; k < (*pData)->MOAPart[PartIndex].msaAlgn->elements[j].prev_ub; k++)  {
+					if (fgets (line, LINE_MAX, sfile) == NULL) {
+						mprintf(1, "Invalid checkpoint file, prev elements.\n", 3);
+					return -1;
+					}	
+					(*pData)->MOAPart[PartIndex].msaAlgn->elements[j].prev[k]  = atol(line);
+#ifndef NDEBUG
+					sprintf(msg, "%s%ld", msg, (*pData)->MOAPart[PartIndex].msaAlgn->elements[j].prev[k]);
+#endif
+				} /* end of prev elements loop */
+#ifndef NDEBUG
+				sprintf(msg, "%s}\n", msg);
+				mprintf(dbglevel, msg, 3);
+#endif
+			} /* end of prev elements condition */
+		} /* end of elements loop */
+	} /* end of elements_ub >0 if condition */
+	fclose(sfile);
+	return 0;
+}
+/***************************************************************************
+	Function: CheckPoint Current Status File
+	Description:
+		CheckPoint Process Data into files.
+***************************************************************************/
+int CheckPoint (ProcessData * pData) {
+	FILE * sfile;
+	long i, j, k;
+	char sfilename[50], bkfilename[50];
+	
+	/* file chpS... stores computation status =======================================
+	line 1: computed partitions
+	line 2: current wave number
+	line 3: current partition Order
+	line 4 - line 4+ 4 * n: total incomming cells (n), (wave no, cell index, cell score, from process)
+	line 4 + 4*n + 1 to ...: total outgoing cells, 
+	=============================================================================== */
+	/* Save a backup to the previous saved check point file */
+	sprintf(sfilename, "out/chpS%s%d", outputfilename, myProcid);
+	sprintf(bkfilename, "out/chpS%s%d_bk", outputfilename, myProcid);
+	file_copy( sfilename, bkfilename, get_bytes(0.0, sfilename), get_bytes(100.0, bkfilename) );
+
+	if (( sfile= fopen (sfilename, "w")) == NULL) {
+		mprintf(0, "Can not write checkpoint file [computation status].\n", 3);
+		return -1;
+	}
+
+	/*store the current computation status information, and OCin, and OCout*/	
+	/* line 1: Process partitionsCount */
+	fprintf (sfile, "%ld\n", pData->partitionsCount);
+	/* line 2: computed partitions */
+	fprintf (sfile, "%ld\n", pData->computedPartitions);
+	/* line 3: current wave number */
+	fprintf (sfile, "%ld\n", pData->currWaveNo);
+	/* line 4: current partition Order */ 
+	fprintf (sfile, "%ld\n", pData->currPartOrder);
+	/*line 5: Overlapping Incoming Cells Scores Received*/
+	fprintf (sfile, "%ld\n", OCin_ub);
+	for (i=0;i<OCin_ub;i++) {
+		/*lines ...: Total Overlapping Cells for this wave*/
+		fprintf (sfile, "%ld\n",OCin[i].wavesOC);
+		/*lines ...: Overlapping Incoming Cells cellIndex, cellScore, fromProc*/
+		for (j=0;j<OCin[i].wavesOC;j++) {
+			fprintf (sfile, "%ld\n", OCin[i].WOCI[j].cellIndex);
+			fprintf (sfile, "%ld\n", OCin[i].WOCI[j].cellScore);	
+			fprintf (sfile, "%d\n", OCin[i].WOCI[j].fromProc);	
+		}
+	}
+	/* if still computing scores then save extra info to resume*/
+	/*if (slave->ComputationPhase < 2) {*/
+	/*line x: Overlapping Outgoing Cells Scores*/
+	fprintf (sfile, "%ld\n", OCout_ub);
+
+	for (i=0;i<OCout_ub;i++) {
+		/*lines ...: Total Overlapping Outgoing for this wave*/
+		fprintf (sfile, "%ld\n",OCout[i].wavesOC); 
+		for (j=0;j<OCout[i].wavesOC;j++) {
+			/*lines ...: Overlapping Outgoing Cells partIndex, cellIndex, cellScore, sent flag, totaldependent Proccessors, and list of Processors*/
+			fprintf (sfile, "%ld\n", OCout[i].WOCO[j].partIndex);
+			fprintf (sfile, "%ld\n", OCout[i].WOCO[j].cellIndex);
+			fprintf (sfile, "%ld\n", OCout[i].WOCO[j].cellScore);	
+ 			fprintf (sfile, "%d\n", OCout[i].WOCO[j].sent);	
+			fprintf (sfile, "%d\n", OCout[i].WOCO[j].depProc_ub);	
+			for (k=0;k<OCout[i].WOCO[j].depProc_ub;k++) {
+				fprintf (sfile, "%d\n", OCout[i].WOCO[j].depProc[k]);	
+			}
+		}
+	}
+	fclose(sfile);
+	if (CheckPointPartition (pData, pData->computedPartitions - 1) < 0 )
+		return -1;
+
+	return 0;
+}
+
+
+/***************************************************************************
+	Function: restoreCheckPoint Current Status CheckPoint File
+	Description:
+		read process data from checkpoint files
+***************************************************************************/
+int restoreCheckPoint (ProcessData * * pData) {
+	FILE * sfile;
+	ldiv_t partsInCluster;
+	char sfilename[20];
+	char line[LINE_MAX];
+	long i, j, k;
+	int EnoughParts;
+	char msg[SHORT_MESSAGE_SIZE];
+#ifndef NDEBUG
+	int dbglevel = 10;
+#endif
+
+	if (RestoreWavesCalculations (pData) < 0)
+		return -1;
+
+  
+	/* file chpS... read computation status =======================================
+	line 1: computed partitions
+	line 2: current wave number
+	line 3: current partition Order
+	line 4 - line 4+ 4 * n: total incommeng cells (n), (wave no, cell index, cell score, from process)
+	line 4 + 4*n + 1 to ...: total outgoing cells, 
+	=============================================================================== */
+	sprintf(sfilename, "out/chpS%s%d", outputfilename, myProcid);
+  
+	if (( sfile= fopen (sfilename, "r")) == NULL) {
+		mprintf(1, "Invalid checkpoint file, exiting [reading computation status].\n", 3);
+		return -1;
+	}
+	/* line 1: Process partitionsCount */
+	if (fgets (line, LINE_MAX, sfile) == NULL) {
+		sprintf(msg, "[%d]>restoreCheckPoint: exiting [reading Wave Info line 1] - file (%s)\n", myProcid, sfilename);
+		mprintf(0, msg, 3);
+		return -1;
+	}
+	(*pData)->partitionsCount = atol (line);
+#ifndef NDEBUG
+	sprintf(msg, "[%d]>restoreCheckPoint: read partitionsCount %ld\n", myProcid, (*pData)->partitionsCount);
+	mprintf(dbglevel, msg, 3);
+#endif
+	/* line 2: computed partitions */
+	if (fgets (line, LINE_MAX, sfile) == NULL) {
+		mprintf(1, "Invalid checkpoint file, exiting [reading Computed Partitions].\n", 3);
+		return -1;
+	}
+	(*pData)->computedPartitions = atol(line);
+#ifndef NDEBUG
+	sprintf(msg, "[%d]>restoreCheckPoint: read computedPartitions %ld\n", myProcid, (*pData)->computedPartitions);
+	mprintf(dbglevel, msg, 3);
+#endif
+	/* line 3: current wave number */
+	if (fgets (line, LINE_MAX, sfile) == NULL) {
+		mprintf(1, "Invalid checkpoint file, exiting [reading current wave number].\n", 3);
+		return -1;
+	}
+	(*pData)->currWaveNo = atol(line);
+#ifndef NDEBUG
+	
+	sprintf(msg, "[%d]>restoreCheckPoint: read currWaveNo %ld\n", myProcid, (*pData)->currWaveNo);
+	mprintf(dbglevel, msg, 3);
+#endif
+	/* line 4: current partition Order */ 
+	if (fgets (line, LINE_MAX, sfile) == NULL) {
+		mprintf(1, "Invalid checkpoint file, exiting [current partition order].\n", 3);
+		return -1;
+	}
+	(*pData)->currPartOrder = atol(line);
+#ifndef NDEBUG
+	sprintf(msg, "[%d]>restoreCheckPoint: read currPartOrder %ld\n", myProcid, (*pData)->currPartOrder);
+	mprintf(dbglevel, msg, 3);
+#endif
+	/*line 5: Overlapping Incoming Cells Scores Received*/
+	if (fgets (line, LINE_MAX, sfile) == NULL) {
+		mprintf(1, "Invalid checkpoint file, exiting [total incomming cells].\n", 3);
+		return -1;
+	}
+		OCin_ub = atol(line);
+#ifndef NDEBUG
+		sprintf(msg, "[%d]>restoreCheckPoint: read total incoming cells %ld\n", myProcid, OCin_ub);
+		mprintf(dbglevel, msg, 3);
+#endif	
+		if (OCin_ub > 0) {
+			OCin = mmalloc (OCin_ub * sizeof *(OCin));
+			for (i=0;i<OCin_ub;i++) {
+				/*lines ...: Total Overlapping Cells for this wave*/
+				if (fgets (line, LINE_MAX, sfile) == NULL) {
+					mprintf(0, "Invalid checkpoint file, reading wave number.\n", 3);
+					return -1;
+				}
+				OCin[i].wavesOC = atol(line);
+				OCin[i].WOCI = mmalloc (OCin[i].wavesOC * sizeof *(OCin[i].WOCI));
+				for (j=0;j<OCin[i].wavesOC;j++) {
+				/*lines ...: Overlapping Incoming Cells cellIndex, cellScore, fromProc*/
+					/* cell index */
+					if (fgets (line, LINE_MAX, sfile) == NULL) {
+						mprintf(0, "Invalid checkpoint file, reading cell index.\n", 3);
+						return -1;
+					}
+					OCin[i].WOCI[j].cellIndex = atol(line);
+					/* cell score */
+					if (fgets (line, LINE_MAX, sfile) == NULL) {
+						mprintf(0, "Invalid checkpoint file, reading cell score.\n", 3);
+						return -1;
+					}
+					OCin[i].WOCI[j].cellScore = atol(line) ;
+					/* from process */
+					if (fgets (line, LINE_MAX, sfile) == NULL) {
+						mprintf(0, "Invalid checkpoint file, reading from process.\n", 3);
+						return -1;
+					}
+					OCin[i].WOCI[j].fromProc = atol(line) ;
+#ifndef NDEBUG
+					sprintf(msg, "[%d]>restoreCheckPoint: read OCin[%ld]{%ld, %ld, %ld, %d}\n", myProcid, i, j, OCin[i].WOCI[j].cellIndex, OCin[i].WOCI[j].cellScore, OCin[i].WOCI[j].fromProc);
+					mprintf(dbglevel, msg, 3);
+#endif
+				}
+			}
+		}
+		/*line x: Overlapping Outgoing Cells Scores*/
+		if (fgets (line, LINE_MAX, sfile) == NULL) {
+			mprintf(1, "Invalid checkpoint file, exiting [total outgoing cells].\n", 3);
+			return -1;
+		}
+	//if (!TBFlag) {
+		OCout_ub = atol(line);
+		
+#ifndef NDEBUG
+		sprintf(msg, "[%d]>restoreCheckPoint: read number of Overlapping Outgoing Cells %ld\n", myProcid, OCout_ub);
+		mprintf(dbglevel, msg, 3);
+#endif
+		if (OCout_ub > 0) {
+			OCout = mmalloc (OCout_ub * sizeof *(OCout));	
+			if (OCout == NULL) {
+				mprintf(1, "Couldn't create memory for OCout while reading from file. Exiting.\n", 3);
+				printf("Couldn't create memory for OCout while reading from file. Exiting.\n");
+				return -1;
+			}
+			for (i=0;i<OCout_ub;i++) {
+				OCout[i].wavesOC = 0;
+				OCout[i].WOCO = NULL;
+				/*lines ...: Total Overlapping Outgoing for this wave*/
+				if (fgets (line, LINE_MAX, sfile) == NULL) {
+					mprintf(0, "Invalid checkpoint file, reading wave number.\n", 3);
+					return -1;
+				}
+				OCout[i].wavesOC = atol(line);
+				OCout[i].WOCO = mmalloc (OCout[i].wavesOC * sizeof *(OCout[i].WOCO));
+				if (OCout[i].WOCO == NULL) {
+					mprintf(1, "Couldn't create memory for OCout.WOCO while reading from file. Exiting.\n", 3);
+					printf("Couldn't create memory for OCout[%ld].WOCO * %ld wavesOC while reading from file. Exiting.\n", i, OCout[i].wavesOC);
+					return -1;
+				}
+				for (j=0;j<OCout[i].wavesOC;j++) {
+					/*lines ...: Overlapping Outgoing Cells partIndex, cellIndex, cellScore, sent flag, totaldependent Proccessors, and list of Processors*/
+					// partIndex 
+					if (fgets (line, LINE_MAX, sfile) == NULL) {
+						mprintf(1, "Invalid checkpoint file, reading partIndex.\n", 3);
+						return -1;
+					}
+					OCout[i].WOCO[j].partIndex = atol(line);
+					// cellIndex 
+					if (fgets (line, LINE_MAX, sfile) == NULL) {
+						mprintf(1, "Invalid checkpoint file, reading cell index.\n", 3);
+						return -1;
+					}
+					OCout[i].WOCO[j].cellIndex = atol(line);
+					// cellScore 
+					if (fgets (line, LINE_MAX, sfile) == NULL) {
+						mprintf(1, "Invalid checkpoint file, reading cell score.\n", 3);
+						return -1;
+					}
+					OCout[i].WOCO[j].cellScore = atol(line) ;
+					// sent 
+					if (fgets (line, LINE_MAX, sfile) == NULL) {
+						mprintf(1, "Invalid checkpoint file, reading sent switch.\n", 3);
+						return -1;
+					}
+					OCout[i].WOCO[j].sent = atoi(line);
+					if (RestoreFlag) 
+						OCout[i].WOCO[j].sent = 0;
+					// depProc_ub 
+					if (fgets (line, LINE_MAX, sfile) == NULL) {
+						mprintf(1, "Invalid checkpoint file, reading number of dependent 	processes.\n", 3);
+						return -1;
+					}
+					OCout[i].WOCO[j].depProc_ub = atoi(line) ;
+#ifndef NDEBUG
+					sprintf(msg, "[%d]>restoreCheckPoint: read OCout[%ld]{%ld, %ld, %ld, %ld, %d, %d}\n", myProcid, i, j, OCout[i].WOCO[j].partIndex, OCout[i].WOCO[j].cellIndex, OCout[i].WOCO[j].cellScore, OCout[i].WOCO[j].sent, OCout[i].WOCO[j].depProc_ub);
+					mprintf(dbglevel, msg, 3);
+					sprintf(msg, "[%d]>restoreCheckPoint: OCout[%ld].depProc[%d]{", myProcid, i, OCout[i].WOCO[j].depProc_ub);
+#endif
+					if (OCout[i].WOCO[j].depProc_ub > 0) {
+						OCout[i].WOCO[j].depProc = mmalloc (OCout[i].WOCO[j].depProc_ub * sizeof *(OCout[i].WOCO[j].depProc));
+						for (k=0;k<OCout[i].WOCO[j].depProc_ub;k++) {
+							if (fgets (line, LINE_MAX, sfile) == NULL) {
+								mprintf(1, "Invalid checkpoint file, reading dependent process.\n", 3);
+								return -1;
+							}
+							OCout[i].WOCO[j].depProc[k] = atoi(line);
+#ifndef NDEBUG
+							sprintf(msg, "%s%d", msg, OCout[i].WOCO[j].depProc[k]);
+#endif
+						}
+					}		
+#ifndef NDEBUG	
+					sprintf(msg, "%s}\n", msg);
+					mprintf(dbglevel, msg, 3);
+#endif
+	//} /* End if not Tracing Back*/
+				}
+			} // end loop OCout 
+		} /* OCout greater than 0 */		
+	fclose(sfile);
+
+	(*pData)->MOAPart = NULL;
+	/* Reading Partitions ==================================================
+	file chpPrt... Each partition Data is saved in a file of its own
+	======================================================================= */
+	if (RestoreFlag) {
+#ifndef NDEBUG
+		printf ("[%d]restoring %ld Parts\n", myProcid, (*pData)->computedPartitions);
+#endif
+		(*pData)->currWaveNo -= 1;
+	}
+	if ((*pData)->computedPartitions > 0) {
+		EnoughParts = 0;
+		/*allocate memory for all computed partitions*/
+		(*pData)->MOAPart = mmalloc (((*pData)->computedPartitions) * sizeof *(*pData)->MOAPart);
+		for (i = 0;(i < (*pData)->computedPartitions) && (EnoughParts == 0);i++) {
+			if (restorePartitionCheckPoint(pData, i) < 0) {
+				return -1;
+			}
+			if ((RestoreFlag) && ((*pData)->MOAPart[i].waveNo >= (*pData)->currWaveNo)) {
+				EnoughParts = 1;
+				/*Re-allocate to reduce the size of the array of partitions to this limit*/
+				(*pData)->MOAPart = realloc ((*pData)->MOAPart, ((i+1) * sizeof *	(*pData)->MOAPart));
+				continue;
+			}
+			/*
+			if (i >= last_computed_partition) {
+				// Send OC 
+				
+				for (j=0;j<OCout_ub;j++) {
+					if (OCout[j].waveNo == (*pData)->MOAPart[i].waveNo)
+						OCout[j].sent = 0;
+				} * end loop OCout 
+				sendOC((*pData)->MOAPart[i].msaAlgn->indexes[0]);
+				
+				(*pData)->computedPartitions -= 1;
+			}*/
+			/* send dependency for all partitions in the previous wave in case they were not all sent before
+			if (RestoreFlag) {
+				if (((*pData)->MOAPart[i].waveNo == (*pData)->currWaveNo-1) || ((*pData)->MOAPart[i].waveNo == (*pData)->currWaveNo-2)) {
+					sendOC((*pData)->MOAPart[i].msaAlgn->indexes[0]);
+				}
+			} */
+		} /* end of loop of computed partitions */
+		//(*pData)->computedPartitions = i-1;
+	} /* check computed partitions > 0 */
+	if (RestoreFlag) {
+		(*pData)->currPartOrder = 0;
+		partsInCluster = ldiv(partsInWave[(*pData)->currWaveNo], ClusterSize);
+		if (myProcid > 0)
+			//getNextPartition (&(*pData)->currWaveNo, &(*pData)->currPartOrder);
+			(*pData)->currPartOrder = partsInCluster.quot * myProcid;
+#ifndef NDEBUG
+		printf ("[%d]Restore from wave %ld starting Part Order %ld with PartIndex %ld compParts %ld\n", myProcid, (*pData)->currWaveNo, (*pData)->currPartOrder, partsInWaveIndices[(*pData)->currWaveNo][(*pData)->currPartOrder], (*pData)->computedPartitions);
+#endif
+	}	
+	return 0;
+}
+
+/***************************************************************************
+	Function: getPartitionIndex
+	Description:
+
+Get the Partition Index of a specific cell, based on the given indicators
+Input:
+Flag: 0 == return the Partition where the cell is a lower border cell in all dimensions, which is the partition index itself, if there is one, otherwise return -1.
+1 == return the Partition where the cell is a lower border cell on the specif828ic dimensions specified in argument posDimn == 1,
+2 == return the Partition where the cell is a higher border cell in all dimensions, which is the last cell in the parition
+3 == return the Partition where the cell is a higher border cell on the specific dimension specified in argument posDimn  == 1,
+4 == return the Partition where the cell is a perfect internal cell
+
+Should pass either the flat index (cellIndex), or the m_index, otherwise initialise, with -ve value for first, and null for second.
+dimn and shape to manipulate the index
+the partition size to get the partition size
+
+Output:
+Will return the partition multidimensional index in the pointer to the depPart array, and the flat index in the return long value.
+
+***************************************************************************/
+long getPartitionIndex (int flag, long * posDimn, long cellIndex, long * m_index, long dimn, long * shape, long partitionSize, long * * depPart) {
+	long i, j, partIndex = -1;
+	int valid = 0;
+
+	if ((cellIndex < 0) && (m_index == NULL)) {
+		printf ("You need to provide either the flat Index, or the multidimensional index of a cell, to calculate its partition Index. Exiting\n");
+		return -1;
+	}
+	else if (cellIndex < 0)
+		cellIndex =  Gamma(m_index, dimn, shape, dimn, 1);
+	else if (m_index == NULL)
+		Gamma_Inverse(cellIndex, shape, dimn, &m_index, 1);
+	
+	/*printf ("flag %d posDimn (", flag);
+	for (i=0;i<dimn;i++) {
+		printf (" %ld ", posDimn[i]);
+	}
+	printf (") Cell Index %ld with m_index = (", cellIndex);
+	for (i=0;i<dimn;i++) {
+		printf (" %ld ", m_index[i]);
+	}
+	printf (") Updated m_index (");*/
+	for (i=0;(i<dimn) && (valid == 0);i++) {
+		
+		switch (flag) {
+			case 0 :
+				(*depPart)[i] = (m_index[i] + 1) % (partitionSize - 1);
+				(*depPart)[i] = (m_index[i] + 1) - (*depPart)[i];
+				break;
+			case 1 :
+				if (posDimn[i] == 1) {
+					(*depPart)[i] = (m_index[i] + 1) % (partitionSize - 1);
+					(*depPart)[i] = (m_index[i] + 1) - (*depPart)[i];
+				}
+				else {
+					(*depPart)[i] = m_index[i] % (partitionSize - 1);
+					(*depPart)[i] = m_index[i] - (*depPart)[i];
+				}
+					
+				break;
+			case 2 :
+				(*depPart)[i] = (m_index[i] - 1) % (partitionSize - 1);
+				(*depPart)[i] = (m_index[i] - 1) - (*depPart)[i];
+				break;
+			case 3 :
+				if (posDimn[i] == 1) {
+					(*depPart)[i] = (m_index[i] - 1) % (partitionSize - 1);
+					(*depPart)[i] = (m_index[i] - 1) - (*depPart)[i];
+				}
+				else {
+					(*depPart)[i] = m_index[i] % (partitionSize - 1);
+					(*depPart)[i] = m_index[i] - (*depPart)[i];
+				}
+				break;
+			case 4 :
+				break;
+			default  :
+				valid = -1;
+				break;
+		}
+		//printf (" %ld ", m_index[i]);
+				
+		if ((*depPart)[i] < 0)
+			(*depPart)[i] = 0;
+		if ((*depPart)[i] >= shape[i]-1)
+			(*depPart)[i] = shape[i] - partitionSize;
+		
+	}
+	/*printf (" )  \n Part Index = (");
+	for (i=0;i<dimn;i++) {
+		printf (" %ld ", (*depPart)[i]);
+	}
+	*/
+	if (valid == -1)
+		partIndex = -1;
+	else
+		partIndex =  Gamma((*depPart), dimn, shape, dimn, 1);
+	//printf (" ) = %ld\n", partIndex);
+	return partIndex;
+}
+/***************************************************************************
+	Function: isPartInSearchSpace
+	Description:
+		returns true if partition index is included in the reduced search space, false otherwise
+***************************************************************************/
+int isPartInSearchSpace(long partIndex, long * mPartIndex, long dimn, long * shape, long waveNo) {
+	int found = 0;
+	long i, j;
+	
+	if ((partIndex < 0) && (mPartIndex == NULL)) {
+		printf ("You need to provide either the flat Index, or the multidimensional index of a cell, to calculate its partition Index. Exiting\n");
+		return -1;
+	}
+	else if (partIndex < 0)
+		partIndex =  Gamma(mPartIndex, dimn, shape, dimn, 1);
+	else
+		Gamma_Inverse(partIndex, shape, dimn, &mPartIndex, 1);
+
+
+	
+	for (i=0;(i<waveNo) && (found == 0);i++) { 
+		for (j=0;(j<partsInWave[i]) && (found == 0);j++) { 
+			//printf (" part %ld ", partsInWaveIndices[i][j]);
+			if (partIndex == partsInWaveIndices[i][j])
+				found = 1;
+		}
+	}
+	return found;
+}
+/* ======================================================================
+	function calcWaves:
+	Input:
+		dimn: dimension of array
+		shape: array of lengths of each dimension.
+		partSize: size of partition.
+	Output:
+		myPartsCount: number of partitions.
+		myCurrWave: current wave to be processed.
+		myCurrPart: current partition to be processed.
+======================================================================= */
+long calcWaves (long dimn, long * shape, long partSize, long * myPartsCount, long * myCurrWave, long * myCurrPart) {
+	long i, waveNo, calcParts, elements_ub;
+	int firstPartFound = 0, which_proc;
+	int morePartitions = 1;
+#ifndef NDEBUG
+	char msg[SHORT_MESSAGE_SIZE];
+	int dbglevel = 1;
+#endif
+	
+	/* compute total partitions and duplicates */
+	getPartitionsNum(dimn, shape, partSize, &partsTotal, &duplicatesTotal);
+	printf ("[%d]Estimated partsTotal %ld, duplicatesTotal %ld\n", myProcid, partsTotal, duplicatesTotal);
+	/* Get Number of elements in MOA structure (Tau/moa.c)*/
+	elements_ub = Tau(shape, dimn);
+	/* print debug information (debug level 1) =================*/
+#ifndef NDEBUG
+	sprintf (msg, ">>>>Complete Partitions Total is %ld\n>>>>Duplicates Total is %ld\n>>>>Total elements is %ld\n", partsTotal, duplicatesTotal, elements_ub);
+	mprintf (dbglevel, msg, 1);
+#endif
+	/* free space of partitions in wave in case it was calculated before*/
+	if (partsInWave != NULL) {
+		if (partsInWaveIndices != NULL) {
+			for (i=0;i<wavesTotal;i++) {
+				if (partsInWaveIndices[i] != NULL)
+					free (partsInWaveIndices[i]);
+			}
+		}
+		free (partsInWaveIndices);
+		partsInWaveIndices = NULL;
+		free (partsInWave);
+		partsInWave = NULL;
+	}
+#ifndef NDEBUG
+	printf ("before memory alloc\n");
+#endif
+	calcParts = waveNo = wavesTotal = 0;
+#ifndef NDEBUG
+		/*Temporary Printing Variables*/
+	AllpartsInWave = mmalloc (sizeof *AllpartsInWave);
+	AllpartsInWaveIndices  = mmalloc (sizeof *AllpartsInWaveIndices);
+#endif
+	partsInWave = mmalloc (sizeof *partsInWave);
+	partsInWaveIndices  = mmalloc (sizeof *partsInWaveIndices);
+	(*myPartsCount) = 0;
+#ifndef NDEBUG
+	printf ("after mem and before loop\n");
+#endif
+	while (morePartitions == 1) {
+#ifndef NDEBUG
+		sprintf (msg, "in loop at part %ld at wave %ld\n", calcParts, waveNo);
+		mprintf (1, msg, 1);
+		sprintf(msg, "[%d]>calcWaves: loop parts [%ld] of [%ld]: My Total Partitions: %ld\n", myProcid, calcParts, partsTotal, (*myPartsCount));	
+		mprintf(dbglevel+1, msg, 1);
+#endif
+#ifndef NDEBUG
+		/*Temporary Printing Variables*/
+		AllPartOrder = 0;
+		AllpartsInWave = realloc (AllpartsInWave, (waveNo+1) * sizeof *AllpartsInWave);
+		AllpartsInWaveIndices  = realloc (AllpartsInWaveIndices, (waveNo+1) * sizeof *AllpartsInWaveIndices);
+		AllpartsInWave[waveNo] = 0;
+#endif
+
+		partsInWave = realloc (partsInWave, (waveNo+1) * sizeof *partsInWave);
+		partsInWaveIndices  = realloc (partsInWaveIndices, (waveNo+1) * sizeof *partsInWaveIndices);
+		partsInWave[waveNo] = getWavePartsTotal ((waveNo+1), dimn);
+
+		partsInWave[waveNo] = getPIndicesinWave(partsInWave, dimn, shape, waveNo, partSize, &partsInWaveIndices, &morePartitions);
+		calcParts += partsInWave[waveNo];
+		
+	  	for (i=0;i<partsInWave[waveNo];i++) {
+	  		which_proc = getProcID (waveNo, i);
+#ifndef NDEBUG
+			sprintf(msg, "[%d]>calcWaves: wave [%ld]- partition [%ld] - Process %d - more %d\n", myProcid, waveNo, i, which_proc, morePartitions);	
+			mprintf(dbglevel+2, msg, 1);
+#endif
+	  		if (which_proc == myProcid) {
+	  			(*myPartsCount)  ++;
+	  			if (firstPartFound == 0)  {
+	  				(*myCurrPart) = i;
+	  				(*myCurrWave) = waveNo;
+	  				firstPartFound = 1;
+	  			}
+	  		}
+	  	}
+		
+		waveNo++;
+		printf ("Calculating Waves: parts %ld, waves %ld\n", calcParts, waveNo);
+		fflush(stdout);
+	}
+
+	wavesTotal = waveNo;
+	partsTotal = calcParts;
+	/*Create & initialize the memory for the OCout for all waves, and delete in freeProcessMemory*/
+	OCout = mmalloc(wavesTotal * sizeof *(OCout));
+	if (OCout == NULL) {
+		mprintf(1, "Couldn't create memory for OCout while adding an OC. Exiting.\n", 3);
+		printf("Couldn't create memory for OCout while adding an OC %ld. Exiting.\n", (OCout_ub+1));		return -1;
+	}
+
+ 	for (waveNo=0;waveNo<wavesTotal;waveNo++) {
+		OCout[waveNo].wavesOC = 0;
+		OCout[waveNo].WOCO = NULL;
+	}
+	printf ("[%d] read %ld local partitions count starting at part %ld index %ld in wave %ld / %ld\n", myProcid, (*myPartsCount), (*myCurrPart), partsInWaveIndices[(*myCurrWave)][(*myCurrPart)], (*myCurrWave) , wavesTotal);
+	/* debug output =========================================================*/
+#ifndef NDEBUG
+ 	sprintf (msg, ">>>>Total %ld Parts in  %ld Waves\n", calcParts, waveNo);
+	//if (myProcid == 0) 	
+	//	printf (">>>>Total %ld Parts in  %ld Waves\nParts in Wave \n", calcParts, waveNo);
+	mprintf (0, msg, 1);
+  	for (waveNo=0;waveNo<wavesTotal;waveNo++) {
+		//if (myProcid == 0) 	
+		//	printf ("%ld\n", partsInWave[waveNo]);
+		sprintf (msg, ">>>>Total partitions in wave number [%ld] is  %ld partitions\n", waveNo, partsInWave[waveNo]);
+		mprintf (dbglevel+1, msg, 1);
+		mprintf (dbglevel+2, ">>>>Partition Indexes{\n", 1);
+		//if (myProcid == 0) 	
+			//printf (">>>>Partition Indexes{\n");
+	  	for (i=0;i<partsInWave[waveNo];i++) {
+			//if (myProcid == 0) 	
+				//printf ("%ld ", partsInWaveIndices[waveNo][i]);
+			sprintf (msg, "%ld ", partsInWaveIndices[waveNo][i]);
+			mprintf (dbglevel+2, msg, 1);
+		}
+		//if (myProcid == 0) 	
+		//	printf ("\n}\n");
+		mprintf (dbglevel+2, "\n}\n", 1);
+	}
+	/* ================================ end debug output ==============*/
+	
+	mprintf(dbglevel,"out of calcwaves \n", 1);
+#endif
+ 	return wavesTotal;
+}
+
+/* ***************************************************************
+*  function name:  getPartitionsNum
+*  Description:    Calculated Total Number of Partitions & duplicates
+*  Input:
+*		dimn: dimension of array
+*		shape: array of lengths of each dimension.
+*		pSize: size of partition.
+*  Output:
+*		pTotal: Total number of partitions.
+*		dTotal: Total number of duplicates
+ ***************************************************************/
+
+int getPartitionsNum(long dimn, long * shape, long pSize, long * pTotal, long * dTotal) {
+	long i, j, PrevOC;
+	long * partInDim = NULL, * dupInDim = NULL;
+
+	partInDim = mmalloc (dimn * sizeof *partInDim);
+	if (partInDim == NULL)
+		return -1;
+	dupInDim = mmalloc (dimn * sizeof *dupInDim);
+	if (dupInDim == NULL)
+		return -1;
+	(*pTotal) = 1;
+	(*dTotal) = 0;
+	for (i = 0; i < dimn; i++) {
+		/* to accomodate for variable partition size, this equation need to be in a loop where the staing partition size is the same from both ends of the shape of the current dimension, then increase till the optimal towards the middle of the shape of the dimension*/
+		partInDim[i] = ceil((double) (shape[i] - 1) / (pSize - 1));
+		(*pTotal) *= partInDim[i];	
+		PrevOC = 1;
+		for (j = 0; j < i; j++) {
+			PrevOC *= partInDim[j] - 1;
+		}
+		if (i==0)
+			dupInDim[0]=partInDim[0] - 1;
+		else
+			dupInDim[i] = dupInDim[i-1] * shape[i] + PrevOC * pow(2, i-1);
+		(*dTotal) += dupInDim[i];
+	}     
+	if (partInDim != NULL)
+		free (partInDim);
+	if (dupInDim != NULL)
+		free (dupInDim);
+	return 0;
+}
+
+/**************************************************************
+	Function: getWavePartsTotal
+	Description:
+		Compute total number of partion in wave (WaveNo) for Dimension (dimn)
+	Reurns: Number of partition in the specified wave 
+**************************************************************/
+long getWavePartsTotal (long WaveNo, long dimn) {
+  long i, WaveParts;
+
+	WaveParts = 0;
+	if ((WaveNo < 1) || (dimn < 2))
+		WaveParts = -1;
+	else if (WaveNo == 1)
+		WaveParts = 1;
+	else if (dimn == 2)
+		WaveParts = WaveNo;
+	else {
+		for (i=0;i<WaveNo;i++) {
+			WaveParts += getWavePartsTotal(WaveNo-i, dimn-1);
+		}
+	}
+	return WaveParts;
+}
+
+/***************************************************************************
+	Function: getPIndicesinWave
+	Description:
+		Get partition indices in a wave (waveNo)
+	Input
+		partsInWave: array contains number of partitions in each wave.
+		dimn: dimension of MOA array.
+		shape: array of lengths of each dimension.
+		waveNo: Wave Number to compute its partition indices.
+		partSize: Partition Size.
+	Output:
+		partsInWaveIndices: Array of partition indices of the specied wave, flag of morePartitions if last indexed partition is not reached yet
+	Reurn: -1 incase of error.
+***************************************************************************/
+long getPIndicesinWave (long * partsInWave, long dimn, long * shape, long waveNo, long partSize, long * * * partsInWaveIndices, int * morePartitions) {
+	long mypartsInWave, i, j, * dist, * dist_orig;
+	int more = 0, pmore = 0;
+#ifndef NDEBUG
+	char msg[SHORT_MESSAGE_SIZE];
+	int dbglevel = 2;
+#endif
+
+	mypartsInWave = partsInWave[waveNo];
+	if (mypartsInWave<=0)
+		return -1;
+	
+	dist = calloc (dimn, sizeof *dist);
+	dist_orig = calloc (dimn, sizeof *dist_orig);
+	i = 0;
+	(*partsInWaveIndices)[waveNo] = mmalloc (sizeof *((*partsInWaveIndices)[waveNo]));
+#ifndef NDEBUG
+	/* Temporary variable for printing all Paritiong indices whether valid or not*/
+	AllpartsInWaveIndices[waveNo] = mmalloc (sizeof *(AllpartsInWaveIndices[waveNo]));
+#endif
+	do  {
+		getNextPIndex (&more, dimn, dimn, waveNo, &dist);
+		addPartitionIndex (&i, dist, partsInWave, dimn, shape, waveNo, partSize, partsInWaveIndices, morePartitions);
+		for (j=0;j<dimn;j++) {
+			dist_orig[j] = dist[j];
+		}
+		/*asort (dimn, dist);*/
+		pmore = 1;
+		while (pmore ==1) {
+			permute(dimn, dist, &pmore);
+			/*if (pmore == 1 ) { */
+			addPartitionIndex (&i, dist, partsInWave, dimn, shape, waveNo, partSize, partsInWaveIndices, morePartitions);
+			/*}*/
+		}
+		for (j=0;j<dimn;j++) {
+			dist[j] = dist_orig[j];
+		}
+	} while (more == 1);
+	free (dist);
+	free (dist_orig);
+#ifndef NDEBUG
+	sprintf (msg, ">>>>Actual Partitions in Wave %ld is %ld\n", waveNo, i);
+	mprintf (dbglevel, msg, 1);
+#endif
+	return i;
+}
+
+/******************************************************************************
+	Function: getNextPIndex
+	Description:
+		recursive function to compute Partition Indexes of a wave.
+	Input/output:
+		more: to inicate first call and next calls.
+	Input:
+		dimn: dimension of MOA array. originally equal act_dimn and recursively decreased by 1.
+		act_dimn: actual dimension of MOA array.
+		waveNo: Wave Number
+	Output:
+		PIndex: Array of partition Indices.
+******************************************************************************/
+void getNextPIndex(int * more, long dimn, long act_dimn, long waveNo, long * * PIndex) {
+	long startDist, i;
+
+	/* Method 2: Change the kth index in each k dimension, to result in asending order index to avoid sorting later
+	 get starting Distance from origin, if called to the first time, get the middle point of the current wave Number divided by the dimension, else, it is the last point assigned to the first dimension, to continue from there*/
+	if ((*more) == 0) {  /* first call ===========================*/
+		if (waveNo > 0)
+			startDist = ceil((double) waveNo/act_dimn);
+		else
+			startDist = 0;
+		(*PIndex)[dimn-1] = startDist;
+		for (i=dimn-2;i>=0;i--) 
+			(*PIndex)[i] = 0;
+	}
+	else  /* next calls ===========================================*/
+		startDist = (*PIndex)[dimn-1];
+		
+#ifndef NDEBUG
+	/*sprintf (msg, "in d %ld, %ld, %ld w %ld d %ld s%ld m %d\n", (*PIndex)[0], (*PIndex)[1], (*PIndex)[2], waveNo, dimn, startDist, (*more));
+	mprintf (10, msg, 1);*/
+#endif
+	/* All Terminal Cases first, then the 2D terminal cases, then the rest N-D cases
+	 test for wave 0 for all dimensions is the same, all zeros*/
+	if (waveNo == 0) {
+#ifndef NDEBUG
+		mprintf (10, " 000 ", 1);
+#endif
+		for (i=0;i<act_dimn;i++) 
+			(*PIndex)[i] = 0;
+		(*more) = 0;
+	}
+	else if	((*PIndex)[dimn-1] == waveNo) {
+	/* test for last case where the starting Distance is already equal the wave number, then the rest of dimensions' indices are zeros*/
+#ifndef NDEBUG
+		mprintf (10, " 111 ", 1);
+#endif
+		for (i=dimn-2;i>=0;i--) 
+			(*PIndex)[i] = 0;
+		(*more) = 0;
+	}
+	else if (( (*PIndex)[dimn-1] * dimn == waveNo) && ((*PIndex)[dimn-1] != (*PIndex)[dimn-2])) {
+	/* All Equal Indices, starting middle point	  */
+#ifndef NDEBUG
+		mprintf (10, " 222 ", 1);
+#endif
+		for (i=dimn-2;i>=0;i--) 
+			(*PIndex)[i] = (*PIndex)[dimn-1];
+		(*more) = 1;
+	}
+	else if (dimn == 2) { 
+	/* Cases for 2D*/
+		if (((*PIndex)[dimn-2] != waveNo - startDist)) {
+		/* Firs Case, where first dimension = starting middle Distance, and second dimension is not yet assigned,*/
+#ifndef NDEBUG
+			mprintf (10, " 333 ", 1);
+#endif
+			(*PIndex)[dimn-2] = waveNo - startDist;
+			(*more) = 1;
+		}
+		else if (startDist+1<waveNo) {
+		/* Increase one and decrease the other*/
+#ifndef NDEBUG
+			mprintf (10, " 444 ", 1);
+#endif
+			startDist++;
+			(*PIndex)[dimn-1] = startDist;
+			(*PIndex)[dimn-2] = waveNo - startDist;
+			(*more) = 1;
+		} 
+		else if (startDist+1==waveNo) {
+		/* no more and return, we should never reach this case, since it is covered in case 111*/
+#ifndef NDEBUG
+			mprintf (10, " 555 ", 1);
+#endif
+			(*PIndex)[dimn-1] = waveNo;
+			(*PIndex)[dimn-2] = 0;
+			(*more) = 0;
+ 		}
+	}
+	else {
+	/* more the 2D*/
+		if  ((( (*PIndex)[dimn-1] * dimn == waveNo) && ((*PIndex)[dimn-1] == (*PIndex)[dimn-2])) || 
+		(((*PIndex)[dimn-1] + (*PIndex)[dimn-2] == waveNo) && ((*PIndex)[dimn-1]+1<waveNo)))  {
+		/* next case after all are equal
+		 First and second dimension are equal waveNo, i.e. all permutations are finished for the previous first dimension,  then increase the first dimension,*/
+#ifndef NDEBUG
+			mprintf (10, " 666  ", 1);
+#endif
+			startDist++;
+			(*PIndex)[dimn-1] = startDist;
+			for (i=dimn-2;i>=0;i--) 
+				(*PIndex)[i] = 0;
+			if (waveNo - startDist != 0) {
+				(*more) = 0;
+				getNextPIndex (more, dimn-1, act_dimn, waveNo - startDist, PIndex);
+				(*more) = 1;
+			}
+			else
+				(*more) = 0;
+		}
+		else if ((*PIndex)[dimn-1] + (*PIndex)[dimn-2] != waveNo) {
+		/* First and second dimension are not yet equal waveNo, i.e. there more permutations for the current first dimension value*/
+#ifndef NDEBUG
+			mprintf (10, " 777 ", 1);
+#endif
+			(*PIndex)[dimn-1] = startDist;
+			getNextPIndex (more, dimn-1, act_dimn, waveNo - startDist, PIndex);
+			(*more) = 1;
+		}	
+		else if ((*PIndex)[dimn-1]+1==waveNo) {
+		/* last case, where the final increase will be the waveNo, and the rest need to be zeros			mprintf (10, " 888 ", 1);*/
+			(*PIndex)[dimn-1] = waveNo;
+			for (i=dimn-2;i>=0;i--) 
+				(*PIndex)[i] = 0;
+			(*more) = 0;
+		} 
+	}
+#ifndef NDEBUG
+	/*sprintf (msg, "out d %ld, %ld, %ld w %ld d %ld s%ld m %d\n", (*PIndex)[0], (*PIndex)[1], (*PIndex)[2], waveNo, dimn, startDist, (*more));
+	mprintf (10, msg, 1);*/
+#endif
+}
+
+/*********************************************************************************
+	Function: addPartitionIndex
+	Description:
+	Input:
+		dimn: dimension of MOA array.
+		waveNo: Wave Number
+		partSize: Partition Size
+	Output:
+	
+*********************************************************************************/
+int addPartitionIndex (long * PartOrder, long * dist, long * partsInWave, long dimn, long * shape, long waveNo, long partSize, long * * * partsInWaveIndices, int * morePartitions) {
+ 	int localMorePartitions = 0;
+	int validIndex;
+	long flatIndex, j, * ind;//, * middleVector;
+
+	ind = calloc (dimn, sizeof *ind);
+	//middleVector = calloc (dimn, sizeof *middleVector);
+	validIndex = 1;
+	for (j=0;j<dimn;j++) {
+    		ind[j] = dist[j] * (partSize-1);
+    	/* It is invalid if it is more than the shape (lengths of sequences), or if it at the last one, this means that it is only the overlapping cells, with nothing internal to compute on its own, which would be redundancy and wouldn't happen actually*/
+    		if (ind[j] >= (shape[j]-1))
+    			validIndex = 0;
+		/*Get the middle vector*/
+		/*First case: early waves, the middle vector is equal to the wave number, or else, will find nothing to compute*/
+		
+		//if (waveNo < shape[j]) //&& (waveNo <= wavesTotal / 2))
+			//middleVector[j] = waveNo;
+
+
+//shape/2 should not be involv
+
+
+		/*second case: end waves, like first waves, should be symmetrical with first wave, or nothing will be computed,like last wave middle vector should be the same as the first wave, one before last should be equal to second wave and so on, taking care of odd and even cases*/
+		/*odd case wavesTotal case, and still less than shape middle*/
+		//else if ((((wavesTotal / 2) - (waveNo - (wavesTotal / 2))) < shape[j] / 2) && (waveNo > wavesTotal / 2) && (wavesTotal % 2 == 1))
+		//	middleVector[j] = (wavesTotal / 2) - (waveNo - (wavesTotal / 2));
+		/*even case wavesTotal case, and still less than shape middle*/
+		//else if (((((wavesTotal / 2) - (waveNo - (wavesTotal / 2))) - 1) < shape[j] / 2) && (waveNo >= wavesTotal / 2) && (wavesTotal % 2 == 0))	
+		//	middleVector[j] = ((wavesTotal / 2) - (waveNo - (wavesTotal / 2))) - 1;
+		/*third case: all previous cases produce something more than the half of the shape, then take the half of the shape*/
+		//else
+			//middleVector[j] = shape[j];
+	/* in case of working in a reduced search space, the index value need to be in the range of +/- Epsilons from the middle point*/
+		if ((Epsilons != 0) && ((*PartOrder) >= Epsilons)) //&& ((ind[j] < (middleVector[j] - Epsilons)) || (ind[j] > (middleVector[j] + Epsilons))))
+    			validIndex = 0;
+	/* if we add the partition size to the index, we can know that value of
+	   the last cell in this parition, and check if it is the last cell in the 
+	   whole tensor or more, to decide that it is the last partition or there is still more*/
+    		if (((ind[j] + (partSize-1)) < (shape[j]-1)) && ((*morePartitions) == 1))
+    			localMorePartitions = 1;
+	}
+	if ((*morePartitions) == 1)
+		(*morePartitions) = localMorePartitions;
+  	flatIndex = Gamma(ind, dimn, shape,  dimn, 1);
+#ifndef NDEBUG
+	/*Temporary Printing Variables*/	
+	if (notPreviouslyVisited_atAll(AllpartsInWave, AllPartOrder, AllpartsInWaveIndices, waveNo, flatIndex) == 0) { 
+		/*if (myProcid == 0) {
+			printf ("(");	
+			for (j=0;(j<dimn)&&(myProcid == 0);j++) {
+				if (j>0)
+					printf(",");
+				printf ("%ld", ind[j]);
+			}
+			/*printf (")\t\t(");	
+			for (j=0;(j<dimn)&&(myProcid == 0);j++) {
+				if (j>0)
+					printf(",");
+				printf ("%ld", middleVector[j]);
+			}*/
+			/*printf (")\t\t%d\t\t%d\t\t%ld\t\t%ld\t\t%ld\n", validIndex, (*morePartitions), waveNo, flatIndex, (*PartOrder));	
+		}*/
+		AllpartsInWave[waveNo] ++;
+		AllpartsInWaveIndices[waveNo] = realloc (AllpartsInWaveIndices[waveNo], (AllPartOrder+1) * sizeof *(AllpartsInWaveIndices[waveNo]));
+		AllpartsInWaveIndices[waveNo][AllPartOrder] = flatIndex;
+		AllPartOrder++;  		
+		AllpartsInWave[waveNo] = AllPartOrder;
+
+	}
+#endif
+  	if ((notPreviouslyVisited(partsInWave, (*PartOrder), (*partsInWaveIndices), waveNo, flatIndex) == 0)  && (validIndex == 1) ) {
+		(*partsInWaveIndices)[waveNo] = realloc ((*partsInWaveIndices)[waveNo], ((*PartOrder)+1) * sizeof *((*partsInWaveIndices)[waveNo]));
+		(*partsInWaveIndices)[waveNo][(*PartOrder)] = flatIndex;
+		(*PartOrder)++;  		
+	}
+	free (ind);
+	//free (middleVector);
+	return 0;
+}
+
+/********************************************************************
+	Function: notPreviouslyVisited_atAll - for printing of all partition indices whether valid or not
+********************************************************************/
+int notPreviouslyVisited_atAll (long * AllpartsInWave, long AllpartsinCurrentWave, long * *  AllpartsInWaveIndices, long waveNo, long flatIndex) {
+	long i, j, k;
+	int found = 0;
+	/* Check if it is not a valid Index as well*/
+	if (flatIndex < 0)
+		return  1;
+	for (j=0;(j<=waveNo) && (found == 0); j++) {
+		/* Check if this is the last wave being computed, take the current total parts found so far in the argument, otherwise, use the saved in the array*/
+		if (j==waveNo)
+			k = AllpartsinCurrentWave;
+		else
+			k = AllpartsInWave[j];
+		for (i=0;(i<k) && (found == 0); i++) {
+			if (AllpartsInWaveIndices[j][i]  == flatIndex)
+				found =1;
+		}
+	}
+	return found;
+}
+
+/********************************************************************
+	Function: notPreviouslyVisited
+********************************************************************/
+int notPreviouslyVisited (long * partsInWave, long partsinCurrentWave, long * *  partsInWaveIndices, long waveNo, long flatIndex) {
+	long i, j, k;
+	int found = 0;
+	/* Check if it is not a valid Index as well*/
+	if (flatIndex < 0)
+		return  1;
+	//for (j=0;(j<=waveNo) && (found == 0); j++) {
+	j=waveNo;
+		if (j==waveNo)
+			k = partsinCurrentWave;
+		else
+			k = partsInWave[j];
+		for (i=0;(i<k) && (found == 0); i++) {
+			if (partsInWaveIndices[j][i]  == flatIndex)
+				found =1;
+		}
+	//}
+	return found;
+}
+
+/*********************************************************************
+	Function: freeProcessMemory
+		Free all allocated data to Process Data
+*********************************************************************/
+void freeProcessMemory (ProcessData * * pData) {
+	long i, j;
+
+	/* Incomming Ovelaping Cells (Received Cells) ==================  */
+	if ((OCin_ub > 0) && (OCin != NULL)) {
+		for (i=0;i<OCin_ub;i++) {
+			if ((OCin[i].wavesOC > 0) && (OCin[i].WOCI != NULL)) {
+				free (OCin[i].WOCI);
+			}
+		}
+		free(OCin);
+	}
+	OCin_ub = 0;
+	OCin = NULL;
+  
+	/* Outgoing Ovelapping Cells (Sent Cells) ====================*/
+	if ((OCout_ub > 0) && (OCout  != NULL)) {
+		for (i=0;i<OCout_ub;i++) {
+			if ((OCout[i].wavesOC > 0) && (OCout[i].WOCO != NULL)) {
+				for (j=0;j<OCout[i].wavesOC;j++) {
+					if ((OCout[i].WOCO[j].depProc_ub > 0) && (OCout[i].WOCO[j].depProc  != NULL)) {
+						free(OCout[i].WOCO[j].depProc);	
+						OCout[i].WOCO[j].depProc = NULL;
+					}
+				}
+				free (OCout[i].WOCO);
+			}
+		}
+		free(OCout);
+	}
+	OCout_ub = 0;
+	OCout = NULL;    
+
+	/* Process Data ====================================*/
+	if ((*pData) != NULL) {
+		if (((*pData)->partitionsCount > 0) && ((*pData)->MOAPart!= NULL)) {
+			/* MOA Partitions ===================================*/
+			for (i=0;i<(*pData)->computedPartitions;i++) {
+				if ((*pData)->MOAPart[i].msaAlgn != NULL) {
+					/* MOA Partitions sequences ======================== 
+					if ((*pData)->MOAPart[i].sequences != NULL) { 
+						for (j=0;j< (*pData)->MOAPart[i].msaAlgn->dimn;j++) {
+							if (((*pData)->MOAPart[i].sequences[j] != NULL) && ((*pData)->MOAPart[i].msaAlgn->shape[j] > 0)) {
+								free ((*pData)->MOAPart[i].sequences[j]);
+							}
+							(*pData)->MOAPart[i].sequences[j] = NULL;
+						}
+						 the free function below coases error ============
+						free ((*pData)->MOAPart[i].sequences);
+						(*pData)->MOAPart[i].sequences = NULL;
+					}
+					 Delete MOA ==================================== */
+					deleteMOA ((*pData)->MOAPart[i].msaAlgn);
+				}
+			}
+			free ((*pData)->MOAPart);
+			(*pData)->MOAPart = NULL;   
+		}
+		/* sequences =======================================*/
+		if (((*pData)->seqNum > 0) && ((*pData)->seqLen != NULL)) {
+			if ((*pData)->sequences != NULL) {
+				for (i=0;i<(*pData)->seqNum;i++) {
+					if (((*pData)->seqLen[i] > 0) && ((*pData)->sequences[i] != NULL))
+						free ((*pData)->sequences[i]);
+					(*pData)->sequences[i] = NULL;
+				}
+				free ((*pData)->sequences);
+				(*pData)->sequences = NULL;
+			}
+			free ((*pData)->seqLen);
+		}
+		/* current sequence ========================*/
+		if ((*pData)->currPartSeq != NULL) {
+			for (i=0;i<(*pData)->seqNum;i++) {
+				if ((*pData)->currPartSeq[i] != NULL) 
+					free ((*pData)->currPartSeq[i]);
+				(*pData)->currPartSeq[i] = NULL;
+			}
+			free ((*pData)->currPartSeq);
+		}
+		(*pData)->currPartSeq = NULL;
+		(*pData)->seqLen = NULL;
+		(*pData)->seqNum = 0;
+		(*pData)->partitionsCount = 0;
+		(*pData)->computedPartitions = 0;
+		/*free ((*pData));*/
+	}
+}
+
+/*********************************************************************************
+	Function: getPartition
+		Construct Partition MOA record
+	Input:
+		flatIndex:
+		dimn: dimension of MOA array.
+		shape: array of lengths of each dimention.
+		waveNo: Wave Number to compute its partition indices.
+		partSize: Partition Size.
+	Output:
+		part: MOA Partition record.
+*********************************************************************************/
+int getPartition (long flatIndex, long dimn, long * shape, MOA_rec * * part, long partSize) {
+	long i, j, * startInd = NULL, * endInd = NULL;
+	
+	/* get start index =======================*/
+	Gamma_Inverse(flatIndex, shape, dimn, &startInd, 1);
+	/* contruct MOA record ====================*/
+	createMOAStruct(part);
+	(*part)->dimn = dimn;
+	(*part)->shape = mcalloc (dimn, sizeof *(*part)->shape);
+	endInd = mcalloc (dimn, sizeof *endInd);
+	for (i=0;i<dimn;i++) {
+		endInd[i] = startInd[i]+ partSize -1;
+		if (endInd[i] >= shape[i]) 
+			endInd[i] = shape[i] - 1;		
+		(*part)->shape[i] = endInd[i] - startInd[i] + 1;
+	}
+	(*part)->elements_ub = Tau((*part)->shape, (*part)->dimn);
+	(*part)->elements = mcalloc ((*part)->elements_ub, sizeof *(*part)->elements);
+	(*part)->indexes = mcalloc ((*part)->elements_ub, sizeof *(*part)->indexes);
+	for (i=0;i<(*part)->elements_ub;i++) {
+		(*part)->elements[i].prev_ub = 0;
+		(*part)->elements[i].prev = NULL;
+		if (endInd != NULL) {
+			free (endInd);
+			endInd = NULL;
+		}
+		Gamma_Inverse(i, (*part)->shape, (*part)->dimn, &endInd, 1);
+		for (j=0;j<dimn;j++) 
+			endInd[j] = endInd[j] + startInd[j]; /* add the starting offset to get the Global Index*/
+		(*part)->indexes[i] = Gamma(endInd, dimn, shape,  dimn, 1);
+	}	
+	if (startInd != NULL)
+		free (startInd);
+	if (endInd != NULL)
+		free (endInd);
+	return 0;
+}
+
+/***************************************************************************
+	Function: getNextPartition
+	Input/Output:
+		waveNo: Identify Current Wave and contains next partition wave
+		PartOrder: Identify current partition and returns with next partition
+***************************************************************************/
+void getNextPartition (long * waveNo, long * PartOrder) {
+	ldiv_t partsInCluster;
+	long oldWave, oldPart, break_point;
+	int valid = 1;
+	/*
+	if (((*PartOrder) == 0) && (myProcid != 0) && (RestoreFlag)) {
+		partsInCluster = ldiv(partsInWave[(*waveNo)], ClusterSize);
+		(*PartOrder) = partsInCluster.quot * myProcid;
+		return;
+	}
+	*/
+	(*PartOrder) ++;
+	oldWave = (*waveNo);
+	oldPart = (*PartOrder);
+	if ((*PartOrder) > partsInWave[(*waveNo)]) {
+		valid = 0;
+	}
+	if (getProcID((*waveNo), (*PartOrder)) != myProcid) {
+		valid = 0;
+	}
+
+	if (valid == 0) {
+		(*waveNo) ++;
+		if ((*waveNo) >= wavesTotal)
+			(*PartOrder) = -1;
+		if ((myProcid != 0) && ((*waveNo) == wavesTotal - 1))
+			(*PartOrder) = -1;
+		else {
+			partsInCluster = ldiv(partsInWave[(*waveNo)], ClusterSize);
+			if (partsInCluster.rem > 0) {
+				if (myProcid < partsInCluster.rem) {
+					(*PartOrder) = (partsInCluster.quot + 1) * myProcid;
+				} else if (((*waveNo) >= wavesTotal - ClusterSize) && (partsInCluster.quot == 0) && (myProcid >= partsInCluster.rem)) { 
+					(*PartOrder) = -1;
+				} else {
+					break_point = partsInCluster.rem * (partsInCluster.quot + 1);
+					(*PartOrder) = partsInCluster.quot * (myProcid - partsInCluster.rem) + break_point;
+				}
+			} else {
+				(*PartOrder) = partsInCluster.quot * myProcid;
+			}
+		}
+	}
+	
+}
+
+/************************************************************
+	Function: getProcID
+	Description:
+		Retutns Process ID (task) that process Wave (waveNo) 
+		and Partition (PartOrder)
+***********************************************************/
+int getProcID (long waveNo, long PartOrder) {
+	ldiv_t partsInCluster, procValue;
+	long break_point;
+	int procID = -1;
+	/*printf (" w %ld o %ld ap %ld ", waveNo, PartOrder, partsInWave[waveNo]);*/
+	/*****************************************************************
+	partsInWave[waveNo]: total partitions in wave [wp]
+	PartOrder: order (sequence) of partition in wave
+	ClusterSize: totals tasks (processes) running
+	*****************************************************************/
+	if (partsInWave != NULL) {
+		if (PartOrder == 0)
+			procID = 0;
+		else if (PartOrder < partsInWave[waveNo]) {
+			partsInCluster = ldiv(partsInWave[waveNo], ClusterSize);
+			if (partsInCluster.rem > 0) {
+				/* set break point */
+				break_point = partsInCluster.rem * (partsInCluster.quot + 1);
+				if (PartOrder < break_point) {
+					procValue = ldiv(PartOrder, (partsInCluster.quot + 1));
+					procID = procValue.quot;
+				} else {
+					procValue = ldiv((PartOrder-break_point), partsInCluster.quot);
+					procID = procValue.quot + partsInCluster.rem;
+				}
+			} else {
+				procValue = ldiv(PartOrder, partsInCluster.quot);
+				procID = procValue.quot;
+			}
+		}
+	}
+	return procID;
+}
+
+/* ***************************************************************
+ ***********   Given a CellIndex, returns its PartIndex based in  ******
+ ************           PartitionsSize and Global Dimensions      ********
+ ***************************************************************/
+
+int IsCellInPart (long cellIndex, long partIndex, long dimn, long * shape, long partSize) {
+	long i, * cellMIndex = NULL, * partMIndex = NULL;
+
+	Gamma_Inverse(cellIndex, shape,  dimn, &cellMIndex, 2);
+	Gamma_Inverse(partIndex, shape,  dimn, &partMIndex, 2);
+	for (i=0;i<dimn;i++) {
+		if ((cellMIndex[i] < partMIndex[i]) || (cellMIndex[i] > partMIndex[i] + partSize - 1)) {
+			if (cellMIndex != NULL)
+				free (cellMIndex);
+			if (partMIndex != NULL)
+				free (partMIndex);
+			return 0;
+		}
+	}
+	if (cellMIndex != NULL)
+		free (cellMIndex);
+	if (partMIndex != NULL)
+		free (partMIndex);
+	return 1;
+}
+
+/*******************************************************************
+	Function: sendOC
+		Send Ovelapping Cells to desired process
+	Input:
+		partIndex: Partition Index
+*******************************************************************/
+int sendOC (long partIndex) {
+	int k, l, dest, found, proc_count, * buffer_size, * proc_index;
+	long i, j, w, * * buffer;
+#ifndef NDEBUG
+	int dbglevel = 1;
+	char msg[SHORT_MESSAGE_SIZE];
+#endif	
+	
+	/********************************************************************
+	
+	int MPI_Send(void *buf, int count, MPI_Datatype datatype, int dest, int tag, MPI_Comm comm)
+
+	MPI_Send(buffer[k], buffer_size[k], MPI_LONG, dest, MPI_SEND_RECEIVE_TAG, MOAMSA_COMM_WORLD);
+	****************************************************************************/
+	proc_index = NULL;
+	buffer_size = NULL;
+	buffer = NULL;
+	proc_index = mmalloc (ClusterSize * sizeof *proc_index);
+	buffer_size = mmalloc (ClusterSize * sizeof *buffer_size);
+	buffer = mmalloc (ClusterSize * sizeof *buffer);
+	proc_count = 0;		
+	for (i=0; i<OCout_ub;i++) {
+		for (w=0; w<OCout[i].wavesOC;w++) {
+			if ((OCout[i].WOCO[w].partIndex == partIndex) && (OCout[i].WOCO[w].sent == 0)) {
+				if (OCout[i].WOCO[w].depProc_ub > 0) {		
+					for (j=0; j<OCout[i].WOCO[w].depProc_ub;j++) {
+						found = 0;
+						for (k=0; k<proc_count; k++) {
+							if (proc_index[k] == OCout[i].WOCO[w].depProc[j]) {
+								buffer_size[k] += 4;
+								buffer[k] = realloc (buffer[k], buffer_size[k] * sizeof *buffer[k]);
+								found = 1;
+								break;
+							}
+						}
+						if (found == 0) {
+							/* add the destination process ================== */
+							if (proc_count >= ClusterSize) {
+								/* Error exceeds number of processes =====*/
+#ifndef NDEBUG
+								sprintf(msg, "[%d]>sendOC: Process Count [%d] Exceeds Cluster Size [%d], exiting!\n", myProcid, proc_count, ClusterSize);
+								mprintf(dbglevel, msg, 1);
+#endif	
+								fflush(stdout);
+								return 0;
+							} else {
+								buffer[proc_count] = mmalloc (4 * sizeof *buffer[proc_count]);
+								proc_index[proc_count] = OCout[i].WOCO[w].depProc[j];
+								buffer_size[proc_count] = 4;
+								k = proc_count;
+								proc_count++;
+							}
+						}
+						/* fill buffer with OCout elements ================ */
+					
+						l = buffer_size[k] - 4;
+						buffer[k][l++] = i;
+						buffer[k][l++] = OCout[i].WOCO[w].partIndex;
+						buffer[k][l++] = OCout[i].WOCO[w].cellIndex;
+						buffer[k][l++] = OCout[i].WOCO[w].cellScore;
+#ifndef NDEBUG
+						sprintf (msg, "[%d]sendOC: w %ld p %ld ci %ld cs %ld tp proc %d\n", myProcid, i, OCout[i].WOCO[w].partIndex, OCout[i].WOCO[w].cellIndex, OCout[i].WOCO[w].cellScore, 	proc_index[k]);
+						mprintf (dbglevel, msg, 2);
+						sprintf (msg, "[%d]sendOC: buf (%d,%d) w %ld p %ld ci %ld cs %ld\n", myProcid, k, l, buffer[k][l-4], buffer[k][l-3], buffer[k][l-2], buffer[k][l-1]);
+						mprintf (dbglevel, msg, 2);
+#endif
+					} /* end loop for dependent processes */
+				}
+				OCout[i].WOCO[w].sent = 1;
+			} /* end selection of particular OCout (partIndex and not sent)*/
+		}
+	} /* end loop for all OCout */
+
+	if (proc_count > 0) {
+		/* Send Overalpping Cells =================*/
+		for (k=0; k<proc_count;k++) {
+			dest = proc_index[k];
+			MPI_Send(&buffer_size[k], 1, MPI_INT, dest, MOAMSA_SEND_RECEIVE_TAG, MOAMSA_COMM_WORLD);
+			MPI_Send(buffer[k], buffer_size[k], MPI_LONG, dest, MOAMSA_SEND_RECEIVE_TAG, MOAMSA_COMM_WORLD);
+#ifndef NDEBUG
+			sprintf (msg, "[%d]>sendOC: Element Count[%d] To Process [%d]\n", myProcid, buffer_size[k], dest);
+			mprintf (dbglevel, msg, 2);
+			mprintf (dbglevel, "(  wn,   pi,   ci,     cs)\n", 2);
+			for (l=0; l<buffer_size[k]; l+=4) {
+				sprintf (msg, "(%4ld, %4ld, %4ld, %6ld)\n", buffer[k][l], buffer[k][l+1], buffer[k][l+2], buffer[k][l+3]);
+				mprintf (dbglevel, msg, 2);
+			}
+#endif
+		}
+#ifndef NDEBUG
+		sprintf (msg, "[%d]>sendOC:sent OC to total processes [%d]\n", myProcid,proc_count);
+		mprintf (dbglevel, msg, 2);
+#endif
+		/* free allocated memory =====================*/
+		for (k=0; k<proc_count;k++) {
+		   free (buffer[k]);
+		}
+	}
+	free (buffer_size);
+	free (proc_index);
+	free (buffer);
+ 	return 1;
+}
+@
+
+
+1.1
+log
+@Initial revision
+@
+text
+@d71 2
+a72 1
+	FILE * sfile;
+d81 4
+a84 3
+	/* Save a backup to the previous saved check point file */
+	sprintf(sfilename, "out/cwaves%s", outputfilename);
+	sprintf(bkfilename, "out/cwaves%s", outputfilename);
+d93 5
+a97 1
+	fprintf (sfile, "%ld\n", partsTotal);
+d99 5
+a103 1
+	fprintf (sfile, "%ld\n", wavesTotal);
+d106 5
+a110 1
+		fprintf (sfile, "%ld\n", partsInWave[i]);
+d113 5
+a117 1
+			fprintf(sfile, "%ld\n", partsInWaveIndices[i][j]);
+d145 2
+a146 1
+	sprintf(sfilename, "out/cwaves%s", outputfilename);
+d155 1
+a155 1
+		mprintf(0, "Invalid checkpoint file, exiting [reading Wave Info line 2].\n", 3);
+d231 182
+d414 1
+a414 1
+	Function: CheckPoint
+d440 2
+a441 1
+	/*In the secondary file, store the current computation status information, and OCin, and OCout*/	
+d443 1
+d445 1
+d447 1
+d449 1
+a449 1
+	/*Saving Overlapping Incoming Cells Scores Received*/
+d452 1
+d454 1
+d463 1
+a463 1
+	/*Saving Overlapping Outgoing Cells Scores*/
+d467 2
+a468 1
+			fprintf (sfile, "%ld\n",OCout[i].wavesOC); 
+d470 1
+d482 2
+a483 28
+	/* file chpPrt... Save each partition Data in a file of its own =======
+	======================================================================= */
+	/* for (i = startPart;i < pData->computedPartitions;i++) { */
+	i = pData->computedPartitions - 1;
+	if (i >= 0) {
+		sprintf(sfilename, "out/chpPrt%ld%s%d", i, outputfilename, myProcid);
+		if (( sfile= fopen (sfilename, "w")) == NULL) {
+			mprintf(1, "Can not write checkpoint file [Partition Data].\n", 3);
+			return -1;
+		}
+
+		fprintf (sfile, "%d\n", pData->MOAPart[i].processed);
+		fprintf (sfile, "%ld\n", pData->MOAPart[i].waveNo);
+		fprintf (sfile, "%ld\n", pData->MOAPart[i].msaAlgn->dimn);
+		for (j = 0;j < pData->MOAPart[i].msaAlgn->dimn;j++) {
+			fprintf (sfile, "%ld\n", pData->MOAPart[i].msaAlgn->shape[j]);
+		}
+		fprintf (sfile, "%ld\n", pData->MOAPart[i].msaAlgn->elements_ub);
+		for (j = 0;j < pData->MOAPart[i].msaAlgn->elements_ub;j++) {
+			fprintf (sfile, "%ld\n", pData->MOAPart[i].msaAlgn->indexes[j]);			
+			fprintf (sfile, "%ld\n", pData->MOAPart[i].msaAlgn->elements[j].val);			
+			fprintf (sfile, "%ld\n", pData->MOAPart[i].msaAlgn->elements[j].prev_ub);	
+			for (k = 0; k < pData->MOAPart[i].msaAlgn->elements[j].prev_ub; k++)  {
+				fprintf (sfile, "%ld\n", pData->MOAPart[i].msaAlgn->elements[j].prev[k]);
+			}
+		}
+		fclose(sfile);
+	}
+a486 1
+
+d490 1
+a490 1
+	Function: restoreCheckPoint
+d510 1
+a510 1
+	/* file chpS... stores computation status =======================================
+d565 1
+a565 1
+	/* Section for: incommeng cells  */
+a576 1
+			/* reading (wave no, cell index, cell score, from process) for each incomming cell */	
+d578 1
+a578 1
+				/* wave no */
+d586 1
+d612 1
+a612 1
+		/* Section for: Outgoing cells  */
+d634 1
+a634 1
+				/* wave no */
+d647 1
+d707 1
+a707 1
+
+d719 2
+a720 1
+		EnoughParts = 0;
+d723 3
+a725 19
+			
+			sprintf(sfilename, "out/chpPrt%ld%s%d", i, outputfilename, myProcid);
+			if (( sfile= fopen (sfilename, "r")) == NULL) {
+				mprintf(0, "Can not read checkpoint file [Partition Data].\n", 3);
+				return -1;
+			}
+			/* processed */
+			if (fgets (line, LINE_MAX, sfile) == NULL) {
+				mprintf(0, "Invalid checkpoint file, Reading processed switch.\n", 3);
+				return -1;
+			}	
+			(*pData)->MOAPart[i].processed  = atol(line);
+			/* waveNo */
+			if (fgets (line, LINE_MAX, sfile) == NULL) {
+				mprintf(1, "Invalid checkpoint file, Reading Partition Wave number.\n", 3);
+				return -1;
+			}	
+			(*pData)->MOAPart[i].waveNo  = atol(line);
+
+d727 3
+a729 2
+				EnoughParts = 1;
+				(*pData)->MOAPart = realloc ((*pData)->MOAPart, ((i+1) * sizeof *(*pData)->MOAPart));
+a731 95
+			/* msaAlgn->dimn */
+			if (fgets (line, LINE_MAX, sfile) == NULL) {
+				mprintf(1, "Invalid checkpoint file, exiting 13.\n", 3);
+				return -1;
+			}	
+			(*pData)->MOAPart[i].msaAlgn = NULL;
+			createMOAStruct(&(*pData)->MOAPart[i].msaAlgn);
+			(*pData)->MOAPart[i].msaAlgn->dimn  = atol(line);
+#ifndef NDEBUG
+			sprintf(msg, "[%d]>restoreCheckPoint: read MOAPart[%ld]{processed %d, waveNo %ld, msaAlgn->dimn %ld}\n", myProcid, i, (*pData)->MOAPart[i].processed, (*pData)->MOAPart[i].waveNo, (*pData)->MOAPart[i].msaAlgn->dimn);
+			mprintf(dbglevel, msg, 3);
+#endif
+
+			if ((*pData)->MOAPart[i].msaAlgn->dimn > 0) {
+				(*pData)->MOAPart[i].msaAlgn->shape = calloc ((*pData)->MOAPart[i].msaAlgn->dimn, sizeof (MOATypeShape) );
+#ifndef NDEBUG
+				sprintf(msg, "[%d]>restoreCheckPoint: MOAPart[%ld].msaAlgn shape{", myProcid, i);
+#endif
+				/* msaAlgn->shape */
+				for (j = 0;j < (*pData)->MOAPart[i].msaAlgn->dimn;j++) {
+					if (fgets (line, LINE_MAX, sfile) == NULL) {
+						mprintf(1, "Invalid checkpoint file, reading shape.\n", 3);
+						return -1;
+					}	
+					(*pData)->MOAPart[i].msaAlgn->shape[j]  = atol(line);
+#ifndef NDEBUG
+					sprintf(msg, "%s%ld", msg, (*pData)->MOAPart[i].msaAlgn->shape[j]);
+#endif
+				}
+#ifndef NDEBUG
+				sprintf(msg, "%s}\n", msg);
+				mprintf(dbglevel, msg, 3);
+#endif
+			}
+			/* msaAlgn->number of elements */
+			if (fgets (line, LINE_MAX, sfile) == NULL) {
+				mprintf(1, "Invalid checkpoint file, exiting 13.\n", 3);
+				return -1;
+			}	
+			(*pData)->MOAPart[i].msaAlgn->elements_ub  = atol(line);
+#ifndef NDEBUG
+			sprintf(msg, "[%d]>restoreCheckPoint: read MOAPart[%ld].msaAlgn->elements_ub %ld\n", myProcid, i, (*pData)->MOAPart[i].msaAlgn->elements_ub);
+			mprintf(dbglevel, msg, 3);
+#endif
+			if ((*pData)->MOAPart[i].msaAlgn->elements_ub > 0) {
+				(*pData)->MOAPart[i].msaAlgn->elements = calloc ((*pData)->MOAPart[i].msaAlgn->elements_ub, sizeof *(*pData)->MOAPart[i].msaAlgn->elements);
+				(*pData)->MOAPart[i].msaAlgn->indexes = calloc ((*pData)->MOAPart[i].msaAlgn->elements_ub, sizeof *(*pData)->MOAPart[i].msaAlgn->indexes);
+				for (j = 0;j < (*pData)->MOAPart[i].msaAlgn->elements_ub;j++) {
+					/* msaAlgn->element index */
+					if (fgets (line, LINE_MAX, sfile) == NULL) {
+						mprintf(1, "Invalid checkpoint file, exiting 13.\n", 3);
+						return -1;
+					}	
+					(*pData)->MOAPart[i].msaAlgn->indexes[j]  = atol(line);
+					/* msaAlgn->element value */
+					if (fgets (line, LINE_MAX, sfile) == NULL) {
+						mprintf(1, "Invalid checkpoint file, exiting 13.\n", 3);
+						return -1;
+					}	
+					(*pData)->MOAPart[i].msaAlgn->elements[j].val  = atol(line);
+					
+#ifndef NDEBUG
+					sprintf(msg, "[%d]>restoreCheckPoint: read MOAPart[%ld]{.msaAlgn->indexes[%ld] %ld, elements[%ld].val %ld}\n", myProcid, i, j, (*pData)->MOAPart[i].msaAlgn->indexes[j], j, (*pData)->MOAPart[i].msaAlgn->elements[j].val);
+					mprintf(dbglevel, msg, 3);
+#endif
+					/* msaAlgn->element number of prev elements */
+					if (fgets (line, LINE_MAX, sfile) == NULL) {
+						mprintf(1, "Invalid checkpoint file, number of prev elements.\n", 3);
+						return -1;
+					}	
+					(*pData)->MOAPart[i].msaAlgn->elements[j].prev_ub  = atol(line);
+
+#ifndef NDEBUG
+					sprintf(msg, "[%d]>restoreCheckPoint: read MOAPart[%ld].msaAlgn->elements[%ld].prev_ub %ld{", myProcid, i, j, (*pData)->MOAPart[i].msaAlgn->elements[j].prev_ub);
+#endif
+					if ((*pData)->MOAPart[i].msaAlgn->elements[j].prev_ub > 0 ) {
+						(*pData)->MOAPart[i].msaAlgn->elements[j].prev = calloc ((*pData)->MOAPart[i].msaAlgn->elements[j].prev_ub, sizeof *(*pData)->MOAPart[i].msaAlgn->elements[j].prev);
+						for (k = 0; k < (*pData)->MOAPart[i].msaAlgn->elements[j].prev_ub; k++)  {
+							if (fgets (line, LINE_MAX, sfile) == NULL) {
+								mprintf(1, "Invalid checkpoint file, prev elements.\n", 3);
+								return -1;
+							}	
+							(*pData)->MOAPart[i].msaAlgn->elements[j].prev[k]  = atol(line);
+#ifndef NDEBUG
+							sprintf(msg, "%s%ld", msg, (*pData)->MOAPart[i].msaAlgn->elements[j].prev[k]);
+#endif
+						} /* end of prev elements loop */
+					}
+#ifndef NDEBUG
+					sprintf(msg, "%s}\n", msg);
+					mprintf(dbglevel, msg, 3);
+#endif
+				} /* end of elements loop */
+			}
+			fclose(sfile);
+@
+
+
+1.1.1.1
+log
+@Distributed Optimal MSA using MoA
+@
+text
+@@

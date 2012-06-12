@@ -1,0 +1,9 @@
+
+ Aligned Sequences: 
+>AY191421: Mycoplasma fermentans		ttaacaaacaaacgtattgttgcagttggtgaattattacaaagccaattaaatgtcggtttagtaaaacttgaaaaaactacacgtgaaagaatgggcgctaaagaacctgacaaagtaacacctaaaaatgttacaaacaataaactca-tttcaacacaaatgaaaacattctttaactcatcaaaactttcacaatttatggatcaaattaatccacttgctgaaatttcaaatgaacgtcgtatcacttctctaggacctggtggtcttaaccgtgatacagctcaattcgaagttcgtgacgttcat 312
+>AY191419: Mycoplasma bovis		atgattaataaaagaatagtttcagttggcgaattgatgcaaaatcaattgaatgttggactttcaaaattggaaaaaaccactagagaaagaatgtcagctaaagagcctgaaaagattactcctaaaaatattacaaataacaaactgg-tttcaaaccaaatgaaaacattcttcaatagctcaaaattgtctcaatttatggatcaaattaatgctttggctgaaatttcaaacgaaagacgtattacttctttaggccctggtggtcttaatcgtgatactgcacaattcgaagttcgtgacgtgcac 312
+>AY191418:Mycoplasma arthritidis		ttagttaataaaagaattgttacaattggcgaacttctacaaaaccaattccgtgttggattaattaaattagaaaaaaacactaaagaacgaatctcagctaaagatattgacaaaattacaccgaaaaatgtaactaacaaccggccaattttcaat-caattcaaatcattcttcaacacctcgaaactttcacagttcatggatcaatgtaatccgcttgccgaaatttctaataaaagaagaattacttcgctaggaccacggggccttaatagagacaccgctcaatttgaggtgcgggacgttcac 312
+		1 3 1 1 1 1 3 3 1 3 3 3 1 3 1 3 3 1 3 3 3 0 3 3 1 3 3 3 3 1 3 3 3 1 3 0 0 3 1 3 3 3 3 1 1 3 3 3 3 3 0 1 1 3 3 3 1 3 3 1 1 3 1 0 1 1 3 3 3 1 3 0 3 3 3 3 3 3 3 1 1 3 3 1 1 1 1 3 3 3 1 3 3 3 3 1 1 1 1 3 3 3 3 3 3 3 3 0 1 1 3 3 3 1 3 3 1 1 3 1 3 3 1 3 3 1 3 3 3 3 3 3 1 3 1 3 3 1 3 3 1 3 3 1 1 1 1 3 1 0 1 -2 3 3 3 3 3 3 0 -2 3 3 3 1 3 1 3 3 3 1 3 3 3 3 3 3 3 1 3 3 1 1 1 1 3 3 1 3 3 3 1 3 1 3 3 1 3 3 1 3 3 1 3 3 3 3 3 3 3 3 3 1 1 3 3 3 3 1 3 0 1 3 1 3 3 1 3 3 3 3 3 3 3 3 1 3 3 1 1 3 3 1 3 1 1 3 1 3 3 1 3 3 3 3 3 1 1 3 3 3 3 1 3 3 1 1 3 1 3 3 1 3 3 3 3 3 1 1 3 1 3 3 1 3 3 0 3 3 1 3 3 3 3 3 1 3 3 1 3 3 1 3 3 1 3 3 3 3 3 1 3 3 1 
+The Alignment SP Score = 698
+
+The Alignment Shannon Entropy = 5166.387375

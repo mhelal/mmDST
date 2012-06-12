@@ -1,0 +1,840 @@
+head	1.2;
+access;
+symbols
+	r1:1.1.1.1 mhelal:1.1.1;
+locks; strict;
+comment	@ * @;
+
+
+1.2
+date	2008.05.11.13.55.55;	author mhelal;	state Exp;
+branches;
+next	1.1;
+
+1.1
+date	2008.05.06.02.41.42;	author mhelal;	state Exp;
+branches
+	1.1.1.1;
+next	;
+
+1.1.1.1
+date	2008.05.06.02.41.42;	author mhelal;	state Exp;
+branches;
+next	;
+
+
+desc
+@@
+
+
+1.2
+log
+@search space error
+@
+text
+@
+/**********************************************************
+* Author: Manal Helal																			*
+* Last Modification Date: Fri 12 Jan 2007 03:39:51 AM EST *
+* Project : MMSA - Multiple Sequence Alignment Based on 	*
+* 					Mathematics of Arrays - PhD Experimentation		*
+* File: moaLb.c, a library for testing the basic MOA 			*
+* functions & some MSA functions in isolation.				 		*
+***********************************************************/
+#include <stdio.h>
+#include <string.h>
+#include <stdlib.h>
+#include <ctype.h>      /* include the character library */
+#include <math.h>
+#include "../main.h"
+#include "../moa.h"
+#include "../globals.h"
+#include "../utils.h"
+
+const char GABCHAR = '-';
+/*
+int initMasterMemory (Master * * master, long seqNum, long * seqLen, int stype, char * * sequences) {
+  char msg[MID_MESSAGE_SIZE];
+
+  (*master) = mmalloc (sizeof *(*master));
+  if ((*master) == NULL) 
+    return -1;
+  (*master)->seqNum = seqNum;
+  (*master)->seqLen = seqLen;
+  (*master)->stype = stype;
+  (*master)->sequences = sequences;
+  createMOAStruct (&(*master)->msaAlgn);
+  createMOA(seqLen, seqNum, (*master)->msaAlgn ,-1,0);
+  
+  
+  sprintf (msg, " MSAAlign dimn %ld shape[%ld] %ld elements_up %ld\n", (*master)->msaAlgn->dimn, (*master)->msaAlgn->dimn-1, (*master)->msaAlgn->shape[(*master)->msaAlgn->dimn-1], (*master)->msaAlgn->elements_ub);
+  mprintf(1, msg, threadnum);
+  //(*master)->ComputationPhase = NULL;
+  //printf ("5 ClusterSize %d \n", ClusterSize);
+  //(*master)->ComputationPhase = mmalloc (ClusterSize * sizeof *((*master)->ComputationPhase));
+  //if ((*master)->ComputationPhase == NULL) 
+  //  return -1;
+  //(*master)->mut = NULL;
+  //(*master)->mut = mmalloc (sizeof *((*master)->mut));
+  //if ((*master)->mut == NULL) 
+  //		return -1;
+  //pthread_mutex_init ((*master)->mut, NULL);
+  //sem_init(&(*master)->qSem, 0, 0);
+  return 0;
+}
+
+void freeMasterMemory (Master * master) {
+  long i;
+  char msg[SHORT_MESSAGE_SIZE];
+  
+  if (DS != NULL) {
+    sprintf (msg, "Master DS_ubound = %ld\n", DS_ubound);
+    mprintf(12, msg, threadnum);
+    for (i=0;i<DS_ubound;i++) {
+      sprintf (msg, "Master i = %ld lb %p hb %p\n", i, DS[i].lbCells, DS[i].hbCells);
+      mprintf(12, msg, threadnum);
+      if (DS[i].lbCells != NULL) 
+	free (DS[i].lbCells);
+      DS[i].lbCells = NULL;
+      if (DS[i].hbCells != NULL) 
+	free (DS[i].hbCells);
+      DS[i].hbCells = NULL;
+      sprintf (msg, "Master freed DS[%ld]\n", i);
+      mprintf(12, msg, threadnum);
+    }
+    free (DS);
+    DS = NULL;
+    sprintf (msg, "Master freed all DS master = %p\n", master);
+    mprintf(12, msg, threadnum);
+  }
+  if (master != NULL) {
+    if (master->msaAlgn != NULL)
+      deleteMOA (master->msaAlgn);
+    master->msaAlgn = NULL;
+    mprintf (12, "Master freed msaAlgn\n", threadnum);
+    //if (master->mut != NULL) {
+    //  pthread_mutex_destroy(master->mut);
+    //  free (master->mut);
+    //}
+    //master->mut = NULL;partInDim
+    //mprintf (12, "Master freed mut\n");
+    /*if (master->ComputationPhase != NULL)
+      free (master->ComputationPhase);
+      master->ComputationPhase = NULL;
+      mprintf (12, "Master freed ComputationPhase\n");
+    *
+    free(master);
+    master = NULL;
+    mprintf (12, "Master freed all its data\n", threadnum);
+  }
+}
+*/
+
+/*
+long * calcWaves (long dimn) {
+  long i;
+  long * combnum;
+  combnum = mmalloc (dimn * sizeof *combnum);
+  for (i = 1;i<dimn; i++)  {    
+    // number of the different combinations of which indices in the multidimensional index to give the shape bound so that all edge points can be processed 
+    combnum[i] = (Factorial(dimn)/(Factorial(dimn-i) * Factorial(i)));
+  }
+  return combnum;
+}
+
+int partition (MOA_rec * MOA_in, long pSize, int ClusterSize) {
+  Master * master = NULL;
+  int ret, newProcessor, notdone, errCode, ComputationRounds, ComputationPhase, MPI_return, stype;
+  struct timeval timeout;  
+  long i, j, seqNum, oldprev, prev, curr, next; //pointers to partition indices for starting and ending 2 waves
+  char msg[MID_MESSAGE_SIZE];
+
+  partitionSize= pSize;
+  ret = initMasterMemory(&master, MOA_in->dimn, MOA_in->shape, 1, NULL);  
+  if (ret != 0) {
+    mprintf (1, "Error Initializing Master Data, Exiting\n", threadnum);
+    fflush (stdout);
+    return -1;
+  }
+  
+  ComputationPhase = 1;
+  // 1. Synchronize Computation Phase 1 and Send Partitions
+  DS_ubound = 0;
+  master->waveNo = 1;
+  oldprev = 0;
+	prev = 0;
+  curr = FirstWaveDistributeDiagonals (master, master->waveNo, partitionSize);
+  next = curr;
+  printf ("wave %d ends %d\n", master->waveNo, curr);
+  while (curr  < DS_ubound) {
+    currNow = getTime();
+    printf ("master->waveNo %d, oldprev %d, prev %d, curr %d, next %d, DS_ubound %d\n", master->waveNo, oldprev, prev, curr, next, DS_ubound);
+		if (isTimeDiffEquals (currNow, prevNow, 'm', 10) == 1) {
+ 			cpTime (currNow, &prevNow);
+		}
+    master->waveNo ++;
+    sprintf(msg,"Master Thread 2 going to wave %ld \n", master->waveNo);
+    mprintf(8, msg, threadnum);
+    
+    next = LaterWavesDistributeDiagonals (curr, master, master->waveNo, partitionSize);
+    printf ("wave %d ends %d total parts %d\n", master->waveNo, next, next-curr);
+
+    sprintf(msg,"Master Thread 2 after wave %ld \n", master->waveNo);
+    mprintf(2, msg, threadnum);
+    if (master->waveNo > 2) {
+      sprintf(msg, "Master Thread 2 before manageDependancies at wave %ld \n", master->waveNo);
+      mprintf(2, msg, threadnum);
+      printf ("Calling manageDependancies at wave %d for parts %d : %d\n", master->waveNo, oldprev, prev);
+      manageDependancies (master, partitionSize, master->waveNo - 2, oldprev, prev);
+      sprintf(msg,"Master Thread 2 after manageDependancies at wave %ld \n", master->waveNo);
+      mprintf(2, msg, threadnum);
+    }
+    oldprev = prev;
+    prev = curr; 
+    curr = next;
+    sprintf (msg, "old %ld prev %ld curr %ld next %ld", oldprev, prev, curr,  next);
+    mprintf(8, msg, threadnum);
+  }
+  
+  mprintf(2, "Master Thread 2 before before last  manageDependancies  \n", threadnum);
+  //printf ("Calling manageDependancies for parts %d : %d\n", oldprev, prev);
+  manageDependancies (master, partitionSize, master->waveNo - 1, oldprev, prev);
+  mprintf(2, "Master Thread 2 before last  manageDependancies  \n", threadnum);
+  //printf ("Calling manageDependancies for parts %d : %d\n",  prev, next);
+  manageDependancies (master, partitionSize, master->waveNo, prev, curr);
+  sprintf(msg, "Master Thread 2 after last  manageDependancies  last wave %ld\n", master->waveNo);
+  mprintf(2, msg, threadnum);
+	printf ("Total Partitions %d\n", DS_ubound);
+  for (i=0;i<DS_ubound;i++){
+    printf ("part %d starts %d\n", i, DS[i].partIndex);
+  }
+	freeMasterMemory (master);
+  return 0;
+}
+
+*/
+
+int checkCells (MOA_rec * MOA_in, long * sendCells, long * recvCells, long * CompCells) {
+  long * ind = NULL;
+  long i;
+  (*sendCells) = 0;
+  (*recvCells) = 0;
+  (*CompCells) = 0;
+  ind = mmalloc ( MOA_in->dimn * sizeof *ind);
+  for (i = 0; i <  MOA_in->elements_ub; i++) {
+    Gamma_Inverse(i, MOA_in->shape,  MOA_in->dimn, &ind, 1);
+    if (isHigherBorderCellandNotLower (ind, MOA_in->dimn, MOA_in->shape) == 1) {
+      (*sendCells)++;
+      (*CompCells)++;
+    }
+    else if (isLowerBorderCell (ind, MOA_in->dimn) == 1)
+      (*recvCells)++;
+    else
+      (*CompCells)++;
+  }
+  free(ind);
+  return 0;
+}
+
+
+void Menu (int *choice) {
+
+    char    local;
+
+    printf ("\n1: Re-Define MOA\n");
+    printf ("2: Print MOA\n");
+    printf ("3: Gamma\n");
+    printf ("4: Gamma_inverse\n");
+    printf ("5: Take\n");
+    printf ("6: Drop\n");
+    printf ("7: MOAGetLowerNeighbors\n");
+    printf ("8: MOAGetHigherNeighbors\n");
+    //printf ("9: GetDiagonals\n");
+    printf ("10: Get Send/Recv/Comp Borders Number for a Range of Partitioning Sizes\n");
+    printf ("11: Get Send/Recv/Comp Borders Number for a Range of Dimensions, Shapes and Partitioning Sizes\n");
+    printf ("12: Get Partitions Number\n");
+    printf ("13: Partition & Distribute\n");
+    printf ("14: get Sizes\n");
+    //printf ("15: New Pattern Parallelism\n");
+    printf ("16: Get Parts Total in a Wave\n");
+    printf ("17: Parts Total Growth in Waves as Dimension grows\n");
+    printf ("18: Analyze Cell Index in a Part\n");
+    printf ("19: get Part's Proc\n");
+    printf ("20: get Proc's Next Part\n");
+    printf ("21: get Partition Index of a Cell Index\n");
+    printf ("0: Quit\n");
+    printf ("\nEnter op code:" );
+    /*do {
+	local = getchar ();
+	if ((isdigit (local) == 0) && (local != '\n')threadnum) {
+	    printf ("\nyou must enter an integer.\n");
+	    printf ("Enter 1 to add, 2 to remove, 3 to print, 4 to quit\n");
+	}
+    } while (isdigit ((unsigned char) local) == 0);
+    *choice = (int) local - '0';
+    */
+    
+    scanf("%d", choice);
+    printf ("choice %d \n", *choice);
+}
+
+int IsHighBorderCellinPart (long dimn, long * shape, long pSize, long cellIndex, long partIndex) {
+	int found = 0, ret = 0;
+	long i, j, * cellmInd = NULL;
+	MOA_rec * part;
+	getPartition (partIndex, dimn, shape, &part, pSize);
+	
+	for (i=0;(i<part->elements_ub) && (found == 0);i++) {
+		if (part->indexes[i] == cellIndex) {
+			found = 1;
+			cellmInd = mcalloc (dimn, sizeof *cellmInd);
+			Gamma_Inverse(i, part->shape, part->dimn, &cellmInd, 1);
+			for (j=0;(j<dimn) && (ret == 0);j++) {
+				if (cellmInd[j] == part->shape[j]-1)
+					ret = 1;
+			}	
+			free (cellmInd);
+		}
+		
+	}
+	deleteMOA (part);
+	return ret;
+}
+
+int IsLowBorderCellinPart (long dimn, long * shape, long pSize, long cellIndex, long partIndex) {
+	int found = 0, ret = 0;
+	long i, j, * cellmInd = NULL;
+	MOA_rec * part;
+	getPartition (partIndex, dimn, shape, &part, pSize);
+	
+	for (i=0;(i<part->elements_ub) && (found == 0);i++) {
+		if (part->indexes[i] == cellIndex) {
+			found = 1;
+			cellmInd = mcalloc (dimn, sizeof *cellmInd);
+			Gamma_Inverse(i, part->shape, part->dimn, &cellmInd, 1);
+			for (j=0;(j<dimn) && (ret == 0);j++) {
+				if (cellmInd[j] == 0)
+					ret = 1;
+			}	
+			free (cellmInd);
+		}
+		
+	}
+	deleteMOA (part);
+	return ret;
+}
+
+void initGlobalVariables () {
+  
+  pdebug = 20;
+  threadnum = 1;
+  myProcid = 1;
+  /*open once to erase previous contents then close */
+  strcpy(outputfilename, "moamsa");
+  init_output();
+
+  prevNow = NULL;
+  prevNow = (struct tm *) mmalloc (sizeof(struct tm));
+  currNow = getTime();
+  prevNow->tm_hour = currNow->tm_hour;
+  prevNow->tm_isdst = currNow->tm_isdst;
+  prevNow->tm_mday = currNow->tm_mday;
+  prevNow->tm_min = currNow->tm_min;
+  prevNow->tm_mon = currNow->tm_mon;
+  prevNow->tm_sec = currNow->tm_sec;
+  prevNow->tm_wday = currNow->tm_wday;
+  prevNow->tm_yday = currNow->tm_yday;
+  prevNow->tm_year = currNow->tm_year;
+
+}
+
+int main (int argc, char ** argv) {
+  MOA_rec * MOA1 = NULL; 
+  MOA_rec * MOA2 = NULL;
+
+  long * shape = NULL;
+  long * ind = NULL;
+  long * ind2 = NULL;
+  long * posDimn = NULL;
+  long flatIndex, partIndex, fromSize, toSize, dimn, fromdimn, todimn, fromshape, toshape, sendCells, recvCells, CompCells, MypartsTotal, duplicatesTotal, wave, PartOrder;
+  long i, j, k, l, rslt_ub, strides; 
+  int choice;
+  long * rslt = NULL;
+  long * rsltInd = NULL;
+  
+  initGlobalVariables ();
+  createMOAStruct(&MOA1);
+  ind =  mmalloc ( MOA1->dimn * sizeof *ind);
+  ind2 = mmalloc ( MOA1->dimn * sizeof *ind2);
+  posDimn = mmalloc ( MOA1->dimn * sizeof *posDimn);
+	partitionSize = 3;
+  do {
+    Menu (&choice);
+    switch (choice) {
+    default:
+      printf ("Invalid menu choice - try again\n");
+      break;
+      
+    case 0:
+      printf ("\n good Bye\n");
+      break;
+    case 1:     
+      deleteMOA (MOA1); 
+      MOA1 = NULL;
+	if (ind != NULL)
+      		free(ind);
+	ind = NULL;
+	if (ind2 != NULL)
+      		free(ind2);
+	ind2 = NULL;
+	if (posDimn != NULL)
+      		free(posDimn);
+	posDimn = NULL;
+	if (shape != NULL)
+      		free(shape);
+	shape = NULL;
+      createMOAStruct(&MOA1);
+      printf ("\nEnter dimensionality:");
+      scanf("%ld", &MOA1->dimn);
+      ind = mmalloc ( MOA1->dimn * sizeof *ind);
+      ind2 = mmalloc ( MOA1->dimn * sizeof *ind2);
+      posDimn = mmalloc ( MOA1->dimn * sizeof *posDimn);
+      shape = mmalloc ( MOA1->dimn * sizeof *shape);
+      for (i = 0; i < MOA1->dimn; i++) {
+	    printf ("\nEnter shape at dimension %ld:", i);
+	    scanf("%ld", &shape[i]);
+      }
+
+      createMOA(shape /* shape*/, MOA1->dimn /* dimension*/, MOA1 /* MOA structure*/, 1, 0);
+      /*printMOA(MOA1); // we didn't create the tensor to print it*/
+ 			if (shape != NULL)
+      	free(shape);
+	  	shape = NULL;
+     printf("created the MOA\n");
+      break;
+    case 2:  
+			if (MOA1 != NULL) {
+      				printMOA1(MOA1, 0);
+      				printMOA1(MOA1, 1);
+			}
+			else
+				printf ("Please Define an MOA Structure first.\n");
+      break;
+    case 3:
+			if (MOA1 != NULL) {
+     	 for (i = 0; i < MOA1->dimn; i++) {
+				printf ("\nEnter index at dimn %ld:", i);
+				scanf("%ld", &ind[i]);
+      	}
+      
+      	flatIndex = Gamma(ind, MOA1->dimn, MOA1->shape,  MOA1->dimn, 1);
+      	printf("\n the flatIndex = %ld \n", flatIndex);
+			}
+			else
+				printf ("Please Define an MOA Structure first.\n");
+
+      break;
+    case 4:
+			if (MOA1 != NULL) {
+      	printf ("\nEnter flat index :" );
+      	scanf("%ld", &flatIndex);
+      	Gamma_Inverse(flatIndex, MOA1->shape,  MOA1->dimn, &ind, 1);
+      	printf("%ld", ind[0]);
+      	for (i = 1; i < MOA1->dimn; i++) {
+					printf(", %ld", ind[i]);
+      	}
+			}
+			else
+				printf ("Please Define an MOA Structure first.\n");
+      break;
+    case 5:
+ 			if (MOA1 != NULL) {
+  			createMOAStruct (&MOA2);
+      	for (i = 0; i <  MOA1->dimn; i++) {  
+	    		printf ("\nEnter take index at dimn %ld:", i);
+	    		scanf("%ld", &ind[i]);
+      	}
+      	Take (ind, MOA1->dimn, MOA1, &MOA2);
+      	printMOA_scr(MOA2, 0);      	printMOA_scr(MOA2, 1);
+      
+      	deleteMOA (MOA2);  
+      	MOA2 = NULL;
+			}
+			else
+				printf ("Please Define an MOA Structure first.\n");
+      break;
+    case 6:
+			if (MOA1 != NULL) {
+  			createMOAStruct (&MOA2);
+      	for (i = 0; i <  MOA1->dimn; i++) {
+	    		printf ("\nEnter Drop index at dimn %ld:", i);
+	    		scanf("%ld", &ind[i]);
+      	}
+	DropInd(ind, MOA1->dimn, MOA1->dimn, MOA1->shape, &MOA2); 
+      	printMOA_scr(MOA2, 0);      	printMOA_scr(MOA2, 1);      	deleteMOA (MOA2);  
+	  		MOA2 = NULL;
+ 			}
+			else
+				printf ("Please Define an MOA Structure first.\n");
+    break;
+    case 7:
+	if (MOA1 != NULL) {
+  			createMOAStruct (&MOA2);
+      	for (i = 0; i <  MOA1->dimn; i++) {
+	    		printf ("\nEnter Cell index at dimn %ld:", i);
+	   		 	scanf("%ld", &ind[i]);
+   		  }
+      	MOAGetLowerNeighbors (ind, MOA1, &MOA2);
+      	printMOA1(MOA2, 0);
+    	printMOA1(MOA1, 1);
+      
+      	printf("With Indices ");
+      	for (i=0;i<MOA2->elements_ub; i++)
+	    		printf("%ld ", MOA2->indexes[i]);
+      	printf("\n");
+      	deleteMOA (MOA2); 
+	  		MOA2 = NULL;
+			}
+			else
+				printf ("Please Define an MOA Structure first.\n");
+     break;
+    case 8:
+			if (MOA1 != NULL) {
+  			createMOAStruct (&MOA2);
+    	  for (i = 0; i <  MOA1->dimn; i++) {
+	  	  	printf ("\nEnter Cell index at dimn %ld:", i);
+	  	  	scanf("%ld", &ind[i]);
+   	   	}
+      	printf ("\nEnter The Stride Size:");
+      	scanf("%ld", &flatIndex);
+      	MOAGetHigherNeighbors (flatIndex, ind, MOA1->dimn, MOA1->shape, &MOA2, NULL, NULL, NULL, NULL);
+      	printMOA1(MOA2, 0);	printMOA1(MOA1, 1);
+      
+      	printf("With Indices ");
+      	for (i=0;i<MOA2->elements_ub; i++)
+	     		printf("%ld ", MOA2->indexes[i]);
+      	printf("\n");
+      	deleteMOA (MOA2);
+	  		MOA2 = NULL;
+ 			}
+			else
+				printf ("Please Define an MOA Structure first.\n");
+    break;
+	/*
+    case 9:
+ 	if (MOA1 != NULL) {
+     		printf ("\nEnter The Size of the Wave:");
+      		scanf("%ld", &flatIndex);
+      		for (i = 0; i <  MOA1->dimn; i++) {
+	    		ind[i] = 1;
+      		}
+      		getDiagonals (1, flatIndex, ind, MOA1);
+	}
+	else
+		printf ("Please Define an MOA Structure first.\n");
+     break;
+*/
+    case 10:
+      printf ("\nEnter The tensor Dimensionality:");
+      scanf("%ld", &dimn);
+			shape = NULL;
+      shape = mmalloc (dimn * sizeof *shape);
+      printf ("\nEnter The Starting Size of the Partition:");
+      scanf("%ld", &fromSize);
+      printf ("\nEnter The Ending Size of the Partition:");
+      scanf("%ld", &toSize);
+      printf ("Cells Analysis for:\n");
+      printf ("Partition \t\tTot_Comm \t\tSend  \t\tRecv  \t\tCompute \t\tTotal\n");
+      for (j = fromSize; j <  toSize; j++) {
+  			createMOAStruct (&MOA2);
+				
+				MOA2->dimn = dimn;
+  			for (i = 0; i <  dimn; i++) {
+					shape[i] = j;
+				}
+				createMOA(shape /* shape*/, dimn /* dimension*/, MOA2 /* MOA structure*/, -1, 0);
+			
+				checkCells (MOA2, &sendCells, &recvCells, &CompCells);
+			
+				printf ("%d \t\t%d \t\t%d \t\t%d \t\t%d \t\t%d\n", j,  sendCells+recvCells, sendCells, 					recvCells, CompCells, MOA2->elements_ub);
+			
+				deleteMOA (MOA2);
+			
+     }
+			if (shape != NULL)
+				free (shape);
+     break;
+    case 11:
+      printf ("\nEnter The tensor Starting Dimensionality:");
+      fflush(stdout);
+      scanf("%ld", &fromdimn);
+      printf ("\nEnter The tensor Ending Dimensionality:");
+      scanf("%ld", &todimn);
+      printf ("\nEnter The tensor Starting Shape:");
+      scanf("%ld", &fromshape);		
+      printf ("\nEnter The tensor Starting Shape:");
+      scanf("%ld", &toshape);		
+      printf ("\nEnter The Starting Size of the Partition:");
+      scanf("%ld", &fromSize);
+      printf ("\nEnter The Ending Size of the Partition:");
+      scanf("%ld", &toSize);
+      printf ("Comm Border Cells for:\n");
+      printf ("Dimn\tShape\tPartition \t\tTot_Comm \t\tSend  \t\tRecv  \t\tCompute \t\tTotal\n");
+      for (k = fromdimn; k <  todimn; k++) {
+      	for (l = fromshape; l <  toshape; l++) {
+      		for (j = fromSize; j <  toSize; j++) {
+  			createMOAStruct (&MOA2);
+			//printf ("\na\n");
+			MOA2->dimn = k;
+			shape = NULL;
+      			shape = mmalloc (k * sizeof *shape);
+  			for (i = 0; i <  k; i++) {
+	  			shape[i] = l;
+			}
+			createMOA(shape /* shape*/, dimn /* dimension*/, MOA2 /* MOA structure*/, -1, 0);
+			//printf ("\n1\n");
+			checkCells (MOA2, &sendCells, &recvCells, &CompCells);
+			//printf ("\n2\n");
+			printf ("%d \t%d\t %d \t\t%d \t\t%d \t\t%d \t\t%d\n", k, l, j,  sendCells+recvCells, sendCells, recvCells, CompCells, MOA2->elements_ub);
+			//printf ("\n3\n");
+			deleteMOA (MOA2);
+			//printf ("\n4\n");
+			if (shape != NULL)
+				free (shape);
+			shape = NULL;
+ 		}
+	}
+     }
+    break;
+    case 12:
+      //nk = mk(p-2) + (mk-1) +2
+      // nk = mk(p-1) +1
+      //mk=(nk-1)/(p-1) mk is no pf partitions at each dimension k and p is the partitioning size, and nk is the length at dimn k
+      // equation for duplicates at dimension k
+      // D(k) = D(k-1) * nk + (Pi= 0 to k (mi-1)) * 2^(k-1)
+
+      printf ("\nEnter The tensor Dimensionality:");
+      scanf("%ld", &dimn);
+			shape = NULL;
+      shape = mmalloc (dimn * sizeof *shape);
+      for (i = 0; i < dimn; i++) {
+	    printf ("\nEnter shape at dimension %ld:", i);
+	    scanf("%ld", &shape[i]);
+      }
+
+  			createMOAStruct (&MOA2);
+      createMOA(shape /* shape*/, dimn /* dimension*/, MOA2 /* MOA structure*/, -1, 0);
+      printf ("\nEnter The Size of the Partition:");
+      scanf("%ld", &fromSize);
+      getPartitionsNum(MOA2->dimn, MOA2->shape, fromSize, &partsTotal, &duplicatesTotal);
+      printf ("Partitions Total is %d Duplicates Total is %d\n", partsTotal, duplicatesTotal);
+      deleteMOA (MOA2);
+			if (shape != NULL)
+				free (shape);
+     break;
+
+    case 13:
+	if (MOA1 != NULL) {
+		printf ("\nEnter The Size of the Partition:");
+		scanf("%ld", &partitionSize);
+		printf ("\nEnter The Size of the Cluster:");
+ 		scanf("%d", &ClusterSize);
+		printf ("\nEnter myProcid:");
+		scanf("%d", &myProcid);
+
+	/* Old Partitioning
+	partition (MOA2, fromSize, ClusterSize);
+      	*/
+	// New Partitioning (P2P)
+		wavesTotal = calcWaves (MOA1->dimn,MOA1->shape, partitionSize, &MypartsTotal, &wave, &PartOrder);
+		printf ("proc %d has %ld parts from Total %ld in %ld waves starts in wave %ld, part %ld Part Index %ld\n", myProcid, MypartsTotal, partsTotal, wavesTotal, wave, PartOrder, partsInWaveIndices[wave][PartOrder]);
+		l = 0;
+		for (i = 0;i<wavesTotal;i++) {			printf ("Wave %ld has %ld parts\nWave\tSerial\tPart Index\tPart Order\tM Index\t\t\tProc\n", i, partsInWave[i]);
+			for (j=0;j<partsInWave[i];j++) {
+				l++;
+	  			myProcid = getProcID (i, j);
+	  			Gamma_Inverse(partsInWaveIndices[i][j], MOA1->shape,  MOA1->dimn, &ind, 1);
+				printf ("%ld\t%ld\t%ld\t\t%ld\t\t<%d", i, l, partsInWaveIndices[i][j], j, ind[0]);
+		  		for (k=1;k<MOA1->dimn;k++)
+		  			printf (", %d", ind[k]);	
+				printf (">\t\t%d\n", myProcid);
+			}
+		}
+	}
+	else
+		printf ("Please Define an MOA Structure first.\n");
+      break;
+
+    case 14:
+      getSizes ();
+	/*
+    case 15:
+      for (i=2;i<21;i++) {
+	rslt = calcWaves (i);
+	printf ("parallelism clusters in one wave for dimn i %ld is: %ld", i, rslt[0]);
+	for (j=1;j<i;j++) {
+	  printf (", %ld ", rslt[j]);
+	}
+	printf ("\n");
+	free (rslt);
+      }
+      break;
+*/
+	case 16:
+		printf ("Enter the Dimension\n");
+		scanf("%ld", &dimn);
+		printf ("Enter the Wave No\n");
+		scanf("%ld", &wave);
+		printf ("There are %ld Parts in %ld dimesnion in wave Number %ld\n", getWavePartsTotal (wave, dimn), dimn, wave);
+	break;
+	case 17:
+		printf ("Parts Total Growth with Waves and Dimensions\nDimn\tWave\tParts\t\n");
+	      	for (i=2;i<10;i++) { /*Dimns*/
+			for (j=1;j<30;j++) { /*Waves*/
+				printf ("%ld\t%ld\t%ld\n", i, j,  getWavePartsTotal (j, i));
+			}
+		}
+	break;
+	case 18:
+		printf ("Enter the Dimension\n");
+		scanf("%ld", &dimn);
+		shape = mmalloc (dimn * sizeof *shape);
+		for (i = 0; i < dimn; i++) {
+			printf ("\nEnter shape at dimension %ld:", i);
+			scanf("%ld", &shape[i]);
+      		}
+		printf ("Enter the Partition Size\n");
+		scanf("%ld", &fromSize);
+		printf ("Enter the Cell Index\n");
+		scanf("%ld", &flatIndex);
+		printf ("Enter the Partition Index\n");
+		scanf("%ld", &partIndex);		
+		if (IsHighBorderCellinPart (dimn, shape, fromSize, flatIndex, partIndex) == 1) 
+			printf ("Cell %ld is a High Border Cell in Part Index %ld\n", flatIndex, partIndex);
+		else
+			printf ("Cell %ld is NOT a High Border Cell in Part Index %ld\n", flatIndex, partIndex);
+		
+		if (IsLowBorderCellinPart (dimn, shape, fromSize, flatIndex, partIndex) == 1) 
+			printf ("Cell %ld is a Low Border Cell in Part Index %ld\n", flatIndex, partIndex);
+		else
+			printf ("Cell %ld is NOT a Low Border Cell in Part Index %ld\n", flatIndex, partIndex);
+		if (shape != NULL)
+			free (shape);
+		shape = NULL;
+		
+	break;
+	case 19:
+		if (wavesTotal == 0) {
+			printf ("You have to Calculate Waves first\n");			
+		}
+		else {
+			printf ("Enter wave No\n");
+			scanf("%ld", &wave);
+			printf ("Enter part Order\n");
+			scanf("%ld", &PartOrder);
+	  		myProcid = getProcID (wave, PartOrder);
+			printf ("part %ld in Wave %ld with Part Index %ld is processed by %d proc\n", PartOrder, wave, partsInWaveIndices[wave][PartOrder], myProcid);
+		}	
+	break;
+	case 20:
+		if (wavesTotal == 0) {
+			printf ("You have to Calculate Waves first\n");			
+		}
+		else {
+			printf ("Enter Proc ID\n");
+			scanf("%ld", &myProcid);
+			printf ("Enter Current wave No\n");
+			scanf("%ld", &wave);
+			printf ("Enter Current part Order\n");
+			scanf("%ld", &PartOrder);
+			printf ("Enter RestoreFlag\n");
+			scanf("%d", &RestoreFlag);
+			getNextPartition (&wave, &PartOrder);
+			printf ("Proc %d Next part is %ld in Wave %ld Part Index %ld\n", myProcid, PartOrder, wave, partsInWaveIndices[wave][PartOrder]);
+		}
+	break;
+    case 21:
+	if (wavesTotal == 0) 
+		printf ("You have to Calculate Waves first\n");			
+	else {		printf ("\nEnter The CellIndex:");
+		scanf("%ld", &flatIndex);
+		for (i=0;i<MOA1->dimn;i++)
+			posDimn[i] = 1;
+		partIndex = getPartitionIndex(0, posDimn, flatIndex, ind, MOA1->dimn, MOA1->shape, partitionSize, &ind2);
+		printf ("The partIndex = %ld\n", partIndex);
+     	}
+	
+     break;
+   }
+  } while (choice != 0);
+	if (posDimn != NULL)
+		free(posDimn);
+	if (ind != NULL)
+	  free(ind);
+	if (ind2 != NULL)
+  	free(ind2);
+	if (shape != NULL)
+		free (shape);
+  deleteMOA (MOA1);  
+}
+@
+
+
+1.1
+log
+@Initial revision
+@
+text
+@d323 2
+a324 1
+  long * ind2 = NULL;
+d335 1
+d350 12
+a361 9
+			if (ind != NULL)
+      	free(ind);
+	  	ind = NULL;
+			if (ind2 != NULL)
+      	free(ind2);
+	  	ind2 = NULL;
+			if (shape != NULL)
+      	free(shape);
+	  	shape = NULL;
+d367 1
+d374 1
+a374 1
+      createMOA(shape /* shape*/, MOA1->dimn /* dimension*/, MOA1 /* MOA structure*/, -1, 0);
+d382 4
+a385 2
+			if (MOA1 != NULL)
+      	printMOA1(MOA1);
+d423 2
+a424 2
+      	TakeInd (ind, MOA1->dimn, MOA1->dimn, MOA1->shape, &MOA2, 0, NULL, NULL, NULL, NULL);
+      	printMOA1(MOA2);
+d440 1
+a440 2
+      	printMOA1(MOA2);
+      	deleteMOA (MOA2);  
+d454 2
+a455 1
+      	printMOA1(MOA2);
+d477 1
+a477 1
+      	printMOA1(MOA2);
+d726 4
+a729 2
+		scanf("%ld", &flatIndex);
+		partIndex = getPartitionIndex(flatIndex, ind, MOA1->dimn, MOA1->shape, partitionSize, &ind2);
+d735 3
+a737 1
+  } while (choice != 0);
+@
+
+
+1.1.1.1
+log
+@Distributed Optimal MSA using MoA
+@
+text
+@@

@@ -1,0 +1,225 @@
+head	1.2;
+access;
+symbols
+	r1:1.1.1.1 mhelal:1.1.1;
+locks; strict;
+comment	@# @;
+
+
+1.2
+date	2008.05.11.13.55.54;	author mhelal;	state Exp;
+branches;
+next	1.1;
+
+1.1
+date	2008.05.06.02.40.53;	author mhelal;	state Exp;
+branches
+	1.1.1.1;
+next	;
+
+1.1.1.1
+date	2008.05.06.02.40.53;	author mhelal;	state Exp;
+branches;
+next	;
+
+
+desc
+@@
+
+
+1.2
+log
+@search space error
+@
+text
+@mpirun -gdb -np 3 tbDst/mtb
+break stb.c:166
+run -c 3 ../tseq/seq3 ../tseq/seq4 ../tseq/seq5 -d 1 -g -o mt
+display i
+display sequences[0]
+display sequences[1]
+display sequences[2]
+display old_index[0]
+display old_index[1]
+display old_index[2]
+display new_index[0]
+display new_index[1]
+display new_index[2]
+display sequences[0][old_index[0]]
+display sequences[1][old_index[1]]
+display sequences[2][old_index[2]]
+display globalIndex
+display sequences[i][old_index[i]]
+display aSeqLen
+display (*algnseq)[0]
+display (*algnseq)[1]
+display (*algnseq)[2]
+
+display lm_index[0]
+display lm_index[1]
+display lm_index[2]
+display (*LNCount)
+display (*lnIndices)[0]
+display (*lnIndices)[1]
+display (*lnIndices)[2]
+display (*lnIndices)[3]
+display (*lnIndices)[4]
+display (*lnIndices)[5]
+display (*lnIndices)[6]
+
+
+
+
+Files containing debug statements:
+====================
+	main.c
+	moa.c
+	partitioning.c
+	scoring.c
+	utils.c
+	varparts.c
+	
+Files do not contain debug statements:
+=======================
+	perm.c
+	scores.c
+	
+Application Files:
+==================
+header files:
+	globals.h
+	main.h
+	moa.h
+	moaDst.h
+	scores.h
+	utils.h
+c files:
+	main.c
+	moa.c
+	partitioning.c
+	perm.c
+	scores.c
+	scoring.c
+	utils.c
+	
+function calling
+================
+
+MainProcess[main.c]
+===================
+	|initProcessMemory[partitioning.c]
+	|calcWaves[partitioning.c]
+	 ========================
+		|getPartitionsNum[partitioning.c]
+		|Tau[moa.c]
+		|getWavePartsTotal[partitioning.c]
+		|getPIndicesinWave[partitioning.c]
+	|ScoreCompThread[main.c]
+	 =======================
+	 	|getPartition[partitioning.c]
+	 	 ===========================
+	 	 	|Gamma_Inverse[moa.c]
+	 	 	|createMOAStruct[moa.c]
+	 	 	|Tau[moa.c]
+	 	 	|Gamma[moa.c]
+	 	|ComputePartitionScores[scoring.c]
+	 	 	|Gamma_Inverse[moa.c]
+	 	 	|Gamma[moa.c]
+	 	 	|getScore[scoring.c]
+		 	 ===========================
+		 	 	|Gamma_Inverse[moa.c]
+		 	 	|isLowerBorderCell[moa.c]
+		 	 	|initLBCell[scoring.c]
+		 	 	|checkPrevPartitions[main.c]
+		 	 	|checkRecvOC[main.c]
+		 	 	|receiveOC[main.c]
+		 	 	|getNeighborScores[scoring.c]
+		 	 	 ===================
+		 	 	 	|subScore[scoring.c]
+			 	 	|createMOAStruct[moa.c]
+			 	 	|MOAGetLowerNeighbors[moa.c]
+			 	 		|createMOAStruct[moa.c]
+			 	 		|Take[moa.c]
+		 	 	 	 	|Gamma[moa.c]
+		 	 	 	 	|VecIsEqual[moa.c]
+		 	 	 	 	|NextIndex[moa.c]
+			 	 	|Gamma_Inverse[moa.c]
+		 	 	 	|getNeghbScore[scoring.c]
+		 	 	 	 ========================
+		 	 	 	 	|gapScore[scoring.c]
+		 	 	 	 	|getRelation[scoring.c]
+		 	 	|getPrevCells[scoring.c]
+		 	 	|isHigherBorderCell[moa.c]
+		 	 	|addOC[main.c]
+		 	 	 ============
+		 	 	 	|getDepProcs[main.c]
+		 	 	 	 ==================
+				 	 	|Gamma_Inverse[moa.c]
+		 	 	 	 	|MOAGetHigherNeighbors[]
+		 	 	 	 	|Gamma[moa.c]
+		 	 	 	 	|IsCellInPart[partitioning.c]
+		 	 	 	 		|Gamma_Inverse[moa.c]
+	 	|sendOC[main.c]
+	 	|getNextPartition[partitioning.c]
+0	1	2	3	4	5	6	7   => debuging levels
+
+debugging functions ================
+PrintSequencies
+printMOA
+
+run commands =========================================
+1. open 2 tabs of terminal
+2. run "mpd" in one terminal
+3. in the other, compile and execute using:
+== compile ====================================
+cd cApplications/mpi
+make -f makefile
+make -f makedebug
+make -f makerelease
+
+debug only functions
+	checkMPIErrorCode
+	
+#ifndef NDEBUG
+#endif
+=== run ===================================
+mpirun -gdb -np 3 ./mmDst
+run  -c 3 tseq/seq5 tseq/seq4 tseq/seq3 -d 1 -g -o mt
+run  -c 3 ../tseq/seq5 ../tseq/seq4 ../tseq/seq3 -d 1 -g -o mt -e 1
+run  -c 3 ../tseq/seq8 ../tseq/seq7 ../tseq/seq6 -d 1 -g -o mt
+
+run -c 3 ../tseq/seq6 ../tseq/seq5 ../tseq/seq4 -d 4 -g -o mt
+
+mpirun -np 3 ./mmDst -c 3 tseq/seq5 tseq/seq4 tseq/seq3 -d 0 -g -o mt
+mpirun -np 3 ./mmDst -c 3 tseq/seq5 tseq/seq4 tseq/seq3 -d 1 -g -o mt
+mpirun -np 3 ./mmDst -c 3 tseq/seq5 tseq/seq4 tseq/seq3 -d 2 -g -o mt
+mpirun -np 3 ./mmDst -c 3 tseq/seq5 tseq/seq4 tseq/seq3 -d 15 -g -o mt
+
+mpirun -np 3 ./mmDst -c 4 tseq/seq5 tseq/seq4 tseq/seq3 tseq/seq2 -d 0 -g -o mt
+mpirun -np 3 ./mmDst -c 5 tseq/seq8 tseq/seq5 tseq/seq4 tseq/seq3 tseq/seq2 -d 0 -g -o mt
+
+mpirun -np 4 ./mmDst -c 3 tseq/seq4 tseq/seq3 tseq/seq2 -d 1 -p 3 -g -o t3 > runout3
+
+=== clean =====================================
+rm out/cmtp0t1 out/cmtp0t2 out/cmtp0t3 out/cmtp1t1 out/cmtp1t2 out/cmtp1t3 out/cmtp2t1 out/cmtp2t2 out/cmtp2t3
+rm out/cmtp3t1 out/cmtp3t2 out/cmtp3t3
+=============================================================
+
+@
+
+
+1.1
+log
+@Initial revision
+@
+text
+@d1 38
+@
+
+
+1.1.1.1
+log
+@Distributed Optimal MSA using MoA
+@
+text
+@@

@@ -1,0 +1,61 @@
+head     1.1;
+branch   1.1.1;
+access   ;
+symbols  r1:1.1.1.1 mhelal:1.1.1;
+locks    ; strict;
+comment  @# @;
+
+
+1.1
+date     2008.05.06.02.40.53;  author mhelal;  state Exp;
+branches 1.1.1.1;
+next     ;
+
+1.1.1.1
+date     2008.05.06.02.40.53;  author mhelal;  state Exp;
+branches ;
+next     ;
+
+
+desc
+@@
+
+
+
+1.1
+log
+@Initial revision
+@
+text
+@mmDst : main.o utils.o partitioning.o moa.o perm.o scoring.o  scores.o
+	mpicc -g -Wall -lmpe -lm -lpthread -o mmDst main.c utils.c partitioning.c moa.c perm.c scoring.c scores.c
+
+main.o :  main.c main.h utils.h globals.h
+	mpicc -c -g main.c
+
+utils.o : utils.c utils.h moa.h globals.h 
+	mpicc -c -g utils.c
+
+partitioning.o :  partitioning.c main.h utils.h globals.h moaDst.h
+	mpicc -c -g partitioning.c
+
+moa.o :  moa.c moa.h utils.h globals.h
+	cc -c -g moa.c
+
+perm.o : perm.c 
+	 cc -c -g perm.c
+
+scoring.o  : scoring.c scores.h scoring.h
+	 mpicc -c -g scoring.c
+
+scores.o : scores.c 
+	 cc -c -g scores.c
+@
+
+
+1.1.1.1
+log
+@Distributed Optimal MSA using MoA
+@
+text
+@@

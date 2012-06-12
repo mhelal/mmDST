@@ -1,0 +1,446 @@
+head     1.1;
+branch   1.1.1;
+access   ;
+symbols  r1:1.1.1.1 mhelal:1.1.1;
+locks    ; strict;
+comment  @# @;
+
+
+1.1
+date     2008.05.06.04.04.02;  author mhelal;  state Exp;
+branches 1.1.1.1;
+next     ;
+
+1.1.1.1
+date     2008.05.06.04.04.02;  author mhelal;  state Exp;
+branches ;
+next     ;
+
+
+desc
+@@
+
+
+
+1.1
+log
+@Initial revision
+@
+text
+@{\rtf1\ansi\deff0\adeflang1025
+{\fonttbl{\f0\froman\fprq2\fcharset0 Nimbus Roman No9 L;}{\f1\froman\fprq2\fcharset0 Nimbus Roman No9 L;}{\f2\fswiss\fprq2\fcharset0 Luxi Sans;}{\f3\froman\fprq2\fcharset0 Times New Roman;}{\f4\fswiss\fprq2\fcharset0 Britannic Bold;}{\f5\froman\fprq2\fcharset2 Symbol;}{\f6\fmodern\fprq0\fcharset0 Courier New;}{\f7\fnil\fprq2\fcharset2 Wingdings{\*\falt Times};}{\f8\froman\fprq2\fcharset0 Times{\*\falt Times New Roman};}{\f9\fnil\fprq2\fcharset0 Luxi Sans;}{\f10\fnil\fprq2\fcharset0 Luxi Sans;}{\f11\fswiss\fprq2\fcharset128 Luxi Sans;}{\f12\froman\fprq0\fcharset128 Times New Roman;}{\f13\fnil\fprq0\fcharset128 Times New Roman;}{\f14\fnil\fprq2\fcharset2 Standard Symbols L;}}
+{\colortbl;\red0\green0\blue0;\red255\green255\blue255;\red128\green128\blue128;}
+{\stylesheet{\s1\ql\rtlch\af3\afs20\lang1025\ltrch\dbch\af3\langfe255\hich\f3\fs24\lang1033\loch\f3\fs24\lang1033\snext1 Normal;}
+{\s2\sb240\sa120\keepn\ql\rtlch\af10\afs28\lang1025\ltrch\dbch\af10\langfe255\hich\f2\fs28\lang1033\loch\f2\fs28\lang1033\sbasedon1\snext3 Heading;}
+{\s3\sa120\ql\rtlch\af3\afs20\lang1025\ltrch\dbch\af3\langfe255\hich\f3\fs24\lang1033\loch\f3\fs24\lang1033\sbasedon1\snext3 Body Text;}
+{\s4\sa120\ql\rtlch\af3\afs20\lang1025\ltrch\dbch\af3\langfe255\hich\f3\fs24\lang1033\loch\f3\fs24\lang1033\sbasedon3\snext4 List;}
+{\s5\sb120\sa120\ql\rtlch\af3\afs24\lang1025\ai\ltrch\dbch\af3\langfe255\hich\f3\fs24\lang1033\i\loch\f3\fs24\lang1033\i\sbasedon1\snext5 caption;}
+{\s6\ql\rtlch\af3\afs20\lang1025\ltrch\dbch\af3\langfe255\hich\f3\fs24\lang1033\loch\f3\fs24\lang1033\sbasedon1\snext6 Index;}
+{\s7\sb60\keepn\ql\rtlch\af3\afs20\lang1025\ltrch\dbch\af3\langfe255\hich\f4\fs24\lang1033\loch\f4\fs24\lang1033\sbasedon1\snext1{\*\soutlvl0} heading 1;}
+{\s8\li360\ri0\lin360\rin0\fi0\sb40\keepn\tx1440\ql\rtlch\af3\afs20\lang1025\ltrch\dbch\af3\langfe255\hich\f3\fs22\lang1033\loch\f3\fs22\lang1033\sbasedon1\snext1{\*\soutlvl1} heading 2;}
+{\s9\tldot\tqr\tx3960\ql\rtlch\af3\afs20\lang1025\ltrch\dbch\af3\langfe255\hich\f3\fs24\lang1033\loch\f3\fs24\lang1033\sbasedon1\snext9 ai1;}
+{\s10\tldot\tqr\tx3960\ql\rtlch\af3\afs20\lang1025\ltrch\dbch\af3\langfe255\hich\f3\fs24\lang1033\loch\f3\fs24\lang1033\sbasedon1\snext10 ai2;}
+{\s11\li0\ri0\lin0\rin0\fi245\qj\rtlch\af3\afs20\lang1025\ltrch\dbch\af3\langfe255\hich\f3\fs20\lang1033\loch\f3\fs20\lang1033\sbasedon1\snext11 Body Text Indent;}
+{\s12\li0\ri0\lin0\rin0\fi245\qj\rtlch\af3\afs20\lang1025\ltrch\dbch\af3\langfe255\hich\f3\fs20\lang1033\i\loch\f3\fs20\lang1033\i\sbasedon1\snext12 Body Text Indent 2;}
+{\s13\li360\ri0\lin360\rin0\fi0\sb60\ql\rtlch\af3\afs20\lang1025\ltrch\dbch\af3\langfe255\hich\f3\fs21\lang1033\loch\f3\fs21\lang1033\sbasedon1\snext13 Article Title;}
+{\s14\li0\ri0\lin0\rin0\fi720\tldot\tqr\tx9360\ql\rtlch\af3\afs20\lang1025\ltrch\dbch\af3\langfe255\hich\f3\fs21\lang1033\i\loch\f3\fs21\lang1033\i\sbasedon1\snext14 Author;}
+{\s15\tqc\tx4320\tqr\tx8640\ql\rtlch\af3\afs20\lang1025\ltrch\dbch\af3\langfe255\hich\f3\fs24\lang1033\loch\f3\fs24\lang1033\sbasedon1\snext15 header;}
+{\s16\qc\rtlch\af3\afs20\lang1025\ltrch\dbch\af3\langfe255\hich\f8\fs24\lang1033\loch\f8\fs24\lang1033\sbasedon1\snext16 Page number;}
+{\s17\qc\rtlch\af3\afs20\lang1025\ltrch\dbch\af3\langfe255\hich\f4\fs36\lang1033\b\loch\f4\fs36\lang1033\b\sbasedon1\snext18 Title;}
+{\s18\sb240\sa120\keepn\qc\rtlch\af10\afs28\lang1025\ai\ltrch\dbch\af10\langfe255\hich\f2\fs28\lang1033\i\loch\f2\fs28\lang1033\i\sbasedon2\snext3 Subtitle;}
+{\s19\sb100\sa100\ql\rtlch\af3\afs20\lang1025\ltrch\dbch\af3\langfe255\hich\f3\fs24\lang1033\loch\f3\fs24\lang1033\sbasedon1\snext19 Normal (Web);}
+{\s20\ql\rtlch\af3\afs20\lang1025\ltrch\dbch\af3\langfe255\hich\f3\fs24\lang1033\loch\f3\fs24\lang1033\sbasedon1\snext20 Table Contents;}
+{\s21\qc\rtlch\af3\afs20\lang1025\ai\ab\ltrch\dbch\af3\langfe255\hich\f3\fs24\lang1033\i\b\loch\f3\fs24\lang1033\i\b\sbasedon20\snext21 Table Heading;}
+{\s22\li283\ri0\lin283\rin0\fi-283\ql\rtlch\af3\afs20\lang1025\ltrch\dbch\af3\langfe255\hich\f3\fs20\lang1033\loch\f3\fs20\lang1033\sbasedon1\snext22 footnote text;}
+{\s23\sb120\sa120\ql\rtlch\af3\afs24\lang1025\ai\ltrch\dbch\af3\langfe255\hich\f3\fs24\lang1033\i\loch\f3\fs24\lang1033\i\sbasedon5\snext23 Figure;}
+{\*\cs25\cf0\rtlch\af9\afs24\lang255\ltrch\dbch\af9\langfe255\hich\f0\fs24\lang1033\loch\f0\fs24\lang1033 Absatz-Standardschriftart;}
+{\*\cs26\cf0\rtlch\af9\afs24\lang255\ltrch\dbch\af9\langfe255\hich\f0\fs24\lang1033\loch\f0\fs24\lang1033 WW-Absatz-Standardschriftart;}
+{\*\cs27\cf0\rtlch\af9\afs24\lang255\ltrch\dbch\af9\langfe255\hich\f0\fs24\lang1033\loch\f0\fs24\lang1033 WW-Absatz-Standardschriftart1;}
+{\*\cs28\cf0\rtlch\af5\afs24\lang255\ltrch\dbch\af9\langfe255\hich\f5\fs24\lang1033\loch\f5\fs24\lang1033 WW8Num1z0;}
+{\*\cs29\cf0\rtlch\af6\afs24\lang255\ltrch\dbch\af9\langfe255\hich\f6\fs24\lang1033\loch\f6\fs24\lang1033 WW8Num1z1;}
+{\*\cs30\cf0\rtlch\af7\afs24\lang255\ltrch\dbch\af9\langfe255\hich\f7\fs24\lang1033\loch\f7\fs24\lang1033 WW8Num1z2;}
+{\*\cs31\cf0\rtlch\af9\afs24\lang255\ltrch\dbch\af9\langfe255\hich\f0\fs24\lang1033\loch\f0\fs24\lang1033 WW-Absatz-Standardschriftart11;}
+{\*\cs32\cf0\rtlch\af9\afs24\lang255\ltrch\dbch\af9\langfe255\hich\f0\fs24\lang1033\loch\f0\fs24\lang1033 Default Paragraph Font;}
+{\*\cs33\cf0\rtlch\af5\afs24\lang255\ltrch\dbch\af5\langfe255\hich\f5\fs24\lang1033\loch\f5\fs24\lang1033 RTF_Num 2 1;}
+{\*\cs34\cf0\rtlch\af6\afs24\lang255\ltrch\dbch\af6\langfe255\hich\f6\fs24\lang1033\loch\f6\fs24\lang1033 RTF_Num 2 2;}
+{\*\cs35\cf0\rtlch\af7\afs24\lang255\ltrch\dbch\af7\langfe255\hich\f7\fs24\lang1033\loch\f7\fs24\lang1033 RTF_Num 2 3;}
+{\*\cs36\cf0\rtlch\af5\afs24\lang255\ltrch\dbch\af5\langfe255\hich\f5\fs24\lang1033\loch\f5\fs24\lang1033 RTF_Num 2 4;}
+{\*\cs37\cf0\rtlch\af6\afs24\lang255\ltrch\dbch\af6\langfe255\hich\f6\fs24\lang1033\loch\f6\fs24\lang1033 RTF_Num 2 5;}
+{\*\cs38\cf0\rtlch\af7\afs24\lang255\ltrch\dbch\af7\langfe255\hich\f7\fs24\lang1033\loch\f7\fs24\lang1033 RTF_Num 2 6;}
+{\*\cs39\cf0\rtlch\af5\afs24\lang255\ltrch\dbch\af5\langfe255\hich\f5\fs24\lang1033\loch\f5\fs24\lang1033 RTF_Num 2 7;}
+{\*\cs40\cf0\rtlch\af6\afs24\lang255\ltrch\dbch\af6\langfe255\hich\f6\fs24\lang1033\loch\f6\fs24\lang1033 RTF_Num 2 8;}
+{\*\cs41\cf0\rtlch\af7\afs24\lang255\ltrch\dbch\af7\langfe255\hich\f7\fs24\lang1033\loch\f7\fs24\lang1033 RTF_Num 2 9;}
+{\*\cs42\cf0\rtlch\af5\afs24\lang255\ltrch\dbch\af5\langfe1023\hich\f5\fs24\lang1023\loch\f5\fs24\lang1023 RTF_Num 31 1;}
+{\*\cs43\cf0\rtlch\af6\afs24\lang255\ltrch\dbch\af6\langfe1023\hich\f6\fs24\lang1023\loch\f6\fs24\lang1023 RTF_Num 31 2;}
+{\*\cs44\cf0\rtlch\af7\afs24\lang255\ltrch\dbch\af7\langfe1023\hich\f7\fs24\lang1023\loch\f7\fs24\lang1023 RTF_Num 31 3;}
+{\*\cs45\cf0\rtlch\af5\afs24\lang255\ltrch\dbch\af5\langfe1023\hich\f5\fs24\lang1023\loch\f5\fs24\lang1023 RTF_Num 31 4;}
+{\*\cs46\cf0\rtlch\af6\afs24\lang255\ltrch\dbch\af6\langfe1023\hich\f6\fs24\lang1023\loch\f6\fs24\lang1023 RTF_Num 31 5;}
+{\*\cs47\cf0\rtlch\af7\afs24\lang255\ltrch\dbch\af7\langfe1023\hich\f7\fs24\lang1023\loch\f7\fs24\lang1023 RTF_Num 31 6;}
+{\*\cs48\cf0\rtlch\af5\afs24\lang255\ltrch\dbch\af5\langfe1023\hich\f5\fs24\lang1023\loch\f5\fs24\lang1023 RTF_Num 31 7;}
+{\*\cs49\cf0\rtlch\af6\afs24\lang255\ltrch\dbch\af6\langfe1023\hich\f6\fs24\lang1023\loch\f6\fs24\lang1023 RTF_Num 31 8;}
+{\*\cs50\cf0\rtlch\af7\afs24\lang255\ltrch\dbch\af7\langfe1023\hich\f7\fs24\lang1023\loch\f7\fs24\lang1023 RTF_Num 31 9;}
+{\*\cs51\cf0\rtlch\af9\afs24\lang255\ltrch\dbch\af9\langfe255\hich\f0\fs24\lang1033\loch\f0\fs24\lang1033 Numbering Symbols;}
+{\*\cs52\cf0\rtlch\af9\afs24\lang255\ltrch\dbch\af9\langfe255\hich\f0\fs24\lang1033\loch\f0\fs24\lang1033 Footnote Symbol;}
+{\*\cs53\cf0{\*\updnprop5801}\up10\rtlch\af9\afs24\lang255\ltrch\dbch\af9\langfe255\hich\f0\fs24\lang1033\loch\f0\fs24\lang1033 Footnote anchor;}
+{\*\cs54\cf0{\*\updnprop5801}\up10\rtlch\af9\afs24\lang255\ltrch\dbch\af9\langfe255\hich\f0\fs24\lang1033\loch\f0\fs24\lang1033 Endnote anchor;}
+{\*\cs55\cf0\rtlch\af9\afs24\lang255\ltrch\dbch\af9\langfe255\hich\f0\fs24\lang1033\loch\f0\fs24\lang1033 Endnote Symbol;}
+}
+{\info{\title Author Guidelines for 8}{\author Thomas Baldwin}{\creatim\yr2001\mo6\dy16\hr10\min35}{\revtim\yr2007\mo1\dy31\hr10\min54}{\printim\yr1999\mo11\dy16\hr10\min24}{\comment StarWriter}{\vern6800}}\deftab720\lytprtmet
+{\*\pgdsctbl
+{\pgdsc0\pgdscuse195\pgwsxn12240\pghsxn15840\marglsxn1210\margrsxn1210\margtsxn1440\margbsxn1440{\cbpat2}\pgdscnxt0 Standard;}}
+{\*\pgdscno0}\paperh15840\paperw12240\margl1210\margr1210\margt1440\margb1440\sectd\sbknone\pgwsxn12240\pghsxn15840\marglsxn1210\margrsxn1210\margtsxn1440\margbsxn1440{\cbpat2}\ftnbj\ftnstart1\ftnrstcont\ftnnar\aenddoc\aftnrstcont\aftnstart1\aftnnrlc
+\pard\plain \ltrpar\s1\qc\rtlch\af3\afs20\lang1025\ltrch\dbch\af3\langfe255\hich\f3\fs28\lang1033\b\loch\f3\fs28\lang1033\b {\rtlch \ltrch\loch\f3\fs28\lang1033\i0\b Optimal Distributed Multiple Sequence Alignment Using Conformal Computing Methods}
+\par \pard\plain \ltrpar\s16\qc\rtlch\af3\afs20\lang1025\ltrch\dbch\af3\langfe255\hich\f3\fs24\lang1033\loch\f3\fs24\lang1033 {\rtlch \ltrch\loch\f3\fs24\lang1033\i0\b0 1. Manal Helal, 2. Dr. Lenore R. Mullin, 1. Dr. Hossam El-Gindy, 1. Dr. Bruno Gaeta}
+\par \pard\plain \ltrpar\s1\qc\rtlch\af3\afs20\lang1025\ltrch\dbch\af3\langfe255\hich\f3\fs24\lang1033\i\loch\f3\fs24\lang1033\i {\rtlch \ltrch\loch\f3\fs24\lang1033\i\b0 1. Computer Science & Engineering Department, University of New South Wales, 2. Computer Science Department, University At Albany, New York }
+\par \pard\plain \ltrpar\s1\qc\rtlch\af3\afs20\lang1025\ltrch\dbch\af3\langfe255\hich\f3\fs20\lang1033\loch\f3\fs20\lang1033 
+\par \sect\sbknone\cols1\cols2\colsx460\ltrsect
+\pard\plain \ltrpar\s1\qc\rtlch\af3\afs20\lang1025\ltrch\dbch\af3\langfe255\hich\f13\fs24\lang1033\b\loch\f13\fs24\lang1033\b {\rtlch \ltrch\loch\f13\fs24\lang1033\i0\b Abstract}
+\par \pard\plain \ltrpar\s1\qj\rtlch\af3\afs20\lang1025\ltrch\dbch\af3\langfe255\hich\f13\fs20\lang1033\i\loch\f13\fs20\lang1033\i 
+\par \pard\plain \ltrpar\s12\qj\li0\ri0\lin0\rin0\fi245\rtlch\af3\afs20\lang1025\ltrch\dbch\af3\langfe255\hich\f13\fs20\lang1033\i\loch\f13\fs20\lang1033\i {\rtlch \ltrch\loch\f13\fs20\lang1033\i\b0 The aim of this research is to investigate the potential of the Mathematics of Arrays (MoA) partitioning scheme in high dimensional scientific computational problems, such as Multiple Sequence Alignment (MSA) in Computational Biology. This work aims to del
+iver a unified partitioning scheme that works invariant of the dataset shape (dimension and lengths), and is portable among different high performance machines, cluster architectures, and potentially Grids.}
+\par \pard\plain \ltrpar\s12\qj\li0\ri0\lin0\rin0\fi245\rtlch\af3\afs20\lang1025\ltrch\dbch\af3\langfe255\hich\f3\fs20\lang1033\i\loch\f3\fs20\lang1033\i 
+\par \pard\plain \ltrpar\s12\qj\li0\ri0\lin0\rin0\fi245\rtlch\af3\afs20\lang1025\ltrch\dbch\af3\langfe255\hich\f3\fs20\lang1033\i\loch\f3\fs20\lang1033\i {\rtlch \ltrch\loch\f13\fs20\lang1033\i\b0 Multiple sequence alignment (MSA) is a very common bioinformatics technique used in biological and medical research, to study the function, structure and evolution of genes and proteins. The algorithm for the optimal solution to the MSA problem is well-und
+erstood, but cannot be implemented even on high-performance computers since it cannot be easily distributed across multiple processors. We are redesigning the optimal MSA method to facilitate its deployment on supercomputers.  This will allow high-performa
+nce and distributed computing platforms, which are becoming more prevalent in biological research, to be harnessed for the calculation of reference alignments for genes and protein sequences, and also for the identification of sequence regions in common in
+ a group of sequences (multiple local sequence alignment). }
+\par \pard\plain \ltrpar\s1\qj\rtlch\af3\afs20\lang1025\ltrch\dbch\af3\langfe255\hich\f13\fs20\lang1033\loch\f13\fs20\lang1033 
+\par \pard\plain \ltrpar\s1\ql\rtlch\af3\afs20\lang1025\ltrch\dbch\af3\langfe255\hich\f13\fs24\lang1033\b\loch\f13\fs24\lang1033\b {\rtlch \ltrch\loch\f13\fs24\lang1033\i0\b 1. Dynamic Programming MSA}
+\par \pard\plain \ltrpar\s1\ql\rtlch\af3\afs20\lang1025\ltrch\dbch\af3\langfe255\hich\f13\fs20\lang1033\loch\f13\fs20\lang1033 
+\par \pard\plain \ltrpar\s1\qj\li0\ri0\lin0\rin0\fi245\rtlch\af3\afs20\lang1025\ltrch\dbch\af3\langfe255\hich\f13\fs20\lang1033\loch\f13\fs20\lang1033 {\rtlch \ltrch\loch\f13\fs20\lang1033\i0\b0 MSA is solved optimally using the dynamic programming method. It is proven mathematically to produce the optimal global alignment using the Needlman and Wunch algorithm, and for local alignment using the Smith and Waterman algorithm. The idea, as described
+ in [Gusfield 1997], is to start from the ends of both sequences and attempt to match all possible pairs of characters by following a scoring scheme for matches, mismatches and gaps, generating a matrix of numbers that represent all possible alignments. Th
+e optimal alignment can be found by tracing back, starting from the highest score on the bottom edges, and following the highest scores on the matrix. In the global alignment the recurrence used to fill in the scoring matrix is:}
+\par \pard\plain \ltrpar\s1\ql\rtlch\af3\afs20\lang1025\ltrch\dbch\af3\langfe255\hich\f3\fs24\lang1033\loch\f3\fs24\lang1033{\pict\picscalex4\picscaley4\piccropl0\piccropr0\piccropt0\piccropb0\picw134620\pich49107\picwgoal76320\pichgoal27840\wmetafile8
+0100090000039b02000002001c00000000000500000009020000000005000000020101000000050000000102ffffff00050000002e0118000000050000000b02
+00000000050000000c024007e0131200000026060f001a00ffffffff000010000000c0ffffffb7ffffffa0130000f70600000b00000026060f000c004d617468
+547970650000a0011c000000fb0280fe0000000000009001000000020402001053796d626f6c00002c160a07a0f11200d89ff377e19ff3772020f577331666a4
+040000002d01000008000000320ab205bf0601000000ef7908000000320ad906bf0601000000ee7908000000320a1b03bf0601000000ef7908000000320a4204
+bf0601000000ed7908000000320aab01bf0601000000ec7908000000320a4006290e010000002b7908000000320a0004290e010000002b7908000000320ac001
+b30b010000002b7908000000320a00043502010000003d791c000000fb0220ff0000000000009001000000020402001053796d626f6c00002d160a76a0f11200
+d89ff377e19ff3772020f577331666a4040000002d01010004000000f001000008000000320aa006c80c010000002d7908000000320a6004080c010000002d79
+08000000320a2002520a010000002d7908000000320a2002b508010000002d791c000000fb0280fe0000000000009001010000000402001054696d6573204e65
+7720526f6d616e00d89ff377e19ff3772020f577331666a4040000002d01000004000000f001010008000000320a40066d0f01000000677908000000320a4006
+d80a01000000537908000000320a00046d0f01000000677908000000320a0004d80a01000000537908000000320ac001a61101000000627908000000320ac001
+900f01000000617909000000320ac001eb0c030000007375626508000000320ac001850701000000537509000000320a00046603030000004d41586508000000
+320a000440000100000053411c000000fb0220ff0000000000009001010000000402001054696d6573204e657720526f6d616e00d89ff377e19ff3772020f577
+331666a4040000002d01010004000000f001000008000000320aa006720c010000006a4108000000320aa006b50b01000000694108000000320a60044f0d0100
+00006a4108000000320a6004b50b01000000694108000000320a20029312010000006a4108000000320a2002601001000000694108000000320a2002fc090100
+00006a4108000000320a2002620801000000694108000000320a60041d0102000000696a1c000000fb0220ff0000000000009001000000000402001054696d65
+73204e657720526f6d616e00d89ff377e19ff3772020f577331666a4040000002d01000004000000f001010008000000320aa0063a0d01000000316a08000000
+320aa006040c010000002c6a08000000320a6004e10c010000002c6a08000000320a60047a0c01000000316a08000000320a2002c40a01000000316a08000000
+320a20028e09010000002c6a08000000320a2002270901000000316a1c000000fb0280fe0000000000009001000000000402001054696d6573204e657720526f
+6d616e00d89ff377e19ff3772020f577331666a4040000002d01010004000000f001000008000000320ac001191301000000296a08000000320ac00118110100
+00002c6a08000000320ac001060f01000000286a0a00000026060f000a00ffffffff0100000000001c000000fb021000070000000000bc020000000001020222
+53797374656d00a4331666a400000a0021008a010000000000000000bcf31200040000002d01000004000000f0010100030000000000}
+{\rtlch \ltrch\loch }
+\par \pard\plain \ltrpar\s1\qj\li0\ri0\lin0\rin0\fi245{\rtlch \ltrch\loch\f13\fs20\lang1033\i0\b0\lang1033\fs20\cf0 where S is the scores matrix, a and b are the pairs being compared corresponding to the i{{\*\updnprop5801}\up8 th} and j{{\*\updnprop5801}\up8 th} position. in the matrix, and sub is the scoring function that reads the value from the scoring matrix used, and g is the gab penalty value.  }
+\par \pard\plain \ltrpar\s1\qj\li0\ri0\lin0\rin0\fi245\rtlch\af3\afs20\lang1025\ltrch\dbch\af3\langfe255\hich\f13\fs20\lang1033\loch\f13\fs20\lang1033 
+\par \pard\plain \ltrpar\s1\qj\li0\ri0\lin0\rin0\fi245\rtlch\af3\afs20\lang1025\ltrch\dbch\af3\langfe255\hich\f13\fs24\lang1033\loch\f13\fs24\lang1033{\rtlch \ltrch\loch\f13\fs20\lang1033\i0\b0\lang1033\fs20\cf0 Using the Dynamic Programming algorithm described above to align more than two sequences will require computational steps and memory space that is exponential with the number of sequences to be analysed. This creates a dimensionality problem, as the neighb
+ors to be checked in the recurrence will grow O(2{{\*\updnprop5801}\up8 k}-1), where k is the number of sequences or the dimensions, and makes the algorithm applicable only to a limited number of sequences. Filling a tensor of alignment scoring values will provide the alignment o
+f combination of the sequences, and the internal values will be the alignment of all sequences together, without any bias to the order of the sequences. }
+\par \pard\plain \ltrpar\s1\tx720\tqr\tx8100\ql\rtlch\af3\afs20\lang1025\ltrch\dbch\af3\langfe255\hich\f13\fs20\lang1023\loch\f13\fs20\lang1023 
+\par \pard\plain \ltrpar\s1\tx720\tqr\tx8100\ql\rtlch\af3\afs20\lang1025\ab\ltrch\dbch\af3\langfe255\hich\f13\fs24\lang1033\b\loch\f13\fs24\lang1033\b {\rtlch \ltrch\loch\f13\fs24\lang1033\i0\b Complexity Analysis}
+\par \pard\plain \ltrpar\s1\tx720\tqr\tx8100\ql\rtlch\af3\afs20\lang1025\ltrch\dbch\af3\langfe1023\hich\f13\fs20\lang1023\loch\f13\fs20\lang1023 
+\par \pard\plain \ltrpar\s1\tx720\tqr\tx7380\ql\rtlch\af3\afs20\lang1025\ltrch\dbch\af3\langfe255\hich\f13\fs24\lang1033\loch\f13\fs24\lang1033{\rtlch \ltrch\loch\f13\fs20\lang1023\i0\b0\b0\i0\lang1023\fs20\cf0 Given two sequences of lengths n and m, the matrix initialization executes in  O(n+m), where n is the size of the first sequence, m is the size of the second sequence. Then,  filling in rest of matrix using the recurrence executes in O(nm). The traceback e
+xecutes in O(n+m). If sequences are same length, total time would be O(n{{\*\updnprop5801}\up8 2}). Dynamic programming is efficient since there are: 2n!/(n!){{\*\updnprop10000}\up5 2} = O(2{{\*\updnprop10000}\up5 2n}) possible alignments. However, as we add more sequences it becomes exponential in data size as O (n{{\*\updnprop5801}\up8 n}), assuming 
+n is the average length of all sequences. }
+\par \pard\plain \ltrpar\s1\qj\li0\ri0\lin0\rin0\fi245\rtlch\af3\afs20\lang1025\ltrch\dbch\af3\langfe255\hich\f13\fs20\lang1033\loch\f13\fs20\lang1033 {\rtlch \ltrch\loch  }
+\par \pard\plain \ltrpar\s1\ql {\rtlch \ltrch\loch\f13\fs20\lang1033\i0\b0 The only way to decompose the complexity, is to distribute on HPCs or computer clusters. This direction will create two challenges, dependency problem and finding a suitable partitioning method. Mathematics of arrays provided in conformal computing methods
+ were found to be a candidate solution, and hence investigated further.}
+\par \pard\plain \ltrpar\s1\ql\rtlch\af3\afs20\lang1025\ltrch\dbch\af3\langfe255\hich\f3\fs24\lang1033\loch\f3\fs24\lang1033 
+\par \pard\plain \ltrpar\s1\ql\rtlch\af3\afs20\lang1025\ltrch\dbch\af3\langfe255\hich\f3\fs24\lang1033\loch\f3\fs24\lang1033 {\rtlch \ltrch\loch\f13\fs20\lang1033\i0\b0 The solution needed need to work invariant of the number of sequences used. This is to avoid rebuilding the program for every new dataset. This means the retrieval of neighbors function need to be scalable and is defined as index transformation, and not st
+atic. The assignments of temporary scores need to be generalized and aware of how many gap scores to add, based on the relative position of the neighbor to the current cell being computed, i.e. how many dimensions will decremented to retrieve this neighbor
+.}
+\par \pard\plain \ltrpar\s1\ql\rtlch\af3\afs20\lang1025\ltrch\dbch\af3\langfe255\hich\f3\fs24\lang1033\loch\f3\fs24\lang1033 
+\par \pard\plain \ltrpar\s1\ql\rtlch\af3\afs20\lang1025\ltrch\dbch\af3\langfe255\hich\f3\fs24\lang1033\loch\f3\fs24\lang1033 {\rtlch \ltrch\loch\f13\fs20\lang1033\i0\b0 The partitioning method needed, require that elements in each part need to be aware of their positions in the global whole tensor at any time, and all neighbors locations can be identified, whether are local, remote, or border elements and can be initializ
+ed. This means, we need index mapping between whole and parts at any time.}
+\par \pard\plain \ltrpar\s1\ql\rtlch\af3\afs20\lang1025\ltrch\dbch\af3\langfe255\hich\f3\fs24\lang1033\loch\f3\fs24\lang1033 
+\par \pard\plain \ltrpar\s1\qj\rtlch\af3\afs20\lang1025\ltrch\dbch\af3\langfe255\hich\f13\fs24\lang1033\b\loch\f13\fs24\lang1033\b {\rtlch \ltrch\loch\f13\fs24\lang1033\i0\b 2. Conformal Computing Methods}
+\par \pard\plain \ltrpar\s1\qj\rtlch\af3\afs20\lang1025\ltrch\dbch\af3\langfe255\hich\f13\fs20\lang1033\loch\f13\fs20\lang1033 
+\par \pard\plain \ltrpar\s1\ql\rtlch\af3\afs20\lang1025\ltrch\dbch\af3\langfe255\hich\f3\fs24\lang1033\loch\f3\fs24\lang1033 {\rtlch \ltrch\loch\f13\fs20\lang1033\i0\b0 Conformal Computing{\super \chftn{\*\footnote \chftn\pard\plain \ltrpar\s22\li283\ri0\lin283\rin0\fi-283\ql\rtlch\ltrch\dbch\hich\loch {\rtlch \ltrch\loch\f3\fs20\lang1033\i0\b0 The name Conformal Computing {\f11 \u169\'a9} is protected. Copyright 2003, The Research Foundation of State University of New York, University at Albany.}}}
+ as described in [Mullin / Raynolds - 2005] is a formalism based on an algebra of abstract data structures, A Mathematics of Arrays (MoA) and an array indexing calculus, the Psi-Calculus. The method allows the composition of a sequence 
+of algebraic manipulations in terms of array shapes and abstract indexing. The approach works invariant of dimension and shape, and allows for partitioning an N-Dimension tensor based on a given MoA function. It is called conformal computing because the ma
+thematics used to describe the problem is the same as that used to describe the details of the hardware. Thus at the end of a derivation the resulting final expression can simply be translated into portable, efficient code for implementation in hardware an
+d/or software. MoA offers a set of constructs that help represent multidimensional arrays in memory in a linear concise and efficient way, with lots of useful properties, and applications. For a full listing of the  MoA constructs, please refer to  [Mullin
+\u8211\'1388].}
+\par \pard\plain \ltrpar\s1\ql\rtlch\af3\afs20\lang1025\ltrch\dbch\af3\langfe255\hich\f3\fs24\lang1033\loch\f3\fs24\lang1033 
+\par \pard\plain \ltrpar\s1\qj\rtlch\af3\afs20\lang1025\ab\ltrch\dbch\af3\langfe255\hich\f13\fs20\lang1033\b\loch\f13\fs20\lang1033\b {\rtlch \ltrch\loch  }{\rtlch \ltrch\loch\f13\fs20\lang1033\i0\b MoA Example:}
+\par \pard\plain \ltrpar\s1\qj\rtlch\af3\afs16\lang1025\ltrch\dbch\af3\langfe255\hich\f13\fs16\lang1033\loch\f13\fs16\lang1033 {\rtlch \ltrch\loch  }{\rtlch \ltrch\loch\f13\fs16\lang1033\i0\b0 3D Tensor saves in memory as <1 2 3 .... 36>}
+\par \pard\plain \ltrpar\s1\ql\rtlch\af3\afs20\lang1025\ltrch\dbch\af3\langfe255\hich\f3\fs24\lang1033\loch\f3\fs24\lang1033 
+\par \pard\plain \ltrpar\s1\qj\rtlch\af3\afs20\lang1025\ltrch\dbch\af3\langfe255\hich\f13\fs24\lang1033\loch\f13\fs24\lang1033{\cf0{\rtlch \ltrch\loch       }}{\cf0{\rtlch \ltrch\loch\f13\fs16\lang1033\i0\b0 \tab 1     2      3      4     5      6\tab 19  20  21  22  23  24}}
+\par \pard\plain \ltrpar\s1\ql\rtlch\af3\afs20\lang1025\ltrch\dbch\af3\langfe255\hich\f3\fs24\lang1033\loch\f3\fs24\lang1033{\cf0{\rtlch \ltrch\loch{    }}}{\rtlch \ltrch\loch{\cf0{ \u61560\'3f }}}{{\cf0{\rtlch \ltrch\loch\f13\fs16\lang1033\i0\b0 = }}{\rtlch \ltrch\loch\f13\fs16\lang1033\i0\b0{     \tab  7     8      9     10   11   12\tab 25  26  27  28  29  30}}}
+\par \pard\plain \ltrpar\s1\ql\rtlch\af3\afs20\lang1025\ltrch\dbch\af3\langfe255\hich\f3\fs24\lang1033\loch\f3\fs24\lang1033{\cf0{\rtlch \ltrch\loch      }}{\cf0{\rtlch \ltrch\loch\f13\fs16\lang1033\i0\b0 \tab  13  14    15    16   17   18\tab 31  32  33  34  35  36}}
+\par \pard\plain \ltrpar\s1\qj\rtlch\af3\afs16\lang1025\ltrch\dbch\af3\langfe255\hich\f13\fs16\lang1033\loch\f13\fs16\lang1033 
+\par \pard\plain \ltrpar\s1\qj\rtlch\af3\afs20\lang1025\ltrch\dbch\af3\langfe255\hich\f13\fs24\lang1033\loch\f13\fs24\lang1033{\cf0{{\rtlch \ltrch\loch   }}}{{\cf0{\rtlch \ltrch\loch\f13\fs16\lang1033\i0\b0 of shape vector  }}}{\rtlch \ltrch\loch\f13\fs16\lang1033\i0\b0{\lang1033\fs16\cf0{ \u61554\'72\u61560\'78}{= <2 3 6>}}}
+\par \pard\plain \ltrpar\s1\ql\rtlch\af3\afs20\lang1025\ltrch\dbch\af3\langfe255\hich\f3\fs24\lang1033\loch\f3\fs24\lang1033{\cf0{{\rtlch \ltrch\loch   }}}{{\cf0{\rtlch \ltrch\loch\f13\fs16\lang1033\i0\b0 Psi-}}}{\rtlch \ltrch\loch\f13\fs16\lang1033\i0\b0{\lang1033\fs16\cf0{ \u61561\'79}{ Indexing function works as partitioning with  }}}
+\par \pard\plain \ltrpar\s1\ql\rtlch\af3\afs20\lang1025\ltrch\dbch\af3\langfe255\hich\f3\fs24\lang1033\loch\f3\fs24\lang1033{\cf0{\rtlch \ltrch\loch   }}{\cf0{\rtlch \ltrch\loch\f13\fs16\lang1033\i0\b0 partial indices, and for elements retrievals with full }}
+\par \pard\plain \ltrpar\s1\ql\rtlch\af3\afs20\lang1025\ltrch\dbch\af3\langfe255\hich\f3\fs24\lang1033\loch\f3\fs24\lang1033{\cf0{\rtlch \ltrch\loch   }}{\cf0{\rtlch \ltrch\loch\f13\fs16\lang1033\i0\b0 index.\tab \tab \tab 19  20  21  22  23  24}}
+\par \pard\plain \ltrpar\s1\ql\rtlch\af3\afs20\lang1025\ltrch\dbch\af3\langfe255\hich\f3\fs24\lang1033\loch\f3\fs24\lang1033{\rtlch \ltrch\loch\f13\fs16\lang1033\i0\b0\lang1033\fs16\cf0{ \tab }}{\rtlch \ltrch\loch\f13\fs16\lang1033\i0\b0\lang1033\fs16\cf0{ <1> \u61561\'79 \u61560\'78}{=\tab \tab 25  26  27  28  29  30}}
+\par \pard\plain \ltrpar\s1\qj\rtlch\af3\afs16\lang1025\ltrch\dbch\af3\langfe255\hich\f13\fs16\lang1033\loch\f13\fs16\lang1033 {\rtlch \ltrch\loch\f13\fs16\lang1033\i0\b0 \tab \tab \tab 31  32  33  34  35  36}
+\par \pard\plain \ltrpar\s1\qj\rtlch\af3\afs20\lang1025\ltrch\dbch\af3\langfe255\hich\f13\fs24\lang1033\loch\f13\fs24\lang1033{\rtlch \ltrch\loch\f13\fs16\lang1033\i0\b0\lang1033\fs16\cf0{ \tab <0 2> \u61561\'79 \u61560\'78}}{\rtlch \ltrch\loch\f13\fs16\lang1033\i0\b0\lang1033\fs16\cf0{ =\tab < 13  14    15    16   17   18 >}}
+\par \pard\plain \ltrpar\s1\ql\rtlch\af3\afs20\lang1025\ltrch\dbch\af3\langfe255\hich\f3\fs24\lang1033\loch\f3\fs24\lang1033{\rtlch \ltrch\loch\f13\fs16\lang1033\i0\b0\lang1033\fs16\cf0{ \tab }}{\rtlch \ltrch\loch\f13\fs16\lang1033\i0\b0\lang1033\fs16\cf0{ <0 1 3> \u61561\'79 \u61560\'78}{=\tab 10}}
+\par \pard\plain \ltrpar\s1\ql\rtlch\af3\afs20\lang1025\ltrch\dbch\af3\langfe255\hich\f3\fs24\lang1033\loch\f3\fs24\lang1033{\cf0{{\rtlch \ltrch\loch    }}}{{\cf0{\rtlch \ltrch\loch\f13\fs16\lang1033\i0\b0 +red < 1 1 > drop (< 1 > take }}}{\rtlch \ltrch\loch\f13\fs16\lang1033\i0\b0{\lang1033\fs16\cf0{ \u61560\'78}{) = < 22   24   26  28   30>}}}
+\par 
+\pard\plain\pard\plain \absw4652\absh589\dfrmtxtx181\pvpara\posy167\phcol\posx7{\*\flymaincnt2\flyvert0\flyhorz45568\flyanchor4}\ltrpar\s23\sb120\sa120\ql\rtlch\af3\afs24\lang1025\ai\ltrch\dbch\af3\langfe255\hich\f3\fs24\lang1033\i\loch\f3\fs24\lang1033\i {\rtlch \ltrch\loch\f3\fs24\lang1033\i\b0 Figure 1: MoA Example}
+\par \pard
+\pard\plain \ltrpar\s1\ql\rtlch\af3\afs20\lang1025\ltrch\dbch\af3\langfe255\hich\f3\fs24\lang1033\loch\f3\fs24\lang1033
+\par \pard\plain \ltrpar\s1\qj\rtlch\af3\afs24\lang1025\ab\ltrch\dbch\af3\langfe255\hich\f13\fs24\lang1033\b\loch\f13\fs24\lang1033\b 
+\par \pard\plain \ltrpar\s1\ql\rtlch\af3\afs20\lang1025\ltrch\dbch\af3\langfe255\hich\f3\fs24\lang1033\loch\f3\fs24\lang1033 
+\par \pard\plain \ltrpar\s1\qj\rtlch\af3\afs20\lang1025\ltrch\dbch\af3\langfe255\hich\f13\fs20\lang1033\loch\f13\fs20\lang1033{\rtlch \ltrch\loch\f13\fs20\lang1033\i0\b0\lang1033\cf0{\b0 Figure 1, describes an example of how to use MoA constructs, and how it is represented in memory. The nested function in the bottom, takes 1 from the first dimension {like  in <0> {\fs16 {\*\bkmkstart DDE_LINK1}\u61561\'79{\*\bkmkend DDE_LINK1} \u61560\'78 }{as shown }above, }}}{\rtlch \ltrch\loch\f13\fs20\lang1033\i0\b0\lang1033\cf0{ then drops one row, and one column, then reduce the remai
+ning by {\b0 adding them on the first dimension.}}}
+\par \pard\plain \ltrpar\s1\qj\rtlch\af3\afs24\lang1025\ab\ltrch\dbch\af3\langfe255\hich\f13\fs24\lang1033\b\loch\f13\fs24\lang1033\b {\rtlch \ltrch\loch\f13\fs24\lang1033\i0\b 3. Solution Abstraction}
+\par \pard\plain \ltrpar\s1\qj\rtlch\af3\afs20\lang1025\ltrch\dbch\af3\langfe255\hich\f13\fs20\lang1033\loch\f13\fs20\lang1033 
+\par \pard\plain \ltrpar\s1\ql\rtlch\af3\afs20\lang1025\ltrch\dbch\af3\langfe255\hich\f3\fs24\lang1033\loch\f3\fs24\lang1033 {\rtlch \ltrch\loch\f13\fs20\lang1033\i0\b0 The solution proposed is to redesign the dynamic programming algorithm using the MoA to generalize for K-Dimension, and to distribute the processing on HPC or computers cluster.  A master process need to be created for the partitioning, dependency analysis
+, and scheduling over processors, managing the trace back processors over the distributed partitions. The rest of the available processors work as slave processes, receive partitions, and score them, receive dependency requirements, and trace back through 
+the partitions. The master process has a partitioning thread, a dependency analysis thread, and a sending thread. The slave processes, contain a score computation thread, receiving thread that buffers all received packets from master or from other slaves, 
+and a sending thread to send dependency to waiting slaves processors.}
+\par \pard\plain \ltrpar\s1\ql\rtlch\af3\afs20\lang1025\ltrch\dbch\af3\langfe255\hich\f3\fs24\lang1033\loch\f3\fs24\lang1033 
+\par \pard\plain \ltrpar\s1\ql\rtlch\af3\afs20\lang1025\ltrch\dbch\af3\langfe255\hich\f3\fs24\lang1033\loch\f3\fs24\lang1033 
+\par \pard\plain \ltrpar\s1\qj\li0\ri0\lin0\rin0\fi245\rtlch\af3\afs20\lang1025\ltrch\dbch\af3\langfe255\hich\f13\fs20\lang1033\loch\f13\fs20\lang1033 
+\par \pard\plain \ltrpar\s1\qj\rtlch\af3\afs20\lang1025\ltrch\dbch\af3\langfe255\hich\f13\fs24\lang1033\b\loch\f13\fs24\lang1033\b 
+\par \pard\plain \ltrpar\s1\ql\rtlch\af3\afs20\lang1025\ltrch\dbch\af3\langfe255\hich\f3\fs24\lang1033\loch\f3\fs24\lang1033 
+\par \pard\plain \ltrpar\s1\ql\rtlch\af3\afs20\lang1025\ltrch\dbch\af3\langfe255\hich\f3\fs24\lang1033\loch\f3\fs24\lang1033 
+\par \pard\plain \ltrpar\s1\ql\rtlch\af3\afs20\lang1025\ltrch\dbch\af3\langfe255\hich\f3\fs24\lang1033\loch\f3\fs24\lang1033 
+\par \pard\plain \ltrpar\s1\ql\rtlch\af3\afs20\lang1025\ltrch\dbch\af3\langfe255\hich\f3\fs24\lang1033\loch\f3\fs24\lang1033 {\rtlch \ltrch\loch\f13\fs24\lang1033\i0\b 4. Dependency Analysis}
+\par \pard\plain \ltrpar\s1\qj\rtlch\af3\afs20\lang1025\ab\ltrch\dbch\af3\langfe255\hich\f13\fs20\lang1033\loch\f13\fs20\lang1033 
+\par \pard\plain \ltrpar\s1\qj\rtlch\af3\afs20\lang1025\ltrch\dbch\af3\langfe255\hich\f13\fs20\lang1033\loch\f13\fs20\lang1033 {\rtlch \ltrch\loch\f13\fs20\lang1033\i0\b0 To be able to parallelize the score computation, the dependency between the elements (cells) scoring need to be understood to communicate the required scores between processors. As analyzed in [Yap -1995] and [Chen-Schmidt 2005], the dependency to score ea
+ch element in the scoring matrix for pair wise alignment, is based  on retrieving the calculated score  for the top, left, and left-up diagonal, creating a wave-front communication pattern as shown in figure. }
+\par \pard\plain \ltrpar\s1\ql\rtlch\af3\afs20\lang1025\ltrch\dbch\af3\langfe255\hich\f3\fs24\lang1033\loch\f3\fs24\lang1033 
+\par \pard\plain \ltrpar\s1\ql\rtlch\af3\afs20\lang1025\ltrch\dbch\af3\langfe255\hich\f3\fs24\lang1033\loch\f3\fs24\lang1033 
+\par \pard\plain \ltrpar\s1\ql\rtlch\af3\afs20\lang1025\ltrch\dbch\af3\langfe255\hich\f3\fs24\lang1033\loch\f3\fs24\lang1033 
+\par \pard\plain \ltrpar\s1\ql\rtlch\af3\afs20\lang1025\ltrch\dbch\af3\langfe255\hich\f3\fs24\lang1033\loch\f3\fs24\lang1033 
+\par \pard\plain \ltrpar\s1\ql\rtlch\af3\afs20\lang1025\ltrch\dbch\af3\langfe255\hich\f3\fs24\lang1033\loch\f3\fs24\lang1033 
+\par \pard\plain \ltrpar\s1\ql\rtlch\af3\afs20\lang1025\ltrch\dbch\af3\langfe255\hich\f3\fs24\lang1033\loch\f3\fs24\lang1033 
+\par \pard\plain \ltrpar\s1\ql\rtlch\af3\afs20\lang1025\ltrch\dbch\af3\langfe255\hich\f3\fs24\lang1033\loch\f3\fs24\lang1033 {\rtlch \ltrch\loch\f13\fs20\lang1033\i0\b0 So, if every processor takes a row, all can initialize the first element, and the first processor once finishes the second element, the second processor can do the second, and so forth. This will make parallelism increase to the middle diagonal, and then d
+ecrease as it approached the end of the scoring matrix. }
+\par \pard\plain \ltrpar\s1\ql\rtlch\af3\afs20\lang1025\ltrch\dbch\af3\langfe255\hich\f3\fs24\lang1033\loch\f3\fs24\lang1033 
+\par \pard\plain \ltrpar\s1\qj\rtlch\af3\afs20\lang1025\ltrch\dbch\af3\langfe255\hich\f13\fs24\lang1033\loch\f13\fs24\lang1033{\rtlch \ltrch\loch\f13\fs20\lang1033\i0\b0\lang1033\fs20\cf0 In an attempt to generalize on that, to retrieve the dependency invariant of dimension, it will be the lower border cells generally.  For K-dimensions, these are 2{{\*\updnprop5801}\up8 k}-1 cells. Using the MoA constructs, neighbors are retrieved by decrementing the multidimensi
+onal index in all possible combinations. For example, a 2D scoring matrix:}
+\par \pard\plain \ltrpar\s1\ql\rtlch\af3\afs20\lang1025\ltrch\dbch\af3\langfe255\hich\f3\fs24\lang1033\loch\f3\fs24\lang1033{\rtlch \ltrch\loch\f13\fs20\lang1033\i0\b0\lang1033\fs20\cf0 \tab S{{\*\updnprop5801}\dn8 0,0\tab }S{{\*\updnprop5801}\dn8 1,0\tab }S{{\*\updnprop5801}\dn8 2,0\tab }{S}{{\*\updnprop5801}\dn8 3,0}}
+\par \pard\plain \ltrpar\s1\ql\rtlch\af3\afs20\lang1025\ltrch\dbch\af3\langfe255\hich\f3\fs24\lang1033\loch\f3\fs24\lang1033{\rtlch \ltrch\loch\f13\fs20\lang1033\i0\b0\lang1033\fs20\cf0 \tab S{{\*\updnprop5801}\dn8 0,1} \tab S{{\*\updnprop5801}\dn8 1,1}\tab S{{\*\updnprop5801}\dn8 2,1\tab }{S}{{\*\updnprop5801}\dn8 3,1}}
+\par \pard\plain \ltrpar\s1\ql\rtlch\af3\afs20\lang1025\ltrch\dbch\af3\langfe255\hich\f3\fs24\lang1033\loch\f3\fs24\lang1033{\rtlch \ltrch\loch\f13\fs20\lang1033\i0\b0\lang1033\fs20\cf0 \tab S{{\*\updnprop5801}\dn8 0,2} \tab S{{\*\updnprop5801}\dn8 1,2}\tab S{{\*\updnprop5801}\dn8 2,2\tab }{S}{{\*\updnprop5801}\dn8 3,2}}
+\par \pard\plain \ltrpar\s1\ql\rtlch\af3\afs20\lang1025\ltrch\dbch\af3\langfe255\hich\f3\fs24\lang1033\loch\f3\fs24\lang1033{\rtlch \ltrch\loch\f13\fs20\lang1033\i0\b0\lang1033\fs20\cf0 \tab S{{\*\updnprop5801}\dn8 0,3\tab }S{{\*\updnprop5801}\dn8 1,3\tab }S{{\*\updnprop5801}\dn8 2,3\tab }{S}{{\*\updnprop5801}\dn8 3,3}}
+\par \pard\plain \ltrpar\s1\ql\rtlch\af3\afs20\lang1025\ltrch\dbch\af3\langfe255\hich\f3\fs24\lang1033\loch\f3\fs24\lang1033{\rtlch \ltrch\loch\f13\fs20\lang1033\i0\b0\lang1033\fs20\cf0 \tab S{{\*\updnprop5801}\dn8 0,4\tab }S{{\*\updnprop5801}\dn8 1,4}\tab S{{\*\updnprop5801}\dn8 2,4\tab }{S}{{\*\updnprop5801}\dn8 3,4}}
+\par \pard\plain \ltrpar\s1\qj\rtlch\af3\afs20\lang1025\ltrch\dbch\af3\langfe255\hich\f13\fs20\lang1033\loch\f13\fs20\lang1033 {\rtlch \ltrch\loch\f13\fs20\lang1033\i0\b0 \tab }
+\par \pard\plain \ltrpar\s1\qj\li0\ri0\lin0\rin0\fi245\rtlch\af3\afs20\lang1025\ltrch\dbch\af3\langfe255\hich\f13\fs24\lang1033\loch\f13\fs24\lang1033{\cf0{\rtlch \ltrch\loch  }}{\cf0{\rtlch \ltrch\loch\f13\fs20\lang1033\i0\b0 neighbors for cell S{{\*\updnprop5801}\dn8 2,4} having multidimensional index vector as (2 4) are: S{{\*\updnprop5801}\dn8 1,3}, S{{\*\updnprop5801}\dn8 2,3}, S{{\*\updnprop5801}\dn8 1,4}. and with MoA can be retrieved as:}}
+\par \pard\plain \ltrpar\s1\ql\rtlch\af3\afs20\lang1025\ltrch\dbch\af3\langfe255\hich\f3\fs24\lang1033\loch\f3\fs24\lang1033{\cf0{\rtlch \ltrch\loch     }}{\cf0{\rtlch \ltrch\loch\f13\fs20\lang1033\i0\b0 (2 2 ) take  ((-1)+(2 4))  drop\u8595\'93 S)}}
+\par \pard\plain \ltrpar\s1\qj\rtlch\af3\afs20\lang1025\ltrch\dbch\af3\langfe255\hich\f13\fs24\lang1033\loch\f13\fs24\lang1033{\cf0{\rtlch \ltrch\loch     }}{\cf0{\rtlch \ltrch\loch\f13\fs20\lang1033\i0\b0 This is a nested function, where the drop section gets executed, and on the results, the take function gets executed. It drops the other lower indexed cells that are not of interest, by subtracting one from the current cell index to drop, and takes onl
+y 2 cells of each dimension to return the direct neighbors only. This will return a matrix with the points:                             }}
+\par \pard\plain \ltrpar\s1\qj\li0\ri0\lin0\rin0\fi245\rtlch\af3\afs20\lang1025\ltrch\dbch\af3\langfe255\hich\f13\fs24\lang1033\loch\f13\fs24\lang1033{\cf0{\rtlch \ltrch\loch          }}{\cf0{\rtlch \ltrch\loch\f13\fs20\lang1033\i0\b0 S{{\*\updnprop5801}\dn8 1,3}\tab S{{\*\updnprop5801}\dn8 2,3}}}
+\par \pard\plain \ltrpar\s1\ql\rtlch\af3\afs20\lang1025\ltrch\dbch\af3\langfe255\hich\f3\fs24\lang1033\loch\f3\fs24\lang1033{\cf0{\rtlch \ltrch\loch          }}{\cf0{\rtlch \ltrch\loch\f13\fs20\lang1033\i0\b0 S{{\*\updnprop5801}\dn8 1,4}\tab  S{{\*\updnprop5801}\dn8 2,4}}}
+\par \pard\plain \ltrpar\s1\qj\rtlch\af3\afs20\lang1025\ltrch\dbch\af3\langfe255\hich\f13\fs20\lang1033\loch\f13\fs20\lang1033 
+\par \pard\plain \ltrpar\s1\ql\rtlch\af3\afs20\lang1025\ltrch\dbch\af3\langfe255\hich\f3\fs24\lang1033\loch\f3\fs24\lang1033 {\rtlch \ltrch\loch\f13\fs20\lang1033\i0\b0 generalizing on that to K-Dimension neighboring function, it becomes:}
+\par \pard\plain \ltrpar\s1\ql\rtlch\af3\afs20\lang1025\ltrch\dbch\af3\langfe255\hich\f3\fs24\lang1033\loch\f3\fs24\lang1033 
+\par \pard\plain \ltrpar\s1\qj\rtlch\af3\afs20\lang1025\ltrch\dbch\af3\langfe255\hich\f13\fs24\lang1033\loch\f13\fs24\lang1033{\rtlch \ltrch\loch\f13\fs20\lang1033\i\b0\i\lang1033\fs20\cf0 <2{{\*\updnprop5801}\dn8 0} 2{{\*\updnprop5801}\dn8 1} 2{{\*\updnprop5801}\dn8 2}... 2{{\*\updnprop5801}\dn8 k}> Take (((-1)+<i{{\*\updnprop5801}\dn8 0  }i{{\*\updnprop5801}\dn8 1} i{{\*\updnprop5801}\dn8 2} i{{\*\updnprop5801}\dn8 3} ... i{{\*\updnprop5801}\dn8 k}>) Drop S)}
+\par \pard\plain \ltrpar\s1\qj\rtlch\af3\afs20\lang1025\ltrch\dbch\af3\langfe255\hich\f13\fs20\lang1033\loch\f13\fs20\lang1033 
+\par \pard\plain \ltrpar\s1\ql\rtlch\af3\afs20\lang1025\ltrch\dbch\af3\langfe255\hich\f3\fs24\lang1033\loch\f3\fs24\lang1033 {\rtlch \ltrch\loch\f13\fs20\lang1033\i0\b0 this will retrieve the elements required to compute the cell at the index represented by the i-vector above.  We call this get lower border MoA function. }
+\par \pard\plain \ltrpar\s1\ql\rtlch\af3\afs20\lang1025\ltrch\dbch\af3\langfe255\hich\f3\fs24\lang1033\loch\f3\fs24\lang1033 
+\par \pard\plain \ltrpar\s1\qj\rtlch\af3\afs24\lang1025\ltrch\dbch\af3\langfe255\hich\f13\fs24\lang1033\b\loch\f13\fs24\lang1033\b {\rtlch \ltrch\loch\f13\fs24\lang1033\i0\b 5. Partitioning Scheme}
+\par \pard\plain \ltrpar\s1\qj\rtlch\af3\afs20\lang1025\ltrch\dbch\af3\langfe255\hich\f13\fs20\lang1033\loch\f13\fs20\lang1033 
+\par \pard\plain \ltrpar\s1\qj\rtlch\af3\afs20\lang1025\ltrch\dbch\af3\langfe255\hich\f13\fs24\lang1033\loch\f13\fs24\lang1033{\rtlch \ltrch\loch\f13\fs20\lang1033\i0\b0\lang1033\fs20\cf0 Having the dependency invariant of dimension & shape understood, we can follow the same scheme to partition the alignment tensor in order to maximize parallelism, in wave-front pattern. The MoA function created above, can be used iteratively, in a breadth-
+first traversal fashion, starting from i-vector containing zeros, for the first cell in the tensor, then on each retrieved partition, all higher order neighbors partitions can be retrieved to create the next diagonal wave. The first wave will be one partit
+ion starting at the zero-cell, and ending at <p{{\*\updnprop5801}\dn8 0  }{p}{{\*\updnprop5801}\dn8 1} p{{\*\updnprop5801}\dn8 2} p{{\*\updnprop5801}\dn8 3} ... p{{\*\updnprop5801}\dn8 k}>  where p is the partitioning size chosen. Then at each higher border corner cell this partition, the get higher border function is called to retrieve  the next wave partitions, This is func
+tion is based on the following equation:}
+\par \pard\plain \ltrpar\s1\ql\rtlch\af3\afs20\lang1025\ltrch\dbch\af3\langfe255\hich\f3\fs24\lang1033\loch\f3\fs24\lang1033{\rtlch \ltrch\loch\f13\fs20\lang1033\i\b0\i\lang1033\fs20\cf0 <p{{\*\updnprop5801}\dn8 0  }{p}{{\*\updnprop5801}\dn8 1} p{{\*\updnprop5801}\dn8 2} p{{\*\updnprop5801}\dn8 3} ... p{{\*\updnprop5801}\dn8 k}> Take (((+1)+<i{{\*\updnprop5801}\dn8 0  }i{{\*\updnprop5801}\dn8 1} i{{\*\updnprop5801}\dn8 2} i{{\*\updnprop5801}\dn8 3} ... i{{\*\updnprop5801}\dn8 k}>) Drop S)}
+\par \pard\plain \ltrpar\s1\qj\rtlch\af3\afs20\lang1025\ltrch\dbch\af3\langfe255\hich\f13\fs20\lang1033\loch\f13\fs20\lang1033 
+\par \pard\plain \ltrpar\s1\ql\rtlch\af3\afs20\lang1025\ltrch\dbch\af3\langfe255\hich\f3\fs24\lang1033\loch\f3\fs24\lang1033 {\rtlch \ltrch\loch\f13\fs20\lang1033\i0\b0 this means, we drop the higher indexed cells by adding one to the current cell index, then taking a partition of size p from the remaining tensor. We loop through all partitions created at one wave, for all their higher border corners, and create the parti
+tions for the next wave, and on the next wave we do the same, till we reach the last higher order cell in the tensor.}
+\par \pard\plain \ltrpar\s1\ql\rtlch\af3\afs20\lang1025\ltrch\dbch\af3\langfe255\hich\f3\fs24\lang1033\loch\f3\fs24\lang1033 {\rtlch \ltrch\loch\f13\fs20\lang1033\i0\b0 In 2-D MSA dependency takes the form of small squares around the previously finished wave. The dependency changes to:}
+\par \pard\plain \ltrpar\s1\ql\rtlch\af3\afs20\lang1025\ltrch\dbch\af3\langfe255\hich\f3\fs24\lang1033\loch\f3\fs24\lang1033 
+\par \pard\plain \ltrpar\s1\ql\rtlch\af3\afs20\lang1025\ltrch\dbch\af3\langfe255\hich\f3\fs24\lang1033\loch\f3\fs24\lang1033 
+\par \pard\plain \ltrpar\s1\ql\rtlch\af3\afs20\lang1025\ltrch\dbch\af3\langfe255\hich\f3\fs24\lang1033\loch\f3\fs24\lang1033 
+\par \pard\plain \ltrpar\s1\ql\rtlch\af3\afs20\lang1025\ltrch\dbch\af3\langfe255\hich\f3\fs24\lang1033\loch\f3\fs24\lang1033 
+\par \pard\plain \ltrpar\s1\ql\rtlch\af3\afs20\lang1025\ltrch\dbch\af3\langfe255\hich\f3\fs24\lang1033\loch\f3\fs24\lang1033 
+\par \pard\plain \ltrpar\s1\ql\rtlch\af3\afs20\lang1025\ltrch\dbch\af3\langfe255\hich\f3\fs24\lang1033\loch\f3\fs24\lang1033 
+\par \pard\plain \ltrpar\s1\ql\rtlch\af3\afs20\lang1025\ltrch\dbch\af3\langfe255\hich\f3\fs24\lang1033\loch\f3\fs24\lang1033 
+\par \pard\plain \ltrpar\s1\ql\rtlch\af3\afs20\lang1025\ltrch\dbch\af3\langfe255\hich\f3\fs24\lang1033\loch\f3\fs24\lang1033 
+\par \pard\plain \ltrpar\s1\qj\rtlch\af3\afs20\lang1025\ltrch\dbch\af3\langfe255\hich\f13\fs24\lang1033\loch\f13\fs24\lang1033{\rtlch \ltrch\loch\f13\fs20\lang1033\i0\b0\lang1033\fs20\cf0 This makes the parallelism, keep increasing from one wave to another. In 3-D MSA, dependency takes the shape of enclosed cubes, with inner cubes being scored before the outer ones, like the first dark gray cube is scored first in one wave, and next wave co
+ntains the 2{{\*\updnprop5801}\up8 k}-1 neighboring cubes, colored in light gray, and then the white wave of cubes, and then later waves will contain remaining partitions minus the ones partitioned before (were neighbors to other partitions that was traversed before). The overlap
+ping edge cells in each partition need to be communicated between processors. }
+\par \pard\plain \ltrpar\s1\qj\rtlch\af3\afs20\lang1025\ltrch\dbch\af3\langfe255\hich\f13\fs20\lang1033\loch\f13\fs20\lang1033 
+\par \pard\plain \ltrpar\s1\qj\rtlch\af3\afs20\lang1025\ltrch\dbch\af3\langfe255\hich\f13\fs24\lang1033\b\loch\f13\fs24\lang1033\b 
+\par \pard\plain \ltrpar\s1\ql\rtlch\af3\afs20\lang1025\ltrch\dbch\af3\langfe255\hich\f3\fs24\lang1033\loch\f3\fs24\lang1033 
+\par \pard\plain \ltrpar\s1\ql\rtlch\af3\afs20\lang1025\ltrch\dbch\af3\langfe255\hich\f3\fs24\lang1033\loch\f3\fs24\lang1033 
+\par \pard\plain \ltrpar\s1\ql\rtlch\af3\afs20\lang1025\ltrch\dbch\af3\langfe255\hich\f3\fs24\lang1033\loch\f3\fs24\lang1033 
+\par \pard\plain \ltrpar\s1\ql\rtlch\af3\afs20\lang1025\ltrch\dbch\af3\langfe255\hich\f3\fs24\lang1033\loch\f3\fs24\lang1033 
+\par \pard\plain \ltrpar\s1\ql\rtlch\af3\afs20\lang1025\ltrch\dbch\af3\langfe255\hich\f3\fs24\lang1033\loch\f3\fs24\lang1033 
+\par \pard\plain \ltrpar\s1\ql\rtlch\af3\afs20\lang1025\ltrch\dbch\af3\langfe255\hich\f3\fs24\lang1033\loch\f3\fs24\lang1033 
+\par \pard\plain \ltrpar\s1\ql\rtlch\af3\afs20\lang1025\ltrch\dbch\af3\langfe255\hich\f3\fs24\lang1033\loch\f3\fs24\lang1033 
+\par \pard\plain \ltrpar\s1\ql\rtlch\af3\afs20\lang1025\ltrch\dbch\af3\langfe255\hich\f3\fs24\lang1033\loch\f3\fs24\lang1033 
+\par \pard\plain \ltrpar\s1\ql\rtlch\af3\afs20\lang1025\ltrch\dbch\af3\langfe255\hich\f3\fs24\lang1033\loch\f3\fs24\lang1033 
+\par \pard\plain \ltrpar\s1\ql\rtlch\af3\afs20\lang1025\ltrch\dbch\af3\langfe255\hich\f3\fs24\lang1033\loch\f3\fs24\lang1033 
+\par \pard\plain \ltrpar\s1\ql\rtlch\af3\afs20\lang1025\ltrch\dbch\af3\langfe255\hich\f3\fs24\lang1033\loch\f3\fs24\lang1033 
+\par \pard\plain \ltrpar\s1\ql\rtlch\af3\afs20\lang1025\ltrch\dbch\af3\langfe255\hich\f3\fs24\lang1033\loch\f3\fs24\lang1033 
+\par \pard\plain \ltrpar\s1\ql\rtlch\af3\afs20\lang1025\ltrch\dbch\af3\langfe255\hich\f3\fs24\lang1033\loch\f3\fs24\lang1033 {\rtlch \ltrch\loch\f13\fs24\lang1033\i0\b 6. Distributed Scoring}
+\par \pard\plain \ltrpar\s1\qj\rtlch\af3\afs20\lang1025\ltrch\dbch\af3\langfe255\hich\f13\fs20\lang1033\loch\f13\fs20\lang1033 
+\par \pard\plain \ltrpar\s1\qj\li0\ri0\lin0\rin0\fi245\rtlch\af3\afs20\lang1025\ltrch\dbch\af3\langfe255\hich\f13\fs20\lang1033\loch\f13\fs20\lang1033 {\rtlch \ltrch\loch\f13\fs20\lang1033\i0\b0 The dynamic programming recurrence described above, is now generalized for K-dimension and arbitrary sequence lengths (shape), using the following recurrence:}
+\par \pard\plain \ltrpar\s1\qj\rtlch\af3\afs20\lang1025\ltrch\dbch\af3\langfe255\hich\f13\fs20\lang1033\loch\f13\fs20\lang1033 
+\par \pard\plain \ltrpar\s1\qj\rtlch\af3\afs20\lang1025\ltrch\dbch\af3\langfe255\hich\f13\fs24\lang1033\loch\f13\fs24\lang1033{\rtlch \ltrch\loch\f13\fs20\lang1033\i0\b0\lang1033\fs20\cf0 \tab \tab \tab G{{\*\updnprop5801}\dn8 1} + T{{\*\updnprop5801}\dn8 S} (G{{\*\updnprop5801}\dn8 1})}
+\par \pard\plain \ltrpar\s1\ql\rtlch\af3\afs20\lang1025\ltrch\dbch\af3\langfe255\hich\f3\fs24\lang1033\loch\f3\fs24\lang1033{\rtlch \ltrch\loch\f13\fs20\lang1033\i0\b0\lang1033\fs20\cf0 S(i{{\*\updnprop5801}\dn8 1}, i{{\*\updnprop5801}\dn8 2}, i{{\*\updnprop5801}\dn8 3},\u8230\'26, i{{\*\updnprop5801}\dn8 k}) = max\tab G{{\*\updnprop5801}\dn8 2} + T{{\*\updnprop5801}\dn8 S} (G{{\*\updnprop5801}\dn8 2})}
+\par \pard\plain \ltrpar\s1\qj\rtlch\af3\afs20\lang1025\ltrch\dbch\af3\langfe255\hich\f13\fs20\lang1033\loch\f13\fs20\lang1033 {\rtlch \ltrch\loch\f13\fs20\lang1033\i0\b0 \tab \tab \tab :}
+\par \pard\plain \ltrpar\s1\qj\rtlch\af3\afs20\lang1025\ltrch\dbch\af3\langfe255\hich\f13\fs24\lang1033\loch\f13\fs24\lang1033{\rtlch \ltrch\loch\f13\fs20\lang1033\i0\b0\lang1033\fs20\cf0 \tab \tab \tab G{{\*\updnprop5801}\dn8 2}{{\*\updnprop5801}\up8 k}{{\*\updnprop5801}\dn8 -1} + TS (G{{\*\updnprop5801}\dn8 2}{{\*\updnprop5801}\up8 k}{{\*\updnprop5801}\dn8 -1})}
+\par \pard\plain \ltrpar\s1\qj\rtlch\af3\afs20\lang1025\ltrch\dbch\af3\langfe255\hich\f13\fs20\lang1033\loch\f13\fs20\lang1033 {\rtlch \ltrch\loch\f13\fs20\lang1033\i0\b0 where:}
+\par \pard\plain \ltrpar\s1\qj\rtlch\af3\afs20\lang1025\ltrch\dbch\af3\langfe255\hich\f13\fs24\lang1033\loch\f13\fs24\lang1033{\rtlch \ltrch\loch\f13\fs20\lang1033\i0\b0\lang1033\fs20\cf0 \tab TS ({{\*\updnprop5801}\dn8 Gi}) = (sub(dj, dk) for each pair j, k in G) +( gS * (K-D))}
+\par \pard\plain \ltrpar\s1\ql\rtlch\af3\afs20\lang1025\ltrch\dbch\af3\langfe255\hich\f3\fs24\lang1033\loch\f3\fs24\lang1033{\rtlch \ltrch\loch\f13\fs20\lang1033\i0\b0\lang1033\fs20\cf0 \tab G{{\*\updnprop5801}\dn8 i}: Neighbour i of current cell, up to {2}{{\*\updnprop5801}\up8 k}{-1} neighbours}
+\par \pard\plain \ltrpar\s1\qj\rtlch\af3\afs20\lang1025\ltrch\dbch\af3\langfe255\hich\f13\fs20\lang1033\loch\f13\fs20\lang1033 {\rtlch \ltrch\loch\f13\fs20\lang1033\i0\b0 \tab D: No of decremented indices to get this particular neighbour}
+\par \pard\plain \ltrpar\s1\ql\rtlch\af3\afs20\lang1025\ltrch\dbch\af3\langfe255\hich\f3\fs24\lang1033\loch\f3\fs24\lang1033 {\rtlch \ltrch\loch\f13\fs20\lang1033\i0\b0 \tab TS: Temporary Score function assigned to each neighbour based on how many multidimensional}
+\par \pard\plain \ltrpar\s1\ql\rtlch\af3\afs20\lang1025\ltrch\dbch\af3\langfe255\hich\f3\fs24\lang1033\loch\f3\fs24\lang1033 {\rtlch \ltrch\loch\f13\fs20\lang1033\i0\b0 indices were decremented to get to this neighbour}
+\par \pard\plain \ltrpar\s1\ql\rtlch\af3\afs20\lang1025\ltrch\dbch\af3\langfe255\hich\f3\fs24\lang1033\loch\f3\fs24\lang1033 {\rtlch \ltrch\loch\f13\fs20\lang1033\i0\b0 \tab gS: gap Score Value * (K-D): multiply the gapScore Value with number of indices that remained}
+\par \pard\plain \ltrpar\s1\ql\rtlch\af3\afs20\lang1025\ltrch\dbch\af3\langfe255\hich\f3\fs24\lang1033\loch\f3\fs24\lang1033 {\rtlch \ltrch\loch\f13\fs20\lang1033\i0\b0 the same (wasn\u8217\'19t decremented to get this neighbour), retrieved by Total Dimensions K (Sequences) \u8211\'13 D.}
+\par \pard\plain \ltrpar\s1\ql\rtlch\af3\afs20\lang1025\ltrch\dbch\af3\langfe255\hich\f3\fs24\lang1033\loch\f3\fs24\lang1033 
+\par \pard\plain \ltrpar\s1\qj\rtlch\af3\afs20\lang1025\ltrch\dbch\af3\langfe255\hich\f13\fs24\lang1033\loch\f13\fs24\lang1033{\rtlch \ltrch\loch\f13\fs20\lang1033\i0\b0\lang1033\fs20\cf0 We iterate through the partition received by each processor, at each cell, we retrieve the lower border neighboring cells scores, used the function described above. These neighbors might be local (in the same partition, or another partition computed by the
+ same processor), remote (in another processor), or a lower border cell on the whole unpartitioned scoring tensor. The first case, we retrieve the score, and compute TS based on hoe many indices got decremented in the multidimensional index to retrieve thi
+s neighbor. If remote, the processor computation thread, waits to receive the score from the remote processor, if lower border cell in the whole tensor, the score gets initialized to the gap score used multiplied by the values in the multi-dimensional inde
+x of the cell. The figure shows the 2{{\*\updnprop5801}\up8 k}-1 lower border cell neighbors that are required to score a cell, and after scoring this cell, there are 2{{\*\updnprop5801}\up8 k}-1 cells that can retrieve one of their required scores. Both lower indexed neighbors  cells and higher indexed
+ neighbors, can be local or remote.}
+\par \pard\plain \ltrpar\s1\qj\rtlch\af3\afs20\lang1025\ltrch\dbch\af3\langfe255\hich\f13\fs20\lang1033\loch\f13\fs20\lang1033 
+\par \page\pard\plain \ltrpar\s1\qj\rtlch\af3\afs20\lang1025\ltrch\dbch\af3\langfe255\hich\f13\fs20\lang1033\loch\f13\fs20\lang1033 
+\par \pard\plain \ltrpar\s1\qj\rtlch\af3\afs20\lang1025\ltrch\dbch\af3\langfe255\hich\f13\fs20\lang1033\loch\f13\fs20\lang1033 
+\par \pard\plain \ltrpar\s1\ql\rtlch\af3\afs20\lang1025\ltrch\dbch\af3\langfe255\hich\f3\fs24\lang1033\loch\f3\fs24\lang1033 
+\par \pard\plain \ltrpar\s1\ql\rtlch\af3\afs20\lang1025\ltrch\dbch\af3\langfe255\hich\f3\fs24\lang1033\loch\f3\fs24\lang1033 
+\par \pard\plain \ltrpar\s1\qj\rtlch\af3\afs20\lang1025\ltrch\dbch\af3\langfe255\hich\f13\fs24\lang1033\b\loch\f13\fs24\lang1033\b 
+\par \pard\plain \ltrpar\s1\ql\rtlch\af3\afs20\lang1025\ltrch\dbch\af3\langfe255\hich\f3\fs24\lang1033\loch\f3\fs24\lang1033 
+\par \pard\plain \ltrpar\s1\ql\rtlch\af3\afs20\lang1025\ltrch\dbch\af3\langfe255\hich\f3\fs24\lang1033\loch\f3\fs24\lang1033 
+\par \pard\plain \ltrpar\s1\ql\rtlch\af3\afs20\lang1025\ltrch\dbch\af3\langfe255\hich\f3\fs24\lang1033\loch\f3\fs24\lang1033 
+\par \pard\plain \ltrpar\s1\ql\rtlch\af3\afs20\lang1025\ltrch\dbch\af3\langfe255\hich\f3\fs24\lang1033\loch\f3\fs24\lang1033 
+\par \pard\plain \ltrpar\s1\ql\rtlch\af3\afs20\lang1025\ltrch\dbch\af3\langfe255\hich\f3\fs24\lang1033\loch\f3\fs24\lang1033 
+\par \pard\plain \ltrpar\s1\ql\rtlch\af3\afs20\lang1025\ltrch\dbch\af3\langfe255\hich\f3\fs24\lang1033\loch\f3\fs24\lang1033 
+\par \pard\plain \ltrpar\s1\ql\rtlch\af3\afs20\lang1025\ltrch\dbch\af3\langfe255\hich\f3\fs24\lang1033\loch\f3\fs24\lang1033 
+\par \pard\plain \ltrpar\s1\ql\rtlch\af3\afs20\lang1025\ltrch\dbch\af3\langfe255\hich\f3\fs24\lang1033\loch\f3\fs24\lang1033 
+\par \pard\plain \ltrpar\s1\ql\rtlch\af3\afs20\lang1025\ltrch\dbch\af3\langfe255\hich\f3\fs24\lang1033\loch\f3\fs24\lang1033 
+\par \pard\plain \ltrpar\s1\ql\rtlch\af3\afs20\lang1025\ltrch\dbch\af3\langfe255\hich\f3\fs24\lang1033\loch\f3\fs24\lang1033 
+\par \pard\plain \ltrpar\s1\ql\rtlch\af3\afs20\lang1025\ltrch\dbch\af3\langfe255\hich\f3\fs24\lang1033\loch\f3\fs24\lang1033 
+\par \pard\plain \ltrpar\s1\ql\rtlch\af3\afs20\lang1025\ltrch\dbch\af3\langfe255\hich\f3\fs24\lang1033\loch\f3\fs24\lang1033 {\rtlch \ltrch\loch\f13\fs24\lang1033\i0\b 7. Distributed Trace Back}
+\par \pard\plain \ltrpar\s1\qj\li0\ri0\lin0\rin0\fi245\rtlch\af3\afs20\lang1025\ltrch\dbch\af3\langfe255\hich\f13\fs20\lang1033\loch\f13\fs20\lang1033 {\rtlch \ltrch\loch\f13\fs20\lang1033\i0\b0 After having the partitions fully scored in stored in each slave processors local disk space, the distributed trace back program starts.  Again a master/slave approach is followed. The master processes retrieves the higher scoring higher border cell from a
+ll higher edge partitions in all processors, and send to the processor with the highest score to trace back through its partition. If the trace back done by the slave reaches the lower border edge of this partition, it checks if the next required partition
+ is local to it, top resume on it, and then resume, till no more local partitions, it reports to the master process with that cell index, and the path partition found so far, and the master send to the next processor to resume the trace back and repeat the
+ same process. The process iterates like that, till no more partitions in all processors, the master assemble all received partitions, and form the optimal full path and reports it.}
+\par \pard\plain \ltrpar\s1\ql\rtlch\af3\afs20\lang1025\ltrch\dbch\af3\langfe255\hich\f3\fs24\lang1033\loch\f3\fs24\lang1033 
+\par \pard\plain \ltrpar\s1\ql\rtlch\af3\afs20\lang1025\ltrch\dbch\af3\langfe255\hich\f3\fs24\lang1033\loch\f3\fs24\lang1033 
+\par \pard\plain \ltrpar\s1\qj\rtlch\af3\afs20\lang1025\ltrch\dbch\af3\langfe255\hich\f13\fs20\lang1033\loch\f13\fs20\lang1033 
+\par \pard\plain \ltrpar\s1\qj\rtlch\af3\afs20\lang1025\ltrch\dbch\af3\langfe255\hich\f13\fs24\lang1033\b\loch\f13\fs24\lang1033\b 
+\par \pard\plain \ltrpar\s1\ql\rtlch\af3\afs20\lang1025\ltrch\dbch\af3\langfe255\hich\f3\fs24\lang1033\loch\f3\fs24\lang1033 
+\par \pard\plain \ltrpar\s1\ql\rtlch\af3\afs20\lang1025\ltrch\dbch\af3\langfe255\hich\f3\fs24\lang1033\loch\f3\fs24\lang1033 
+\par \pard\plain \ltrpar\s1\ql\rtlch\af3\afs20\lang1025\ltrch\dbch\af3\langfe255\hich\f3\fs24\lang1033\loch\f3\fs24\lang1033 
+\par \pard\plain \ltrpar\s1\ql\rtlch\af3\afs20\lang1025\ltrch\dbch\af3\langfe255\hich\f3\fs24\lang1033\loch\f3\fs24\lang1033 
+\par \pard\plain \ltrpar\s1\ql\rtlch\af3\afs20\lang1025\ltrch\dbch\af3\langfe255\hich\f3\fs24\lang1033\loch\f3\fs24\lang1033 
+\par \pard\plain \ltrpar\s1\ql\rtlch\af3\afs20\lang1025\ltrch\dbch\af3\langfe255\hich\f3\fs24\lang1033\loch\f3\fs24\lang1033 {\rtlch \ltrch\loch\f13\fs24\lang1033\i0\b 8. Scheduling Scheme}
+\par \pard\plain \ltrpar\s1\qj\rtlch\af3\afs20\lang1025\ltrch\dbch\af3\langfe255\hich\f13\fs20\lang1033\loch\f13\fs20\lang1033 
+\par \pard\plain \ltrpar\s1\ql\rtlch\af3\afs20\lang1025\ltrch\dbch\af3\langfe255\hich\f3\fs24\lang1033\loch\f3\fs24\lang1033 {\rtlch \ltrch\loch\f13\fs20\lang1033\i0\b0 Three methods of scheduling are considered, each with positives and negatives. The first 2 are already implemented, and the third is in progress. First is the bag of tasks method. It is most suitable for heterogeneous systems, where each computing node dif
+fer in its computing power. The second method is round robin. It is currently used, because of the availability of clusters of homogeneous computing nodes. The third method is dependency based scheduling. It is optimized to increase locality and decrease d
+ata communications. Bag of tasks scheduling is based on adding processors to a queue, and pop up to be assigned, and after it finishes computation, it returns to the scheduler, and push it self to the queue again, to receive another assignment. The advanta
+ge of this method is that each processor can finish in its own time. The disadvantage is that scheduler might remain idle, waiting for processors to come back from an initial assignment in a previous wave. Round robin scheduling is based on getting the sch
+eduler to finish partitioning all waves uniformly to all available processors, and send all partitions and the dependency, and once done, can serve as one slave itself, to avoid idleness. The advantage is that  master process will be better optimized. Howe
+ver, the disadvantage is that there is no consideration for dependency & locality of data among the processors. }
+\par \pard\plain \ltrpar\s1\ql\rtlch\af3\afs20\lang1025\ltrch\dbch\af3\langfe255\hich\f3\fs24\lang1033\loch\f3\fs24\lang1033 
+\par \pard\plain \ltrpar\s1\ql\rtlch\af3\afs20\lang1025\ltrch\dbch\af3\langfe255\hich\f3\fs24\lang1033\loch\f3\fs24\lang1033 {\rtlch \ltrch\loch\f13\fs20\lang1033\i0\b0 Dependency based scheduling optimizes the assignments to processors to increase dependency locality, to reduce communication time, and idleness due to waiting to receive required resources. The advantage is less communication overhead, and more data locali
+ty. Again, the disadvantage is the preprocessing overhead, to calculate the best assignment based on dependency.}
+\par \pard\plain \ltrpar\s1\ql\rtlch\af3\afs20\lang1025\ltrch\dbch\af3\langfe255\hich\f3\fs24\lang1033\loch\f3\fs24\lang1033 
+\par \pard\plain \ltrpar\s1\qj\rtlch\af3\afs20\lang1025\ltrch\dbch\af3\langfe255\hich\f13\fs24\lang1033\b\loch\f13\fs24\lang1033\b {\rtlch \ltrch\loch\f13\fs24\lang1033\i0\b 9. Results}
+\par \pard\plain \ltrpar\s1\qj\rtlch\af3\afs20\lang1025\ltrch\dbch\af3\langfe255\hich\f13\fs20\lang1033\loch\f13\fs20\lang1033 
+\par \pard\plain \ltrpar\s1\qj\li0\ri0\lin0\rin0\fi245\rtlch\af3\afs20\lang1025\ltrch\dbch\af3\langfe255\hich\f13\fs20\lang1033\loch\f13\fs20\lang1033 {\rtlch \ltrch\loch\f13\fs20\lang1033\i0\b0 We started testing by hand written small data sets, using different machines. Then increased the sequences incrementally till we reached reference 1 in Balibase. Balibase is a hand-written reference sequence alignment as desired by biologists. It contains 
+142 reference alignments with over 1000 sequences. Of the 200,000 residues in the database, 58% are defined within the core blocks. The remaining 42% are in ambiguous regions, which cannot be reliably aligned. There are four hierarchical reference sets. Re
+ference 1 provided the basis for construction of the following sets. Each of the main sets may be sub-divided into smaller groups, based on sequence length and percent similarity. [Balibase Website]. }
+\par \pard\plain \ltrpar\s1\ql\rtlch\af3\afs20\lang1025\ltrch\dbch\af3\langfe255\hich\f3\fs24\lang1033\loch\f3\fs24\lang1033 
+\par \pard\plain \ltrpar\s1\ql\rtlch\af3\afs20\lang1025\ltrch\dbch\af3\langfe255\hich\f3\fs24\lang1033\loch\f3\fs24\lang1033 {\rtlch \ltrch\loch\f13\fs20\lang1033\i0\b0 On a Single machine (Intel Pentium M Processor 740 \u8211\'13 1.73 Ghz, 1 GB RAM, 70 GB HDD), with simulated distributed processes, using mpich library version 2-1.0.4-rc1, the following table lists the results retrieved so far, where P is the number of processes u
+sed, K is the number of sequences aligned, and their lengths, and the CPU time in minutes:seconds format, and the Memory used in Mib.}
+\par \pard\plain \ltrpar\s1\ql\rtlch\af3\afs20\lang1025\ltrch\dbch\af3\langfe255\hich\f3\fs24\lang1033\loch\f3\fs24\lang1033 
+\par \trowd\trql\trleft136\trpaddft3\trpaddt55\trpaddfl3\trpaddl55\trpaddfb3\trpaddb55\trpaddfr3\trpaddr55\clbrdrt\brdrs\brdrw1\brdrcf1\clbrdrl\brdrs\brdrw1\brdrcf1\clbrdrb\brdrs\brdrw1\brdrcf1\clvertalt\cellx574\clbrdrt\brdrs\brdrw1\brdrcf1\clbrdrl\brdrs\brdrw1\brdrcf1\clbrdrb\brdrs\brdrw1\brdrcf1\clvertalt\cellx920\clbrdrt\brdrs\brdrw1\brdrcf1\clbrdrl\brdrs\brdrw1\brdrcf1\clbrdrb\brdrs\brdrw1\brdrcf1\clvertalt\cellx2295\clbrdrt\brdrs\brdrw1\brdrcf1\clbrdrl\brdrs\brdrw1\brdrcf1\clbrdrb\brdrs\brdrw1\brdrcf1\clvertalt\cellx3524\clbrdrt\brdrs\brdrw1\brdrcf1\clbrdrl\brdrs\brdrw1\brdrcf1\clbrdrb\brdrs\brdrw1\brdrcf1\clbrdrr\brdrs\brdrw1\brdrcf1\clvertalt\cellx4680
+\pard\intbl\pard\plain \intbl\ltrpar\s3\sa120\ql\rtlch\af3\afs20\lang1025\ab\ltrch\dbch\af3\langfe255\hich\f13\fs20\lang1033\b\loch\f13\fs20\lang1033\b {\rtlch \ltrch\loch\f13\fs20\lang1033\i0\b P}
+\cell\pard\plain \intbl\ltrpar\s3\sa120\ql\rtlch\af3\afs20\lang1025\ab\ltrch\dbch\af3\langfe255\hich\f13\fs20\lang1033\b\loch\f13\fs20\lang1033\b {\rtlch \ltrch\loch\f13\fs20\lang1033\i0\b K}
+\cell\pard\plain \intbl\ltrpar\s3\sa120\ql\rtlch\af3\afs20\lang1025\ab\ltrch\dbch\af3\langfe255\hich\f13\fs20\lang1033\b\loch\f13\fs20\lang1033\b {\rtlch \ltrch\loch\f13\fs20\lang1033\i0\b Lengths}
+\cell\pard\plain \intbl\ltrpar\s3\sa120\ql\rtlch\af3\afs20\lang1025\ab\ltrch\dbch\af3\langfe255\hich\f13\fs20\lang1033\b\loch\f13\fs20\lang1033\b {\rtlch \ltrch\loch\f13\fs20\lang1033\i0\b CPU }
+\cell\pard\plain \intbl\ltrpar\s3\sa120\ql\rtlch\af3\afs20\lang1025\ab\ltrch\dbch\af3\langfe255\hich\f13\fs20\lang1033\b\loch\f13\fs20\lang1033\b {\rtlch \ltrch\loch\f13\fs20\lang1033\i0\b Mem}
+\cell\row\pard \trowd\trql\trleft136\trpaddft3\trpaddt55\trpaddfl3\trpaddl55\trpaddfb3\trpaddb55\trpaddfr3\trpaddr55\clbrdrl\brdrs\brdrw1\brdrcf1\clbrdrb\brdrs\brdrw1\brdrcf1\clvertalt\cellx574\clbrdrl\brdrs\brdrw1\brdrcf1\clbrdrb\brdrs\brdrw1\brdrcf1\clvertalt\cellx920\clbrdrl\brdrs\brdrw1\brdrcf1\clbrdrb\brdrs\brdrw1\brdrcf1\clvertalt\cellx2295\clbrdrl\brdrs\brdrw1\brdrcf1\clbrdrb\brdrs\brdrw1\brdrcf1\clvertalt\cellx3524\clbrdrl\brdrs\brdrw1\brdrcf1\clbrdrb\brdrs\brdrw1\brdrcf1\clbrdrr\brdrs\brdrw1\brdrcf1\clvertalt\cellx4680
+\pard\intbl\pard\plain \intbl\ltrpar\s3\sa120\ql\rtlch\af3\afs20\lang1025\ltrch\dbch\af3\langfe255\hich\f13\fs20\lang1033\loch\f13\fs20\lang1033 {\rtlch \ltrch\loch\f13\fs20\lang1033\i0\b0 3}
+\cell\pard\plain \intbl\ltrpar\s3\sa120\ql\rtlch\af3\afs20\lang1025\ltrch\dbch\af3\langfe255\hich\f13\fs20\lang1033\loch\f13\fs20\lang1033 {\rtlch \ltrch\loch\f13\fs20\lang1033\i0\b0 3}
+\cell\pard\plain \intbl\ltrpar\s3\sa120\ql\rtlch\af3\afs20\lang1025\ltrch\dbch\af3\langfe255\hich\f13\fs20\lang1033\loch\f13\fs20\lang1033 {\rtlch \ltrch\loch\f13\fs20\lang1033\i0\b0 4, 3, 2}
+\cell\pard\plain \intbl\ltrpar\s3\sa120\ql\rtlch\af3\afs20\lang1025\ltrch\dbch\af3\langfe255\hich\f13\fs20\lang1033\loch\f13\fs20\lang1033 {\rtlch \ltrch\loch\f13\fs20\lang1033\i0\b0 00:00.12}
+\cell\pard\plain \intbl\ltrpar\s3\sa120\ql\rtlch\af3\afs20\lang1025\ltrch\dbch\af3\langfe255\hich\f13\fs20\lang1033\loch\f13\fs20\lang1033 {\rtlch \ltrch\loch\f13\fs20\lang1033\i0\b0 7.46}
+\cell\row\pard \trowd\trql\trleft136\trpaddft3\trpaddt55\trpaddfl3\trpaddl55\trpaddfb3\trpaddb55\trpaddfr3\trpaddr55\clbrdrl\brdrs\brdrw1\brdrcf1\clbrdrb\brdrs\brdrw1\brdrcf1\clvertalt\cellx574\clbrdrl\brdrs\brdrw1\brdrcf1\clbrdrb\brdrs\brdrw1\brdrcf1\clvertalt\cellx920\clbrdrl\brdrs\brdrw1\brdrcf1\clbrdrb\brdrs\brdrw1\brdrcf1\clvertalt\cellx2295\clbrdrl\brdrs\brdrw1\brdrcf1\clbrdrb\brdrs\brdrw1\brdrcf1\clvertalt\cellx3524\clbrdrl\brdrs\brdrw1\brdrcf1\clbrdrb\brdrs\brdrw1\brdrcf1\clbrdrr\brdrs\brdrw1\brdrcf1\clvertalt\cellx4680
+\pard\intbl\pard\plain \intbl\ltrpar\s3\sa120\ql\rtlch\af3\afs20\lang1025\ltrch\dbch\af3\langfe255\hich\f13\fs20\lang1033\loch\f13\fs20\lang1033 {\rtlch \ltrch\loch\f13\fs20\lang1033\i0\b0 4}
+\cell\pard\plain \intbl\ltrpar\s3\sa120\ql\rtlch\af3\afs20\lang1025\ltrch\dbch\af3\langfe255\hich\f13\fs20\lang1033\loch\f13\fs20\lang1033 {\rtlch \ltrch\loch\f13\fs20\lang1033\i0\b0 3}
+\cell\pard\plain \intbl\ltrpar\s3\sa120\ql\rtlch\af3\afs20\lang1025\ltrch\dbch\af3\langfe255\hich\f13\fs20\lang1033\loch\f13\fs20\lang1033 {\rtlch \ltrch\loch\f13\fs20\lang1033\i0\b0 4, 3, 2}
+\cell\pard\plain \intbl\ltrpar\s3\sa120\ql\rtlch\af3\afs20\lang1025\ltrch\dbch\af3\langfe255\hich\f13\fs20\lang1033\loch\f13\fs20\lang1033 {\rtlch \ltrch\loch\f13\fs20\lang1033\i0\b0 00:00.12}
+\cell\pard\plain \intbl\ltrpar\s3\sa120\ql\rtlch\af3\afs20\lang1025\ltrch\dbch\af3\langfe255\hich\f13\fs20\lang1033\loch\f13\fs20\lang1033 {\rtlch \ltrch\loch\f13\fs20\lang1033\i0\b0 8.39}
+\cell\row\pard \trowd\trql\trleft136\trpaddft3\trpaddt55\trpaddfl3\trpaddl55\trpaddfb3\trpaddb55\trpaddfr3\trpaddr55\clbrdrl\brdrs\brdrw1\brdrcf1\clbrdrb\brdrs\brdrw1\brdrcf1\clvertalt\cellx574\clbrdrl\brdrs\brdrw1\brdrcf1\clbrdrb\brdrs\brdrw1\brdrcf1\clvertalt\cellx920\clbrdrl\brdrs\brdrw1\brdrcf1\clbrdrb\brdrs\brdrw1\brdrcf1\clvertalt\cellx2295\clbrdrl\brdrs\brdrw1\brdrcf1\clbrdrb\brdrs\brdrw1\brdrcf1\clvertalt\cellx3524\clbrdrl\brdrs\brdrw1\brdrcf1\clbrdrb\brdrs\brdrw1\brdrcf1\clbrdrr\brdrs\brdrw1\brdrcf1\clvertalt\cellx4680
+\pard\intbl\pard\plain \intbl\ltrpar\s3\sa120\ql\rtlch\af3\afs20\lang1025\ltrch\dbch\af3\langfe255\hich\f13\fs20\lang1033\loch\f13\fs20\lang1033 {\rtlch \ltrch\loch\f13\fs20\lang1033\i0\b0 4}
+\cell\pard\plain \intbl\ltrpar\s3\sa120\ql\rtlch\af3\afs20\lang1025\ltrch\dbch\af3\langfe255\hich\f13\fs20\lang1033\loch\f13\fs20\lang1033 {\rtlch \ltrch\loch\f13\fs20\lang1033\i0\b0 4}
+\cell\pard\plain \intbl\ltrpar\s3\sa120\ql\rtlch\af3\afs20\lang1025\ltrch\dbch\af3\langfe255\hich\f13\fs20\lang1033\loch\f13\fs20\lang1033 {\rtlch \ltrch\loch\f13\fs20\lang1033\i0\b0 5,4,3,2}
+\cell\pard\plain \intbl\ltrpar\s3\sa120\ql\rtlch\af3\afs20\lang1025\ltrch\dbch\af3\langfe255\hich\f13\fs20\lang1033\loch\f13\fs20\lang1033 {\rtlch \ltrch\loch\f13\fs20\lang1033\i0\b0 00:00.16}
+\cell\pard\plain \intbl\ltrpar\s3\sa120\ql\rtlch\af3\afs20\lang1025\ltrch\dbch\af3\langfe255\hich\f13\fs20\lang1033\loch\f13\fs20\lang1033 {\rtlch \ltrch\loch\f13\fs20\lang1033\i0\b0 10.26}
+\cell\row\pard \trowd\trql\trleft136\trpaddft3\trpaddt55\trpaddfl3\trpaddl55\trpaddfb3\trpaddb55\trpaddfr3\trpaddr55\clbrdrl\brdrs\brdrw1\brdrcf1\clbrdrb\brdrs\brdrw1\brdrcf1\clvertalt\cellx574\clbrdrl\brdrs\brdrw1\brdrcf1\clbrdrb\brdrs\brdrw1\brdrcf1\clvertalt\cellx920\clbrdrl\brdrs\brdrw1\brdrcf1\clbrdrb\brdrs\brdrw1\brdrcf1\clvertalt\cellx2295\clbrdrl\brdrs\brdrw1\brdrcf1\clbrdrb\brdrs\brdrw1\brdrcf1\clvertalt\cellx3524\clbrdrl\brdrs\brdrw1\brdrcf1\clbrdrb\brdrs\brdrw1\brdrcf1\clbrdrr\brdrs\brdrw1\brdrcf1\clvertalt\cellx4680
+\pard\intbl\pard\plain \intbl\ltrpar\s3\sa120\ql\rtlch\af3\afs20\lang1025\ltrch\dbch\af3\langfe255\hich\f13\fs20\lang1033\loch\f13\fs20\lang1033 {\rtlch \ltrch\loch\f13\fs20\lang1033\i0\b0 5}
+\cell\pard\plain \intbl\ltrpar\s3\sa120\ql\rtlch\af3\afs20\lang1025\ltrch\dbch\af3\langfe255\hich\f13\fs20\lang1033\loch\f13\fs20\lang1033 {\rtlch \ltrch\loch\f13\fs20\lang1033\i0\b0 4}
+\cell\pard\plain \intbl\ltrpar\s3\sa120\ql\rtlch\af3\afs20\lang1025\ltrch\dbch\af3\langfe255\hich\f13\fs20\lang1033\loch\f13\fs20\lang1033 {\rtlch \ltrch\loch\f13\fs20\lang1033\i0\b0 5,4,3,2}
+\cell\pard\plain \intbl\ltrpar\s3\sa120\ql\rtlch\af3\afs20\lang1025\ltrch\dbch\af3\langfe255\hich\f13\fs20\lang1033\loch\f13\fs20\lang1033 {\rtlch \ltrch\loch\f13\fs20\lang1033\i0\b0 00:00.12}
+\cell\pard\plain \intbl\ltrpar\s3\sa120\ql\rtlch\af3\afs20\lang1025\ltrch\dbch\af3\langfe255\hich\f13\fs20\lang1033\loch\f13\fs20\lang1033 {\rtlch \ltrch\loch\f13\fs20\lang1033\i0\b0 13.05}
+\cell\row\pard \trowd\trql\trleft136\trpaddft3\trpaddt55\trpaddfl3\trpaddl55\trpaddfb3\trpaddb55\trpaddfr3\trpaddr55\clbrdrl\brdrs\brdrw1\brdrcf1\clbrdrb\brdrs\brdrw1\brdrcf1\clvertalt\cellx574\clbrdrl\brdrs\brdrw1\brdrcf1\clbrdrb\brdrs\brdrw1\brdrcf1\clvertalt\cellx920\clbrdrl\brdrs\brdrw1\brdrcf1\clbrdrb\brdrs\brdrw1\brdrcf1\clvertalt\cellx2295\clbrdrl\brdrs\brdrw1\brdrcf1\clbrdrb\brdrs\brdrw1\brdrcf1\clvertalt\cellx3524\clbrdrl\brdrs\brdrw1\brdrcf1\clbrdrb\brdrs\brdrw1\brdrcf1\clbrdrr\brdrs\brdrw1\brdrcf1\clvertalt\cellx4680
+\pard\intbl\pard\plain \intbl\ltrpar\s3\sa120\ql\rtlch\af3\afs20\lang1025\ltrch\dbch\af3\langfe255\hich\f13\fs20\lang1033\loch\f13\fs20\lang1033 {\rtlch \ltrch\loch\f13\fs20\lang1033\i0\b0 4}
+\cell\pard\plain \intbl\ltrpar\s3\sa120\ql\rtlch\af3\afs20\lang1025\ltrch\dbch\af3\langfe255\hich\f13\fs20\lang1033\loch\f13\fs20\lang1033 {\rtlch \ltrch\loch\f13\fs20\lang1033\i0\b0 5}
+\cell\pard\plain \intbl\ltrpar\s3\sa120\ql\rtlch\af3\afs20\lang1025\ltrch\dbch\af3\langfe255\hich\f13\fs20\lang1033\loch\f13\fs20\lang1033 {\rtlch \ltrch\loch\f13\fs20\lang1033\i0\b0 6, 5,4,3,2}
+\cell\pard\plain \intbl\ltrpar\s3\sa120\ql\rtlch\af3\afs20\lang1025\ltrch\dbch\af3\langfe255\hich\f13\fs20\lang1033\loch\f13\fs20\lang1033 {\rtlch \ltrch\loch\f13\fs20\lang1033\i0\b0 00:00.12}
+\cell\pard\plain \intbl\ltrpar\s3\sa120\ql\rtlch\af3\afs20\lang1025\ltrch\dbch\af3\langfe255\hich\f13\fs20\lang1033\loch\f13\fs20\lang1033 {\rtlch \ltrch\loch\f13\fs20\lang1033\i0\b0 10.26}
+\cell\row\pard \trowd\trql\trleft136\trpaddft3\trpaddt55\trpaddfl3\trpaddl55\trpaddfb3\trpaddb55\trpaddfr3\trpaddr55\clbrdrl\brdrs\brdrw1\brdrcf1\clbrdrb\brdrs\brdrw1\brdrcf1\clvertalt\cellx574\clbrdrl\brdrs\brdrw1\brdrcf1\clbrdrb\brdrs\brdrw1\brdrcf1\clvertalt\cellx920\clbrdrl\brdrs\brdrw1\brdrcf1\clbrdrb\brdrs\brdrw1\brdrcf1\clvertalt\cellx2295\clbrdrl\brdrs\brdrw1\brdrcf1\clbrdrb\brdrs\brdrw1\brdrcf1\clvertalt\cellx3524\clbrdrl\brdrs\brdrw1\brdrcf1\clbrdrb\brdrs\brdrw1\brdrcf1\clbrdrr\brdrs\brdrw1\brdrcf1\clvertalt\cellx4680
+\pard\intbl\pard\plain \intbl\ltrpar\s3\sa120\ql\rtlch\af3\afs20\lang1025\ltrch\dbch\af3\langfe255\hich\f13\fs20\lang1033\loch\f13\fs20\lang1033 {\rtlch \ltrch\loch\f13\fs20\lang1033\i0\b0 4}
+\cell\pard\plain \intbl\ltrpar\s3\sa120\ql\rtlch\af3\afs20\lang1025\ltrch\dbch\af3\langfe255\hich\f13\fs20\lang1033\loch\f13\fs20\lang1033 {\rtlch \ltrch\loch\f13\fs20\lang1033\i0\b0 6}
+\cell\pard\plain \intbl\ltrpar\s3\sa120\ql\rtlch\af3\afs20\lang1025\ltrch\dbch\af3\langfe255\hich\f13\fs20\lang1033\loch\f13\fs20\lang1033 {\rtlch \ltrch\loch\f13\fs20\lang1033\i0\b0 7, 6, 5,4,3,2}
+\cell\pard\plain \intbl\ltrpar\s3\sa120\ql\rtlch\af3\afs20\lang1025\ltrch\dbch\af3\langfe255\hich\f13\fs20\lang1033\loch\f13\fs20\lang1033 {\rtlch \ltrch\loch\f13\fs20\lang1033\i0\b0 00:01.13}
+\cell\pard\plain \intbl\ltrpar\s3\sa120\ql\rtlch\af3\afs20\lang1025\ltrch\dbch\af3\langfe255\hich\f13\fs20\lang1033\loch\f13\fs20\lang1033 {\rtlch \ltrch\loch\f13\fs20\lang1033\i0\b0 27.97}
+\cell\row\pard \trowd\trql\trleft136\trpaddft3\trpaddt55\trpaddfl3\trpaddl55\trpaddfb3\trpaddb55\trpaddfr3\trpaddr55\clbrdrl\brdrs\brdrw1\brdrcf1\clbrdrb\brdrs\brdrw1\brdrcf1\clvertalt\cellx574\clbrdrl\brdrs\brdrw1\brdrcf1\clbrdrb\brdrs\brdrw1\brdrcf1\clvertalt\cellx920\clbrdrl\brdrs\brdrw1\brdrcf1\clbrdrb\brdrs\brdrw1\brdrcf1\clvertalt\cellx2295\clbrdrl\brdrs\brdrw1\brdrcf1\clbrdrb\brdrs\brdrw1\brdrcf1\clvertalt\cellx3524\clbrdrl\brdrs\brdrw1\brdrcf1\clbrdrb\brdrs\brdrw1\brdrcf1\clbrdrr\brdrs\brdrw1\brdrcf1\clvertalt\cellx4680
+\pard\intbl\pard\plain \intbl\ltrpar\s3\sa120\ql\rtlch\af3\afs20\lang1025\ltrch\dbch\af3\langfe255\hich\f13\fs20\lang1033\loch\f13\fs20\lang1033 {\rtlch \ltrch\loch\f13\fs20\lang1033\i0\b0 3}
+\cell\pard\plain \intbl\ltrpar\s3\sa120\ql\rtlch\af3\afs20\lang1025\ltrch\dbch\af3\langfe255\hich\f13\fs20\lang1033\loch\f13\fs20\lang1033 {\rtlch \ltrch\loch\f13\fs20\lang1033\i0\b0 3}
+\cell\pard\plain \intbl\ltrpar\s3\sa120\ql\rtlch\af3\afs20\lang1025\ltrch\dbch\af3\langfe255\hich\f13\fs20\lang1033\loch\f13\fs20\lang1033 {\rtlch \ltrch\loch\f13\fs20\lang1033\i0\b0 7,8,9}
+\cell\pard\plain \intbl\ltrpar\s3\sa120\ql\rtlch\af3\afs20\lang1025\ltrch\dbch\af3\langfe255\hich\f13\fs20\lang1033\loch\f13\fs20\lang1033 {\rtlch \ltrch\loch\f13\fs20\lang1033\i0\b0 00:00.34}
+\cell\pard\plain \intbl\ltrpar\s3\sa120\ql\rtlch\af3\afs20\lang1025\ltrch\dbch\af3\langfe255\hich\f13\fs20\lang1033\loch\f13\fs20\lang1033 {\rtlch \ltrch\loch\f13\fs20\lang1033\i0\b0 7.46}
+\cell\row\pard \trowd\trql\trleft136\trpaddft3\trpaddt55\trpaddfl3\trpaddl55\trpaddfb3\trpaddb55\trpaddfr3\trpaddr55\clbrdrl\brdrs\brdrw1\brdrcf1\clbrdrb\brdrs\brdrw1\brdrcf1\clvertalt\cellx574\clbrdrl\brdrs\brdrw1\brdrcf1\clbrdrb\brdrs\brdrw1\brdrcf1\clvertalt\cellx920\clbrdrl\brdrs\brdrw1\brdrcf1\clbrdrb\brdrs\brdrw1\brdrcf1\clvertalt\cellx2295\clbrdrl\brdrs\brdrw1\brdrcf1\clbrdrb\brdrs\brdrw1\brdrcf1\clvertalt\cellx3524\clbrdrl\brdrs\brdrw1\brdrcf1\clbrdrb\brdrs\brdrw1\brdrcf1\clbrdrr\brdrs\brdrw1\brdrcf1\clvertalt\cellx4680
+\pard\intbl\pard\plain \intbl\ltrpar\s3\sa120\ql\rtlch\af3\afs20\lang1025\ltrch\dbch\af3\langfe255\hich\f13\fs20\lang1033\loch\f13\fs20\lang1033 {\rtlch \ltrch\loch\f13\fs20\lang1033\i0\b0 3}
+\cell\pard\plain \intbl\ltrpar\s3\sa120\ql\rtlch\af3\afs20\lang1025\ltrch\dbch\af3\langfe255\hich\f13\fs20\lang1033\loch\f13\fs20\lang1033 {\rtlch \ltrch\loch\f13\fs20\lang1033\i0\b0 3}
+\cell\pard\plain \intbl\ltrpar\s3\sa120\ql\rtlch\af3\afs20\lang1025\ltrch\dbch\af3\langfe255\hich\f13\fs20\lang1033\loch\f13\fs20\lang1033 {\rtlch \ltrch\loch\f13\fs20\lang1033\i0\b0 90,80,85}
+\cell\pard\plain \intbl\ltrpar\s3\sa120\ql\rtlch\af3\afs20\lang1025\ltrch\dbch\af3\langfe255\hich\f13\fs20\lang1033\loch\f13\fs20\lang1033 {\rtlch \ltrch\loch\f13\fs20\lang1033\i0\b0 00:00.37}
+\cell\pard\plain \intbl\ltrpar\s3\sa120\ql\rtlch\af3\afs20\lang1025\ltrch\dbch\af3\langfe255\hich\f13\fs20\lang1033\loch\f13\fs20\lang1033 
+\cell\row\pard \pard\plain \ltrpar\s1\qj\rtlch\af3\afs20\lang1025\ltrch\dbch\af3\langfe255\hich\f13\fs24\lang1033\loch\f13\fs24\lang1033 
+\par \pard\plain \ltrpar\s1\qj\rtlch\af3\afs20\lang1025\ltrch\dbch\af3\langfe255\hich\f13\fs24\lang1033\b\loch\f13\fs24\lang1033\b {\rtlch \ltrch\loch\f13\fs24\lang1033\i0\b 10. Conclusion}
+\par \pard\plain \ltrpar\s1\qj\rtlch\af3\afs20\lang1025\ltrch\dbch\af3\langfe255\hich\f13\fs20\lang1033\loch\f13\fs20\lang1033 
+\par \pard\plain \ltrpar\s1\qj\li0\ri0\lin0\rin0\fi245\rtlch\af3\afs20\lang1025\ltrch\dbch\af3\langfe255\hich\f13\fs20\lang1033\loch\f13\fs20\lang1033 {\rtlch \ltrch\loch\f13\fs20\lang1033\i0\b0 This method does not reduce the complexity of the problem; it is still growing exponentially with the data size. However, it provides a method to compute MSA invariant of dimension and shape, and divides the complexity into chunks that can be distributed o
+ver processors. This method provides automatic load balancing among processors, and better locality inside each single processor. The more powerful the machines used, the higher the upper-bound of the input data size. Further work on high dimensional scien
+tific computation problems can benefit from these methods. Heuristics and further optimization can be applied to this implementation of the multiple sequence alignment, to reduce the search space to suit less powerful computing platforms.}
+\par \pard\plain \ltrpar\s1\ql\rtlch\af3\afs20\lang1025\ltrch\dbch\af3\langfe255\hich\f3\fs24\lang1033\loch\f3\fs24\lang1033 
+\par \pard\plain \ltrpar\s1\ql\rtlch\af3\afs20\lang1025\ltrch\dbch\af3\langfe255\hich\f3\fs24\lang1033\loch\f3\fs24\lang1033 {\rtlch \ltrch\loch\f13\fs20\lang1033\i0\b0 Currently, the work is focused on optimizing the communication and computation costs, but enhancing the dependency based scheduling. More work can be done to reduce the search space without loosing optimality. Also, more optimal paths, or sub-optimal paths
+ can be returned without much penalty. Moreover, distributed local alignments can be achieved as well, with minor changes. Currently we have only local alignments on the sequential MoA MSA implementation.}
+\par \pard\plain \ltrpar\s1\ql\rtlch\af3\afs20\lang1025\ltrch\dbch\af3\langfe255\hich\f3\fs24\lang1033\loch\f3\fs24\lang1033 
+\par \pard\plain \ltrpar\s1\ql\rtlch\af3\afs20\lang1025\ltrch\dbch\af3\langfe255\hich\f3\fs24\lang1033\loch\f3\fs24\lang1033 {\rtlch \ltrch\loch\f13\fs20\lang1033\i0\b0 Portability is achieved by avoiding use of any proprietary libraries. Currently, standard C, and standard functions in the MPI standards are being used. The MoA library implemented in standard C, and can be reasily recompiled on any machine as required. }
+\par \pard\plain \ltrpar\s1\ql\rtlch\af3\afs20\lang1025\ltrch\dbch\af3\langfe255\hich\f3\fs24\lang1033\loch\f3\fs24\lang1033 
+\par \pard\plain \ltrpar\s1\ql\rtlch\af3\afs20\lang1025\ltrch\dbch\af3\langfe255\hich\f3\fs24\lang1033\loch\f3\fs24\lang1033 {\rtlch \ltrch\loch\f13\fs20\lang1033\i0\b0 Further portability enhancement, would be to model the processors as an extra dimension to the alignment scoring tensor, and partition, by reshaping the tensor to divide itself over the processors automatically. This all for a simple one dimensional array 
+of processors. For a hypercube or other topology of processors, the processors can be defined as another MoA tensor, and using the PSI correspondence theorem as described in [Mullin 1988], correspondence between the  scoring tensor elements and  processor 
+elements, can be established to achieve the best scheduling required.}
+\par \pard\plain \ltrpar\s1\qj\rtlch\af3\afs20\lang1025\ltrch\dbch\af3\langfe255\hich\f13\fs20\lang1033\loch\f13\fs20\lang1033 
+\par \pard\plain \ltrpar\s1\qj\rtlch\af3\afs20\lang1025\ltrch\dbch\af3\langfe255\hich\f13\fs24\lang1033\b\loch\f13\fs24\lang1033\b {\rtlch \ltrch\loch\f13\fs24\lang1033\i0\b 11. References}
+\par \pard\plain \ltrpar\s1\qj\rtlch\af3\afs20\lang1025\ltrch\dbch\af3\langfe255\hich\f13\fs20\lang1033\loch\f13\fs20\lang1033 
+\par \pard\plain \ltrpar\s1\qj\li0\ri0\lin0\rin0\fi245\rtlch\af3\afs20\lang1025\ltrch\dbch\af3\langfe255\hich\f13\fs20\lang1033\loch\f13\fs20\lang1033 {\rtlch \ltrch\loch\f13\fs20\lang1033\i0\b0 Manal Helal, \u8220\'1cMathematics of Arrays \u8211\'13 The implementation and the application\u8221\'1d, A Thesis submitted in partial fulfillment of the requirements for the degree of Master of Science, Department of Computing Science, American University in Cairo, Fall 2001.}
+\par \pard\plain \ltrpar\s1\ql\rtlch\af3\afs20\lang1025\ltrch\dbch\af3\langfe255\hich\f3\fs24\lang1033\loch\f3\fs24\lang1033 
+\par \pard\plain \ltrpar\s1\ql\rtlch\af3\afs20\lang1025\ltrch\dbch\af3\langfe255\hich\f3\fs24\lang1033\loch\f3\fs24\lang1033 {\rtlch \ltrch\loch\f13\fs20\lang1033\i0\b0 Lenore M. Mullin, \u8220\'1cA Mathematics of Arrays\u8221\'1d, Doctor of Philosophy Dissertation in Computer and Information Science Completed at Syracuse University, Syracuse, NJ, December 1988.}
+\par \pard\plain \ltrpar\s1\ql\rtlch\af3\afs20\lang1025\ltrch\dbch\af3\langfe255\hich\f3\fs24\lang1033\loch\f3\fs24\lang1033 
+\par \pard\plain \ltrpar\s1\qj\rtlch\af3\afs20\lang1025\ltrch\dbch\af3\langfe255\hich\f13\fs20\lang1033\loch\f13\fs20\lang1033 {\rtlch \ltrch\loch\f13\fs20\lang1033\i0\b0 J. Raynolds and L. Mullin, \u8220\'1cApplications of conformal computing Techniques to Problems in computational physics: the FFT.\u8221\'1d, Computer Physics communications 170(2005)1-10, 2005}
+\par \pard\plain \ltrpar\s1\ql\rtlch\af3\afs20\lang1025\ltrch\dbch\af3\langfe255\hich\f3\fs24\lang1033\loch\f3\fs24\lang1033 {\rtlch \ltrch\loch  }
+\par \pard\plain \ltrpar\s1\ql {\rtlch \ltrch\loch\f13\fs20\lang1033\i0\b0 L. Mullin, \u8220\'1cA Uniform way of reasoning about array based computation in radar\u8221\'1d, Digital Signal Processing}
+\par \pard\plain \ltrpar\s1\ql\rtlch\af3\afs20\lang1025\ltrch\dbch\af3\langfe255\hich\f3\fs24\lang1033\loch\f3\fs24\lang1033 {\rtlch \ltrch\loch\f13\fs20\lang1033\i0\b0 Elsevier Publishers, September 2005}
+\par \pard\plain \ltrpar\s1\ql\rtlch\af3\afs20\lang1025\ltrch\dbch\af3\langfe255\hich\f3\fs24\lang1033\loch\f3\fs24\lang1033 
+\par \pard\plain \ltrpar\s1\ql\rtlch\af3\afs20\lang1025\ltrch\dbch\af3\langfe255\hich\f3\fs24\lang1033\loch\f3\fs24\lang1033 {\rtlch \ltrch\loch\f13\fs20\lang1033\i0\b0 Dan Gusfield, \u8220\'1cAlgorithms on Strings, Trees, and Sequences\u8221\'1d, Cambridge University Press, 1997}
+\par \pard\plain \ltrpar\s1\ql\rtlch\af3\afs20\lang1025\ltrch\dbch\af3\langfe255\hich\f3\fs24\lang1033\loch\f3\fs24\lang1033 
+\par \pard\plain \ltrpar\s1\ql\rtlch\af3\afs20\lang1025\ltrch\dbch\af3\langfe255\hich\f3\fs24\lang1033\loch\f3\fs24\lang1033 {\rtlch \ltrch\loch\f13\fs20\lang1033\i0\b0 Chunxi Chen, Bertil Schmidt, \u8220\'1cAn Adaptive grid implementation of DNA sequence alignment\u8221\'1d, Source, Future Generation Computer Systems archive Volume 21 , Issue 7, July 2005, pp: 988 - 1003 .}
+\par \pard\plain \ltrpar\s1\ql\rtlch\af3\afs20\lang1025\ltrch\dbch\af3\langfe255\hich\f3\fs24\lang1033\loch\f3\fs24\lang1033 
+\par \pard\plain \ltrpar\s1\qj\li0\ri0\lin0\rin0\fi245\rtlch\af3\afs20\lang1025\ltrch\dbch\af3\langfe255\hich\f13\fs20\lang1033\loch\f13\fs20\lang1033 {\rtlch \ltrch\loch\f13\fs20\lang1033\i0\b0 Tieng Kim Yap, \u8220\'1cParallel Computation In Biological Sequence Analysis\u8221\'1d, A Dissertation submitted in partial fulfillment of the requirements for the degree of Doctor of Philosophy, Department of Computing Science, George Mason University,  Spring 1995.}
+\par \pard\plain \ltrpar\s1\qj\rtlch\af3\afs20\lang1025\ltrch\dbch\af3\langfe255\hich\f13\fs24\lang1033\loch\f13\fs24\lang1033 
+\par \pard\plain \ltrpar\s1\qj\rtlch\af3\afs20\lang1025\ltrch\dbch\af3\langfe255\hich\f13\fs20\lang1033\loch\f13\fs20\lang1033 
+\par \pard\plain \ltrpar\s1\qj\sb60\rtlch\af3\afs20\lang1025\ltrch\dbch\af3\langfe255\hich\f13\fs20\lang1033\loch\f13\fs20\lang1033 
+\par \sect\sbknone\cols1\cols2\colsx460{\*\swcolmnblnc}\ltrsect
+\pard\plain \ltrpar\s1\qj\rtlch\af3\afs20\lang1025\ltrch\dbch\af3\langfe255\hich\f3\fs24\lang1033\loch\f3\fs24\lang1033 
+\par }@
+
+
+1.1.1.1
+log
+@Master/Slave Paper Writing
+@
+text
+@@

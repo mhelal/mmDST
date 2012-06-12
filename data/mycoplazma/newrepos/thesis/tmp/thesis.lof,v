@@ -1,0 +1,56 @@
+head     1.1;
+branch   1.1.1;
+access   ;
+symbols  r1:1.1.1.1 mhelal:1.1.1;
+locks    ; strict;
+comment  @# @;
+
+
+1.1
+date     2008.05.06.04.03.23;  author mhelal;  state Exp;
+branches 1.1.1.1;
+next     ;
+
+1.1.1.1
+date     2008.05.06.04.03.23;  author mhelal;  state Exp;
+branches ;
+next     ;
+
+
+desc
+@@
+
+
+
+1.1
+log
+@Initial revision
+@
+text
+@\addvspace {10\p@@ }
+\addvspace {10\p@@ }
+\addvspace {10\p@@ }
+\contentsline {figure}{\numberline {3.1}{\ignorespaces MSA Pair Wise Traditional Dependency}}{42}
+\contentsline {figure}{\numberline {3.2}{\ignorespaces Partitioning Thread in Master \& Receiving Thread in Slave}}{44}
+\contentsline {figure}{\numberline {3.3}{\ignorespaces MoA 2D MSA Waves Partitions}}{44}
+\contentsline {figure}{\numberline {3.4}{\ignorespaces 3D MoA MSA Waves Partitions for shape <3 $\hskip 1em\relax $ 3 $\hskip 1em\relax $ 3>}}{45}
+\contentsline {figure}{\numberline {3.5}{\ignorespaces 4D MoA MSA Waves Partitions for shape <3 $\hskip 1em\relax $ 3 $\hskip 1em\relax $ 3 $\hskip 1em\relax $ 3>}}{45}
+\contentsline {figure}{\numberline {3.6}{\ignorespaces 5D MoA MSA Waves Partitions for shape <3 $\hskip 1em\relax $ 3 $\hskip 1em\relax $ 3 $\hskip 1em\relax $ 3 $\hskip 1em\relax $ 3>}}{46}
+\contentsline {figure}{\numberline {3.7}{\ignorespaces ND MoA MSA Dependency}}{48}
+\contentsline {figure}{\numberline {3.8}{\ignorespaces Slave Process Threads}}{48}
+\contentsline {figure}{\numberline {3.9}{\ignorespaces Distributed Trace Back Design}}{49}
+\addvspace {10\p@@ }
+\addvspace {10\p@@ }
+\addvspace {10\p@@ }
+\addvspace {10\p@@ }
+\addvspace {10\p@@ }
+\addvspace {10\p@@ }
+@
+
+
+1.1.1.1
+log
+@Thesis Writing
+@
+text
+@@

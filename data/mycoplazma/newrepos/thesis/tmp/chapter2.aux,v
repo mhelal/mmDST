@@ -1,0 +1,98 @@
+head     1.1;
+branch   1.1.1;
+access   ;
+symbols  r1:1.1.1.1 mhelal:1.1.1;
+locks    ; strict;
+comment  @# @;
+
+
+1.1
+date     2008.05.06.04.03.23;  author mhelal;  state Exp;
+branches 1.1.1.1;
+next     ;
+
+1.1.1.1
+date     2008.05.06.04.03.23;  author mhelal;  state Exp;
+branches ;
+next     ;
+
+
+desc
+@@
+
+
+
+1.1
+log
+@Initial revision
+@
+text
+@\relax 
+\@@writefile{toc}{\contentsline {chapter}{\numberline {2}Literature Review and First Problem Definition}{11}}
+\@@writefile{lof}{\addvspace {10\p@@ }}
+\@@writefile{lot}{\addvspace {10\p@@ }}
+\@@writefile{toc}{\contentsline {section}{\numberline {2.1}Dynamic Programming}{11}}
+\@@writefile{toc}{\contentsline {section}{\numberline {2.2}Dimensionality Reduction Methods and Optimality Effects}{11}}
+\@@writefile{toc}{\contentsline {section}{\numberline {2.3}Multiple Sequence Alignment in Computational Biology}{11}}
+\@@writefile{toc}{\contentsline {subsection}{\numberline {2.3.1}Local Alignment}{16}}
+\@@writefile{toc}{\contentsline {section}{\numberline {2.4}Multiple Sequence Alignment}{18}}
+\@@writefile{lot}{\contentsline {table}{\numberline {2.1}{\ignorespaces Probability matrix}}{27}}
+\@@writefile{toc}{\contentsline {subsection}{\numberline {2.4.1}Hidden Markov model}{27}}
+\@@writefile{toc}{\contentsline {subsection}{\numberline {2.4.2}Benchmark Alignment databases}{27}}
+\citation{Sneath-Sokal-73}
+\citation{Hogeweg-Hesper-84}
+\citation{Feng-Doolittle-87}
+\@@writefile{toc}{\contentsline {subsection}{\numberline {2.4.3}Multiple Sequence Alignment Methods}{29}}
+\@@writefile{toc}{\contentsline {subsubsection}{Progressive Alignment Techniques}{29}}
+\citation{BalibaseWeb}
+\citation{BalibaseWeb}
+\citation{BalibaseWeb}
+\@@writefile{toc}{\contentsline {subsubsection}{Iterative Alignment techniques}{32}}
+\citation{BalibaseWeb}
+\citation{BalibaseWeb}
+\citation{BalibaseWeb}
+\citation{BalibaseWeb}
+\citation{BalibaseWeb}
+\citation{BalibaseWeb}
+\citation{BalibaseWeb}
+\citation{BalibaseWeb}
+\citation{BalibaseWeb}
+\citation{Stoye-et-al-97}
+\citation{Carrillo-Lipman-88}
+\@@writefile{toc}{\contentsline {subsubsection}{Simultaneous Alignment}{35}}
+\@@writefile{toc}{\contentsline {subsection}{\numberline {2.4.4}Existing Methods Problems}{35}}
+\@@setckpt{chapter2}{
+\setcounter{page}{36}
+\setcounter{equation}{2}
+\setcounter{enumi}{4}
+\setcounter{enumii}{0}
+\setcounter{enumiii}{0}
+\setcounter{enumiv}{0}
+\setcounter{footnote}{0}
+\setcounter{mpfootnote}{0}
+\setcounter{part}{0}
+\setcounter{chapter}{2}
+\setcounter{section}{4}
+\setcounter{subsection}{4}
+\setcounter{subsubsection}{0}
+\setcounter{paragraph}{0}
+\setcounter{subparagraph}{0}
+\setcounter{figure}{0}
+\setcounter{table}{1}
+\setcounter{LT@@tables}{0}
+\setcounter{LT@@chunks}{0}
+\setcounter{parentequation}{0}
+\setcounter{ind}{0}
+\setcounter{Pro}{0}
+\setcounter{The}{0}
+\setcounter{Exp}{0}
+}
+@
+
+
+1.1.1.1
+log
+@Thesis Writing
+@
+text
+@@

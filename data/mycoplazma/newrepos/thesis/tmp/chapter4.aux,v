@@ -1,0 +1,84 @@
+head     1.1;
+branch   1.1.1;
+access   ;
+symbols  r1:1.1.1.1 mhelal:1.1.1;
+locks    ; strict;
+comment  @# @;
+
+
+1.1
+date     2008.05.06.04.03.23;  author mhelal;  state Exp;
+branches 1.1.1.1;
+next     ;
+
+1.1.1.1
+date     2008.05.06.04.03.23;  author mhelal;  state Exp;
+branches ;
+next     ;
+
+
+desc
+@@
+
+
+
+1.1
+log
+@Initial revision
+@
+text
+@\relax 
+\@@writefile{toc}{\contentsline {chapter}{\numberline {4}Peer to Peer Solution}{52}}
+\@@writefile{lof}{\addvspace {10\p@@ }}
+\@@writefile{lot}{\addvspace {10\p@@ }}
+\@@writefile{toc}{\contentsline {section}{\numberline {4.1}Actual Parallelism}{52}}
+\@@writefile{toc}{\contentsline {subsection}{\numberline {4.1.1}Geometric Analysis}{52}}
+\@@writefile{toc}{\contentsline {section}{\numberline {4.2}Wave Calculations and Partitions Fetching}{52}}
+\@@writefile{toc}{\contentsline {section}{\numberline {4.3}Computation Complexity}{52}}
+\citation{Stone-77}
+\newlabel{TotalDuplicates}{{4.2}{55}}
+\newlabel{Total Partitions In Waves}{{4.3}{56}}
+\newlabel{Get Next Partition Index}{{4.4}{63}}
+\gdef \LT@@i {\LT@@entry 
+    {1}{38.65416pt}\LT@@entry 
+    {1}{37.88919pt}\LT@@entry 
+    {1}{353.83305pt}}
+\@@writefile{toc}{\contentsline {subsection}{\numberline {4.3.1}Geomteric Analysis}{65}}
+\@@writefile{toc}{\contentsline {subsection}{\numberline {4.3.2}Fetching Partitions Iteratively}{66}}
+\@@writefile{toc}{\contentsline {section}{\numberline {4.4}Dependency Analysis and Communication}{66}}
+\@@writefile{toc}{\contentsline {section}{\numberline {4.5}Checkpoint/Restore Operations}{66}}
+\@@setckpt{chapter4}{
+\setcounter{page}{67}
+\setcounter{equation}{4}
+\setcounter{enumi}{4}
+\setcounter{enumii}{0}
+\setcounter{enumiii}{0}
+\setcounter{enumiv}{0}
+\setcounter{footnote}{0}
+\setcounter{mpfootnote}{0}
+\setcounter{part}{0}
+\setcounter{chapter}{4}
+\setcounter{section}{5}
+\setcounter{subsection}{0}
+\setcounter{subsubsection}{0}
+\setcounter{paragraph}{0}
+\setcounter{subparagraph}{0}
+\setcounter{figure}{0}
+\setcounter{table}{1}
+\setcounter{LT@@tables}{1}
+\setcounter{LT@@chunks}{1}
+\setcounter{parentequation}{0}
+\setcounter{ind}{0}
+\setcounter{Pro}{0}
+\setcounter{The}{0}
+\setcounter{Exp}{0}
+}
+@
+
+
+1.1.1.1
+log
+@Thesis Writing
+@
+text
+@@

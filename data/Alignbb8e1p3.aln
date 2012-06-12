@@ -1,0 +1,10 @@
+
+ Aligned Sequences: 
+>2pna_		LQ-DA--EW-YWGIREVEKLD--T-AD-G--T--F-L--R-DAST---KMH-DYT--LT---LRKGGN-N-K---LI-KI-F-H----R-D-G-KYGF-SDP--LF-SVV--E-INH--YRN--ESL--AYPK-LDV-L--YP-VS-K-----------------------Y- 104
+1mw4_A		G-S--PASG-TSLAI-RQWFG---RIS-REESQ-RLIG-Q--Q-GL---VDL-FL---VRE-SQRNP--QGF----V-L--S-LC--HLQK-V-KHY---L---IPSEE-GRL-FS--MDDG---Q---TFD--LQVFHQ-N-RG--I-L-------CL----H-C-RVAL-- 120
+1uur_A		S------SPQPILDI-YL-SQEQTLVQMIHE-Q-SLL--N--R--L--P-PLD-ENSLA-P--LKSL---SQ--KQITL--S-G-Q----MN--T-E-MSA----DTKG---M-LE-PT-DLA-K-L--FLQ-DQQKLS-LH--N-E-I--Q---ILP-Q---S-P-P-VL-V 456
+1bf5_A		L----------K-KL-SVNVD-KVMCI--HE-IKSLE-DQ-DE--YDFKCKLQ--N---REHLL--L--KKMY-L-MLD--N-K---RK-E--VV-H--KI-IELNV-E--LTQ-N-ALI-N-DE-LVEWRQ-QSCGGP---P-N-ACLDQQNWFIASQQVRQLKELQYYH-- 540
+		1 -3 -3 -3 -3 -3 -3 -2 -3 -3 -3 0 -2 0 1 -3 0 0 -3 0 1 -3 -4 -2 -3 0 0 -3 -3 -2 0 -4 -2 -3 1 0 1 -3 -3 1 0 -3 0 -3 -4 -2 -3 -3 -2 -3 0 0 -2 -4 -3 -3 -3 -3 -3 -3 -2 -3 -2 1 -2 -3 1 -3 0 -3 -3 0 -3 0 -4 -4 1 -4 1 -3 0 1 0 0 -3 -3 0 -4 -3 -3 0 -3 -4 -3 1 -4 0 -3 -3 -2 0 -3 -3 -3 -2 0 -3 -3 1 -3 -3 -4 0 -3 -3 1 -3 -4 -3 -3 -2 1 -3 -3 -2 -4 0 -3 -3 0 0 1 -3 -4 1 1 1 -3 0 -3 -3 -3 -3 -3 1 -3 -4 -3 -4 -4 -3 -3 -3 -3 -3 -3 -4 -3 -4 -3 -3 -3 -3 -3 -3 -3 -3 -3 -4 -3 -2 -3 -3 
+The Alignment SP Score = -356
+
+The Alignment Shannon Entropy = 1780.519863

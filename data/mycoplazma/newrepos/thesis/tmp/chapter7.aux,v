@@ -1,0 +1,86 @@
+head     1.1;
+branch   1.1.1;
+access   ;
+symbols  r1:1.1.1.1 mhelal:1.1.1;
+locks    ; strict;
+comment  @# @;
+
+
+1.1
+date     2008.05.06.04.03.23;  author mhelal;  state Exp;
+branches 1.1.1.1;
+next     ;
+
+1.1.1.1
+date     2008.05.06.04.03.23;  author mhelal;  state Exp;
+branches ;
+next     ;
+
+
+desc
+@@
+
+
+
+1.1
+log
+@Initial revision
+@
+text
+@\relax 
+\@@writefile{toc}{\contentsline {chapter}{\numberline {7}Partitioning, Scheduling, and Communication Aspects}{69}}
+\@@writefile{lof}{\addvspace {10\p@@ }}
+\@@writefile{lot}{\addvspace {10\p@@ }}
+\@@writefile{toc}{\contentsline {section}{\numberline {7.1}Partitioning Aspects}{69}}
+\@@writefile{toc}{\contentsline {subsection}{\numberline {7.1.1}Partition Size Effects}{69}}
+\@@writefile{toc}{\contentsline {subsection}{\numberline {7.1.2}Reshaping the Tensor to retrieve partitions}{70}}
+\@@writefile{toc}{\contentsline {section}{\numberline {7.2}Scheduling Methods}{71}}
+\@@writefile{lot}{\contentsline {table}{\numberline {7.1}{\ignorespaces Number of Partitions / Wave Exponential Growth}}{73}}
+\newlabel{Table: MasterSlaveResults}{{7.1}{73}}
+\@@writefile{toc}{\contentsline {subsection}{\numberline {7.2.1}Master/Slave Scheduling}{73}}
+\@@writefile{toc}{\contentsline {subsubsection}{Bag of Tasks}{73}}
+\@@writefile{toc}{\contentsline {subsubsection}{Round Robin}{73}}
+\@@writefile{toc}{\contentsline {subsubsection}{MOA Scheduling}{73}}
+\@@writefile{toc}{\contentsline {subsection}{\numberline {7.2.2}Peer-to-Peer Scheduling}{73}}
+\@@writefile{toc}{\contentsline {section}{\numberline {7.3}Load Balancing}{73}}
+\@@writefile{toc}{\contentsline {subsection}{\numberline {7.3.1}Mathematical Proof of Optimality of Load Balancing}{74}}
+\@@writefile{toc}{\contentsline {section}{\numberline {7.4}Concurrency \& Communication Aspects }{74}}
+\@@writefile{toc}{\contentsline {subsection}{\numberline {7.4.1}Threads Conditions Vs Semaphores}{74}}
+\@@writefile{toc}{\contentsline {subsection}{\numberline {7.4.2}Blocking Vs. Non-Blocking Communication}{74}}
+\@@writefile{toc}{\contentsline {subsection}{\numberline {7.4.3}Slave / Slave Coupling Issues}{74}}
+\@@writefile{toc}{\contentsline {section}{\numberline {7.5}MoA as Communication Modelling Language}{74}}
+\@@setckpt{chapter7}{
+\setcounter{page}{75}
+\setcounter{equation}{0}
+\setcounter{enumi}{4}
+\setcounter{enumii}{0}
+\setcounter{enumiii}{0}
+\setcounter{enumiv}{0}
+\setcounter{footnote}{0}
+\setcounter{mpfootnote}{0}
+\setcounter{part}{0}
+\setcounter{chapter}{7}
+\setcounter{section}{5}
+\setcounter{subsection}{0}
+\setcounter{subsubsection}{0}
+\setcounter{paragraph}{0}
+\setcounter{subparagraph}{0}
+\setcounter{figure}{0}
+\setcounter{table}{1}
+\setcounter{LT@@tables}{1}
+\setcounter{LT@@chunks}{1}
+\setcounter{parentequation}{0}
+\setcounter{ind}{0}
+\setcounter{Pro}{0}
+\setcounter{The}{0}
+\setcounter{Exp}{0}
+}
+@
+
+
+1.1.1.1
+log
+@Thesis Writing
+@
+text
+@@

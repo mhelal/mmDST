@@ -1,0 +1,515 @@
+head     1.1;
+branch   1.1.1;
+access   ;
+symbols  r1:1.1.1.1 mhelal:1.1.1;
+locks    ; strict;
+comment  @# @;
+
+
+1.1
+date     2008.05.06.02.40.53;  author mhelal;  state Exp;
+branches 1.1.1.1;
+next     ;
+
+1.1.1.1
+date     2008.05.06.02.40.53;  author mhelal;  state Exp;
+branches ;
+next     ;
+
+
+desc
+@@
+
+
+
+1.1
+log
+@Initial revision
+@
+text
+@[1]>Started at time (84, 16, 32, 10)
+[1] Scoring Cell 12 with Global Index ( 0  2  0 ) llOC 0 , glOC 1 
+[1] Partition flat Index is 0 = ( (0, 0)  (0, 1)  (0, 0)  )  [1] and is included in search space, cell will be received
+[0]>Started at time (84, 16, 32, 10)
+[0]>calcWaves: Current Wave: 0 - Current Partition: 0 - Total Partitions: 5
+[0] Scoring Cell 0 with Global Index ( 0  0  0 ) llOC 0 , glOC 1 
+[0] Scoring Cell 1 with Global Index ( 1  0  0 ) llOC 0 , glOC 1 
+[0] Scoring Cell 2 with Global Index ( 2  0  0 ) llOC 0 , glOC 1 
+[0] Scoring Cell 6 with Global Index ( 0  1  0 ) llOC 0 , glOC 1 
+[0] Scoring Cell 7 with Global Index ( 1  1  0 ) llOC 0 , glOC 1 
+[0] Scoring Cell 8 with Global Index ( 2  1  0 ) llOC 0 , glOC 1 
+[0] Scoring Cell 12 with Global Index ( 0  2  0 ) llOC 0 , glOC 1 
+[0] Scoring Cell 13 with Global Index ( 1  2  0 ) llOC 0 , glOC 1 
+[0] Scoring Cell 14 with Global Index ( 2  2  0 ) llOC 0 , glOC 1 
+[0] Scoring Cell 30 with Global Index ( 0  0  1 ) llOC 0 , glOC 1 
+[0] Scoring Cell 31 with Global Index ( 1  0  1 ) llOC 0 , glOC 1 
+[0] Scoring Cell 32 with Global Index ( 2  0  1 ) llOC 0 , glOC 1 
+[0] Scoring Cell 36 with Global Index ( 0  1  1 ) llOC 0 , glOC 1 
+[0] Scoring Cell 37 with Global Index ( 1  1  [2]>Started at time (84, 16, 32, 10)
+[2] Scoring Cell 2 with Global Index ( 2  0  0 ) llOC 0 , glOC 1 
+[2] Partition flat Index is 0 = ( (0, 1)  (0, 0)  (0, 0)  )  [2] and is included in search space, cell will be received
+1 ) llOC 0 , glOC 0 
+[0] Scoring Cell 38 with Global Index ( 2  1  1 ) llOC 0 , glOC 0 
+[0] Scoring Cell 42 with Global Index ( 0  2  1 ) llOC 0 , glOC 1 
+[0] Scoring Cell 43 with Global Index ( 1  2  1 ) llOC 0 , glOC 0 
+[0] Scoring Cell 44 with Global Index ( 2  2  1 ) llOC 0 , glOC 0 
+[0] Scoring Cell 60 with Global Index ( 0  0  2 ) llOC 0 , glOC 1 
+[0] Scoring Cell 61 with Global Index ( 1  0  2 ) llOC 0 , glOC 1 
+[0] Scoring Cell 62 with Global Index ( 2  0  2 ) llOC 0 , glOC 1 
+[0] Scoring Cell 66 with Global Index ( 0  1  2 ) llOC 0 , glOC 1 
+[0] Scoring Cell 67 with Global Index ( 1  1  2 ) llOC 0 , glOC 0 
+[0] Scoring Cell 68 with Global Index ( 2  1  2 ) llOC 0 , glOC 0 
+[0] Scoring Cell 72 with Global Index ( 0  2  2 ) llOC 0 , glOC 1 
+[0] Scoring Cell 73 with Global Index ( 1  2  2 ) llOC 0 , glOC 0 
+[0] Scoring Cell 74 with Global Index ( 2  2  2 ) llOC 0 , glOC 0 
+[0] W 1/5 PO 0 PI 60 CP 0/5
+writing OCout_ub = 1 in file out/chpSmt0
+[0] Scoring Cell 60 with Global Index ( 0  0  2 ) llOC 0 , glOC 1 
+[0] Partition flat Index is 0 = ( (0, 0)  (0, 0)  (0, 1)  )  [0] and is included in search space, cell will be received
+[0] Scoring Cell 61 with Global Index ( 1  0  2 ) llOC 0 , glOC 1 
+[0] Partition flat Index is 0 = ( (0, 0)  (0, 0)  (0, 1)  )  [0] and is included in search space, cell will be received
+[0] Scoring Cell 62 with Global Index ( 2  0  2 ) llOC 0 , glOC 1 
+[0] Partition flat Index is 2 = ( (2, 0)  (0, 0)  (0, 1)  )  [0] and not included in search space, cell will be initialized
+[0] Scoring Cell 66 with Global Index ( 0  1  2 ) llOC 0 , glOC 1 
+[0] Partition flat Index is 0 = ( (0, 0)  (0, 0)  (0, 1)  )  [0] and is included in search space, cell will be received
+[0] Scoring Cell 67 with Global Index ( 1  1  2 ) llOC 1 , glOC 0 
+[0] Partition flat Index is 0 = ( (0, 0)  (0, 0)  (0, 1)  )  [0] and is included in search space, cell will be received
+[0] Scoring Cell 68 with Global Index ( 2  1  2 ) llOC 1 , glOC 0 
+[0] Partition flat Index is 2 = ( (2, 0)  (0, 0)  (0, 1)  )  [0] and not included in search space, cell will be initialized
+[0] Scoring Cell 72 with Global Index ( 0  2  2 ) llOC 0 , glOC 1 
+[0] Partition flat Index is 12 = ( (0, 0)  (2, 0)  (0, 1)  )  [0] and not included in search space, cell will be initialized
+[0] Scoring Cell 73 with Global Index ( 1  2  2 ) llOC 1 , glOC 0 
+[0] Partition flat Index is 12 = ( (0, 0)  (2, 0)  (0, 1)  )  [0] and not included in search space, cell will be initialized
+[0] Scoring Cell 74 with Global Index ( 2  2  2 ) llOC 1 , glOC 0 
+[0] Partition flat Index is 14 = ( (2, 0)  (2, 0)  (0, 1)  )  [0] and not included in search space, cell will be initialized
+[0] Scoring Cell 90 with Global Index ( 0  0  3 ) llOC 0 , glOC 1 
+[0] Scoring Cell 91 with Global Index ( 1  0  3 ) llOC 0 , glOC 1 
+[0] Scoring Cell 92 with Global Index ( 2  0  3 ) llOC 0 , glOC 1 
+[0] Scoring Cell 96 with Global Index ( 0  1  3 ) llOC 0 , glOC 1 
+[0] Scoring Cell 97 with Global Index ( 1  1  3 ) llOC 0 , glOC 0 
+[0] Scoring Cell 98 with Global Index ( 2  1  3 ) llOC 0 , glOC 0 
+[0] Scoring Cell 102 with Global Index ( 0  2  3 ) llOC 0 , glOC 1 
+[0] Scoring Cell 103 with Global Index ( 1  2  3 ) llOC 0 , glOC 0 
+[0] Scoring Cell 104 with Global Index ( 2  2  3 ) llOC 0 , glOC 0 
+[0] W 2/5 PO 0 PI 72 CP 1/5
+writing OCout_ub = 2 in file out/chpSmt0
+[0] Scoring Cell 72 with Global Index ( 0  2  2 ) llOC 0 , glOC 1 
+[0] Partition flat Index is 0 = ( (0, 0)  (0, 1)  (0, 1)  )  [0] and is included in search space, cell will be received
+[0] Scoring Cell 73 with Global Index ( 1  2  2 ) llOC 1 , glOC 0 
+[0] Partition flat Index is 0 = ( (0, 0)  (0, 1)  (0, 1)  )  [0] and is included in search space, cell will be received
+[0] Scoring Cell 74 with Global Index ( 2  2  2 ) llOC 1 , glOC 0 
+[0] Partition flat Index is 2 = ( (2, 0)  (0, 1)  (0, 1)  )  [0] and is included in search space, cell will be received
+[0] Scoring Cell 78 with Global Index ( 0  3  2 ) llOC 0 , glOC 1 
+[0] Partition flat Index is 12 = ( (0, 0)  (2, 0)  (0, 1)  )  [0] and is included in search space, cell will be received
+[1] Scoring Cell 13 with Global Index ( 1  2  0 ) llOC 0 , glOC 1 
+[1] Partition flat Index is 0 = ( (0, 0)  (0, 1)  (0, 0)  )  [1] and is included in search space, cell will be received
+[1] Scoring Cell 14 with Global Index ( 2  2  0 ) llOC 0 , glOC 1 
+[1] Partition flat Index is 2 = ( (2, 0)  (0, 1)  (0, 0)  )  [1] and not included in search space, cell will be initialized
+[1] Scoring Cell 18 with Global Index ( 0  3  0 ) llOC 0 , glOC 1 
+[1] Scoring Cell 19 with Global Index ( 1  3  0 ) llOC 0 , glOC 1 
+[1] Scoring Cell 20 with Global Index ( 2  3  0 ) llOC 0 , glOC 1 
+[1] Scoring Cell 24 with Global Index ( 0  4  0 ) llOC 0 , glOC 1 
+[1] Scoring Cell 25 with Global Index ( 1  4  0 ) llOC 0 , glOC 1 
+[1] Scoring Cell 26 with Global Index ( 2  4  0 ) llOC 0 , glOC 1 
+[1] Scoring Cell 42 with Global Index ( 0  2  1 ) llOC 0 , glOC 1 
+[1] Partition flat Index is 0 = ( (0, 0)  (0, 1)  (0, 0)  )  [1] and is included in search space, cell will be received
+[1] Scoring Cell 43 with Global Index ( 1  2  1 ) llOC 1 , glOC 0 
+[1] Partition flat Index is 0 = ( (0, 0)  (0, 1)  (0, 0)  )  [1] and is included in search space, cell will be received
+[1] Scoring Cell 44 with Global Index ( 2  2  1 ) llOC 1 , glOC 0 
+[1] Partition flat Index is 2 = ( (2, 0)  (0, 1)  (0, 0)  )  [1] and not included in search space, cell will be initialized
+[1] Scoring Cell 48 with Global Index ( 0  3  1 ) llOC 0 , glOC 1 
+[1] Scoring Cell 49 with Global Index ( 1  3  1 ) llOC 0 , glOC 0 
+[1] Scoring Cell 50 with Global Index ( 2  3  1 ) llOC 0 , glOC 0 
+[1] Scoring Cell 54 with Global Index ( 0  4  1 ) llOC 0 , glOC 1 
+[1] Scoring Cell 55 with Global Index ( 1  4  1 ) llOC 0 , glOC 0 
+[1] Scoring Cell 56 with Global Index ( 2  4  1 ) llOC 0 , glOC 0 
+[1] Scoring Cell 72 with Global Index ( 0  2  2 ) llOC 0 , glOC 1 
+[1] Partition flat Index is 60 = ( (0, 0)  (0, 1)  (2, 0)  )  [1] and not included in search space, cell will be initialized
+[1] Scoring Cell 73 with Global Index ( 1  2  2 ) llOC 1 , glOC 0 
+[1] Partition flat Index is 60 = ( (0, 0) [0] Scoring Cell 79 with Global Index ( 1  3  2 ) llOC 1 , glOC 0 
+[0] Partition flat Index is 12 = ( (0, 0)  (2, 0)  (0, 1)  )  [0] and is included in search space, cell will be received
+ (0, 1)  (2, 0)  )  [1] and not included in search space, cell will be initialized
+[1] Scoring Cell 74 with Global Index ( 2  2  2 ) llOC 1 , glOC 0 
+[1] Partition flat Index is 62 = ( (2, 0)  (0, 1)  (2, 0)  )  [1] and not included in search space, cell will be initialized
+[1] Scoring Cell 78 with Global Index ( 0  3  2 ) llOC 0 , glOC 1 
+[1] Scoring Cell 79 with Global Index ( 1  3  2 ) llOC 0 , glOC 0 
+[1] Scoring Cell 80 with Global Index ( 2  3  2 ) llOC 0 , glOC 0 
+[1] Scoring Cell 84 with Global Index ( 0  4  2 ) llOC 0 , glOC 1 
+[1] Scoring Cell 85 with Global Index ( 1  4  2 ) llOC 0 , glOC 0 
+[1] Scoring Cell 86 with Global Index ( 2  4  2 ) llOC 0 , glOC 0 
+[1] W 2/5 PO 1 PI 62 CP 0/3
+writing OCout_ub = 2 in file out/chpSmt1
+[1] Scoring Cell 62 with Global Index ( 2  0  2 ) llOC 0 , glOC 1 
+[1] Partition flat Index is 0 = ( (0, 1)  (0, 0)  (0, 1)  )  [1] and is included in search space, cell will be received
+[1] Scoring Cell 63 with Global Index ( 3  0  2 ) llOC 0 , glOC 1 
+[1] Partition flat Index is 2 = ( (2, 0)  (0, 0)  (0, 1)  )  [1] and is included in search space, cell will be received
+[0] Scoring Cell 80 with Global Index ( 2  3  2 ) llOC 1 , glOC 0 
+[0] Partition flat Index is 14 = ( (2, 0)  (2, 0)  (0, 1)  )  [0] and not included in search space, cell will be initialized
+[0] Scoring Cell 84 with Global Index ( 0  4  2 ) llOC 0 , glOC 1 
+[0] Partition flat Index is 12 = ( (0, 0)  (2, 0)  (0, 1)  )  [0] and is included in search space, cell will be received
+[0] Scoring Cell 85 with Global Index ( 1  4  2 ) llOC 1 , glOC 0 
+[0] Partition flat Index is 12 = ( (0, 0)  (2, 0)  (0, 1)  )  [0] and is included in search space, cell will be received
+[0] Scoring Cell 86 with Global Index ( 2  4  2 ) llOC 1 , glOC 0 
+[0] Partition flat Index is 14 = ( (2, 0)  (2, 0)  (0, 1)  )  [0] and not included in search space, cell will be initialized
+[0] Scoring Cell 102 with Global Index ( 0  2  3 ) llOC 0 , glOC 1 
+[0] Partition flat Index is 60 = ( (0, 0)  (0, 1)  (2, 0)  )  [0] and is included in search space, cell will be received
+[0] Scoring Cell 103 with Global Index ( 1  2  3 ) llOC 1 , glOC 0 
+[0] Par[1] Scoring Cell 64 with Global Index ( 4  0  2 ) llOC 0 , glOC 1 
+[1] Partition flat Index is 4 = ( (4, 0)  (0, 0)  (0, 1)  )  [1] and not included in search space, cell will be initialized
+[1] Scoring Cell 68 with Global Index ( 2  1  2 ) llOC 1 , glOC 0 
+[1] Partition flat Index is 0 = ( (0, 1)  (0, 0)  (0, 1)  )  [1] and is included in search space, cell will be received
+[1] Scoring Cell 69 with Global Index ( 3  1  2 ) llOC 1 , glOC 0 
+[1] Partition flat Index is 2 = ( (2, 0)  (0, 0)  (0, 1)  )  [1] and is included in search space, cell will be received
+[1] Scoring Cell 70 with Global Index ( 4  1  2 ) llOC 1 , glOC 0 
+[1] Partition flat Index is 4 = ( (4, 0)  (0, 0)  (0, 1)  )  [1] and not included in search space, cell will be initialized
+[1] Scoring Cell 74 with Global Index ( 2  2  2 ) llOC 1 , glOC 0 
+[1] Partition flat Index is 12 = ( (0, 1)  (2, 0)  (0, 1)  )  [1] and is included in search space, cell will be received
+[1] Scoring Cell 75 with Global Index ( 3  2  2 ) llOC 1 , glOC 0 
+[1] Partitiontition flat Index is 60 = ( (0, 0)  (0, 1)  (2, 0)  )  [0] and is included in search space, cell will be received
+[0] Scoring Cell 104 with Global Index ( 2  2  3 ) llOC 1 , glOC 0 
+[0] Partition flat Index is 62 = ( (2, 0)  (0, 1)  (2, 0)  )  [0] and not included in search space, cell will be initialized
+[0] Scoring Cell 108 with Global Index ( 0  3  3 ) llOC 0 , glOC 1 
+[0] Scoring Cell 109 with Global Index ( 1  3  3 ) llOC 0 , glOC 0 
+[0] Scoring Cell 110 with Global Index ( 2  3  3 ) llOC 0 , glOC 0 
+[0] Scoring Cell 114 with Global Index ( 0  4  3 ) llOC 0 , glOC 1 
+[0] Scoring Cell 115 with Global Index ( 1  4  3 ) llOC 0 , glOC 0 
+[0] Scoring Cell 116 with Global Index ( 2  4  3 ) llOC 0 , glOC 0 
+[0] W 3/5 PO 0 PI 74 CP 2/5
+writing OCout_ub = 3 in file out/chpSmt0
+[0] Scoring Cell 74 with Global Index ( 2  2  2 ) llOC 1 , glOC 0 
+[0] Partition flat Index is 0 = ( (0, 1)  (0, 1)  (0, 1)  )  [0] and is included in search space, cell will be received
+[0] Scoring Cell 75 with Global Index ( 3  2  2 ) llO[2] Scoring Cell 3 with Global Index ( 3  0  0 ) llOC 0 , glOC 1 
+[2] Scoring Cell 4 with Global Index ( 4  0  0 ) llOC 0 , glOC 1 
+[2] Scoring Cell 8 with Global Index ( 2  1  0 ) llOC 0 , glOC 1 
+[2] Partition flat Index is 0 = ( (0, 1)  (0, 0)  (0, 0)  )  [2] and is included in search space, cell will be received
+[2] Scoring Cell 9 with Global Index ( 3  1  0 ) llOC 0 , glOC 1 
+[2] Scoring Cell 10 with Global Index ( 4  1  0 ) llOC 0 , glOC 1 
+[2] Scoring Cell 14 with Global Index ( 2  2  0 ) llOC 0 , glOC 1 
+[2] Partition flat Index is 12 = ( (0, 1)  (2, 0)  (0, 0)  )  [2] and not included in search space, cell will be initialized
+[2] Scoring Cell 15 with Global Index ( 3  2  0 ) llOC 0 , glOC 1 
+[2] Scoring Cell 16 with Global Index ( 4  2  0 ) llOC 0 , glOC 1 
+[2] Scoring Cell 32 with Global Index ( 2  0  1 ) llOC 0 , glOC 1 
+[2] Partition flat Index is 0 = ( (0, 1)  (0, 0)  (0, 0)  )  [2] and is included in search space, cell will be received
+[2] Scoring Cell 33 with Global Index ( 3  0  1 ) llOC 0 , g flat Index is 14 = ( (2, 0)  (2, 0)  (0, 1)  )  [1] and not included in search space, cell will be initialized
+[1] Scoring Cell 76 with Global Index ( 4  2  2 ) llOC 1 , glOC 0 
+[1] Partition flat Index is 16 = ( (4, 0)  (2, 0)  (0, 1)  )  [1] and not included in search space, cell will be initialized
+[1] Scoring Cell 92 with Global Index ( 2  0  3 ) llOC 0 , glOC 1 
+[1] Partition flat Index is 60 = ( (0, 1)  (0, 0)  (2, 0)  )  [1] and is included in search space, cell will be received
+[1] Scoring Cell 93 with Global Index ( 3  0  3 ) llOC 0 , glOC 1 
+[1] Scoring Cell 94 with Global Index ( 4  0  3 ) llOC 0 , glOC 1 
+[1] Scoring Cell 98 with Global Index ( 2  1  3 ) llOC 1 , glOC 0 
+[1] Partition flat Index is 60 = ( (0, 1)  (0, 0)  (2, 0)  )  [1] and is included in search space, cell will be received
+[1] Scoring Cell 99 with Global Index ( 3  1  3 ) llOC 0 , glOC 0 
+[1] Scoring Cell 100 with Global Index ( 4  1  3 ) llOC 0 , glOC 0 
+[1] Scoring Cell 104 with Global Index ( 2  2  3 ) llOC 1 , glOC 0 
+[1] ParC 1 , glOC 0 
+[0] Partition flat Index is 2 = ( (2, 0)  (0, 1)  (0, 1)  )  [0] and is included in search space, cell will be received
+[0] Scoring Cell 76 with Global Index ( 4  2  2 ) llOC 1 , glOC 0 
+[0] Partition flat Index is 4 = ( (4, 0)  (0, 1)  (0, 1)  )  [0] and not included in search space, cell will be initialized
+[0] Scoring Cell 80 with Global Index ( 2  3  2 ) llOC 1 , glOC 0 
+[0] Partition flat Index is 12 = ( (0, 1)  (2, 0)  (0, 1)  )  [0] and is included in search space, cell will be received
+[0] Scoring Cell 81 with Global Index ( 3  3  2 ) llOC 1 , glOC 0 
+[0] Partition flat Index is 14 = ( (2, 0)  (2, 0)  (0, 1)  )  [0] and is included in search space, cell will be received
+lOC 1 
+[2] Scoring Cell 34 with Global Index ( 4  0  1 ) llOC 0 , glOC 1 
+[2] Scoring Cell 38 with Global Index ( 2  1  1 ) llOC 1 , glOC 0 
+[2] Partition flat Index is 0 = ( (0, 1)  (0, 0)  (0, 0)  )  [2] and is included in search space, cell will be received
+[2] Scoring Cell 39 with Global Index ( 3  1  1 ) llOC 0 , glOC 0 
+[2] Scoring Cell 40 with Global Index ( 4  1  1 ) llOC 0 , glOC 0 
+[2] Scoring Cell 44 with Global Index ( 2  2  1 ) llOC 1 , glOC 0 
+[2] Partition flat Index is 12 = ( (0, 1)  (2, 0)  (0, 0)  )  [2] and not included in search space, cell will be initialized
+[2] Scoring Cell 45 with Global Index ( 3  2  1 ) llOC 0 , glOC 0 
+[2] Scoring Cell 46 with Global Index ( 4  2  1 ) llOC 0 , glOC 0 
+[2] Scoring Cell 62 with Global Index ( 2  0  2 ) llOC 0 , glOC 1 
+[2] Partition flat Index is 60 = ( (0, 1)  (0, 0)  (2, 0)  )  [2] and not included in search space, cell will be initialized
+[2] Scoring Cell 63 with Global Index ( 3  0  2 ) llOC 0 , glOC 1 
+[2] Scoring Cell 64 with Global Index ( 4  0tition flat Index is 72 = ( (0, 1)  (2, 0)  (2, 0)  )  [1] and not included in search space, cell will be initialized
+[1] Scoring Cell 105 with Global Index ( 3  2  3 ) llOC 0 , glOC 0 
+[1] Scoring Cell 106 with Global Index ( 4  2  3 ) llOC 0 , glOC 0 
+[1] W 3/5 PO 1 PI 64 CP 1/3
+writing OCout_ub = 3 in file out/chpSmt1
+[1] Scoring Cell 64 with Global Index ( 4  0  2 ) llOC 0 , glOC 1 
+[1] Partition flat Index is 2 = ( (2, 1)  (0, 0)  (0, 1)  )  [1] and is included in search space, cell will be received
+[1] Scoring Cell 65 with Global Index ( 5  0  2 ) llOC 0 , glOC 1 
+[1] Partition flat Index is 4 = ( (4, 0)  (0, 0)  (0, 1)  )  [1] and not included in search space, cell will be initialized
+[1] Scoring Cell 70 with Global Index ( 4  1  2 ) llOC 1 , glOC 0 
+[1] Partition flat Index is 2 = ( (2, 1)  (0, 0)  (0, 1)  )  [1] and is included in search space, cell will be received
+[1] Scoring Cell 71 with Global Index ( 5  1  2 ) llOC 1 , glOC 0 
+[1] Partition flat Index is 4 = ( (4, 0)  (0, 0)  (0, 1)  )  [1] and   2 ) llOC 0 , glOC 1 
+[2] Scoring Cell 68 with Global Index ( 2  1  2 ) llOC 1 , glOC 0 
+[2] Partition flat Index is 60 = ( (0, 1)  (0, 0)  (2, 0)  )  [2] and not included in search space, cell will be initialized
+[2] Scoring Cell 69 with Global Index ( 3  1  2 ) llOC 0 , glOC 0 
+[2] Scoring Cell 70 with Global Index ( 4  1  2 ) llOC 0 , glOC 0 
+[2] Scoring Cell 74 with Global Index ( 2  2  2 ) llOC 1 , glOC 0 
+[2] Partition flat Index is 72 = ( (0, 1)  (2, 0)  (2, 0)  )  [2] and not included in search space, cell will be initialized
+[2] Scoring Cell 75 with Global Index ( 3  2  2 ) llOC 0 , glOC 0 
+[2] Scoring Cell 76 with Global Index ( 4  2  2 ) llOC 0 , glOC 0 
+[2] W 2/5 PO 2 PI 14 CP 0/3
+writing OCout_ub = 2 in file out/chpSmt2
+[2] Scoring Cell 14 with Global Index ( 2  2  0 ) llOC 0 , glOC 1 
+[2] Partition flat Index is 0 = ( (0, 1)  (0, 1)  (0, 0)  )  [2] and is included in search space, cell will be received
+[2] Scoring Cell 15 with Global Index ( 3  2  0 ) llOC 0 , glOC 1 
+[2] Partition flat Index inot included in search space, cell will be initialized
+[1] Scoring Cell 76 with Global Index ( 4  2  2 ) llOC 1 , glOC 0 
+[1] Partition flat Index is 14 = ( (2, 1)  (2, 0)  (0, 1)  )  [1] and is included in search space, cell will be received
+[1] Scoring Cell 77 with Global Index ( 5  2  2 ) llOC 1 , glOC 0 
+[1] Partition flat Index is 16 = ( (4, 0)  (2, 0)  (0, 1)  )  [1] and not included in search space, cell will be initialized
+[1] Scoring Cell 94 with Global Index ( 4  0  3 ) llOC 0 , glOC 1 
+[1] Partition flat Index is 62 = ( (2, 1)  (0, 0)  (2, 0)  )  [1] and is included in search space, cell will be received
+[1] Scoring Cell 95 with Global Index ( 5  0  3 ) llOC 0 , glOC 1 
+[1] Scoring Cell 100 with Global Index ( 4  1  3 ) llOC 1 , glOC 0 
+[1] Partition flat Index is 62 = ( (2, 1)  (0, 0)  (2, 0)  )  [1] and is included in search space, cell will be received
+[1] Scoring Cell 101 with Global Index ( 5  1  3 ) llOC 0 , glOC 0 
+[1] Scoring Cell 106 with Global Index ( 4  2  3 ) llOC 1 , glOC 0 
+[1] Partis 2 = ( (2, 0)  (0, 1)  (0, 0)  )  [2] and is included in search space, cell will be received
+[2] Scoring Cell 16 with Global Index ( 4  2  0 ) llOC 0 , glOC 1 
+[2] Partition flat Index is 4 = ( (4, 0)  (0, 1)  (0, 0)  )  [2] and not included in search space, cell will be initialized
+[2] Scoring Cell 20 with Global Index ( 2  3  0 ) llOC 0 , glOC 1 
+[2] Partition flat Index is 12 = ( (0, 1)  (2, 0)  (0, 0)  )  [2] and is included in search space, cell will be received
+[2] Scoring Cell 21 with Global Index ( 3  3  0 ) llOC 0 , glOC 1 
+[2] Scoring Cell 22 with Global Index ( 4  3  0 ) llOC 0 , glOC 1 
+[2] Scoring Cell 26 with Global Index ( 2  4  0 ) llOC 0 , glOC 1 
+[2] Partition flat Index is 12 = ( (0, 1)  (2, 0)  (0, 0)  )  [2] and is included in search space, cell will be received
+tion flat Index is 74 = ( (2, 1)  (2, 0)  (2, 0)  )  [1] and not included in search space, cell will be initialized
+[1] Scoring Cell 107 with Global Index ( 5  2  3 ) llOC 0 , glOC 0 
+[1] W 4/5 PO -1 PI 16 CP 2/3
+writing OCout_ub = 4 in file out/chpSmt1
+[1] finished scoring with wave 5 comp Parts 3
+[1] Resources Usage: UTime 0, STime 0, Mem 0, Virt 0
+[1] Resources Usage: UTime 0.011998, STime 0.022996
+[1]>Finalized at time (84, 16, 32, 10)
+[1] Elapsed time 0.075486 seconds, resolution 0.000001
+[0] Scoring Cell 82 with Global Index ( 4  3  2 ) llOC 1 , glOC 0 
+[0] Partition flat Index is 16 = ( (4, 0)  (2, 0)  (0, 1)  )  [0] and not included in search space, cell will be initialized
+[0] Scoring Cell 86 with Global Index ( 2  4  2 ) llOC 1 , glOC 0 
+[0] Partition flat Index is 12 = ( (0, 1)  (2, 0)  (0, 1)  )  [0] and is included in search space, cell will be received
+[0] Scoring Cell 87 with Global Index ( 3  4  2 ) llOC 1 , glOC 0 
+[0] Partition flat Index is 14 = ( (2, 0)  (2, 0)  (0, 1)  )  [0] and is included in search space, cell will be received
+[2] Scoring Cell 27 with Global Index ( 3  4  0 ) llOC 0 , glOC 1 
+[2] Scoring Cell 28 with Global Index ( 4  4  0 ) llOC 0 , glOC 1 
+[2] Scoring Cell 44 with Global Index ( 2  2  1 ) llOC 1 , glOC 0 
+[2] Partition flat Index is 0 = ( (0, 1)  (0, 1)  (0, 0)  )  [2] and is included in search space, cell will be received
+[2] Scoring Cell 45 with Global Index ( 3  2  1 ) llOC 1 , glOC 0 
+[2] Partition flat Index is 2 = ( (2, 0)  (0, 1)  (0, 0)  )  [2] and is included in search space, cell will be received
+[2] Scoring Cell 46 with Global Index ( 4  2  1 ) llOC 1 , glOC 0 
+[2] Partition flat Index is 4 = ( (4, 0)  (0, 1)  (0, 0)  )  [2] and not included in search space, cell will be initialized
+[2] Scoring Cell 50 with Global Index ( 2  3  1 ) llOC 1 , glOC 0 
+[2] Partition flat Index is 12 = ( (0, 1)  (2, 0)  (0, 0)  )  [2] and is included in search space, cell will be received
+[2] Scoring Cell 51 with Global Index ( 3  3  1 ) llOC 0 , glOC 0 
+[2] Scoring Cell 52 with Global Index ( 4  3  1 ) llOC 0 , glOC 0 
+[2] Scoring Cell 56 with Global Index ( 2  4  1 ) llOC 1 , glOC 0 
+[2] Partition flat Index is 12 = ( (0, 1)  (2, 0)  (0, 0)  )  [2] and is included in search space, cell will be received
+[2] Scoring Cell 57 with Global Index ( 3  4  1 ) llOC 0 , glOC 0 
+[2] Scoring Cell 58 with Global Index ( 4  4  1 ) llOC 0 , glOC 0 
+[2] Scoring Cell 74 with Global Index ( 2  2  2 ) llOC 1 , glOC 0 
+[2] Partition flat Index is 60 = ( (0, 1)  (0, 1)  (2, 0)  )  [2] and is included in search space, cell will be received
+[2] Scoring Cell 75 with Global Index ( 3  2  2 ) llOC 1 , glOC 0 
+[2] Partition flat Index is 62 = ( (2, 0)  (0, 1)  (2, 0)  )  [2] and not included in search space, cell will be initialized
+[2] Scoring Cell 76 with Global Index ( 4  2  2 ) llOC 1 , glOC 0 
+[2] Partition flat Index is 64 = ( (4, 0)  (0, 1)  (2, 0)  )  [2] and not included in search space, cell will be initialized
+[2] Scoring Cell 80 with Global Index ( 2  3  2 ) llOC 1 , glOC 0 
+[2] Partition flat Index is 72 = ( (0, 1)  (2, 0)  (2, 0)  )  [2] and not included in search space, cell will be initialized
+[2] Scoring Cell 81 with Global Index ( 3  3  2 ) llOC 0 , glOC 0 
+[2] Scoring Cell 82 with Global Index ( 4  3  2 ) llOC 0 , glOC 0 
+[2] Scoring Cell 86 with Global Index ( 2  4  2 ) llOC 1 , glOC 0 
+[2] Partition flat Index is 72 = ( (0, 1)  (2, 0)  (2, 0)  )  [2] and not included in search space, cell will be initialized
+[2] Scoring Cell 87 with Global Index ( 3  4  2 ) llOC 0 , glOC 0 
+[2] Scoring Cell 88 with Global Index ( 4  4  2 ) llOC 0 , glOC 0 
+[2] W 3/5 PO 2 PI 16 CP 1/3
+writing OCout_ub = 3 in file out/chpSmt2
+[2] Scoring Cell 16 with Global Index ( 4  2  0 ) llOC 0 , glOC 1 
+[2] Partition flat Index is 2 = ( (2, 1)  (0, 1)  (0, 0)  )  [2] and is included in search space, cell will be received
+[2] Scoring Cell 17 with Global Index ( 5  2  0 ) llOC 0 , glOC 1 
+[2] Partition flat Index is 4 = ( (4, 0)  (0, 1)  (0, 0)  )  [2] and not included in search space, cell will be initialized
+[2] Scoring Cell 22 with Global Index ( 4  3  0 ) llOC 0 , glOC 1 
+[2] Partition flat Index is 14 = ( (2, 1)  (2, 0)  (0, 0)  )  [2] and is included in search space, cell will be received
+[2] Scoring Cell 23 with Global Index ( 5  3  0 ) llOC 0 , glOC 1 
+[2] Scoring Cell 28 with Global Index ( 4  4  0 ) llOC 0 , glOC 1 
+[2] Partition flat Index is 14 = ( (2, 1)  (2, 0)  (0, 0)  )  [2] and is included in search space, cell will be received
+[2] Scoring Cell 29 with Global Index ( 5  4  0 ) llOC 0 , glOC 1 
+[2] Scoring Cell 46 with Global Index ( 4  2  1 ) llOC 1 , glOC 0 
+[2] Partition flat Index is 2 = ( (2, 1)  (0, 1)  (0, 0)  )  [2] and is included in search space, cell will be received
+[2] Scoring Cell 47 with Global Index ( 5  2  1 ) llOC 1 , glOC 0 
+[2] Partition flat Index is 4 = ( (4, 0)  (0, 1)  (0, 0)  )  [2] and not included in search space, cell will be initialized
+[2] Scoring Cell 52 with Global Index ( 4  3  1 ) llOC 1 , glOC 0 
+[2] Partition flat Index is 14 = ( (2, 1)  (2, 0)  (0, 0)  )  [2] and is included in search space, cell will be received
+[2] Scoring Cell 53 with Global Index ( 5  3  1 ) llOC 0 , glOC 0 
+[2] Scoring Cell 58 with Global Index ( 4  4  1 ) llOC 1 , glOC 0 
+[2] Partition flat Index is 14 = ( (2, 1)  (2, 0)  (0, 0)  )  [2] and is included in search space, cell will be received
+[2] Scoring Cell 59 with Global Index ( 5  4  1 ) llOC 0 , glOC 0 
+[2] Scoring Cell 76 with Global Index ( 4  2  2 ) llOC 1 , glOC 0 
+[2] Partition flat Index is 62 = ( (2, 1)  (0, 1) [0] Scoring Cell 88 with Global Index ( 4  4  2 ) llOC 1 , glOC 0 
+[0] Partition flat Index is 16 = ( (4, 0)  (2, 0)  (0, 1)  )  [0] and not included in search space, cell will be initialized
+[0] Scoring Cell 104 with Global Index ( 2  2  3 ) llOC 1 , glOC 0 
+[0] Partition flat Index is 60 = ( (0, 1)  (0, 1)  (2, 0)  )  [0] and is included in search space, cell will be received
+[0] Scoring Cell 105 with Global Index ( 3  2  3 ) llOC 1 , glOC 0 
+[0] Partition flat Index is 62 = ( (2, 0)  (0, 1)  (2, 0)  )  [0] and is included in search space, cell will be received
+[0] Scoring Cell 106 with Global Index ( 4  2  3 ) llOC 1 , glOC 0 
+[0] Partition flat Index is 64 = ( (4, 0)  (0, 1)  (2, 0)  )  [0] and not included in search space, cell will be initialized
+[0] Scoring Cell 110 with Global Index ( 2  3  3 ) llOC 1 , glOC 0 
+[0] Partition flat Index is 72 = ( (0, 1)  (2, 0)  (2, 0)  )  [0] and is included in search space, cell will be received
+[0] Scoring Cell 111 with Global Index ( 3  3  3 ) llOC 0 , glOC 0 
+[0] Scoring Cell 112 with Global Index ( 4  3  3 ) llOC 0 , glOC 0 
+[0] Scoring Cell 116 with Global Index ( 2  4  3 ) llOC 1 , glOC 0 
+[0] Partition flat Index is 72 = ( (0, 1)  (2, 0)  (2, 0)  )  [0] and is included in search space, cell will be received
+[0] Scoring Cell 117 with Global Index ( 3  4  3 ) llOC 0 , glOC 0 
+[0] Scoring Cell 118 with Global Index ( 4  4  3 ) llOC 0 , glOC 0 
+[0] W 4/5 PO 0 PI 76 CP 3/5
+writing OCout_ub = 4 in file out/chpSmt0
+[0] Scoring Cell 76 with Global Index ( 4  2  2 ) llOC 1 , glOC 0 
+[0] Partition flat Index is 2 = ( (2, 1)  (0, 1)  (0, 1)  )  [0] and is included in search space, cell will be received
+[0] Scoring Cell 77 with Global Index ( 5  2  2 ) llOC 1 , glOC 0 
+[0] Partition flat Index is 4 = ( (4, 0)  (0, 1)  (0, 1)  )  [0] and not included in search space, cell will be initialized
+[0] Scoring Cell 82 with Global Index ( 4  3  2 ) llOC 1 , glOC 0 
+[0] Partition flat Index is 14 = ( (2, 1)  (2, 0)  (0, 1)  )  [0] and is included in search space, cell will be received
+[0] Scoring Cell 83 with Global Index ( 5  3  2 ) llOC 1 , glOC 0 
+[0] Partition flat Index is 16 = ( (4, 0)  (2, 0)  (0, 1)  )  [0] and is included in search space, cell will be received
+ (2, 0)  )  [2] and is included in search space, cell will be received
+[2] Scoring Cell 77 with Global Index ( 5  2  2 ) llOC 1 , glOC 0 
+[2] Partition flat Index is 64 = ( (4, 0)  (0, 1)  (2, 0)  )  [2] and not included in search space, cell will be initialized
+[2] Scoring Cell 82 with Global Index ( 4  3  2 ) llOC 1 , glOC 0 
+[2] Partition flat Index is 74 = ( (2, 1)  (2, 0)  (2, 0)  )  [2] and not included in search space, cell will be initialized
+[2] Scoring Cell 83 with Global Index ( 5  3  2 ) llOC 0 , glOC 0 
+[2] Scoring Cell 88 with Global Index ( 4  4  2 ) llOC 1 , glOC 0 
+[2] Partition flat Index is 74 = ( (2, 1)  (2, 0)  (2, 0)  )  [2] and not included in search space, cell will be initialized
+[2] Scoring Cell 89 with Global Index ( 5  4  2 ) llOC 0 , glOC 0 
+[2] W 4/5 PO -1 PI 16 CP 2/3
+writing OCout_ub = 4 in file out/chpSmt2
+[2] finished scoring with wave 5 comp Parts 3
+[2] Resources Usage: UTime 0, STime 0, Mem 0, Virt 0
+[2] Resources Usage: UTime 0.015997, STime 0.022996
+[2]>Finalized at time (84, 16, 32, 10)
+[2] Elapsed time 0.099385 seconds, resolution 0.000001
+[0] Scoring Cell 88 with Global Index ( 4  4  2 ) llOC 1 , glOC 0 
+[0] Partition flat Index is 14 = ( (2, 1)  (2, 0)  (0, 1)  )  [0] and is included in search space, cell will be received
+[0] Scoring Cell 89 with Global Index ( 5  4  2 ) llOC 1 , glOC 0 
+[0] Partition flat Index is 16 = ( (4, 0)  (2, 0)  (0, 1)  )  [0] and is included in search space, cell will be received
+[0] Scoring Cell 106 with Global Index ( 4  2  3 ) llOC 1 , glOC 0 
+[0] Partition flat Index is 62 = ( (2, 1)  (0, 1)  (2, 0)  )  [0] and is included in search space, cell will be received
+[0] Scoring Cell 107 with Global Index ( 5  2  3 ) llOC 1 , glOC 0 
+[0] Partition flat Index is 64 = ( (4, 0)  (0, 1)  (2, 0)  )  [0] and is included in search space, cell will be received
+[0] Scoring Cell 112 with Global Index ( 4  3  3 ) llOC 1 , glOC 0 
+[0] Partition flat Index is 74 = ( (2, 1)  (2, 0)  (2, 0)  )  [0] and is included in search space, cell will be received
+[0] Scoring Cell 113 with Global Index ( 5  3  3 ) llOC 0 , glOC 0 
+[0] Scoring Cell 118 with Global Index ( 4  4  3 ) llOC 1 , glOC 0 
+[0] Partition flat Index is 74 = ( (2, 1)  (2, 0)  (2, 0)  )  [0] and is included in search space, cell will be received
+[0] Scoring Cell 119 with Global Index ( 5  4  3 ) llOC 0 , glOC 0 
+[0] W 5/5 PO 0 CP 4/5
+writing OCout_ub = 5 in file out/chpSmt0
+
+PI 0 in wave 0 has scores (CI, CS):
+ 0		-3
+  1		-6
+  2		-9
+  6		-6
+  7		-12
+  8		-18
+  12		-9
+  13		-18
+  14		-27
+  30		-6
+  31		-12
+  32		-18
+  36		-12
+  37		-2
+  38		-5
+  42		-18
+  43		-5
+  44		-6
+  60		-9
+  61		-18
+  62		-27
+  66		-18
+  67		-5
+  68		-6
+  72		-27
+  73		-2
+  74		-1
+ 
+PI 60 in wave 1 has scores (CI, CS):
+ 60		-9
+  61		-18
+  62		-18
+  66		-18
+  67		-5
+  68		-36
+  72		-18
+  73		-36
+  74		-54
+  90		-12
+  91		-24
+  92		-36
+  96		-24
+  97		-8
+  98		-5
+  102		-36
+  103		-9
+  104		-4
+ 
+PI 72 in wave 2 has scores (CI, CS):
+ 72		-18
+  73		-36
+  74		-54
+  78		-36
+  79		-9
+  80		-72
+  84		-45
+  85		-12
+  86		-90
+  102		-36
+  103		-9
+  104		-72
+  108		-48
+  109		-12
+  110		-9
+  114		-60
+  115		-9
+  116		0
+ 
+PI 74 in wave 3 has scores (CI, CS):
+ 74		-54
+  75		-72
+  76		-60
+  80		-72
+  81		-13
+  82		-120
+  86		-90
+  87		-12
+  88		-150
+  104		-72
+  105		-9
+  106		-120
+  110		-9
+  111		-12
+  112		-13
+  116		0
+  117		-3
+  118		-6
+ 
+PI 76 in wave 4 has scores (CI, CS):
+ 76		-60
+  77		-72
+  82		-120
+  83		-17
+  88		-150
+  89		-16
+  106		-120
+  107		-15
+  112		-13
+  113		-16
+  118		-6
+  119		-9
+ [0] finished scoring with wave 5 comp Parts 5
+[0] Resources Usage: UTime 0, STime 0, Mem 0, Virt 0
+[0] Resources Usage: UTime 0.019996, STime 0.033994
+[0]>Finalized at time (84, 16, 32, 10)
+[0] Elapsed time 0.123010 seconds, resolution 0.000001
+@
+
+
+1.1.1.1
+log
+@Distributed Optimal MSA using MoA
+@
+text
+@@

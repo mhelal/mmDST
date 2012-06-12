@@ -1,0 +1,174 @@
+head     1.1;
+branch   1.1.1;
+access   ;
+symbols  r1:1.1.1.1 mhelal:1.1.1;
+locks    ; strict;
+comment  @ * @;
+
+
+1.1
+date     2008.05.06.02.40.53;  author mhelal;  state Exp;
+branches 1.1.1.1;
+next     ;
+
+1.1.1.1
+date     2008.05.06.02.40.53;  author mhelal;  state Exp;
+branches ;
+next     ;
+
+
+desc
+@@
+
+
+
+1.1
+log
+@Initial revision
+@
+text
+@/**********************************************************
+* Author: Manal Helal																			*
+* Last Modification Date: Fri 12 Jan 2007 03:39:51 AM EST *
+* Project : MMSA - Multiple Sequence Alignment Based on 	*
+* 					Mathematics of Arrays - PhD Experimentation		*
+* File: master.h, header for master process functions			*
+***********************************************************/
+#ifndef MAINH_
+#define MAINH_
+
+#include <semaphore.h>
+#include "globals.h"
+#include "moa.h"
+
+
+typedef struct MOAPart_rec {
+	int processed; /*0 if not yet, 1 otherwise*/
+	long waveNo;
+	char * * sequences;
+	MOA_rec * msaAlgn;
+} MOAPartition;
+
+
+typedef struct Proc_rec {
+	int stype;
+	volatile int compFinished;
+	long seqNum, * seqLen;
+	char * * sequences;
+	MOAPartition * MOAPart;
+	char * * currPartSeq;
+	long partitionSize, currWaveNo, partitionsCount, currPartOrder, computedPartitions, sendOC, sendOCPart;
+} ProcessData;
+
+typedef struct OCI_Tag_old {
+	long waveNo; /* I need to keep the OCI up to one wave before the current wave only, then I delete them*/
+	long partIndex;
+	long cellIndex; /* Overlapping Cell Index */
+	long cellScore; /* Overlapping Cell Score */
+	int fromProc; /* Overlapping Cell Score */
+} OCIType_old;
+
+typedef struct WaveOCI_Tag {
+	long partIndex;
+	long cellIndex; /* Overlapping Cell Index */
+	long cellScore; /* Overlapping Cell Score */
+	int fromProc; /* Overlapping Cell Score */
+} WaveOCIType;
+
+typedef struct OCI_Tag {
+	long wavesOC; /*Total ICin in current indexed wave*/ 
+	WaveOCIType * WOCI;
+} OCIType;
+
+
+/*Overlapping Cells incoming*/
+long OCin_ub; /*Total waves with their OCIn received so far - normal case scenario will start zero and always be currWaveNo - 1 or currWaveNo - 2*/
+OCIType * OCin;
+
+typedef struct OCO_Tag_old {
+	int  sent; /* Once I send OCO to all dependant processors, I delete them, I don't need to keep them in the buffer*/
+	long waveNo;
+	long partIndex;
+	long cellIndex;  /* Overlapping Cell Index */
+	long cellScore;  /* Overlapping Cell Score */
+	int  depProc_ub; /* dep Proc count - increase while I receive dependency from master*/
+	int  * depProc;  /* dep Proc added here*/
+} OCOType_old;
+
+/* New Overlapping Cells categorized by waves, to reduce search space at every wave*/
+typedef struct WaveOCO_Tag {
+	int  sent; /* Once I send OCO to all dependant processors, I delete them, I don't need to keep them in the buffer*/
+	long partIndex;   /* Overlapping Cell Partition Index*/
+	long cellIndex;  /* Overlapping Cell Index */
+	long cellScore;  /* Overlapping Cell Score */
+	int  depProc_ub; /* dep Proc count - increase while I receive dependency from master*/
+	int  * depProc;  /* dep Proc added here*/
+} WaveOCOType;
+
+typedef struct OCO_Tag {
+	long wavesOC; /*Total OCout in current indexed wave*/ 
+	WaveOCOType * WOCO; /*Waves OC list - as before*/
+} OCOType;
+
+/*Overlapping Cells outgoing*/
+long OCout_ub; /*waves with their OC calculated so far - normal case scenario will start zero and always be currWaveNo - 1*/
+OCOType * OCout;
+
+
+void assemblePathParts (long pathParts, char * * * algnseq, long * aSeqLen, long seqNum);
+void distributedMasterTraceBack (void *arg, long startCellScore, long startCellIndex, int startProc, long seqNum);
+void getLocalMaxScore (void * arg, long * maxCellScore, long * maxCellIndex) ;
+long getLocalMaxCellScore (void * arg, long * maxCellIndex);
+//void getMaxScore (long * maxCellScore, long * maxCellIndex, int * maxProc);
+void * tbMaster (void *m);
+void * tbSlave (void *m);
+void ExitProcess (void * arg);
+
+int receiveOC (int source, long cellIndex, long * cellScore);
+int sendOC (long partIndex);
+
+int initProcessMemory (ProcessData * * pData, long seqNum, long * seqLen, char * * sequences, int stype, long partitionSize);
+void freeProcessMemory (ProcessData * * pData);
+int CheckPointWavesCalculations (ProcessData * pData);
+int CheckPoint (ProcessData * pData);
+int RestoreWavesCalculations (ProcessData * * pData);
+int restoreCheckPoint (ProcessData * * pData);
+long getTraceBackPartition (void * arg, long globalIndex, long * localCellIndex, long partIndex);
+long traceBack (void * arg, char * * sequences, char * * * algnseq, long * endCellIndex, int * nextProc, long * partIndex);
+void distributedSlaveTraceBack (void * arg);
+
+
+void getSemError (); 
+int PrintPrevChains (MOA_rec *  msaAlgn);
+void * ComputePartitionScores (void * threadarg);
+int getPartitionsNum(long dimn, long * shape, long pSize, long * pTotal, long * dTotal);
+int getProcID (long waveNo, long waveOrder);
+void getNextPartition (long * waveNo, long * PartOrder);
+long getWavePartsTotal (long WaveNo, long dimn);
+void getNextPIndex(int * more, long dimn, long act_dimn, long waveNo, long * * PIndex);
+int notPreviouslyVisited (long * partsInWave, long partsinCurrentWave, long * *  partsInWaveIndices, long waveNo, long flatIndex);
+int notPreviouslyVisited_atAll (long * partsInWave, long partsinCurrentWave, long * *  partsInWaveIndices, long waveNo, long flatIndex);
+int addPartitionIndex (long * PartOrder, long * dist, long * AllpartsInWave, long dimn, long * shape, long waveNo, long partSize, long * * * partsInWaveIndices, int * morePartitions);
+long getPIndicesinWave (long * AllpartsInWave, long dimn, long * shape, long waveNo, long partSize,  long * * * partsInWaveIndices, int * morePartitions);
+long calcWaves (long dimn, long * shape, long partSize, long * myPartsCount, long * myCurrWave, long * myCurrPart);
+int getPartition (long flatIndex, long dimn, long * shape, MOA_rec * * part, long partSize);
+int IsCellInPart (long cellIndex, long partIndex, long dimn, long * shape, long partSize);
+long  getCellPartIndex (long cellIndex, long dimn, long * shape, long partSize, long * *  partIndex);
+long * getCellAllPartIndex (long cellIndex, long dimn, long * shape, long partSize, long * * * partIndex, long * parts_ub);
+long getPartitionIndex (int flag, long * posDimn, long cellIndex, long * m_index, long dimn, long * shape, long partitionSize, long * * depPart);
+int isPartInSearchSpace(long partIndex, long * mPartIndex, long dimn, long * shape, long waveNo);
+/* Handling Overlapping Cells */
+int addOC (void * arg, long waveNo, long partIndex, long cellIndex, long cellScore, int depProc, int addflag);
+int checkPrevPartitions (void * threadarg, long cellIndex, long * cellScore, long waveNo);
+int checkRecvOC (long cellIndex, long * cellScore, long * startIndex, long waveNo);
+
+#endif
+@
+
+
+1.1.1.1
+log
+@Distributed Optimal MSA using MoA
+@
+text
+@@

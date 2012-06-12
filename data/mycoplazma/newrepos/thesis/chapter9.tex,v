@@ -1,0 +1,70 @@
+head     1.1;
+branch   1.1.1;
+access   ;
+symbols  r1:1.1.1.1 mhelal:1.1.1;
+locks    ; strict;
+comment  @% @;
+
+
+1.1
+date     2008.05.06.04.03.23;  author mhelal;  state Exp;
+branches 1.1.1.1;
+next     ;
+
+1.1.1.1
+date     2008.05.06.04.03.23;  author mhelal;  state Exp;
+branches ;
+next     ;
+
+
+desc
+@@
+
+
+
+1.1
+log
+@Initial revision
+@
+text
+@\chapter{Conclusion and Future Work}
+
+\section{Thesis Contribution and Conclusion}
+
+
+We have applied conformal computing methods in order to parallelize the alignment of multiple sequences. The method does not reduce the complexity of the problem, which is still growing exponentially with the data size. However, conformal computing provides a method for computing MSA invariant of dimension and shape, and dividing the complexity into chunks that can be distributed over processors. The scalability of the parallelism is found to be growing exponentially as well. 
+
+The approach provides automatic load balancing among processors, utilizing clustering based on nearest indexed neighbors to reduce communication, and better locality inside each single processor. The more powerful the machines used, the higher the upper-bound of the input data size. Heuristics and further optimization can be applied to this implementation of the multiple sequence alignment, to reduce the search space to suit less powerful computing platforms, or retrieve further near optimal solutions. Other high dimensional scientific computation problems can also benefit from these methods Currently, the work is focused on optimizing the communication and computation costs by enhancing the dependency based scheduling. Future work includes the reduction of search space without loosing optimality. Also, the program can be modified to return more than one optimal paths, or sub-optimal paths. This can be achieved without much penalty as it impacts only the trace back process, which is the least computationally demanding. Moreover, the program can be modified to generate distributed local (rather than global) alignments, which would only require minor changes. Portability is achieved by avoiding use of any proprietary libraries. Currently, standard C, and standard functions in the MPI standards are being used. The MoA library is implemented in standard C and can be easily recompiled on any machine as required.
+
+
+A reusable mathematical model to represent partitioning and dependency in parallel algorithms generally, and high dimensional problems specifically have been studied in the two problems addressed in this thesis. Further work can trigger more mathematical and geometric analysis, leading to more efficient index transformations.
+
+
+Further portability enhancement would be to model the processors as an extra dimension to the alignment scoring tensor, and partition by reshaping the tensor to divide itself over the processors automatically. Our presentation assumes a simple one dimensional array of processors. For a hypercube or other topology of processors, the processors can be defined as another MoA tensor, and using the PSI correspondence theorem as described in [Mullin 1988], the correspondence between the scoring tensor elements and processor elements can be established to achieve the best partitioning and scheduling required. Further optimization on the memory hierarchy levels can be achieved on each processor, by mapping the memory hierarchies as an extra dimension, and partition required elements to be in the fastest memory level, in order to avoid frequent context-switching.
+
+
+\subsection{Optimal and Near Optimal Distributed MSA}
+\subsection{Generic High Dimensional Partitioning Method}
+\subsection{Dependency Modelling and Reduction Technique}
+\subsection{Generic Scheduler with load balancing}
+
+\section{Future Work}
+
+Applying network regression analysis over the data available from the 2D, 3D, and 4D dependency networks should lead to a closed formula equation that maps the dimension, wave number and partition index to its dependant partition indices in the next wave. This will reduce the steps further, and can be pre-processed in a structure to be fetched when needed. However, also pre-processing the currently used MoA neighboring equation, based on the partition index (as a higher hierarchy over the individual cells), not the individual cell indices, can reduce the computation steps significantly.
+
+\subsection{Scores Caching Through Multi-Level Linked List Data Structure}
+\subsection{Fixed vs Variable Partitioning, and Suboptimal Solutions Retrieval}
+\subsection{Optimization and Heuristics}
+\subsection{Employing Dimensionality Reduction Techniques}
+\subsection{Further Problems to benefit from proposed Methods}
+
+
+@
+
+
+1.1.1.1
+log
+@Thesis Writing
+@
+text
+@@

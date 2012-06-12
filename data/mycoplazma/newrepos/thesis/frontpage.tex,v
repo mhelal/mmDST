@@ -1,0 +1,179 @@
+head     1.1;
+branch   1.1.1;
+access   ;
+symbols  r1:1.1.1.1 mhelal:1.1.1;
+locks    ; strict;
+comment  @% @;
+
+
+1.1
+date     2008.05.06.04.03.23;  author mhelal;  state Exp;
+branches 1.1.1.1;
+next     ;
+
+1.1.1.1
+date     2008.05.06.04.03.23;  author mhelal;  state Exp;
+branches ;
+next     ;
+
+
+desc
+@@
+
+
+
+1.1
+log
+@Initial revision
+@
+text
+@%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%   This is frontpage.tex file needed for the dmathesis.cls file.  You   %
+%  have to  put this file in the same directory with your thesis files.  %
+%                Written by M. Imran 2001/06/18                          % 
+%                 No Copyright for this file                             % 
+%                 Save your time and enjoy it                            % 
+%                                                                        % 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%           The title page           %%%%%%%%%%%%%%%%%%%%%%%  
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\pagenumbering{roman}
+%\pagenumbering{arabic}
+
+\setcounter{page}{1}
+
+\newpage
+
+\thispagestyle{empty}
+\begin{center}
+  \vspace*{1cm}
+  {\Huge \bf Unified Partitioning Scheme for Distributed High Dimensional Scientific Computing Using Conformal computing Methods with Optimal Builtin Load Balancing}
+
+  \vspace*{2cm}
+  {\LARGE\bf Manal Ezzat Helal}
+
+  \vfill
+
+  {\Large A Thesis presented for the degree of\\
+         [1mm] Doctor of Philosophy}
+  \vspace*{0.9cm}
+  
+  % Put your university logo here if you wish.
+   \begin{figure}[hbtp]
+	\begin{center}
+ 		\includegraphics[bb=0 0 303 115]{unsw.jpg}
+ 		% unsw.jpg: 303x115 pixel, 72dpi, 10.69x4.06 cm, bb=0 0 303 115
+	\end{center}
+   \end{figure}
+
+
+
+  {\large 
+          Department of Computer Science and Engineering \\ 
+	  Faculty of Engineering \\
+          [-3mm] University of New South Wales\\
+          [-3mm] Sydney, Australia\\
+          [1mm]  March, 2008}
+
+\end{center}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%% The dedication page, of you have one  %%%%%%%%%%%%%%%%%%%%  
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newpage
+\thispagestyle{empty}
+\begin{center}
+ \vspace*{2cm}
+  \textit{\LARGE {Dedicated to}}\\ 
+ My Parents
+\end{center}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%           The abstract page         %%%%%%%%%%%%%%%%%%%%  
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newpage
+\thispagestyle{empty}
+\addcontentsline{toc}{chapter}{\numberline{}Abstract}
+\begin{center}
+  \textbf{\Large Unified Partitioning Scheme for Distributed High Dimensional Scientific Computing Using Conformal computing Methods with Optimal Builtin Load Balancing}
+
+  \vspace*{1cm}
+  \textbf{\large Manal Ezzat Helal}
+
+  \vspace*{0.5cm}
+  {\large Submitted for the degree of Doctor of Philosophy\\ March, 2008}
+
+  \vspace*{1cm}
+  \textbf{\large Abstract}
+\end{center}
+This work investigates the potential of Mathematics of Arrays (MOA) partitioning scheme on high dimensional scientific computational problems, such as Multiple Sequence Alignment (MSA) in Computational Biology, aiming to deliver a unified partitioning scheme that works invariant of the dataset shape (dimension and lengths), and portable on different high performance machines, cluster architectures, and potentially Grids.
+
+Multiple Sequence Alignment (MSA) in computational biology has been addressed with a number of algorithms, the majority of them trade off optimality with speed of execution and memory usage. The dynamic programming algorithm offers the optimal alignment, but is not practical for more than maximum of 3 sequences with full optimality, and up to 8 sequences with some approximation. There is no MSA algorithm that produces optimal results invariant of number of sequences entered \& their lengths. MSA is NP\-Hard problem, with no solution in polynomial time available.
+
+This work proposes an optimal MSA based on MoA. MoA offers a set of constructs that help represent multidimensional arrays in memory in a linear concise and efficient way. MOA is implemented based on PSI\-Calculus, by representing the multidimensional tensor as a flat array in memory, and mapping (using the Psi \- ψ function) the multidimensional index to a flat index to access data. Parallelization dependency is based on computing lower indexed neighbours before higher indexed neighbour forming diagonals. Each diagonal is composed of smaller squares for 2D, or cubes for 3D, or hypercube for ND – called partitions. The first diagonal contains only one partition in the left upper corner of the Tensor. Later diagonals are retrieved by getting the other higher (in index values) partitions from the edges of the previous partitions in the previous diagonals recursively. 
+
+The resulted design using Massively Parallel Mathematics of Arrays (MP\-MOA) data structures and constructs, produces a scalable solution that can be implemented on clusters, High Performance Computers (HPC) and potentially grid architectures. Two solutions are presented. one is Master/Slave which is Multiple Instruction Multiple Data (MIMD), based on Master/Slave scheduling, and Slave/Slave coupling, and another is Peer\-to\-Peer, which is Single Instruction Multiple Data (SIMD). Both has scheduling and load balancing techniques.
+
+The ideas applied in this work can be reconfigured for similar problems. MSA is considered the highest dimensional scientific problem found suitable to MOA partitioning so far. Principles derived from the application of MoA to MSA can be subsequently applied to a range of different scientific problems. Further optimization techniques can be applied to reduce the search space and required resources.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%          The declaration page         %%%%%%%%%%%%%%%%%%  
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\chapter*{Declaration}
+\addcontentsline{toc}{chapter}{\numberline{}Declaration}
+The work in this thesis is based on research carried out at the
+School of Computer Science and Engineering, Engineering Faculty, 
+University of New South Wales, Australia.  No part of this thesis has been
+submitted elsewhere for any other degree or qualification and it all
+my own work unless referenced to the contrary in the text. 
+
+
+
+\vspace{2in}
+\noindent \textbf{Copyright \copyright\; 2001 by Manal Ezzat Helal}.\\
+``The copyright of this thesis rests with the author.  No quotations
+from it should be published without the author's prior written consent
+and information derived from it should be acknowledged''.
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%     The acknowledgements page         %%%%%%%%%%%%%%%%%%  
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\chapter*{Acknowledgements}
+\addcontentsline{toc}{chapter}{\numberline{}Acknowledgements}
+Will write that the last thing :)
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%    tableofcontents, listoffigures and listoftables       %%%%%%%%%
+%%%%%%%%        Command if you do not have  them                  %%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\tableofcontents
+\listoffigures
+\listoftables
+\clearpage
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%   END OF FRONT PAGE %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+
+
+
+
+
+
+@
+
+
+1.1.1.1
+log
+@Thesis Writing
+@
+text
+@@

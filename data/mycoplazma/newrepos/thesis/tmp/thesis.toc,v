@@ -1,0 +1,131 @@
+head     1.1;
+branch   1.1.1;
+access   ;
+symbols  r1:1.1.1.1 mhelal:1.1.1;
+locks    ; strict;
+comment  @# @;
+
+
+1.1
+date     2008.05.06.04.03.23;  author mhelal;  state Exp;
+branches 1.1.1.1;
+next     ;
+
+1.1.1.1
+date     2008.05.06.04.03.23;  author mhelal;  state Exp;
+branches ;
+next     ;
+
+
+desc
+@@
+
+
+
+1.1
+log
+@Initial revision
+@
+text
+@\contentsline {chapter}{\hbox to\@@tempdima {\hfil }Abstract}{iv}
+\contentsline {chapter}{\hbox to\@@tempdima {\hfil }Declaration}{vi}
+\contentsline {chapter}{\hbox to\@@tempdima {\hfil }Acknowledgements}{vii}
+\contentsline {chapter}{\numberline {1}Introduction and Literature Review}{1}
+\contentsline {section}{\numberline {1.1}Dimensionality Curse in High Dimensional Scientific Problems}{1}
+\contentsline {section}{\numberline {1.2}Moore's Law Continuty through Multi-Cores, HPC, and Grid Computing}{7}
+\contentsline {section}{\numberline {1.3}Thesis Motivations, Aims and Objectives}{7}
+\contentsline {section}{\numberline {1.4}Thesis Motivation and Scope}{8}
+\contentsline {section}{\numberline {1.5}Contributions and Impact}{8}
+\contentsline {section}{\numberline {1.6}Research Method}{8}
+\contentsline {section}{\numberline {1.7}Thesis Organization}{9}
+\contentsline {chapter}{\numberline {2}Literature Review and First Problem Definition}{11}
+\contentsline {section}{\numberline {2.1}Dynamic Programming}{11}
+\contentsline {section}{\numberline {2.2}Dimensionality Reduction Methods and Optimality Effects}{11}
+\contentsline {section}{\numberline {2.3}Multiple Sequence Alignment in Computational Biology}{11}
+\contentsline {subsection}{\numberline {2.3.1}Local Alignment}{16}
+\contentsline {section}{\numberline {2.4}Multiple Sequence Alignment}{18}
+\contentsline {subsection}{\numberline {2.4.1}Hidden Markov model}{27}
+\contentsline {subsection}{\numberline {2.4.2}Benchmark Alignment databases}{27}
+\contentsline {subsection}{\numberline {2.4.3}Multiple Sequence Alignment Methods}{29}
+\contentsline {subsubsection}{Progressive Alignment Techniques}{29}
+\contentsline {subsubsection}{Iterative Alignment techniques}{32}
+\contentsline {subsubsection}{Simultaneous Alignment}{35}
+\contentsline {subsection}{\numberline {2.4.4}Existing Methods Problems}{35}
+\contentsline {chapter}{\numberline {3}Proposed Initial Solution}{36}
+\contentsline {section}{\numberline {3.1}Conformal Computing Methods}{36}
+\contentsline {section}{\numberline {3.2}Mathematics of Arrays}{37}
+\contentsline {section}{\numberline {3.3}Mathematical Background}{39}
+\contentsline {section}{\numberline {3.4}Capacity \& Capability Computing}{39}
+\contentsline {subsection}{\numberline {3.4.1}Capacity Computing}{39}
+\contentsline {subsection}{\numberline {3.4.2}Capability Computing}{39}
+\contentsline {section}{\numberline {3.5}Sequential MSA using MOA}{39}
+\contentsline {subsection}{\numberline {3.5.1}Invariance of Shape and Dimension}{40}
+\contentsline {subsection}{\numberline {3.5.2}Mapping Operations to Index Transformations}{40}
+\contentsline {section}{\numberline {3.6}Distributed Master/Slave MSA using MoA}{41}
+\contentsline {section}{\numberline {3.7}Re-Designing MSA using MoA}{41}
+\contentsline {subsection}{\numberline {3.7.1}Analysis of Dependency}{41}
+\contentsline {subsection}{\numberline {3.7.2}Partitioning Scheme}{43}
+\contentsline {subsection}{\numberline {3.7.3}Distributed Scoring Requirements}{47}
+\contentsline {subsection}{\numberline {3.7.4}Distributed Trace Back Requirements}{47}
+\contentsline {subsection}{\numberline {3.7.5}Scalability Issues}{50}
+\contentsline {subsection}{\numberline {3.7.6}Portability Issues}{51}
+\contentsline {chapter}{\numberline {4}Peer to Peer Solution}{52}
+\contentsline {section}{\numberline {4.1}Actual Parallelism}{52}
+\contentsline {subsection}{\numberline {4.1.1}Geometric Analysis}{52}
+\contentsline {section}{\numberline {4.2}Wave Calculations and Partitions Fetching}{52}
+\contentsline {section}{\numberline {4.3}Computation Complexity}{52}
+\contentsline {subsection}{\numberline {4.3.1}Geomteric Analysis}{65}
+\contentsline {subsection}{\numberline {4.3.2}Fetching Partitions Iteratively}{66}
+\contentsline {section}{\numberline {4.4}Dependency Analysis and Communication}{66}
+\contentsline {section}{\numberline {4.5}Checkpoint/Restore Operations}{66}
+\contentsline {chapter}{\numberline {5}Linear Optimization}{67}
+\contentsline {section}{\numberline {5.1}Multi-dimensional Optimization}{67}
+\contentsline {chapter}{\numberline {6}Another Problem Definition and Solution}{68}
+\contentsline {chapter}{\numberline {7}Partitioning, Scheduling, and Communication Aspects}{69}
+\contentsline {section}{\numberline {7.1}Partitioning Aspects}{69}
+\contentsline {subsection}{\numberline {7.1.1}Partition Size Effects}{69}
+\contentsline {subsection}{\numberline {7.1.2}Reshaping the Tensor to retrieve partitions}{70}
+\contentsline {section}{\numberline {7.2}Scheduling Methods}{71}
+\contentsline {subsection}{\numberline {7.2.1}Master/Slave Scheduling}{73}
+\contentsline {subsubsection}{Bag of Tasks}{73}
+\contentsline {subsubsection}{Round Robin}{73}
+\contentsline {subsubsection}{MOA Scheduling}{73}
+\contentsline {subsection}{\numberline {7.2.2}Peer-to-Peer Scheduling}{73}
+\contentsline {section}{\numberline {7.3}Load Balancing}{73}
+\contentsline {subsection}{\numberline {7.3.1}Mathematical Proof of Optimality of Load Balancing}{74}
+\contentsline {section}{\numberline {7.4}Concurrency \& Communication Aspects }{74}
+\contentsline {subsection}{\numberline {7.4.1}Threads Conditions Vs Semaphores}{74}
+\contentsline {subsection}{\numberline {7.4.2}Blocking Vs. Non-Blocking Communication}{74}
+\contentsline {subsection}{\numberline {7.4.3}Slave / Slave Coupling Issues}{74}
+\contentsline {section}{\numberline {7.5}MoA as Communication Modelling Language}{74}
+\contentsline {chapter}{\numberline {8}Results Analysis}{75}
+\contentsline {section}{\numberline {8.1}Execution Results}{75}
+\contentsline {subsection}{\numberline {8.1.1}Sequential Execution Results}{75}
+\contentsline {subsection}{\numberline {8.1.2}Distributed Execution Results}{75}
+\contentsline {subsubsection}{Master/Slave Execution Results}{75}
+\contentsline {subsubsection}{Peer-to-Peer Execution Results}{76}
+\contentsline {section}{\numberline {8.2}Partition Size Scalability}{76}
+\contentsline {section}{\numberline {8.3}Processors Scalability}{76}
+\contentsline {section}{\numberline {8.4}Comparison with Existing Methods}{76}
+\contentsline {section}{\numberline {8.5}Re-Configurable Execution Parameters}{76}
+\contentsline {chapter}{\numberline {9}Conclusion and Future Work}{77}
+\contentsline {section}{\numberline {9.1}Thesis Contribution and Conclusion}{77}
+\contentsline {subsection}{\numberline {9.1.1}Optimal and Near Optimal Distributed MSA}{79}
+\contentsline {subsection}{\numberline {9.1.2}Generic High Dimensional Partitioning Method}{79}
+\contentsline {subsection}{\numberline {9.1.3}Dependency Modelling and Reduction Technique}{79}
+\contentsline {subsection}{\numberline {9.1.4}Generic Scheduler with load balancing}{79}
+\contentsline {section}{\numberline {9.2}Future Work}{79}
+\contentsline {subsection}{\numberline {9.2.1}Scores Caching Through Multi-Level Linked List Data Structure}{79}
+\contentsline {subsection}{\numberline {9.2.2}Fixed vs Variable Partitioning, and Suboptimal Solutions Retrieval}{79}
+\contentsline {subsection}{\numberline {9.2.3}Optimization and Heuristics}{79}
+\contentsline {subsection}{\numberline {9.2.4}Employing Dimensionality Reduction Techniques}{79}
+\contentsline {subsection}{\numberline {9.2.5}Further Problems to benefit from proposed Methods}{79}
+@
+
+
+1.1.1.1
+log
+@Thesis Writing
+@
+text
+@@

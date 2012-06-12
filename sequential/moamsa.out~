@@ -1,0 +1,50 @@
+
+ The Tensor of Dimn 3 & elements 80 & Shape:  5  4  4 : 
+                 0     1     2     3     4          0
+_______________________________________________________
+    0| < < <     0     1     2     3     4  >
+    1|     <     5     6     7     8     9  >
+    2|     <    10    11    12    13    14  >
+    3|     <    15    16    17    18    19  > >     1
+_______________________________________________________
+    0|   < <    20    21    22    23    24  >
+    1|     <    25    26    27    28    29  >
+    2|     <    30    31    32    33    34  >
+    3|     <    35    36    37    38    39  > >     2
+_______________________________________________________
+    0|   < <    40    41    42    43    44  >
+    1|     <    45    46    47    48    49  >
+    2|     <    50    51    52    53    54  >
+    3|     <    55    56    57    58    59  > >     3
+_______________________________________________________
+    0|   < <    60    61    62    63    64  >
+    1|     <    65    66    67    68    69  >
+    2|     <    70    71    72    73    74  >
+    3|     <    75    76    77    78    79  > > >
+
+Wave 1 moreneighb 26 MOA_nghb->elements_ub 27 from point : 1 1 1  has 26 points with Indices: 26 27 28 31 32 33 36 37 38 46 47 48 51 52 53 56 57 58 66 67 68 71 72 73 76 77 78 
+Wave 2 moreneighb 17 MOA_nghb->elements_ub 18 from point : 3 1 1  has 17 points with Indices: 28 29 33 34 38 39 48 49 53 54 58 59 68 69 73 74 78 79 
+Wave 1 moreneighb 26 MOA_nghb->elements_ub 27 from point : 1 1 1  has 26 points with Indices: 26 27 28 31 32 33 36 37 38 46 47 48 51 52 53 56 57 58 66 67 68 71 72 73 76 77 78 
+Wave 2 moreneighb 17 MOA_nghb->elements_ub 18 from point : 3 1 1  has 17 points with Indices: 28 29 33 34 38 39 48 49 53 54 58 59 68 69 73 74 78 79 
+Wave 1 moreneighb 26 MOA_nghb->elements_ub 27 from point : 1 1 1  has 26 points with Indices: 26 27 28 31 32 33 36 37 38 46 47 48 51 52 53 56 57 58 66 67 68 71 72 73 76 77 78 
+Wave 2 moreneighb 17 MOA_nghb->elements_ub 18 from point : 3 1 1  has 17 points with Indices: 28 29 33 34 38 39 48 49 53 54 58 59 68 69 73 74 78 79 
+Wave 1 moreneighb 26 MOA_nghb->elements_ub 27 from point : 1 1 1  has 26 points with Indices: 26 27 28 31 32 33 36 37 38 46 47 48 51 52 53 56 57 58 66 67 68 71 72 73 76 77 78 
+Wave 2 moreneighb 17 MOA_nghb->elements_ub 18 from point : 3 1 1  has 17 points with Indices: 28 29 33 34 38 39 48 49 53 54 58 59 68 69 73 74 78 79 
+Wave 1 moreneighb 26 MOA_nghb->elements_ub 27 from point : 1 1 1  has 26 points with Indices: 26 27 28 31 32 33 36 37 38 46 47 48 51 52 53 56 57 58 66 67 68 71 72 73 76 77 78 
+Wave 2 moreneighb 17 MOA_nghb->elements_ub 18 from point : 3 1 1  has 17 points with Indices: 28 29 33 34 38 39 48 49 53 54 58 59 68 69 73 74 78 79 
+Wave 1 moreneighb 26 MOA_nghb->elements_ub 27 from point : 1 1 1  has 26 points with Indices: 26 27 28 31 32 33 36 37 38 46 47 48 51 52 53 56 57 58 66 67 68 71 72 73 76 77 78 
+Wave 2 moreneighb 17 MOA_nghb->elements_ub 18 from point : 3 1 1  has 17 points with Indices: 28 29 33 34 38 39 48 49 53 54 58 59 68 69 73 74 78 79 
+Wave 1 moreneighb 26 MOA_nghb->elements_ub 27 from point : 1 1 1  has 26 points with Indices: 26 27 28 31 32 33 36 37 38 46 47 48 51 52 53 56 57 58 66 67 68 71 72 73 76 77 78 
+Wave 2 moreneighb 17 MOA_nghb->elements_ub 18 from point : 3 1 1  has 17 points with Indices: 28 29 33 34 38 39 48 49 53 54 58 59 68 69 73 74 78 79 
+Wave 1 moreneighb 26 MOA_nghb->elements_ub 27 from point : 1 1 1  has 26 points with Indices: 26 27 28 31 32 33 36 37 38 46 47 48 51 52 53 56 57 58 66 67 68 71 72 73 76 77 78 
+Wave 2 moreneighb 17 MOA_nghb->elements_ub 18 from point : 3 1 1  has 17 points with Indices: 28 29 33 34 38 39 48 49 53 54 58 59 68 69 73 74 78 79 
+Wave 1 moreneighb 26 MOA_nghb->elements_ub 27 from point : 1 1 1  has 26 points with Indices: 26 27 28 31 32 33 36 37 38 46 47 48 51 52 53 56 57 58 66 67 68 71 72 73 76 77 78 
+Wave 2 moreneighb 17 MOA_nghb->elements_ub 18 from point : 3 1 1  has 17 points with Indices: 28 29 33 34 38 39 48 49 53 54 58 59 68 69 73 74 78 79 
+Wave 1 moreneighb 26 MOA_nghb->elements_ub 27 from point : 1 1 1  has 26 points with Indices: 26 27 28 31 32 33 36 37 38 46 47 48 51 52 53 56 57 58 66 67 68 71 72 73 76 77 78 
+Wave 2 moreneighb 17 MOA_nghb->elements_ub 18 from point : 3 1 1  has 17 points with Indices: 28 29 33 34 38 39 48 49 53 54 58 59 68 69 73 74 78 79 
+Wave 1 moreneighb 26 MOA_nghb->elements_ub 27 from point : 1 1 1  has 26 points with Indices: 26 27 28 31 32 33 36 37 38 46 47 48 51 52 53 56 57 58 66 67 68 71 72 73 76 77 78 
+Wave 2 moreneighb 17 MOA_nghb->elements_ub 18 from point : 3 1 1  has 17 points with Indices: 28 29 33 34 38 39 48 49 53 54 58 59 68 69 73 74 78 79 
+Wave 1 moreneighb 26 MOA_nghb->elements_ub 27 from point : 1 1 1  has 26 points with Indices: 26 27 28 31 32 33 36 37 38 46 47 48 51 52 53 56 57 58 66 67 68 71 72 73 76 77 78 
+Wave 2 moreneighb 17 MOA_nghb->elements_ub 18 from point : 3 1 1  has 17 points with Indices: 28 29 33 34 38 39 48 49 53 54 58 59 68 69 73 74 78 79 
+Wave 1 moreneighb 26 MOA_nghb->elements_ub 27 from point : 1 1 1  has 26 points with Indices: 26 27 28 31 32 33 36 37 38 46 47 48 51 52 53 56 57 58 66 67 68 71 72 73 76 77 78 
+Wave 2 moreneighb 17 MOA_nghb->elements_ub 18 from point : 3 1 1  has 17 points with Indices: 28 29 33 34 38 39 48 49 

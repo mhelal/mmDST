@@ -1,0 +1,884 @@
+head	1.2;
+access;
+symbols
+	r1:1.1.1.1 mhelal:1.1.1;
+locks; strict;
+comment	@ * @;
+
+
+1.2
+date	2008.05.11.13.55.54;	author mhelal;	state Exp;
+branches;
+next	1.1;
+
+1.1
+date	2008.05.06.02.40.53;	author mhelal;	state Exp;
+branches
+	1.1.1.1;
+next	;
+
+1.1.1.1
+date	2008.05.06.02.40.53;	author mhelal;	state Exp;
+branches;
+next	;
+
+
+desc
+@@
+
+
+1.2
+log
+@search space error
+@
+text
+@/******************************************************************************
+* FILE: main.c
+* DESCRIPTION:  
+* AUTHOR: Manal E. Helal
+* LAST REVISED:
+* Function:
+*		main
+*		MainProcess
+*     ScoreCompThread
+*     addOC
+*     getDepProcs
+*     sendOC
+*     checkRecvOC
+*     checkPrevPartitions
+******************************************************************************/
+
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <mpi.h>
+#include <pthread.h>
+#include <errno.h>
+#include <signal.h>
+#include <unistd.h>
+#include <sys/time.h>
+#include <sys/resource.h>
+#include "globals.h"
+#include "utils.h"
+#include "moaDst.h"
+#include "main.h"
+
+/************************************************************************
+	Function: checkPrevPartitions
+		returns score of cell (cellIndex) if computed in previous partitions
+************************************************************************/
+int checkPrevPartitions (void * threadarg, long cellIndex, long * cellScore, long waveNo) {
+#ifndef NDEBUG
+	char msg[MID_MESSAGE_SIZE];
+	int dbglevel = 5;
+#endif
+	long i;
+	int found = -1;
+#ifndef NDEBUG
+	sprintf (msg, "in checkPrevPartitions w %ld wavesOC %ld  OCout_ub %ld ", waveNo-1, OCout[waveNo-1].wavesOC,  OCout_ub);
+	mprintf (dbglevel, msg, 1);
+#endif
+	if ((waveNo-1 <= OCout_ub) && (waveNo-1 >= 0)) {
+		for (i=0;((i<OCout[waveNo-1].wavesOC) && (found == -1));i++) {
+#ifndef NDEBUG
+			sprintf(msg, " (%ld == %ld) ", cellIndex,  OCout[waveNo-1].WOCO[i].cellIndex);
+			mprintf (dbglevel, msg, 1);
+#endif
+			if (cellIndex == OCout[waveNo-1].WOCO[i].cellIndex) {
+				(*cellScore) = OCout[waveNo-1].WOCO[i].cellScore;
+				found = 0;
+			}
+		}
+	}
+#ifndef NDEBUG
+	sprintf (msg, " found %d\n", found);
+	mprintf (dbglevel, msg, 1);
+#endif
+	return found;
+}
+
+/***********************************************************************
+	Function: checkRecvOC
+		returns score of cell (cellIndex) if received in previous receive command
+	long cellIndex; // searching for this cellIndex
+	long * cellScore; // if cellIndex is found, cellScore is update
+	long * startIndex; // Partition start index, to start searching from within the current wave
+	long waveNo; // current waveNo to search only the 2 waves before it for dependency, actually one wave, but I think I am paranoid
+***********************************************************************/
+int checkRecvOC (long cellIndex, long * cellScore, long * startIndex, long waveNo) {
+	long i, j;
+	long OCIwaveNo, startingWave;
+	int received = 0;
+#ifndef NDEBUG
+	char msg[MID_MESSAGE_SIZE];
+	int dbglevel = 1;
+#endif
+
+	OCIwaveNo = waveNo;
+#ifndef NDEBUG
+	sprintf (msg, "[%d]checkRecvOC: Current Wave: %ld - Current Partition: %ld \n", myProcid, currWaveNo, currPartNo);
+	mprintf(dbglevel, msg, 3);
+	sprintf(msg, "[%d]>checkRecvOC: cell[%ld] in Incoming Overlapping cells start=[%ld] count=[%ld]  waveNo=[%ld]{\n", myProcid, cellIndex, (*startIndex), OCin_ub, waveNo);
+	mprintf(dbglevel, msg, 3);
+#endif
+	i = 0;
+	if (waveNo > 2)
+		startingWave = waveNo-2;
+	else 
+		startingWave = 0;
+	for (j=startingWave;j<waveNo && j <OCin_ub && received==0;j++) {
+#ifndef NDEBUG
+		sprintf (msg, "[%d] OCin[%ld].wavesOC %ld{\n#### ", myProcid, j, OCin[j].wavesOC);
+		mprintf(dbglevel, msg, 3);
+#endif
+		for (i=(*startIndex);((i<OCin[j].wavesOC) && (received == 0));i++) {
+#ifndef NDEBUG
+			sprintf(msg, "%ld ", OCin[j].WOCI[i].cellIndex);
+			mprintf(dbglevel, msg, 3);
+#endif
+			if (cellIndex == OCin[j].WOCI[i].cellIndex) {
+				(*cellScore) = OCin[j].WOCI[i].cellScore;
+				received = -1;
+			}
+		}
+#ifndef NDEBUG
+		mprintf(dbglevel, "\n}\n", 3);
+#endif
+	}
+	if ((OCin_ub > 0) && (i > 0))
+	 	(*startIndex) = i-1;
+	else
+		(*startIndex) = 0;
+#ifndef NDEBUG
+	if (received == 0)
+		sprintf  (msg, "[%d]>checkRecvOC: NOT FOUND  new start=[%ld]\n", myProcid,  (*startIndex));
+	else
+		sprintf  (msg, "[%d]>receiveOC: FOUND  new start=[%ld]\n", myProcid,  (*startIndex));
+	mprintf(dbglevel, msg, 3);
+#endif
+	return received;
+}
+
+void checkMPIErrorCode (char * module, int dbglevel, int caller, int errmsg) {
+#ifndef NDEBUG
+	char msg[MID_MESSAGE_SIZE];
+	
+	switch(errmsg) {
+		case MPI_SUCCESS:
+			//sprintf (msg, "$$$$[%s]: Success Proc[%d]\n", module, myProcid);
+			//mprintf(dbglevel, msg, caller);
+			break;
+		case MPI_ERR_COMM:
+			sprintf (msg, "$$$$[%s]: Invalid communicator[%d]\n", module, myProcid);
+			mprintf(dbglevel, msg, caller);
+			break;
+		case MPI_ERR_TYPE:
+			sprintf (msg, "$$$$[%s]: Invalid datatype argument[%d]\n", module, myProcid);
+			mprintf(dbglevel, msg, caller);
+			break;
+		case MPI_ERR_COUNT:
+			sprintf (msg, "$$$$[%s]: Invalid count argument Proc[%d]\n", module, myProcid);
+			mprintf(dbglevel, msg, caller);
+			break;
+		case MPI_ERR_TAG:
+			sprintf (msg, "$$$$[%s]: Invalid  tag  argument Proc[%d]\n", module, myProcid);
+			mprintf(dbglevel, msg, caller);
+			break;
+		case MPI_ERR_RANK:
+			sprintf (msg, "$$$$[%s]: Invalid source or destination rank Proc[%d]\n", module, myProcid);
+			mprintf(dbglevel, msg, caller);
+			break;
+	}
+#endif
+}
+/*******************************************************************
+	Function: receiveOC
+	called from scoring.c:getScore()
+	int source; // read from MPI_Probe return status.MPI_SOURCE
+	long cellIndex; // Cell Index to be received, return 1 if found, 0 otherwise
+	long * cellScore; // output score received
+*******************************************************************/
+int receiveOC (int source, long cellIndex, long * cellScore) {
+	long j, RwaveNo, RPartitionIndex, RcellIndex, RcellScore, oldOCin_ub;
+	long * buffer;
+	int i, buffer_size;
+	MPI_Status status;
+	char msg[SHORT_MESSAGE_SIZE];
+#ifndef NDEBUG
+	int dbglevel = 1;
+#endif
+	int received = 0;
+	int MPI_return = 0;
+	
+	/*************************************************************************
+	int MPI_Probe(int source, int tag, MPI_Comm comm, MPI_Status *status)
+	int MPI_Get_count( MPI_Status *status,  MPI_Datatype datatype, int *count)
+	int MPI_Recv(void *buf, int count, MPI_Datatype datatype, int source, 
+		int tag, MPI_Comm comm, MPI_Status *status)
+	
+	MPI_Probe(MPI_ANY_SOURCE, MPI_ANY_TAG, MOAMSA_COMM_WORLD, &status);
+	MPI_Get_count(&status,  MPI_LONG, &buffer_size);
+	MPI_Recv(buffer, buffer_size, MPI_LONG, status.MPI_SOURCE, MOAMSA_SEND_RECEIVE_TAG, MOAMSA_COMM_WORLD, 
+               &status);
+	tag: is the sending process.
+	*************************************************************************/
+	
+	(*cellScore) = 0;
+	buffer_size = 0;
+	MPI_return = MPI_Recv(&buffer_size, 1, MPI_INT, source, MOAMSA_SEND_RECEIVE_TAG, MOAMSA_COMM_WORLD, &status);
+#ifndef NDEBUG
+	checkMPIErrorCode ("mmDst", 1, 2, MPI_return);
+#endif
+	if (buffer_size > 0) {
+		buffer = mmalloc (buffer_size * sizeof *buffer);
+		if (buffer == NULL) {
+			sprintf(msg, "[%d]>receiveOC: Couldn't allocate memory for OCin receiving buffer, exiting!\n", myProcid);
+			mprintf(0, msg, 3);
+			fflush(stdout);
+			return -1;
+		}
+		MPI_return = MPI_Recv(buffer, buffer_size, MPI_LONG, source, MOAMSA_SEND_RECEIVE_TAG, MOAMSA_COMM_WORLD, &status);
+#ifndef NDEBUG
+		checkMPIErrorCode ("mmDst", 1, 2, MPI_return);
+		sprintf  (msg, "[%d]>receiveOC: Received buffer: size: %d from [%d]\n", myProcid, buffer_size, status.MPI_SOURCE);
+		mprintf (dbglevel, msg, 3);		  
+		sprintf (msg, "Recieved idx(  wn,  pi,  ci,    cs,  fp)\n");
+		mprintf (dbglevel, msg, 3);
+#endif
+		for (i=0;i<buffer_size;i+=4) {
+			RwaveNo = buffer[i];
+			RPartitionIndex = buffer[i+1];
+			RcellIndex = buffer[i+2];
+			RcellScore = buffer[i+3];
+#ifndef NDEBUG
+			sprintf (msg, "[%d]>receiveOC: loop (%d / %d)\n", myProcid, i, buffer_size);
+			mprintf (dbglevel + 1, msg, 3);
+#endif
+			/* If first time to receive in this wave, then create its memory*/
+			if (RwaveNo > OCin_ub - 1) {
+				oldOCin_ub = OCin_ub;
+				OCin_ub = RwaveNo;
+				if (OCin_ub == 0)
+					OCin = mmalloc (sizeof *OCin);
+				else
+					OCin = realloc (OCin, (OCin_ub+1) * sizeof *OCin);
+				if (OCin == NULL) {
+					sprintf(msg, "[%d]>receiveOC: Couldn't allocate memory for OCin, exiting!\n", myProcid);
+					mprintf(0, msg, 1);
+					fflush(stdout);
+					return -1;
+				}
+				for (j=oldOCin_ub;j<=OCin_ub;j++)
+					OCin[j].wavesOC = 0;
+				OCin_ub ++;
+			}
+			if (OCin[RwaveNo].wavesOC == 0)
+				OCin[RwaveNo].WOCI = mmalloc (sizeof *OCin[RwaveNo].WOCI);
+			else
+				OCin[RwaveNo].WOCI = realloc (OCin[RwaveNo].WOCI, (OCin[RwaveNo].wavesOC + 1) * sizeof *OCin[RwaveNo].WOCI);
+			if (OCin[RwaveNo].WOCI == NULL) {
+				sprintf(msg, "[%d]>receiveOC: Couldn't allocate memory for OCin[].WOCI, exiting!\n", myProcid);
+				mprintf(0, msg, 1);
+				fflush(stdout);
+				return -1;
+			}
+			
+			OCin[RwaveNo].WOCI[OCin[RwaveNo].wavesOC].partIndex = RPartitionIndex;
+			OCin[RwaveNo].WOCI[OCin[RwaveNo].wavesOC].cellIndex = RcellIndex;
+			OCin[RwaveNo].WOCI[OCin[RwaveNo].wavesOC].cellScore = RcellScore;
+			OCin[RwaveNo].WOCI[OCin[RwaveNo].wavesOC].fromProc = status.MPI_SOURCE;
+#ifndef NDEBUG
+			sprintf (msg, "        %4ld(%4ld %4ld %4ld %6ld %4d)\n", OCin_ub, RwaveNo, OCin[RwaveNo].WOCI[OCin[RwaveNo].wavesOC].partIndex, OCin[RwaveNo].WOCI[OCin[RwaveNo].wavesOC].cellIndex, OCin[RwaveNo].WOCI[OCin[RwaveNo].wavesOC].cellScore, OCin[RwaveNo].WOCI[OCin[RwaveNo].wavesOC].fromProc);
+			mprintf (dbglevel, msg, 3);
+#endif
+			OCin[RwaveNo].wavesOC ++;
+
+			if (cellIndex == RcellIndex) {
+				(*cellScore) = RcellScore;
+				received = 1;
+			}
+			
+		}
+	}
+#ifndef NDEBUG
+	if (received == 1)
+		sprintf  (msg, "[%d]>receiveOC: FOUND cell [%ld] with score [%ld]\n", myProcid, cellIndex, (*cellScore));
+	else
+		sprintf  (msg, "[%d]>receiveOC: cell [%ld] NOT FOUND\n", myProcid, cellIndex);
+	mprintf (dbglevel, msg, 3);		  
+#endif
+	return received;
+
+}
+
+/*****************************************************************
+	Function: getDepProcs
+*****************************************************************/
+void getDepProcs (void * arg, long waveNo, long OCIndex) {
+	long i, j, k, l;
+	long * mIndex = NULL, * NghbInd = NULL;
+	int pfound, nproc;
+	MOA_rec * HNghb = NULL;
+#ifndef NDEBUG
+	char msg[SHORT_MESSAGE_SIZE];
+	int dbglevel = 5;
+#endif
+	
+	ProcessData * pData;
+	pData = (ProcessData * ) arg;
+#ifndef NDEBUG
+	sprintf (msg, "[%d]>getDepProcs: OC %ld Wave %ld out of %ld\n", myProcid, OCout[waveNo].WOCO[OCIndex].cellIndex, waveNo, wavesTotal);
+	mprintf (dbglevel, msg, 2);
+#endif
+	if (waveNo+1 < wavesTotal)  { 
+	/* OC in the current wave, expected to send to the next wave only, if there is any*/
+		Gamma_Inverse(OCout[waveNo].WOCO[OCIndex].cellIndex, pData->seqLen, pData->seqNum, &mIndex, 2); /* get multidimensional index of the current Cell Index */
+		MOAGetHigherNeighbors (2, mIndex, pData->seqNum, pData->seqLen, &HNghb, NULL, NULL, NULL, NULL); /* get all higher neighbors of the current Cell Index*/
+#ifndef NDEBUG
+		sprintf (msg, "[%d]>getDepProcs: OC Neighbors %ld ", myProcid, HNghb->elements_ub);
+		mprintf (dbglevel, msg, 2);
+#endif
+		for (i=0;i<HNghb->elements_ub;i++) {
+			/*
+			// get multidimensional index of the current Neighbor Index
+			Gamma_Inverse(i, HNghb->shape, HNghb->dimn, &NghbInd, 2); 
+			// add the starting offset to get the Global Index
+			for (j=0;j<pData->seqNum;j++) 
+				NghbInd[j] = NghbInd[j] + mIndex[j]; 
+			
+			// Get the Global Index of the Neighbor
+			HNghb->indexes[i] = Gamma(NghbInd, pData->seqNum, pData->seqLen,  pData->seqNum, 1);
+			
+			sprintf (msg, " HNi[%ld]=%ld ", i, HNghb->indexes[i]);
+			mprintf (dbglevel, msg, 2);
+			*/
+			if (OCout[waveNo].WOCO[OCIndex].cellIndex != HNghb->indexes[i]) {
+			/*Get the partition Order and wave No of the neighbor by looping through current wave and next wave partitions*/
+				l = waveNo+1; /* Check only parts in next wave only*/
+				/*for (l=waveNo+1;l<wavesTotal;l++)  { / / alternatively, check all parts in all remaining waves*/
+					for (j=0;j<partsInWave[l];j++)  {
+#ifndef NDEBUG
+						sprintf (msg, " check pI[%ld][%ld] %ld  ", l, j, partsInWaveIndices[l][j]);
+						mprintf (dbglevel, msg, 2);
+#endif
+						if (IsCellInPart (HNghb->indexes[i], partsInWaveIndices[l][j], pData->seqNum, pData->seqLen, pData->partitionSize) == 1) {
+
+							nproc = getProcID (l, j);/*if not a local partition, and need to be sent to another processor*/
+#ifndef NDEBUG
+							sprintf (msg, " proc %d ", nproc);
+							mprintf (dbglevel, msg, 2);							
+#endif
+							if (nproc != myProcid) {
+								if (OCout[waveNo].WOCO[OCIndex].depProc_ub == 0) {
+									OCout[waveNo].WOCO[OCIndex].depProc_ub ++;
+									OCout[waveNo].WOCO[OCIndex].depProc = mmalloc (sizeof *OCout[waveNo].WOCO[OCIndex].depProc);
+									OCout[waveNo].WOCO[OCIndex].depProc[0] = nproc;
+								}
+								else {/*Check if already there*/
+									pfound = 0;
+									for (k = 0; k < OCout[waveNo].WOCO[OCIndex].depProc_ub;k++) {
+										if (OCout[waveNo].WOCO[OCIndex].depProc[k] == nproc)
+											pfound = 1;
+									}
+									if (pfound == 0) {
+										OCout[waveNo].WOCO[OCIndex].depProc_ub ++;
+										OCout[waveNo].WOCO[OCIndex].depProc = realloc (OCout[waveNo].WOCO[OCIndex].depProc, OCout[waveNo].WOCO[OCIndex].depProc_ub * sizeof *OCout[waveNo].WOCO[OCIndex].depProc);
+										OCout[waveNo].WOCO[OCIndex].depProc[OCout[waveNo].WOCO[OCIndex].depProc_ub-1] = nproc;
+									}
+								}
+							}
+#ifndef NDEBUG
+							sprintf (msg,  " dep_ub %d ", OCout[waveNo].WOCO[OCIndex].depProc_ub);
+							mprintf (dbglevel, msg, 2);
+#endif
+						}
+					}
+				//}
+			}
+		}
+#ifndef NDEBUG
+		mprintf (dbglevel, "\n", 2);			
+#endif
+	}
+	
+	if (mIndex != NULL)
+		free (mIndex); 
+	if (NghbInd != NULL)
+		free (NghbInd);
+	if (HNghb != NULL)
+		deleteMOA (HNghb);
+}
+
+/******************************************************************************
+	Function: addOC
+		add overlapping cell to Outgoing cells array (OCout)
+******************************************************************************/
+int addOC (void * arg, long waveNo, long partIndex, long cellIndex, long cellScore, int depProc, int addflag) {
+	long i, j, oldOCout_ub;
+	int found = 0, procFound = 0;
+	ProcessData * pData;
+#ifndef NDEBUG
+	int dbglevel = 4;
+	char msg[LONG_MESSAGE_SIZE];
+#endif
+	
+	pData = (ProcessData * ) arg;
+#ifndef NDEBUG
+	sprintf (msg, "[%d]>addOC: count[%ld] w[%ld], pi[%ld], ci[%ld], cs[%ld], dp[%d] af[%d]\n", myProcid, OCout_ub, waveNo, partIndex, cellIndex, cellScore, depProc, addflag);
+	mprintf (dbglevel, msg, 1);		
+#endif
+	if (waveNo <= OCout_ub-1) {
+	for (i=0;(i<OCout[waveNo].wavesOC) && (found == 0);i++) {
+		if (OCout[waveNo].WOCO[i].cellIndex == cellIndex) {
+#ifndef NDEBUG
+			sprintf (msg, "[%d]>addOC: found %ld ", myProcid, i);
+			mprintf (dbglevel, msg, 1);		
+#endif
+			found = 1;
+			if (addflag == 1) {
+				OCout[waveNo].WOCO[i].cellScore = cellScore;
+#ifndef NDEBUG
+	   	 		sprintf (msg, "[%d]>addOC: set cell score[%ld]\n", myProcid, cellScore);
+				mprintf (dbglevel, msg, 1);		
+#endif
+			}
+   	   		if (depProc >= 0) {
+				for (j=0;(j<OCout[waveNo].WOCO[i].depProc_ub) && (procFound == 0);j++) {
+					if (depProc == OCout[waveNo].WOCO[i].depProc[j])
+						procFound = 1;
+				}
+				if (procFound == 0) {
+  					OCout[waveNo].WOCO[i].depProc_ub ++;
+					if (OCout[waveNo].WOCO[i].depProc_ub == 1) 
+						OCout[waveNo].WOCO[i].depProc = mmalloc (sizeof *(OCout[waveNo].WOCO[i].depProc));
+					else 
+						OCout[waveNo].WOCO[i].depProc = realloc (OCout[waveNo].WOCO[i].depProc, OCout[waveNo].WOCO[i].depProc_ub * sizeof *(OCout[waveNo].WOCO[i].depProc));
+  
+					OCout[waveNo].WOCO[i].depProc[OCout[waveNo].WOCO[i].depProc_ub-1] = depProc;
+					OCout[waveNo].WOCO[i].sent = 0;
+				}
+			}
+		}
+	}
+	}
+	if (found == 0) {
+#ifndef NDEBUG
+		sprintf (msg, "[%d]>addOC: Not found added\n", myProcid);
+		mprintf (dbglevel, msg, 1);		
+#endif
+		if (waveNo > OCout_ub-1) {
+			OCout_ub = waveNo;
+			OCout_ub++;
+		}
+    
+		OCout[waveNo].wavesOC ++;
+		if (OCout[waveNo].WOCO == NULL)
+			OCout[waveNo].WOCO = mmalloc(OCout[waveNo].wavesOC * sizeof *(OCout[OCout_ub - 1].WOCO));
+		else
+			OCout[waveNo].WOCO = realloc(OCout[waveNo].WOCO, OCout[waveNo].wavesOC * sizeof *(OCout[OCout_ub - 1].WOCO));
+		if (OCout[waveNo].WOCO == NULL) {
+			mprintf(1, "Couldn't create memory for OCout[waveNo].WOCO while adding an OC. Exiting.\n", 3);
+			printf("Couldn't create memory for OCout[waveNo = %ld].WOCO while adding an OC %ld. Exiting.\n", waveNo,  (OCout_ub+1));
+			return -1;
+		}
+		OCout[waveNo].WOCO[OCout[waveNo].wavesOC-1].partIndex = partIndex;
+		OCout[waveNo].WOCO[OCout[waveNo].wavesOC-1].cellIndex = cellIndex;
+		OCout[waveNo].WOCO[OCout[waveNo].wavesOC-1].cellScore = cellScore;
+		if ((depProc >= 0) && (depProc < ClusterSize)) {
+			OCout[waveNo].WOCO[OCout[waveNo].wavesOC-1].depProc_ub = 1;
+			OCout[waveNo].WOCO[OCout[waveNo].wavesOC-1].depProc = mmalloc (sizeof *(OCout[waveNo].WOCO[OCout[waveNo].wavesOC-1].depProc));
+			OCout[waveNo].WOCO[OCout[waveNo].wavesOC-1].depProc[0] = depProc;
+			OCout[waveNo].WOCO[OCout[waveNo].wavesOC-1].sent = 0;
+		} else {
+			OCout[waveNo].WOCO[OCout[waveNo].wavesOC-1].depProc_ub = 0;
+			OCout[waveNo].WOCO[OCout[waveNo].wavesOC-1].depProc = NULL;
+			OCout[waveNo].WOCO[OCout[waveNo].wavesOC-1].sent = 0;
+		}
+		getDepProcs (pData, waveNo, OCout[waveNo].wavesOC-1);
+	}
+	return 0;
+
+}
+/*******************************************************************
+	Function: ScoreCompThread
+		Score Computation
+	Input/Output:
+		m: Process Data Structure
+*******************************************************************/
+void * ScoreCompThread (void *m) {
+	ProcessData * pData;
+	long oldWaveNo, i, j, k;
+	MOA_rec * msaAlgn; 
+#ifndef NDEBUG
+	int dbglevel = 1;
+	char msg[MID_MESSAGE_SIZE];
+#endif
+
+
+	//int force_exit = 3;
+	pData = (ProcessData * ) m;
+	
+#ifndef NDEBUG
+	sprintf (msg, "[%d]>ScoreCompThread: Loop To Compute Scores for total [%ld] Partitions in this process\nEnter loop ******************************************\n", myProcid, pData->partitionsCount);
+	mprintf (dbglevel, msg, 1);
+#endif
+	/*Previous looping by partitions
+	while (pData->computedPartitions < pData->partitionsCount) {
+	*/
+	/*Current Loop by waves, then by partitions within wave*/
+	//pData->currPartOrder = 0; /*to make sure I start the wave from the first partition in this wave*/
+	while ((pData->currWaveNo < wavesTotal) && (pData->partitionsCount > 0)) {
+		/* allocate memory for processed MOA Partition ================ */
+	  	if ((pData->computedPartitions+1) == 1)
+			pData->MOAPart = mmalloc ((pData->computedPartitions+1) * sizeof *pData->MOAPart);
+		else
+			pData->MOAPart = realloc (pData->MOAPart, (pData->computedPartitions+1) * sizeof *pData->MOAPart);
+		
+		/* Construct MOA record */
+		
+		pData->MOAPart[pData->computedPartitions].msaAlgn =  NULL;
+		pData->MOAPart[pData->computedPartitions].sequences =  NULL;
+		getPartition (partsInWaveIndices[pData->currWaveNo][pData->currPartOrder], pData->seqNum, pData->seqLen, &pData->MOAPart[pData->computedPartitions].msaAlgn, pData->partitionSize);
+		currWaveNo = pData->currWaveNo;
+		currPartNo = pData->currPartOrder;
+		msaAlgn = pData->MOAPart[pData->computedPartitions].msaAlgn;
+#ifndef NDEBUG
+		sprintf (msg, "[%d]>ScoreCompThread[%ld]: Wave[%ld] Partition Order[%ld] [dimn=%ld, elements=%ld, index=%ld]\n", myProcid, pData->computedPartitions, pData->currWaveNo, pData->currPartOrder, msaAlgn->dimn, msaAlgn->elements_ub, msaAlgn->indexes[0]);
+		mprintf (dbglevel, msg, 1);
+#endif
+		
+		pData->MOAPart[pData->computedPartitions].processed = 0;	  
+		pData->MOAPart[pData->computedPartitions].waveNo = pData->currWaveNo;	  
+		/* Compute Scored for Current Partition*/
+#ifndef NDEBUG
+		sprintf (msg, "[%d]>ScoreCompThread[%ld]: Will call ComputePartitionScores\n", myProcid, pData->computedPartitions);
+		mprintf (dbglevel, msg, 1);
+#endif
+		ComputePartitionScores (pData);
+		pData->MOAPart[pData->computedPartitions].processed = 1;	  
+		printf ("[%d] Finished scoring %ld/%ld parts in %ld/%ld waves\n", myProcid, pData->computedPartitions+1, partsTotal, pData->currWaveNo, wavesTotal);
+#ifndef NDEBUG
+		sprintf (msg, "[%d]>ScoreCompThread[%ld]: Will call sendOC\n", myProcid, pData->computedPartitions);
+		mprintf (dbglevel, msg, 1);
+#endif
+		sendOC (pData->MOAPart[pData->computedPartitions].msaAlgn->indexes[0]);
+  	
+#ifndef NDEBUG
+		sprintf (msg, "[%d]>ScoreCompThread[%ld]: Will call printMOA\n", myProcid, pData->computedPartitions);
+		mprintf (dbglevel, msg, 1);
+		
+		/* Print elements ======================================================= */
+		//printMOA(2, pData->MOAPart[pData->computedPartitions].msaAlgn, pData->MOAPart[pData->computedPartitions].sequences, 0);
+		/* Print Indexes ========================================================*/
+		//printMOA(2, pData->MOAPart[pData->computedPartitions].msaAlgn, pData->MOAPart[pData->computedPartitions].sequences, 1);
+		sprintf (msg, "[%d]>ScoreCompThread[%ld]: - wave: %ld order: %ld Pi %ld has %ld elm\n", myProcid, pData->computedPartitions-1, pData->currWaveNo, pData->currPartOrder, partsInWaveIndices[pData->currWaveNo][pData->currPartOrder], pData->MOAPart[pData->computedPartitions].msaAlgn->elements_ub);
+		mprintf (dbglevel, msg, 1);
+		sprintf (msg, "[%d]>ScoreCompThread[%ld]: Will call getNextPartition\n", myProcid, pData->computedPartitions-1);
+		mprintf (dbglevel, msg, 1);
+#endif
+		/****** For testing checkpoint resume ****************************
+		if (!RestoreFlag && pData->computedPartitions == force_exit) {
+			sprintf (msg, "[%d]>ScoreCompThread[%ld]: Forced to exit\n", myProcid, pData->computedPartitions);
+			mprintf (dbglevel, msg, 1);
+			break;
+		}
+		*****************************************************************/
+		oldWaveNo = pData->currWaveNo;
+		getNextPartition (&pData->currWaveNo, &pData->currPartOrder);
+#ifndef NDEBUG
+		if (pData->currWaveNo < wavesTotal)
+			printf ("[%d] W %ld/%ld PO %ld PI %ld CP %ld/%ld\n", myProcid, pData->currWaveNo, wavesTotal, pData->currPartOrder, partsInWaveIndices[pData->currWaveNo][pData->currPartOrder], pData->computedPartitions, pData->partitionsCount);
+		else
+			printf ("[%d] W %ld/%ld PO %ld CP %ld/%ld\n", myProcid, pData->currWaveNo, wavesTotal, pData->currPartOrder, pData->computedPartitions, pData->partitionsCount);
+#endif
+
+		if ((pData->computedPartitions >= pData->partitionsCount) ||  (pData->currPartOrder < 0)){
+			pData->currWaveNo = wavesTotal; /*to get out of the main loop*/
+		}
+		pData->computedPartitions ++;
+		CheckPoint (pData);
+	}
+#ifndef NDEBUG
+	
+	for (i=0;i<pData->partitionsCount;i++) {
+		sprintf (msg, "\nPI %ld in wave %ld has scores\nCI\t\tCS\t\tprevub\t\t PrevIndexes\n", pData->MOAPart[i].msaAlgn->indexes[0], pData->MOAPart[i].waveNo);
+		mprintf (0, msg, 1);
+		for (j=0;j<pData->MOAPart[i].msaAlgn->elements_ub;j++){
+			sprintf (msg, "%ld\t\t%ld\t\t%ld\t\t(", pData->MOAPart[i].msaAlgn->indexes[j], pData->MOAPart[i].msaAlgn->elements[j].val, pData->MOAPart[i].msaAlgn->elements[j].prev_ub);
+			mprintf (0, msg, 1);
+			for (k=0;k<pData->MOAPart[i].msaAlgn->elements[j].prev_ub;k++) {
+				if (k == 0)
+					sprintf (msg, "%ld", pData->MOAPart[i].msaAlgn->elements[j].prev[k]);
+				
+				else
+					sprintf (msg, ", %ld", pData->MOAPart[i].msaAlgn->elements[j].prev[k]);
+				mprintf(0, msg, 1);
+			}
+			mprintf (0, ")\n", 1);
+		}
+	}
+	
+
+	printf ("[%d] Finished scoring with wave %ld computed Parts %ld\n", myProcid, pData->currWaveNo, pData->computedPartitions);
+	sprintf (msg, "Exit ***********************************\n[%d]>Score Computation Finished for process.\n", myProcid);
+	mprintf (0, msg, 1);
+#endif
+	pData->compFinished = 1;		
+	return NULL;
+}
+
+/* ============================================================================
+	function MainProcess:
+		seqNum: Number of sequences in string sequences (ex. 3)
+		sequences: holds the sequences. (ex. [GTGCAACGTACT])
+		seqLen: Array of the length of each sequence in sequences. (ex. 5,4,3)
+		======= which means that we have three sequences GTGCA, ACGT, and ACT.
+		stype: Scoring type (1: linear score, 2: PAM250 if protein, 3: BLOSUM if protein)
+		partitionSize: Partion Size
+============================================================================== */
+void MainProcess (long seqNum, char * * sequences, long * seqLen, int stype, long partitionSize) {
+	ProcessData * pData = NULL;
+	long i;
+	int ret, startflag;
+	struct rusage usageRec;
+	double utime, stime;
+	MPI_Status status;
+#ifndef NDEBUG
+	char msg[SHORT_MESSAGE_SIZE];
+	int dbglevel = 0;
+#endif
+	/* print the input arguments ============================================*/
+	PrintSequencies (0, seqNum, sequences, seqLen);
+#ifndef NDEBUG
+	sprintf(msg, ">>>>MainProcess: Scoring Type: %d\n>>>>Partition Size: %ld\n", stype, partitionSize);	
+	mprintf(dbglevel, msg, 1);
+#endif
+
+	/* Initialize Process Memory pData (function located in partitioning.c*/
+	ret = initProcessMemory(&pData, seqNum, seqLen, sequences, stype, partitionSize);  
+	if (ret != 0) {
+		mprintf (0, ">>>>MainProcess: Error Initializing Process Data, Exiting\n", 1);
+		fflush (stdout);
+		return;
+	}
+	/* if restore previouse run read check point data here, do not calculate waves */
+	if (RestoreFlag) {
+		/* restore data */
+		restoreCheckPoint (&pData);
+	} else {
+		pData->currPartOrder = 0;
+	  	pData->currWaveNo = 0;
+	}
+
+	if ((Mode != Distributed) || (ClusterSize == 1)) {
+			  	
+		pData->MOAPart = mmalloc (sizeof *pData->MOAPart);
+		/* Construct MOA record */
+		pData->MOAPart[0].msaAlgn =  NULL;
+		createMOAStruct(&pData->MOAPart[0].msaAlgn);
+		createMOA(seqLen, seqNum, pData->MOAPart[0].msaAlgn, 0, 0);		
+		pData->MOAPart[0].sequences =  NULL;
+		currWaveNo = pData->currWaveNo = pData->MOAPart[0].waveNo = 0;
+		currPartNo = pData->currPartOrder = 0;
+		wavesTotal = 1;
+		partsTotal = 1;
+		OCout = mmalloc(sizeof *(OCout));
+		if (OCout == NULL) {
+			mprintf(1, "Couldn't create memory for OCout while adding an OC. Exiting.\n", 3);
+			printf("Couldn't create memory for OCout while adding an OC %ld. Exiting.\n", (OCout_ub+1));			return -1;
+		}
+
+		OCout[0].wavesOC = 0;
+		OCout[0].WOCO = NULL;
+		
+#ifndef NDEBUG
+		sprintf (msg, "[%d]>ScoreCompThread[%ld]: Wave[%ld] Partition Order[%ld] [dimn=%ld, elements=%ld, index=%ld]\n", myProcid, pData->computedPartitions, pData->currWaveNo, pData->currPartOrder, pData->MOAPart[0].msaAlgn->dimn, pData->MOAPart[0].msaAlgn->elements_ub, pData->MOAPart[0].msaAlgn->indexes[0]);
+		mprintf (dbglevel, msg, 1);
+#endif
+		
+		pData->MOAPart[0].processed = 0;	  
+		/* Compute Scored for Current Partition*/
+#ifndef NDEBUG
+		sprintf (msg, "[%d]>ScoreCompThread[%ld]: Will call ComputePartitionScores\n", myProcid, pData->computedPartitions);
+		mprintf (dbglevel, msg, 1);
+#endif
+		ComputePartitionScores (pData);
+		pData->computedPartitions ++;
+		CheckPoint (pData);
+
+		
+	}
+	else {
+
+		if (myProcid == 0) {
+			wavesTotal = calcWaves (seqNum, seqLen, partitionSize, &pData->partitionsCount, &pData->currWaveNo, &pData->currPartOrder);
+			if( CheckPointWavesCalculations (&pData) == 0) {
+				startflag = 1;
+				for (i=1; i<ClusterSize; i++)
+				MPI_Send(&startflag, 1, MPI_INT, i, 0, MOAMSA_COMM_WORLD);
+			}
+			else {
+				printf ("[%d]Couldn't write Waves calculations, Exiting\n", myProcid);
+				return;
+			}
+		}
+		else {
+			printf ("[%d] waiting for start flag\n", myProcid);
+			MPI_Recv(&startflag, 1, MPI_INT, 0, 0, MOAMSA_COMM_WORLD, &status);
+			printf ("[%d] received start flag = %d\n", myProcid, startflag);
+			if (RestoreWavesCalculations(&pData) != 0) {
+				printf ("[%d]Couldn't read Waves calculations, Exiting\n", myProcid);
+				return;
+			}
+		}
+
+	}
+
+
+#ifndef NDEBUG
+	sprintf(msg, "[%d]>MainProcess: Current Wave: %ld - Current Partition: %ld - Total Partitions in Process: %ld\n", myProcid, pData->currWaveNo, pData->currPartOrder, pData->partitionsCount);	
+	mprintf(dbglevel, msg, 1);
+#endif
+
+	ScoreCompThread (pData);
+	ret = getrusage(RUSAGE_SELF, &usageRec);
+	if (ret == 0) {
+		printf ("[%d] Resources Usage: UTime %ld, STime %ld, Mem %ld, Virt %ld\n", myProcid, usageRec.ru_utime.tv_sec, usageRec.ru_stime.tv_sec, usageRec.ru_maxrss, usageRec.ru_ixrss);
+		utime = (double) usageRec.ru_utime.tv_sec + 1.e-6 * (double) usageRec.ru_utime.tv_usec;
+  		stime = (double) usageRec.ru_stime.tv_sec + 1.e-6 * (double) usageRec.ru_stime.tv_usec;	
+		printf ("[%d] Resources Usage: UTime %f, STime %f\n", myProcid, utime, stime);
+	}
+	else
+		printf ("[%d] Failed to retrieve Process Resources Usage, errno %d\n", myProcid, errno);
+	/* free allocated memory and exit routine ===================== */
+	
+	freeProcessMemory (&pData);
+	if (partsInWave != NULL)
+		free(partsInWave);
+	if (partsInWaveIndices != NULL) {
+		for (i=0;i<wavesTotal;i++) {
+			if (partsInWaveIndices[i] != NULL)
+				free (partsInWaveIndices[i]);
+			partsInWaveIndices[i] = NULL;
+		}
+		free (partsInWaveIndices); 
+	}
+}
+
+/* =============================================================================
+	The main function:
+		Initialize MPI, 
+		Process arguments (processArguments)
+		Initialize output debugging files (init_output)
+		call MainProcess function, 
+		and finalizes MPI.
+
+============================================================================= */
+int main(int argc, char **argv) {
+	MPI_Group orig_group;	
+	char * * sequences = NULL;/*, ufilename[SHORT_MESSAGE_SIZE];*/
+	long partitionSize, seqNum, * seqLen = NULL;
+	int stype;
+	double t_start, t_finish, t_resolution;
+#ifndef NDEBUG
+	char msg[SHORT_MESSAGE_SIZE];
+#endif
+	
+	/* MPI Initiliaztion ==================================================*/
+	MPI_Init(&argc, &argv);
+	/* Get my Rank in myProcid*/
+	MPI_Comm_rank(MPI_COMM_WORLD, &myProcid);
+	/* Get the number of processes running in the ClusterSize*/
+	MPI_Comm_size(MPI_COMM_WORLD, &ClusterSize);
+	/* Get the group associated with the communicator ===============*/
+	MPI_Comm_group (MPI_COMM_WORLD, &orig_group);
+	MPI_Comm_create(MPI_COMM_WORLD, orig_group, &MOAMSA_COMM_WORLD);
+	/* ============================================ end MPI initialization*/
+	TBFlag = 0;
+	/* 1. Process Arguments, Sequences, lengths, scoring type, partition Size, output prefix, ... etc*/
+	processArguments(argc, argv, &seqNum, &sequences, &seqLen, &stype, &partitionSize);
+	/*  Thought I can run the same program in Distributed and Sequential Mode, but only now the Distributed one is being tested, so ignore this one*/
+	
+
+	/* Initialize output debugging files*/
+	strcpy (outPrefix, "c");
+	if (init_output() == 0) {
+
+		/* Initialize timing variables, previous Time (prevNow) and Current Time  (currNow)*/
+		prevNow = NULL;
+		prevNow = mmalloc (sizeof *prevNow);
+		currNow = NULL;
+		currNow = mmalloc (sizeof *currNow);
+		t_start = MPI_Wtime();
+	  	t_resolution = MPI_Wtick();
+		currNow = getTime();
+		printf("[%d]>Started at time (%d, %d, %d, %d)\n", myProcid, currNow->tm_yday, currNow->tm_hour, currNow->tm_min, currNow->tm_sec);
+#ifndef NDEBUG
+		sprintf(msg, "[%d]>Started at time (%d, %d, %d, %d)\n", myProcid, currNow->tm_yday, currNow->tm_hour, currNow->tm_min, currNow->tm_sec);	
+		mprintf(0, msg, 1);
+#endif
+		cpTime (currNow, &prevNow);
+
+		/* Calling the main process ==========================================*/
+		MainProcess(seqNum, sequences, seqLen, stype, partitionSize);
+
+		t_finish = MPI_Wtime();
+		currNow = getTime();
+		printf("[%d]>Finalized at time (%d, %d, %d, %d)\n", myProcid, currNow->tm_yday, currNow->tm_hour, currNow->tm_min, currNow->tm_sec);
+#ifndef NDEBUG
+		sprintf(msg, "[%d]>Finalized at time (%d, %d, %d, %d)\n", myProcid, currNow->tm_yday, currNow->tm_hour, currNow->tm_min, currNow->tm_sec);	
+		mprintf(0, msg, 1);
+#endif
+		printf ("[%d] Elapsed time %f seconds, resolution %f\n", myProcid, t_finish - t_start, t_resolution);
+ 		if (prevNow != NULL)
+ 			free (prevNow);
+ 	}
+	if (close_output () != 0) 
+		printf ("[%d] Error closing output files\n", myProcid);
+	
+	/* Finalize MPI ==================================================*/
+	MPI_Finalize();
+/*
+	if (myProcid == 0) {
+	sprintf (msg, "mpirun -np %d tbDst/mtb", ClusterSize);
+	for (int i=1;i<argc;i++) {
+		if (strcmp(argv[i],"-r") != 0) {
+			strcat (msg, " ");
+			strcat (msg, argv[i]);
+		}
+	}
+	i = system (msg);
+	printf ("\ntrace back command:\n %s \nreturned with  %d\n", msg, i);
+	}
+*/
+ return 0;
+} /* of main */
+@
+
+
+1.1
+log
+@Initial revision
+@
+text
+@d537 1
+a537 1
+		printMOA(2, pData->MOAPart[pData->computedPartitions].msaAlgn, pData->MOAPart[pData->computedPartitions].sequences, 0);
+d539 1
+a539 1
+		printMOA(2, pData->MOAPart[pData->computedPartitions].msaAlgn, pData->MOAPart[pData->computedPartitions].sequences, 1);
+a623 1
+	
+d637 42
+d767 1
+a767 1
+	Mode = Distributed;
+@
+
+
+1.1.1.1
+log
+@Distributed Optimal MSA using MoA
+@
+text
+@@

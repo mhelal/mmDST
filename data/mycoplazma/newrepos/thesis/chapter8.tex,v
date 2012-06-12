@@ -1,0 +1,210 @@
+head     1.1;
+branch   1.1.1;
+access   ;
+symbols  r1:1.1.1.1 mhelal:1.1.1;
+locks    ; strict;
+comment  @% @;
+
+
+1.1
+date     2008.05.06.04.03.23;  author mhelal;  state Exp;
+branches 1.1.1.1;
+next     ;
+
+1.1.1.1
+date     2008.05.06.04.03.23;  author mhelal;  state Exp;
+branches ;
+next     ;
+
+
+desc
+@@
+
+
+
+1.1
+log
+@Initial revision
+@
+text
+@\chapter{Results Analysis}
+
+\section{Execution Results}
+
+\subsection{Full Search Space Execution Results}
+
+\subsubsection{Sequential Execution Results}
+
+
+\subsubsection{Distributed Master/Slave Execution Results}
+
+Results are summarized in \label{Table: MasterSlaveResults}. M1 is the single machine, and M2 is the SGI Altix as described above. The testing is continuing to identify the optimization chances based on varying the partitioning size, number of processors, and better scheduling techniques. Partition size of 3 is used on all tests, except the last, a partition size of 20 was used.
+
+\begin{table}
+\begin{tabular}{|l|l|l|l|l|l|l|l|}
+\hline
+P & K & L & M1 CPU & M2 CPU & M2 E-Time & P Mem & V Mem \\
+\hline
+3 & 3 & 4, 3, 2 & 00:00.12 & 00:00:00 & 00:00:03 & 15  & 122\\
+\hline
+3 & 3 & 7, 8, 9 & 00:03:77 & 00:00:03 & 00:00:07 & 48  & 281\\
+\hline
+4 & 5 & 6,5,4,3,2 & 01:00.15 & 00:00:08 & 00:00:05 & 62  & 355\\
+\hline
+4 & 6 & 7, 6,5,4,3,2   & 01:19.36 & 00:00:10 & 00:00:05 & 76  & 429\\
+\hline
+3 & 3 & 90,80,85  & 39:30.34 & 02:09:43 & 00:44:25 & 371 & 606\\
+\hline
+\end{tabular}
+\caption{Distributed Master/Slave Performance Results}
+\end{table}
+
+column ``P'' is the number of processes created, ``K'' is the number of sequences aligned, and ``L'' is their lengths, and the ``M1 CPU'' is the CPU time in first machine in minutes: seconds format, then ``M2 CPU'' \& ``M2 E-Time'' are CPU \& Elapsed Time in second machine, and the ``P Mem'' and ``V Mem'' are Physical and Virtual Memory used in Mega Bytes in both machines.
+
+\subsubsection{Distributed Peer-to-Peer Execution Results}
+A comparison of the performance of the P2P design \footnote{This work was supported by an award under the Merit Allocation Scheme on the National Facility of the Australian Partnership for Advanced Computing. (http://nf.apac.edu.au/facilities/ac/hardware.php)} with previously obtained master/slave results is shown in table IV. A considerable speedup and better memory optimization were observed as the data size increases.
+
+\begin{table}
+\begin{footnotesize}
+ \begin{tabular}{|p{0.25cm}|p{0.5cm}|p{0.25cm}|l|l|p{0.25cm}|l|l|p{0.25cm}|p{0.25cm}|p{0.25cm}|}
+\hline
+\multicolumn{3}{}{T}Test Info  & \multicolumn{4}{}{} Master/Slave& \multicolumn{4}{}{} P2P\\
+\hline
+K&	L&	P&	C&	E&	P&	V&	C&	E&	P&	V\\
+\hline
+3&	4, 3, 2&	4&	0&	4&	16&	123&	0&	7&	16&	122\\
+\hline
+3&	9, 8, 7&  	3&	0&	17&	16&	123&	0&	8&	16&	123\\
+\hline
+4&	5, 4, 3, 2&	4&	8&	9&	63&	357&	0&	7&	16&	122\\
+\hline
+5&	6, 5, 4, 3, 2&	4&	8&	6&	65&	358&	16&	15&	164&	456\\
+\hline
+6&	7, 6, 5, 4, 3, 2&	4&	256&	101&	82&	375&	70&	24&	75&	366\\
+\hline
+4&	10, 15, 16, 17&	3&	5173&	1748&	109&	345&	277&	131&	61&	294\\
+\hline
+3&	90, 80, 85&	3&	7783&	2665&	371&	606&	1902&	669&	121&	361\\
+\hline
+\end{tabular}             
+\end{footnotesize}
+\caption{Master Slave Vs P2P Performance Results in APAC AC SGI Altix Cluster; K: dimensionality; L: sequences lengths; P: number of processes; C: total CPU time; E: elapsed time; P: physical memory in MB; V: virtual memory in MB, all tests are processed with partition size S = 3, except for the last one where the optimal partition size of 30 (as proven in table 5) was used.}
+\end{table}
+
+Figures 10-13 show the scalability of the improvements obtained using the P2P design (shown in the black series) as data size increases. CPU time, elapsed time, physical memory, and virtual memory usageall scale more favourably with P2P compared to the master/slave design (shown in the gray series).
+
+\begin{figure}
+\begin{center}
+ \includegraphics[bb=0 0 306 281]{MSP2PCPU.png}
+ % MSP2PCPU.png: 306x281 pixel, 72dpi, 10.79x9.91 cm, bb=0 0 306 281
+\end{center}
+\caption{Comparison of the master/slave and P2P solutions in terms of CPU time consumption as data size increases.}
+\end{figure} 
+
+\begin{figure}
+\begin{center}
+ \includegraphics[bb=0 0 276 384]{MSP2PETime.png}
+ % MSP2PETime.png: 276x384 pixel, 72dpi, 9.74x13.54 cm, bb=0 0 276 384
+\end{center}
+\caption{Comparison of the master/slave and P2P solutions in terms of elapsed time as data size increases.}
+\end{figure} 
+
+\begin{figure}
+\begin{center}
+ \includegraphics[bb=0 0 324 279]{MSP2PPMem.png}
+ % MSP2PPMem.png: 324x279 pixel, 72dpi, 11.43x9.84 cm, bb=0 0 324 279
+\end{center}
+\caption{Comparison of the master/slave and P2P solutions in terms of physical memory usage as data size increases.}
+\end{figure} 
+
+\begin{figure}
+\begin{center}
+ \includegraphics[bb=0 0 318 287]{MSP2PVMem.png}
+ % MSP2PVMem.png: 318x287 pixel, 72dpi, 11.22x10.12 cm, bb=0 0 318 287
+\end{center}
+\caption{Comparison of the master/slave and P2P solutions in terms of virtual memory usage as data size increases.}
+\end{figure} 
+
+In order to measure processor scalability performace, the same datasets were used to test the performance on 4, 6, 8, 16, 24, 32 and 64 processors. The resulting elapsed time scalability profile is shown in figure 14, showing different trends. This type of profile is very desirable for any distributed application. The elapsed time decreases as the number of processors increases. More experiments are being conducted to decide the trend.\\
+\\
+
+
+\begin{figure}
+\begin{center}
+ \includegraphics[bb=0 0 194 299]{ProcScalability.png}
+ % ProcScalability.png: 194x299 pixel, 72dpi, 6.84x10.55 cm, bb=0 0 194 299
+\end{center}
+\caption{Processor scalability running the same dataset using 4, 6, 8, 16, 24, 32 and 64 processors.}
+\end{figure} 
+
+
+Another experiment was performed to measure the effects of the variation in the partition size over the usage of resources, to locate the break point identifying the optimal partition size. The dataset was composed of 3 test sequences of lengths 90, 80, and 85, run on 3 processors on the APAC ac SGI Altix cluster, using different partition sizes. Observed total CPU time, elapsed time, physical and virtual memory are shown in table V. Table V also presents total partitions in all waves, total waves, and total overlapping incoming cells in all processors (actual communications as reduced by the clustering techniques described above).
+
+\begin{table}
+\begin{center}
+\begin{tabular}{|r|r|r|r|r|r|r|r|}
+\hline
+S&	CPU&	E&	P&	V&	P&	W&	Ocin\\
+\hline
+5&	13581&	5308&	174&	405&	3395&	63&	184\\
+\hline
+8&	5978&	2070&	143&	381&	684&	36&	103\\
+\hline
+10&	4342&	1470&	138&	370&	306&	27&	76\\
+\hline
+12&	3645&	1242&	137&	376&	198&	23&	64\\
+\hline
+15&	2799&	996&	117&	358&	102&	18&	49\\
+\hline
+17&	2439&	878&	122&	361&	64&	15&	40\\
+\hline
+20&	2410&	852&	126&	365&	45&	13&	34\\
+\hline
+25&	2024&	698&	121&	360&	24&	10&	25\\
+\hline
+30&	1902&	669&	121&	361&	14&	8&	19\\
+\hline
+35&	2064&	700&	121&	360&	11&	7&	16\\
+\hline
+40&	2748&	953&	117&	356&	11&	7&	16\\
+\hline
+45&	3250&	1199&	125&	364&	6&	5&	10\\
+\hline
+\end{tabular}
+\caption{Partition size effects on overall performance. S is the partition size; CPU is the CPU time, E is the elapsed time, P is the physical memory usage; V is the virtual memory usage; P is the total partitions in all waves in all processors; W is the total waves; OCin is the total actual sent/received overlapping cells}
+\end{center}
+\end{table}
+
+The results in table V are plotted in figure 15. It is obvious that partition size S = 30 is optimal for this dataset, on this hardware.
+
+\begin{figure}
+\begin{center}
+ \includegraphics[bb=0 0 301 460]{partSEffects.png}
+ % partSEffects.png: 301x460 pixel, 72dpi, 10.62x16.23 cm, bb=0 0 301 460
+\end{center}
+\caption{Partition Size Effects on Resources Usage.}
+\end{figure} 
+
+\subsection{Reduced Search Space Execution Results}
+
+\subsection{Classification Execution Results}
+
+\section{Partition Size Scalability}
+\section{Processors Scalability}
+\section{Comparison with Existing Methods}
+
+
+\section{Re-Configurable Execution Parameters}
+
+
+
+
+@
+
+
+1.1.1.1
+log
+@Thesis Writing
+@
+text
+@@

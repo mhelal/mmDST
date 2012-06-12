@@ -1,0 +1,75 @@
+head	1.2;
+access;
+symbols
+	r1:1.1.1.1 mhelal:1.1.1;
+locks; strict;
+comment	@# @;
+
+
+1.2
+date	2008.05.11.13.55.55;	author mhelal;	state Exp;
+branches;
+next	1.1;
+
+1.1
+date	2008.05.06.02.41.42;	author mhelal;	state Exp;
+branches
+	1.1.1.1;
+next	;
+
+1.1.1.1
+date	2008.05.06.02.41.42;	author mhelal;	state Exp;
+branches;
+next	;
+
+
+desc
+@@
+
+
+1.2
+log
+@search space error
+@
+text
+@
+moaLib : moaLb.o moa.o utils.o partitioning.o 
+	mpicc moaLb.c ../moa.c ../utils.c ../partitioning.c ../perm.c -lm -g -lefence  -lpthread -o moaLib
+
+
+moaLb.o : moaLb.c
+	gcc -c moaLb.c
+
+moa.o :  ../moa.c ../moa.h ../utils.h ../globals.h 
+	gcc -c ../moa.c
+
+utils.o : ../utils.c ../moa.h ../utils.h ../globals.h
+	mpicc -c ../utils.c
+
+partitioning.o : ../partitioning.c 
+	mpicc -c ../partitioning.c
+
+perm.o : ../perm.c
+	gcc -c ../perm.c
+clean : 
+	rm moaLib moaLb.o moa.o utils.o perm.o 
+@
+
+
+1.1
+log
+@Initial revision
+@
+text
+@d2 1
+a2 1
+moaLib : moaLb.o moa.o utils.o partitioning.o mcheckp.o
+@
+
+
+1.1.1.1
+log
+@Distributed Optimal MSA using MoA
+@
+text
+@@

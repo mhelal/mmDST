@@ -1,0 +1,112 @@
+head     1.1;
+branch   1.1.1;
+access   ;
+symbols  r1:1.1.1.1 mhelal:1.1.1;
+locks    ; strict;
+comment  @# @;
+
+
+1.1
+date     2008.05.06.04.03.23;  author mhelal;  state Exp;
+branches 1.1.1.1;
+next     ;
+
+1.1.1.1
+date     2008.05.06.04.03.23;  author mhelal;  state Exp;
+branches ;
+next     ;
+
+
+desc
+@@
+
+
+
+1.1
+log
+@Initial revision
+@
+text
+@\relax 
+\@@writefile{toc}{\contentsline {chapter}{\numberline {3}Proposed Initial Master/Slave Solution}{37}}
+\@@writefile{lof}{\addvspace {10\p@@ }}
+\@@writefile{lot}{\addvspace {10\p@@ }}
+\@@writefile{toc}{\contentsline {section}{\numberline {3.1}Sequential MSA using MOA}{37}}
+\@@writefile{toc}{\contentsline {subsection}{\numberline {3.1.1}Invariance of Shape and Dimension}{37}}
+\@@writefile{toc}{\contentsline {subsection}{\numberline {3.1.2}Mapping Operations to Index Transformations}{37}}
+\newlabel{DistScoring}{{3.1}{38}}
+\@@writefile{toc}{\contentsline {section}{\numberline {3.2}Distributed Master/Slave MSA using MoA}{38}}
+\@@writefile{toc}{\contentsline {section}{\numberline {3.3}Partitioning MSA using MoA}{38}}
+\citation{Yap-95}
+\citation{Chen-Schmidt-05}
+\@@writefile{toc}{\contentsline {subsection}{\numberline {3.3.1}Analysis of Dependency}{39}}
+\newlabel{fig:dep2D}{{3.3.1}{39}}
+\@@writefile{lof}{\contentsline {figure}{\numberline {3.1}{\ignorespaces  MSA Pair Wise Traditional Dependency}}{39}}
+\newlabel{fig:dep2D}{{3.1}{39}}
+\@@writefile{toc}{\contentsline {subsection}{\numberline {3.3.2}Partitioning Scheme}{41}}
+\newlabel{fig:MSA2D}{{3.3.2}{41}}
+\newlabel{fig:MoADep2D}{{3.3.2}{41}}
+\newlabel{fig:MoADep2D}{{3.3.2}{41}}
+\@@writefile{lof}{\contentsline {figure}{\numberline {3.2}{\ignorespaces Partitioning Thread in Master \& Receiving Thread in Slave}}{42}}
+\newlabel{fig:MSPart}{{3.2}{42}}
+\@@writefile{lof}{\contentsline {figure}{\numberline {3.3}{\ignorespaces MoA 2D MSA Waves Partitions}}{42}}
+\newlabel{fig:MoADep2D}{{3.3}{42}}
+\@@writefile{lof}{\contentsline {figure}{\numberline {3.4}{\ignorespaces 3D MoA MSA Waves Partitions for shape <3 $\hskip 1em\relax $ 3 $\hskip 1em\relax $ 3>}}{43}}
+\newlabel{fig:MoADep3D}{{3.4}{43}}
+\@@writefile{lof}{\contentsline {figure}{\numberline {3.5}{\ignorespaces 4D MoA MSA Waves Partitions for shape <3 $\hskip 1em\relax $ 3 $\hskip 1em\relax $ 3 $\hskip 1em\relax $ 3>}}{43}}
+\newlabel{fig:MoADep4D}{{3.5}{43}}
+\newlabel{fig:MoADep3D}{{3.3.2}{43}}
+\newlabel{fig:MoADep4D}{{3.3.2}{43}}
+\newlabel{fig:MoADep5D}{{3.3.2}{43}}
+\@@writefile{lof}{\contentsline {figure}{\numberline {3.6}{\ignorespaces 5D MoA MSA Waves Partitions for shape <3 $\hskip 1em\relax $ 3 $\hskip 1em\relax $ 3 $\hskip 1em\relax $ 3 $\hskip 1em\relax $ 3>}}{44}}
+\newlabel{fig:MoADep4D}{{3.6}{44}}
+\@@writefile{toc}{\contentsline {subsection}{\numberline {3.3.3}Distributed Scoring Requirements}{45}}
+\newlabel{DistScoring}{{3.3.3}{45}}
+\@@writefile{lof}{\contentsline {figure}{\numberline {3.7}{\ignorespaces ND MoA MSA Dependency}}{45}}
+\newlabel{fig:MoADep4D}{{3.7}{45}}
+\newlabel{fig:Slave}{{3.3.3}{45}}
+\@@writefile{lof}{\contentsline {figure}{\numberline {3.8}{\ignorespaces Slave Process Threads}}{46}}
+\newlabel{fig:Slave}{{3.8}{46}}
+\@@writefile{toc}{\contentsline {subsection}{\numberline {3.3.4}Distributed Trace Back Requirements}{47}}
+\newlabel{fig:TraceB}{{3.3.4}{47}}
+\@@writefile{toc}{\contentsline {subsection}{\numberline {3.3.5}Scalability Issues}{47}}
+\@@writefile{lof}{\contentsline {figure}{\numberline {3.9}{\ignorespaces Distributed Trace Back Design}}{48}}
+\newlabel{fig:TraceB}{{3.9}{48}}
+\citation{Yap-95}
+\citation{Chen-Schmidt-05}
+\@@writefile{toc}{\contentsline {subsection}{\numberline {3.3.6}Portability Issues}{50}}
+\@@setckpt{chapter3}{
+\setcounter{page}{51}
+\setcounter{equation}{1}
+\setcounter{enumi}{4}
+\setcounter{enumii}{0}
+\setcounter{enumiii}{0}
+\setcounter{enumiv}{0}
+\setcounter{footnote}{0}
+\setcounter{mpfootnote}{0}
+\setcounter{part}{0}
+\setcounter{chapter}{3}
+\setcounter{section}{3}
+\setcounter{subsection}{6}
+\setcounter{subsubsection}{0}
+\setcounter{paragraph}{0}
+\setcounter{subparagraph}{0}
+\setcounter{figure}{9}
+\setcounter{table}{0}
+\setcounter{LT@@tables}{0}
+\setcounter{LT@@chunks}{0}
+\setcounter{parentequation}{0}
+\setcounter{ind}{0}
+\setcounter{Pro}{0}
+\setcounter{The}{0}
+\setcounter{Exp}{0}
+}
+@
+
+
+1.1.1.1
+log
+@Thesis Writing
+@
+text
+@@

@@ -1,0 +1,8 @@
+#!/bin/csh
+#PBS -q normal 
+#PBS -l ncpus=64,walltime=15:00:00,vmem=128GB 
+#PBS -M manalorama@gmail.com
+#PBS -m bae
+#PBS -wd
+mpirun -np 64 /short/m81/run/mmDst -r -b ../data/bact_sen.nuc -p 55 -o bsenp55c64 -d 0 
+

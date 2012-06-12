@@ -1,0 +1,3 @@
+Program Arguments: debuglevel = 0 maxAlignmentsNumber = 5 Epsilons= 0 LocalAlignment = 0 stype 1 outputfilename = moamsa.out partitionSize = 2
+
+Wave 1 moreneighb 3 MOA_nghb->elements_ub 4 from point : 1 1  has 3 points with Indices: 12 

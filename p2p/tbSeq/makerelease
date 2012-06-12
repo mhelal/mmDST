@@ -1,0 +1,27 @@
+
+mtb : ../../run/mtb.o ../../run/stb.o ../../run/partitioning.o ../../run/utils.o ../../run/moa.o ../../run/perm.o ../../run/scores.o
+	mpicc -DNDEBUG -o ../../run/mtb -lm  mtb.c ../partitioning.c stb.c ../utils.c ../moa.c ../perm.c ../scores.c
+	
+../../run/mtb.o :  mtb.c ../main.h ../utils.h ../globals.h ../moaDst.h
+	mpicc -c -DNDEBUG  mtb.c -o ../../run/mtb.o
+
+../../run/stb.o :  stb.c ../main.h ../utils.h ../globals.h
+	mpicc -c -DNDEBUG  stb.c -o ../../run/stb.o
+	 
+../../run/partitioning.o : ../partitioning.c ../main.h ../moaDst.h
+	 mpicc -c -DNDEBUG  ../partitioning.c -o ../../partitioning.o
+
+../../run/perm.o : ../perm.c 
+	 cc -c -DNDEBUG  ../perm.c -o ../../perm.o
+
+../../run/utils.o : ../utils.c ../moa.h ../utils.h ../globals.h
+	mpicc -c -DNDEBUG  ../utils.c -o ../../utils.o
+
+../../run/moa.o :  ../moa.c ../moa.h ../utils.h ../globals.h
+	cc -c -DNDEBUG  ../moa.c -o ../../moa.o
+
+../../run/scores.o :  ../scores.c ../scores.h ../utils.h ../globals.h
+	cc -c -DNDEBUG  ../scores.c -o ../../scores.o
+
+clean : 
+	rm ../../run/mtb ../../run/mtb.o ../../run/partitioning.o ../../run/stb.o ../../run/moaDst.o ../../run/utils.o ../../run/moa.o  ../../run/scores.o mtb.o partitioning.o stb.o moaDst.o utils.o moa.o scores.o

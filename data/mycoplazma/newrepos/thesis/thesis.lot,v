@@ -1,0 +1,56 @@
+head     1.1;
+branch   1.1.1;
+access   ;
+symbols  r1:1.1.1.1 mhelal:1.1.1;
+locks    ; strict;
+comment  @# @;
+
+
+1.1
+date     2008.05.06.04.03.23;  author mhelal;  state Exp;
+branches 1.1.1.1;
+next     ;
+
+1.1.1.1
+date     2008.05.06.04.03.23;  author mhelal;  state Exp;
+branches ;
+next     ;
+
+
+desc
+@@
+
+
+
+1.1
+log
+@Initial revision
+@
+text
+@\addvspace {10\p@@ }
+\addvspace {10\p@@ }
+\contentsline {table}{\numberline {2.1}{\ignorespaces Some MOA Operators}}{10}
+\contentsline {table}{\numberline {2.2}{\ignorespaces Probability matrix}}{28}
+\addvspace {10\p@@ }
+\addvspace {10\p@@ }
+\contentsline {table}{\numberline {4.1}{\ignorespaces Partitions Parallelism (Total Partitions per wave) shown for several dimensionality in rows, and several waves in columns, where k is the dimensionality}}{61}
+\contentsline {table}{\numberline {4.2}{\ignorespaces Partitions Parallelism (Total Partitions per wave) shown for dimensionality 4, where k is the dimensionality, w is the wave number, P$_{w}$ is the total number of partitions in the current wave w, and $\DOTSB \sum@@ \slimits@@ _{i=1}^w Pi$ is the total number of partitions done so far from wave 1 until the current wave \textit {w}.}}{62}
+\contentsline {table}{\numberline {4.3}{\ignorespaces A 3D distribution of partitions per wave, showing the partitions indices (multiplied by the partition size S-1 where S=3). Every wave starts from the middle partitions available in the wave and going to the edges, all of equal distance from the origin (summation of all indices in all dimensions) }}{63}
+\addvspace {10\p@@ }
+\addvspace {10\p@@ }
+\addvspace {10\p@@ }
+\contentsline {table}{\numberline {7.1}{\ignorespaces Number of Partitions / Wave Exponential Growth}}{80}
+\addvspace {10\p@@ }
+\contentsline {table}{\numberline {8.1}{\ignorespaces Distributed Master/Slave Performance Results}}{82}
+\contentsline {table}{\numberline {8.2}{\ignorespaces Master Slave Vs P2P Performance Results in APAC AC SGI Altix Cluster; K: dimensionality; L: sequences lengths; P: number of processes; C: total CPU time; E: elapsed time; P: physical memory in MB; V: virtual memory in MB, all tests are processed with partition size S = 3, except for the last one where the optimal partition size of 30 (as proven in table 5) was used.}}{84}
+\contentsline {table}{\numberline {8.3}{\ignorespaces Partition size effects on overall performance. S is the partition size; CPU is the CPU time, E is the elapsed time, P is the physical memory usage; V is the virtual memory usage; P is the total partitions in all waves in all processors; W is the total waves; OCin is the total actual sent/received overlapping cells}}{90}
+\addvspace {10\p@@ }
+@
+
+
+1.1.1.1
+log
+@Thesis Writing
+@
+text
+@@
