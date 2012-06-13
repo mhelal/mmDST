@@ -1,0 +1,59 @@
+Copyright (C) 2012  Manal Helal
+
+This program is free software; you can redistribute it and/or
+modify it under the terms of the GNU General Public License
+as published by the Free Software Foundation; either version 2
+of the License, or (at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program, see the LICENSE file; if not, write to the Free Software
+Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
+
+Please contact Manal Helal on mhelal@cse.unsw.edu.au for any questions, bugs, or suggestions and feedback.
+
+This work is done in partial fulfilment of the requirement of PhD degree in the University of New South Wales, and during a fellowship in the University of Sydney.  This work was supported by an award under the Merit Allocation Scheme on the National Facility of the Australian Partnership for Advanced Computing. (http://nf.apac.edu.au/facilities/ac/hardware.php).
+
+[Original code author]  Manal Helal http://manal.misrians.com mhelal@cse.unsw.edu.au
+
+
+This repo contains the following folders:
+
+
+1. sequential:
+This is the initial experiment of generalising the dynamic programming algorithm sequentially to be invariant of dimension and shape using the Mathematics of Arrays (MoA) constructs: global alignments via the Needleman-Wunsch algorithm, and local alignments via the Smith-Waterman algorithm. Works only for very small number of sequences and sizes due to exponential complexity. I think global and local alignments work well.
+
+2. mslave:
+This folder contains the initial distribution attempt, using a master/slave approach. This is not optimised, because no space reduction, and the there is a huge amount of master/slave and slave/slave communication for partitioning and dependency between waves of computation. Waves of computation are increasing in size exponentially from origin to sink, as it is represented as encapsulated hyper-cubes, with the first cube shape: {s, s, s, …., s} k times, where k is the dimension, and s is the partition size. So if k = 3 and p = 5, the shape is {5, 5, 5}. This first cube is in the first wave of computation by itself, w = 0 as the wave rank. The next wave will contain more cubes, and will keep on increasing using a formula: P =(w^k) −((w−1)^k), where w is the wave rank and k is the dimensionality of the dataset. The total number of waves in a single run is t = (max( ρξ )) / (S −1), where ρ is MoA Rho which computes the shape of the dataset, ξ is the dataset itself, for example a 2D dataset with first dimension has 2 indices and second dimension has 3 indices is represented in MoA as: ρ ξ = <2 3>, created a matrix of (2 x 3 = 6) elements. This wave definition create dependency within the same wave partitions that will need slave/slave communication within the same wave and in-between waves. 
+
+More details are published in the publications/HPCNCSpaper.pdf. Only global alignments work in both designs of distributed work. To compile, use the cm.sh script.
+
+3. p2p:
+This folder contains the optimised distribution scheme for 3 concepts: 
+
+a) Eliminates master process work by having each process using it rank to fetches the corresponding partitions in each wave. This reduced a lot of computation (all master process partitioning computation) and all communication between master and slaves processes. 
+
+b) Waves of computation are optimised to reduce dependency, where a wave is a specific partition of all cells that come at a specific distance from origin. The first wave contains all cells at distance p (the partition size), the second wave contains all cells at distance 2p, the third wave contains all cells at distance 3p and so forth. 
+The number of partitions p per wave w is Pw for a given dataset with dimensionality k, 
+
+Pw (w,k) = ∑ from i = 0 to w	 	1			if w=0
+							w			if k = 2
+							Pw(w−1,k−1) 	otherwise 
+Therefore we have the same number of partitions as the master/slave design, but we have more waves in this design, where each wave contains only 100% independent partitions in the same wave (less partitions per wave). The number of partitions per wave increases until reaching the middle of the hyper-space, then decreases again until it reaches the sink of the hyper-cube. Partitions in the same wave are assigned to the available processors by rank. So, each processor in the following wave will be assigned the nearest partitions to its previous wave assignments, keeping dependency local without communication cost. This definition of waves reduced the slave/slave communications significantly, as no dependency is found within the same wave of computation, and all communication is buffered and batch communicated in-between waves only, and to neighbouring processes only. 
+
+c) Not all partitions are scored, as this is global alignment, and only area around the hyper-diagonal is of interest, and this reduced the complexity significantly. The distance from the hyper-diagonal to the edges, is decided at run-time, but up to 2% from the hyper-cube produced the same output as scoring 100% of the hyper-space for the test data used. 
+
+More details in the publications/helal-APDCT-08.pdf and  publications/NPC_mhelal.pdf. To compile, use the make files provided for debugging or release.
+
+4. publications
+This folder contains the resulted publications related to this work.
+
+5. data
+Some test and real life datasets and some output.
+
+All work is in ansi C and mpich2, developed in linux and sun solaris platforms. The code also was executed on SUSE SLES9 Linux SGI cluster and Intel MPI Library.
+
